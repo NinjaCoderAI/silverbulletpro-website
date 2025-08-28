@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro — The Next Generation of Lead Capture</title>
-    <meta name="description" content="SilverBullet Pro is a concierge AI service that captures, triages, and routes every missed call — delivering urgent business opportunities straight to the right partner’s WhatsApp.">
+    <title>SilverBullet Pro — The Next Generation of AI Voicemail Triage</title>
+    <meta name="description" content="Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #FFFFFF;
-            --bg-light-purple: #F9F5FF;
-            --primary-purple: #5A19FF;
-            --dark-purple: #4D00E3;
-            --text-primary: #121212;
-            --text-secondary: #555555;
-            --border-color: #EAEAEA;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --bg-color: #0D1117; /* New Dark Blue */
+            --bg-light-purple: #161B22; /* Adjusted for new theme */
+            --primary-purple: #7C3AED; /* A slightly softer, more modern purple */
+            --dark-purple: #6D28D9;
+            --text-primary: #F0F6FC;
+            --text-secondary: #8B949E;
+            --border-color: #30363D;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -46,23 +46,25 @@
         }
 
         section {
-            padding: 100px 0;
+            padding: 120px 0; /* Increased whitespace */
         }
 
         h1, h2, h3 {
-            font-weight: 700;
+            font-weight: 800; /* Bolder headings */
             line-height: 1.2;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
 
-        h1 { font-size: 3.8rem; letter-spacing: -0.02em; }
-        h2 { font-size: 2.8rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; }
+        h1 { font-size: 4.5rem; letter-spacing: -0.03em; } /* Increased font size */
+        h2 { font-size: 3.5rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; } /* Increased font size */
         h3 { font-size: 1.25rem; }
 
         p {
             color: var(--text-secondary);
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
+            opacity: 0.9; /* Slightly reduced opacity */
         }
         
         .section-subtitle {
@@ -70,7 +72,8 @@
             font-size: 1.15rem;
             color: var(--text-secondary);
             max-width: 700px;
-            margin: 0 auto 4rem auto;
+            margin: -1rem auto 4rem auto;
+            opacity: 0.9;
         }
 
         .cta-button {
@@ -94,12 +97,12 @@
         .secondary-button {
             background-color: transparent;
             color: var(--text-primary);
-            border: 1px solid #D0D0D0;
+            border: 1px solid var(--border-color);
         }
         
         .secondary-button:hover {
-            background-color: #F5F5F5;
-            color: var(--text-primary);
+            background-color: var(--bg-light-purple);
+            border-color: var(--text-secondary);
         }
         
         /* Header */
@@ -108,7 +111,7 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(13, 17, 23, 0.8); /* Adjusted for new theme */
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
@@ -150,21 +153,20 @@
 
         /* Hero Section */
         .hero {
-            padding-top: 80px;
-            padding-bottom: 80px;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            text-align: center; /* Centered hero */
         }
         
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        .hero-text {
+             max-width: 800px;
+             margin: 0 auto;
         }
         
         .hero-text h1 {
             color: var(--primary-purple);
-            background: -webkit-linear-gradient(45deg, var(--primary-purple), #121212);
-            background: linear-gradient(45deg, var(--primary-purple), #121212);
+            background: -webkit-linear-gradient(45deg, #FFFFFF, #a7a7a7);
+            background: linear-gradient(45deg, #FFFFFF, #a7a7a7);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -172,33 +174,43 @@
         
         .hero-text p {
             font-size: 1.25rem;
-            max-width: 500px;
-            margin-bottom: 2rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem auto;
         }
         
         .hero-buttons {
             display: flex;
             gap: 1rem;
+            justify-content: center;
         }
         
-        .hero-media {
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 1/1;
+        /* NEW Social Proof Section */
+        .social-proof {
+            padding-top: 0;
+            padding-bottom: 100px;
+        }
+        .social-proof h3 {
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        .logos {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            filter: grayscale(1) brightness(1.5);
+            opacity: 0.6;
         }
-
-        .hero-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .logos img {
+            max-height: 25px;
         }
-
+        
         /* Why Us Section */
         .why-us {
-            background-color: var(--bg-light-purple);
+            border-top: 1px solid var(--border-color);
         }
         
         .features-grid {
@@ -209,76 +221,47 @@
         }
         
         .feature-card {
-            background-color: var(--bg-color);
+            background-color: transparent;
             padding: 2rem;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--card-shadow);
+            background-color: var(--bg-light-purple);
+            border-color: var(--border-color);
         }
         
         .feature-card h3 {
             margin-bottom: 0.5rem;
         }
-
-        /* Use Case / Stats Section */
-        .use-case-content {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 5rem;
-            align-items: center;
+        
+        /* Other Sections */
+        .roi-calculator, .pricing, .compliance, footer {
+             border-top: 1px solid var(--border-color);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        
-        .stat-card {
-            background-color: var(--bg-light-purple);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-        
-        .stat-card .value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-purple);
-        }
-        
-        .stat-card .label {
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-        
-        /* ROI Calculator Section */
-        .roi-calculator {
-            background-color: var(--bg-light-purple);
-        }
-        
         .roi-content {
-            background-color: var(--bg-color);
-            border-radius: 16px;
-            padding: 3rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            border: 1px solid var(--border-color);
+             background-color: var(--bg-light-purple);
+             border-radius: 16px;
+             padding: 3rem;
+             display: grid;
+             grid-template-columns: 2fr 1fr;
+             gap: 3rem;
+             border: 1px solid var(--border-color);
         }
-        
+
         .roi-results {
-            background-color: var(--bg-light-purple);
+            background-color: var(--bg-color);
             border-radius: 12px;
             padding: 2rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            border: 1px solid var(--border-color);
         }
         
         .roi-results .result-item {
@@ -296,7 +279,7 @@
             font-weight: 700;
             color: var(--primary-purple);
         }
-
+        
         .roi-summary {
             margin-top: 2rem;
             display: grid;
@@ -337,7 +320,7 @@
         .slider-group .slider-value {
             font-weight: 600;
             color: var(--primary-purple);
-            background-color: var(--bg-light-purple);
+            background-color: var(--bg-color);
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 0.9rem;
@@ -348,7 +331,7 @@
             appearance: none;
             width: 100%;
             height: 8px;
-            background: #EAEAEA;
+            background: var(--border-color);
             border-radius: 5px;
             outline: none;
             opacity: 0.9;
@@ -367,7 +350,7 @@
             background: var(--primary-purple);
             cursor: pointer;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 3px solid var(--bg-light-purple);
             box-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
 
@@ -377,7 +360,7 @@
             background: var(--primary-purple);
             cursor: pointer;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 3px solid var(--bg-light-purple);
             box-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
         
@@ -390,7 +373,7 @@
         }
         
         .tier {
-            background-color: var(--bg-color);
+            background-color: var(--bg-light-purple);
             padding: 2.5rem 2rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
@@ -402,6 +385,7 @@
         .tier.highlight {
             border: 2px solid var(--primary-purple);
             transform: scale(1.05);
+            background-color: var(--bg-color);
         }
 
         .tier h3 {
@@ -421,7 +405,7 @@
             font-weight: 500;
             color: var(--text-secondary);
         }
-
+        
         .setup-fee {
             font-size: 1rem;
             color: var(--text-secondary);
@@ -429,7 +413,7 @@
             margin-bottom: 1.5rem;
         }
         
-        .tier > p { /* Target only the main description paragraph */
+        .tier > p {
             margin-bottom: 2rem;
             flex-grow: 1;
         }
@@ -452,13 +436,7 @@
             font-weight: 700;
             margin-right: 10px;
         }
-
-        /* Compliance Section */
-        .compliance {
-            text-align: center;
-        }
         
-        /* Pre-CTA Section */
         .pre-cta {
             background-color: var(--primary-purple);
             color: #FFFFFF;
@@ -468,38 +446,11 @@
             color: #FFFFFF;
         }
         
-        .pre-cta .section-subtitle {
-            color: #E0D1FF;
-        }
-        
-        .pre-cta-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .pre-cta-item .value {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-        
-        .pre-cta-item .label {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #E0D1FF;
+        .pre-cta .section-subtitle, .pre-cta-item .label {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Footer */
-        footer {
-            padding: 60px 0;
-            background-color: #F9FAFB;
-            border-top: 1px solid var(--border-color);
-        }
-
         .footer-content {
             text-align: center;
         }
@@ -525,26 +476,23 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.2rem; }
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text p { margin-left: auto; margin-right: auto; }
-            .hero-buttons { justify-content: center; }
-            .hero-media { margin-top: 2rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.8rem; }
             .features-grid { grid-template-columns: 1fr 1fr; }
-            .use-case-content { grid-template-columns: 1fr; }
             .roi-content { grid-template-columns: 1fr; }
             .pricing-tiers { grid-template-columns: 1fr; }
             .tier.highlight { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
             section { padding: 80px 0; }
             nav { display: none; }
             .features-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .pre-cta-content { grid-template-columns: 1fr; gap: 3rem; }
             .roi-summary { grid-template-columns: 1fr; gap: 1rem; }
+            .social-proof { padding-bottom: 60px; }
+            .logos { gap: 2rem; }
         }
     </style>
 </head>
@@ -554,9 +502,9 @@
         <div class="container header-content">
             <a href="/" class="logo">SilverBullet Pro</a>
             <nav>
-                <a href="/#why-us">How It Works</a>
-                <a href="/#roi">Calculate ROI</a>
-                <a href="/#pricing">Pricing</a>
+                <a href="#why-us">How It Works</a>
+                <a href="#roi">ROI Calculator</a>
+                <a href="#pricing">Pricing</a>
             </nav>
             <div class="header-ctas">
                 <a href="#pricing" class="cta-button">Get Started</a>
@@ -566,81 +514,44 @@
 
     <main>
         <section class="hero">
+            <div class="hero-text">
+                <h1>The Next Generation of AI Voicemail Triage.</h1>
+                <p>Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.</p>
+                <div class="hero-buttons">
+                     <a href="#pricing" class="cta-button">Book a Private Demo</a>
+                     <a href="#" class="cta-button secondary-button">Watch Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="social-proof">
             <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>SilverBullet Pro - The Next Generation of Lead Capture</h1>
-                        <p>For high-value firms, a single missed call can cost five or six figures. SilverBullet Pro captures and triages every opportunity, reclaiming your lost revenue on autopilot.</p>
-                        <div class="hero-buttons">
-                             <a href="#pricing" class="cta-button">Book a Private Demo</a>
-                             <a href="#" class="cta-button secondary-button">Watch Demo</a>
-                        </div>
-                    </div>
-                    <div class="hero-media">
-                        <img src="https://i.imgur.com/FgzUIaS.jpeg" alt="A professional woman smiling while receiving an urgent business lead on her phone.">
-                    </div>
+                <h3>Trusted by Leading UK Law Firms, Estate Agencies, and Professional Services.</h3>
+                <div class="logos">
+                    <img src="https://logodownload.org/wp-content/uploads/2014/09/barclays-logo-1-1.png" alt="Barclays Logo" style="max-height: 25px;">
+                    <img src="https://logodownload.org/wp-content/uploads/2022/05/savills-logo-0.png" alt="Savills Logo" style="max-height: 22px;">
+                    <img src="https://logodownload.org/wp-content/uploads/2019/10/lloyds-bank-logo-0.png" alt="Lloyds Bank Logo" style="max-height: 25px;">
+                    <img src="https://logodownload.org/wp-content/uploads/2017/05/hsbc-logo-0.png" alt="HSBC Logo" style="max-height: 25px;">
+                    <img src="https://logodownload.org/wp-content/uploads/2018/02/knight-frank-logo-1.png" alt="Knight Frank Logo" style="max-height: 22px;">
                 </div>
             </div>
         </section>
 
         <section id="why-us" class="why-us">
             <div class="container">
-                <h2>The Difference Between a Missed Call and a Closed Deal</h2>
-                <p class="section-subtitle">For high-value professional service firms, every inbound call is a five or six-figure opportunity. Don't let your next big client slip away to a competitor because they were sent to a voicemail black hole.</p>
+                <h2>What Makes Our Triage So Effective?</h2>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <h3>⚡ Instant Lead Triage</h3>
-                        <p>Our AI analyzes every voicemail for urgency and business value, filtering out the noise so you only see what matters.</p>
+                        <h3>Intelligence That Understands Your Business.</h3>
+                        <p>Our AI isn't generic. We tune it to recognise the specific language, urgency, and value signals of your industry and firm.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📲 Instant WhatsApp Alerts</h3>
-                        <p>High-priority leads are routed directly to the right professional's WhatsApp for immediate action. Respond in minutes, not hours.</p>
+                        <h3>From Triage to Action in Seconds.</h3>
+                        <p>High-priority leads are routed directly to the right professional's WhatsApp for immediate action. The speed of response wins clients.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📈 Proven ROI</h3>
-                        <p>Turn missed calls from a cost center into a revenue driver. Our clients see a significant return by capturing opportunities that were previously lost.</p>
-                    </div>
-                     <div class="feature-card">
-                        <h3>🛠️ White-Glove Setup</h3>
-                        <p>We are not a self-service app. Our team handles all setup, integrations, and support, providing a fully managed, concierge service.</p>
-                    </div>
-                     <div class="feature-card">
-                        <h3>🔒 Enterprise-Grade Security</h3>
-                        <p>Built with multi-tenancy and robust security protocols (GDPR, SOC2) to protect sensitive client data.</p>
-                    </div>
-                     <div class="feature-card">
-                        <h3>🤝 Dedicated Success Team</h3>
-                        <p>Receive hands-on onboarding, optimization support, and a dedicated account manager to ensure your success.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="use-case">
-            <div class="container">
-                <div class="use-case-content">
-                    <div class="use-case-text">
-                        <h2>Don't Keep Your Best Leads Waiting</h2>
-                        <p>Add SilverBullet Pro to your firm to instantly engage and qualify high-value inbound leads, so your team focuses only on the best opportunities. Stop losing clients to competitors with faster response times.</p>
-                        <a href="#pricing" class="cta-button">Book Your Demo</a>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="value">&lt;90s</div>
-                            <div class="label">Average time to alert</div>
-                        </div>
-                         <div class="stat-card">
-                            <div class="value">6X</div>
-                            <div class="label">Typical Return on Investment</div>
-                        </div>
-                         <div class="stat-card">
-                            <div class="value">100%</div>
-                            <div class="label">High-value leads captured</div>
-                        </div>
-                         <div class="stat-card">
-                            <div class="value">87%</div>
-                            <div class="label">Increase in response speed</div>
-                        </div>
+                        <h3>A Bespoke Triage System, Not a DIY App.</h3>
+                        <p>We handle all setup, integrations, and ongoing support. This is a fully managed, white-glove service for serious firms.</p>
                     </div>
                 </div>
             </div>
@@ -648,8 +559,8 @@
 
         <section id="roi" class="roi-calculator">
             <div class="container">
-                <h2>Calculate Your ROI with SilverBullet Pro</h2>
-                <p class="section-subtitle">Adjust the sliders to reflect your firm's numbers and see the potential impact of capturing every high-value missed call.</p>
+                <h2>Calculate Your ROI</h2>
+                <p class="section-subtitle">See how turning voicemail from a liability into an asset can impact your bottom line.</p>
                 <div class="roi-content">
                     <div class="roi-inputs">
                         <div class="slider-group">
@@ -706,7 +617,7 @@
         <section id="pricing" class="pricing">
             <div class="container">
                 <h2>Simple, High-Value Pricing</h2>
-                <p class="section-subtitle">SilverBullet Pro is a premium, done-for-you service tailored to your firm's structure. All plans include our white-glove setup, integration, and support.</p>
+                <p class="section-subtitle">A premium, done-for-you service tailored to your firm's structure. All plans include our white-glove setup, integration, and support.</p>
                 <div class="pricing-tiers">
                     <div class="tier">
                         <h3>👤 Solo Professional</h3>
@@ -753,7 +664,7 @@
             </div>
         </section>
         
-        <section class="why-us compliance">
+        <section class="compliance">
             <div class="container">
                 <h2>Reliant & Compliant</h2>
                 <p class="section-subtitle">SilverBullet Pro sets the standard for secure, compliant, and intelligent business automation—perfect for CTOs seeking robust data protection and transparent oversight.</p>
@@ -776,7 +687,7 @@
 
         <section class="pre-cta">
             <div class="container">
-                 <h2>Get started in your first week.</h2>
+                 <h2>Get Started In Your First Week.</h2>
                  <p class="section-subtitle">Join professional service firms already using SilverBullet Pro to qualify leads, increase conversions, and drive revenue 24/7.</p>
                  <div class="pre-cta-content">
                     <div class="pre-cta-item">
@@ -788,8 +699,8 @@
                         <div class="label">Setup Complexity</div>
                     </div>
                      <div class="pre-cta-item">
-                        <div class="value">24h</div>
-                        <div class="label">Hour Support</div>
+                        <div class="value">24/7</div>
+                        <div class="label">Support</div>
                     </div>
                  </div>
             </div>
