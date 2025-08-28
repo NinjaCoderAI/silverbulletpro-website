@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SilverBullet Pro — The Next Generation of AI Voicemail Triage</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
     <meta name="description" content="Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -238,7 +239,7 @@
             margin-bottom: 0.5rem;
         }
         
-        /* Other Sections */
+        /* ROI Calculator Section */
         .roi-calculator, .pricing, .compliance, footer {
              border-top: 1px solid var(--border-color);
         }
@@ -437,6 +438,7 @@
             margin-right: 10px;
         }
         
+        /* Pre-CTA Section */
         .pre-cta {
             background-color: var(--primary-purple);
             color: #FFFFFF;
@@ -446,7 +448,40 @@
             color: #FFFFFF;
         }
         
-        .pre-cta .section-subtitle, .pre-cta-item .label {
+        .pre-cta .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pre-cta-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .pre-cta-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pre-cta-item .value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .pre-cta-item .label {
+            font-size: 1.1rem;
+            font-weight: 500;
             color: rgba(255, 255, 255, 0.8);
         }
 
@@ -493,6 +528,9 @@
             .roi-summary { grid-template-columns: 1fr; gap: 1rem; }
             .social-proof { padding-bottom: 60px; }
             .logos { gap: 2rem; }
+            .pre-cta-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -528,11 +566,11 @@
             <div class="container">
                 <h3>Trusted by Leading UK Law Firms, Estate Agencies, and Professional Services.</h3>
                 <div class="logos">
-                    <img src="https://logodownload.org/wp-content/uploads/2014/09/barclays-logo-1-1.png" alt="Barclays Logo" style="max-height: 25px;">
-                    <img src="https://logodownload.org/wp-content/uploads/2022/05/savills-logo-0.png" alt="Savills Logo" style="max-height: 22px;">
-                    <img src="https://logodownload.org/wp-content/uploads/2019/10/lloyds-bank-logo-0.png" alt="Lloyds Bank Logo" style="max-height: 25px;">
-                    <img src="https://logodownload.org/wp-content/uploads/2017/05/hsbc-logo-0.png" alt="HSBC Logo" style="max-height: 25px;">
-                    <img src="https://logodownload.org/wp-content/uploads/2018/02/knight-frank-logo-1.png" alt="Knight Frank Logo" style="max-height: 22px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Barclays_Logo.svg/2560px-Barclays_Logo.svg.png" alt="Barclays Logo" style="max-height: 22px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Savills_logo.svg/2560px-Savills_logo.svg.png" alt="Savills Logo" style="max-height: 25px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lloyds_Bank_logo.svg/2560px-Lloyds_Bank_logo.svg.png" alt="Lloyds Bank Logo" style="max-height: 35px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/HSBC_logo_%282018%29.svg/2560px-HSBC_logo_%282018%29.svg.png" alt="HSBC Logo" style="max-height: 25px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/51/Knight_Frank_logo.svg/2560px-Knight_Frank_logo.svg.png" alt="Knight Frank Logo" style="max-height: 25px;">
                 </div>
             </div>
         </section>
