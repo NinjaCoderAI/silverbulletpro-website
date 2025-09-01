@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     <style>
         :root {
             --bg-color: #0D1117; /* New Dark Blue */
@@ -155,8 +156,8 @@
         /* Hero Section */
         .hero {
             padding-top: 100px;
-            padding-bottom: 100px;
-            text-align: center; /* Centered hero */
+            padding-bottom: 120px; /* Adjusted padding after removing social proof */
+            text-align: center;
         }
         
         .hero-text {
@@ -183,30 +184,6 @@
             display: flex;
             gap: 1rem;
             justify-content: center;
-        }
-        
-        /* NEW Social Proof Section */
-        .social-proof {
-            padding-top: 0;
-            padding-bottom: 100px;
-        }
-        .social-proof h3 {
-            text-align: center;
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-bottom: 2rem;
-        }
-        .logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 3rem;
-            filter: grayscale(1) brightness(1.5);
-            opacity: 0.6;
-        }
-        .logos img {
-            max-height: 25px;
         }
         
         /* Why Us Section */
@@ -526,8 +503,6 @@
             nav { display: none; }
             .features-grid { grid-template-columns: 1fr; }
             .roi-summary { grid-template-columns: 1fr; gap: 1rem; }
-            .social-proof { padding-bottom: 60px; }
-            .logos { gap: 2rem; }
             .pre-cta-content {
                 grid-template-columns: 1fr;
             }
@@ -540,13 +515,13 @@
         <div class="container header-content">
             <a href="/" class="logo">SilverBullet Pro</a>
             <nav>
-                <a href="/#why-us">How It Works</a>
-                <a href="/#roi">ROI Calculator</a>
-                <a href="/#pricing">Pricing</a>
+                <a href="#why-us">How It Works</a>
                 <a href="blog.html">Blog</a>
+                <a href="#roi">ROI Calculator</a>
+                <a href="#pricing">Pricing</a>
             </nav>
             <div class="header-ctas">
-                <a href="/#pricing" class="cta-button">Get Started</a>
+                <a href="#pricing" class="cta-button">Get Started</a>
             </div>
         </div>
     </header>
@@ -558,20 +533,7 @@
                 <p>Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.</p>
                 <div class="hero-buttons">
                      <a href="#pricing" class="cta-button">Book a Private Demo</a>
-                     <a href="#" class="cta-button secondary-button">Watch Demo</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="social-proof">
-            <div class="container">
-                <h3>Trusted by Leading UK Law Firms, Estate Agencies, and Professional Services.</h3>
-                <div class="logos">
-                    <img src="https://i.imgur.com/ODp5m2D.png" alt="Barclays Logo" style="max-height: 22px;">
-                    <img src="https://i.imgur.com/sFEtY5R.png" alt="Savills Logo" style="max-height: 25px;">
-                    <img src="https://i.imgur.com/P5MLd22.png" alt="Lloyds Bank Logo" style="max-height: 25px;">
-                    <img src="https://i.imgur.com/e2a129L.png" alt="HSBC Logo" style="max-height: 25px;">
-                    <img src="https://i.imgur.com/WJ775zF.png" alt="Knight Frank Logo" style="max-height: 22px;">
+                     <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
                 </div>
             </div>
         </section>
@@ -702,6 +664,7 @@
                 </div>
             </div>
         </section>
+        
         <section class="compliance">
             <div class="container">
                 <h2>Reliant & Compliant</h2>
@@ -756,55 +719,48 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <script>
-        // Get references to all the HTML elements
+        // Initialize GLightbox
+        const lightbox = GLightbox({
+            selector: '.g-lightbox'
+        });
+
+        // ROI Calculator Script
         const missedCallsSlider = document.getElementById('missedCalls');
         const conversionRateSlider = document.getElementById('conversionRate');
         const avgClientValueSlider = document.getElementById('avgClientValue');
-
         const missedCallsValue = document.getElementById('missedCallsValue');
         const conversionRateValue = document.getElementById('conversionRateValue');
         const avgClientValueValue = document.getElementById('avgClientValueValue');
-
         const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
-
-        const ANNUAL_COST = 12000; // Solo Professional Plan cost
+        const ANNUAL_COST = 12000;
 
         function calculateROI() {
-            // Get the current values from the sliders
             const missedCalls = parseInt(missedCallsSlider.value);
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
-
-            // Perform the calculations
             const capturedLeads = missedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
             const roiMultiple = annualRevenue / ANNUAL_COST;
-            
-            // Format numbers for display (e.g., £5,000)
             const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
-
-            // Update the text on the page with the new results
             missedCallsValue.textContent = missedCalls;
             conversionRateValue.textContent = `${conversionRate}%`;
             avgClientValueValue.textContent = currencyFormatter.format(avgClientValue);
-
             monthlyRevenueOutput.textContent = currencyFormatter.format(monthlyRevenue);
-            capturedLeadsOutput.textContent = capturedLeads.toFixed(1); // Show one decimal place for leads
+            capturedLeadsOutput.textContent = capturedLeads.toFixed(1);
             annualRevenueOutput.textContent = currencyFormatter.format(annualRevenue);
             roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`;
         }
 
-        // Add event listeners to run the calculation whenever a slider is moved
         missedCallsSlider.addEventListener('input', calculateROI);
         conversionRateSlider.addEventListener('input', calculateROI);
         avgClientValueSlider.addEventListener('input', calculateROI);
 
-        // Run the calculation once on page load to set initial values
         calculateROI();
     </script>
     
