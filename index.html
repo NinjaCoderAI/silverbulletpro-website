@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro — The Next Generation of AI Voicemail Triage</title>
+    <title>SilverBullet Pro — Your Voicemail Is Leaking Revenue. We Stop It.</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
-    <meta name="description" content="Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.">
+    <meta name="description" content="For firms and top-performing agents where one missed instruction costs six figures. SilverBullet Pro’s AI gives you an instant alert on the calls that matter.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -488,10 +488,8 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out, padding 0.3s ease-out;
         }
-
         .faq-item.active .faq-answer {
-            max-height: 200px; /* Adjust as needed for content */
-            padding: 0 2rem 1.5rem 2rem;
+            padding: 0 2rem 1.5rem 2rem; /* Only set padding when active */
         }
 
         .faq-answer p {
@@ -617,8 +615,8 @@
     <main>
         <section class="hero">
             <div class="hero-text">
-                <h1>The Next Generation of AI Voicemail Triage.</h1>
-                <p>Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.</p>
+                <h1>Your Voicemail Is Leaking Revenue. We Stop It.</h1>
+                <p>For firms and top-performing agents where one missed instruction costs six figures. SilverBullet Pro’s AI gives you an instant alert on the calls that matter, turning your biggest liability into your fastest revenue-capture channel.</p>
                 <div class="hero-buttons">
                      <a href="#pricing" class="cta-button">Book a Private Demo</a>
                      <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
@@ -921,7 +919,7 @@
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
-        const ANNUAL_COST = 12000; // This value might need adjustment based on which plan is considered "base" for the ROI calc
+        const ANNUAL_COST = 12000;
 
         function calculateROI() {
             const missedCalls = parseInt(missedCallsSlider.value);
@@ -930,7 +928,7 @@
             const capturedLeads = missedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
-            const roiMultiple = annualRevenue / ANNUAL_COST; // Still using Solo Professional as the base for now
+            const roiMultiple = annualRevenue / ANNUAL_COST;
             const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
             missedCallsValue.textContent = missedCalls;
             conversionRateValue.textContent = `${conversionRate}%`;
@@ -954,26 +952,27 @@
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
                 question.addEventListener('click', () => {
-                    // Close other open answers
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.classList.contains('active')) {
-                            otherItem.classList.remove('active');
-                            otherItem.querySelector('.faq-answer').style.maxHeight = 0;
-                            otherItem.querySelector('.faq-question .icon').textContent = '+';
-                        }
-                    });
-
-                    // Toggle the clicked item
-                    item.classList.toggle('active');
                     const answer = item.querySelector('.faq-answer');
                     const icon = item.querySelector('.faq-question .icon');
 
                     if (item.classList.contains('active')) {
-                        answer.style.maxHeight = answer.scrollHeight + "px"; // Set max-height to scrollHeight for smooth transition
-                        icon.textContent = '–';
-                    } else {
+                        item.classList.remove('active');
                         answer.style.maxHeight = 0;
                         icon.textContent = '+';
+                    } else {
+                        // Close other open answers
+                        faqItems.forEach(otherItem => {
+                            if (otherItem.classList.contains('active')) {
+                                otherItem.classList.remove('active');
+                                otherItem.querySelector('.faq-answer').style.maxHeight = 0;
+                                otherItem.querySelector('.faq-question .icon').textContent = '+';
+                            }
+                        });
+
+                        // Open the clicked item
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                        icon.textContent = '–';
                     }
                 });
             });
