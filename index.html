@@ -217,7 +217,7 @@
         }
         
         /* ROI Calculator Section */
-        .roi-calculator, .pricing, .compliance, footer {
+        .roi-calculator, .pricing, .compliance, .faq-section, footer { /* Added .faq-section */
              border-top: 1px solid var(--border-color);
         }
 
@@ -345,7 +345,7 @@
         /* Pricing Section */
         .pricing-tiers {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
             gap: 2rem;
             align-items: stretch;
         }
@@ -415,6 +415,91 @@
             margin-right: 10px;
         }
         
+        /* FAQ Section */
+        .faq-section {
+            padding: 120px 0;
+            background-color: var(--bg-color);
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .faq-header h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .faq-header p {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background-color: var(--bg-light-purple);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+        
+        .faq-item.active {
+            background-color: var(--bg-color); /* Slightly darker when active */
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-purple);
+        }
+
+        .faq-question .icon {
+            font-size: 1.5rem;
+            font-weight: 400; /* Adjusted for better +/- visual */
+            color: var(--text-secondary);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(180deg);
+            color: var(--primary-purple);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* Adjust as needed for content */
+            padding: 0 2rem 1.5rem 2rem;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            margin-bottom: 0; /* Remove default paragraph margin */
+            line-height: 1.7;
+        }
+
         /* Pre-CTA Section */
         .pre-cta {
             background-color: var(--primary-purple);
@@ -463,6 +548,10 @@
         }
 
         /* Footer */
+        footer {
+            padding: 80px 0 40px 0; /* Adjusted padding */
+        }
+
         .footer-content {
             text-align: center;
         }
@@ -487,22 +576,20 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            h1 { font-size: 3.5rem; }
-            h2 { font-size: 2.8rem; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
-            .roi-content { grid-template-columns: 1fr; }
-            .pricing-tiers { grid-template-columns: 1fr; }
-            .tier.highlight { transform: scale(1); }
+        @media (max-width: 1200px) { /* Adjust for 4 columns */
+            .pricing-tiers, .faq-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+            }
         }
-
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
             h2 { font-size: 2.2rem; }
             section { padding: 80px 0; }
             nav { display: none; }
             .features-grid { grid-template-columns: 1fr; }
-            .roi-summary { grid-template-columns: 1fr; gap: 1rem; }
+            .roi-content { grid-template-columns: 1fr; }
+            .pricing-tiers, .faq-grid { grid-template-columns: 1fr; } /* 1 column on small screens */
+            .tier.highlight { transform: scale(1); }
             .pre-cta-content {
                 grid-template-columns: 1fr;
             }
@@ -519,6 +606,7 @@
                 <a href="blog.html">Blog</a>
                 <a href="#roi">ROI Calculator</a>
                 <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
             </nav>
             <div class="header-ctas">
                 <a href="#pricing" class="cta-button">Get Started</a>
@@ -621,12 +709,25 @@
                 <p class="section-subtitle">A premium, done-for-you service tailored to your firm's structure. All plans include our white-glove setup, integration, and support.</p>
                 <div class="pricing-tiers">
                     <div class="tier">
+                        <h3>🚀 Complete</h3>
+                        <p class="price">From £499 <span>/month</span></p>
+                        <p class="setup-fee">+ £999 one-time setup</p>
+                        <p>Your all-in-one AI voicemail solution. Perfect for new practices or those without a complex VoIP system.</p>
+                        <ul>
+                            <li>1 Dedicated Twilio Phone Line</li>
+                            <li>AI-Powered Triage</li>
+                            <li>Includes up to 1,000 WhatsApp alerts / month</li>
+                            <li>Standard Support</li>
+                        </ul>
+                        <a href="#" class="cta-button secondary-button">Choose Complete</a>
+                    </div>
+                    <div class="tier">
                         <h3>👤 Solo Professional</h3>
                         <p class="price">From £1,000 <span>/month</span></p>
                         <p class="setup-fee">+ £2,000 one-time setup</p>
-                        <p>Perfect for individual partners, top-performing agents, or consultants who can't afford to miss a single opportunity.</p>
+                        <p>Integrate our AI with your existing VoIP system. Ideal for established individual partners or top-performing agents.</p>
                         <ul>
-                            <li>1 Dedicated Phone Line</li>
+                            <li>Integrates with your VoIP system</li>
                             <li>AI-Powered Triage</li>
                             <li>Includes up to 2,000 WhatsApp alerts / month</li>
                             <li>Standard Support</li>
@@ -664,8 +765,8 @@
                 </div>
             </div>
         </section>
-        
-        <section class="compliance">
+
+        <section id="compliance" class="compliance">
             <div class="container">
                 <h2>Reliant & Compliant</h2>
                 <p class="section-subtitle">SilverBullet Pro sets the standard for secure, compliant, and intelligent business automation—perfect for CTOs seeking robust data protection and transparent oversight.</p>
@@ -681,6 +782,89 @@
                     <div class="feature-card">
                         <h3>Technical Account Management</h3>
                         <p>Deep integrations with your existing CRMs, dedicated success manager, and custom onboarding for your team.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="faq-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Have questions before you get started? Here are some of the most common inquiries we receive.</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What results can we expect from SilverBullet Pro?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Clients typically see a significant reduction in missed high-value leads, faster client acquisition, and a more efficient triage process for all inbound voicemails. Our ROI calculator can help estimate your potential gains.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How long does it take to set everything up?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our white-glove setup service typically gets you live within 3-5 business days. This includes number setup (if applicable), AI tuning, and integration with your existing systems.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do you integrate with our existing VoIP/phone system?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, for our "Solo Professional" and "Multi-Partner Firm" tiers, we integrate with most modern VoIP systems to seamlessly divert voicemails for AI triage.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is SilverBullet Pro GDPR compliant?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely. We prioritize data privacy and security, offering full GDPR compliance (consent, access, erasure), data residency options, and comprehensive audit logs for transparent oversight.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How does the AI understand our specific business needs?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our AI is not generic. During onboarding, we tune it using specific examples and language relevant to your industry and firm, ensuring it accurately identifies urgency, client value, and key instructions.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What if we don't have a VoIP system?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our "Complete" plan is designed for you! We provide a dedicated Twilio phone number that we configure for your business, seamlessly connecting it with SilverBullet Pro for an all-in-one solution.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can we try SilverBullet Pro before committing?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We do not offer a free trial, but we provide a comprehensive, no-obligation demo that showcases exactly how SilverBullet Pro will integrate with your operations and deliver value.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What kind of support is included?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>All plans include dedicated support, with priority levels and SLAs increasing for our "Multi-Partner Firm" and "Enterprise" clients. You'll always have access to our expert team.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -737,7 +921,7 @@
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
-        const ANNUAL_COST = 12000;
+        const ANNUAL_COST = 12000; // This value might need adjustment based on which plan is considered "base" for the ROI calc
 
         function calculateROI() {
             const missedCalls = parseInt(missedCallsSlider.value);
@@ -746,7 +930,7 @@
             const capturedLeads = missedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
-            const roiMultiple = annualRevenue / ANNUAL_COST;
+            const roiMultiple = annualRevenue / ANNUAL_COST; // Still using Solo Professional as the base for now
             const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
             missedCallsValue.textContent = missedCalls;
             conversionRateValue.textContent = `${conversionRate}%`;
@@ -762,6 +946,38 @@
         avgClientValueSlider.addEventListener('input', calculateROI);
 
         calculateROI();
+
+        // FAQ Accordion Script
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close other open answers
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-answer').style.maxHeight = 0;
+                            otherItem.querySelector('.faq-question .icon').textContent = '+';
+                        }
+                    });
+
+                    // Toggle the clicked item
+                    item.classList.toggle('active');
+                    const answer = item.querySelector('.faq-answer');
+                    const icon = item.querySelector('.faq-question .icon');
+
+                    if (item.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + "px"; // Set max-height to scrollHeight for smooth transition
+                        icon.textContent = '–';
+                    } else {
+                        answer.style.maxHeight = 0;
+                        icon.textContent = '+';
+                    }
+                });
+            });
+        });
     </script>
     
 </body>
