@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro — Never Miss a Hot Lead Again.</title>
+    <title>SilverBullet Pro — The Next Generation of AI Voicemail Triage</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
-    <meta name="description" content="SilverBullet Pro is your 24/7 speed-to-lead advantage. Our system finds the urgent opportunities buried in your voicemail instantly, ensuring you're the first to respond to every high-value inquiry.">
+    <meta name="description" content="Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
-            --bg-color: #0D1117;
-            --bg-light-purple: #161B22;
-            --primary-purple: #7C3AED;
+            --bg-color: #0D1117; /* New Dark Blue */
+            --bg-light-purple: #161B22; /* Adjusted for new theme */
+            --primary-purple: #7C3AED; /* A slightly softer, more modern purple */
             --dark-purple: #6D28D9;
             --text-primary: #F0F6FC;
             --text-secondary: #8B949E;
             --border-color: #30363D;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -48,25 +48,25 @@
         }
 
         section {
-            padding: 120px 0;
+            padding: 120px 0; /* Increased whitespace */
         }
 
         h1, h2, h3 {
-            font-weight: 800;
+            font-weight: 800; /* Bolder headings */
             line-height: 1.2;
             margin-bottom: 1.5rem;
             color: var(--text-primary);
         }
 
-        h1 { font-size: 4.5rem; letter-spacing: -0.03em; }
-        h2 { font-size: 3.5rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; }
+        h1 { font-size: 4.5rem; letter-spacing: -0.03em; } /* Increased font size */
+        h2 { font-size: 3.5rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; } /* Increased font size */
         h3 { font-size: 1.25rem; }
 
         p {
             color: var(--text-secondary);
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
-            opacity: 0.9;
+            opacity: 0.9; /* Slightly reduced opacity */
         }
         
         .section-subtitle {
@@ -113,7 +113,7 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background: rgba(13, 17, 23, 0.8);
+            background: rgba(13, 17, 23, 0.8); /* Adjusted for new theme */
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
@@ -155,20 +155,14 @@
 
         /* Hero Section */
         .hero {
-            padding: 140px 0;
+            padding-top: 100px;
+            padding-bottom: 120px; /* Adjusted padding after removing social proof */
             text-align: center;
-            position: relative;
-            background-image: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), url('https://i.imgur.com/iyC9W8z.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
         }
         
         .hero-text {
              max-width: 800px;
              margin: 0 auto;
-             position: relative;
-             z-index: 2;
         }
         
         .hero-text h1 {
@@ -223,7 +217,7 @@
         }
         
         /* ROI Calculator Section */
-        .roi-calculator, .pricing, .compliance, .faq-section, footer {
+        .roi-calculator, .pricing, .compliance, .faq-section, footer { /* Added .faq-section */
              border-top: 1px solid var(--border-color);
         }
 
@@ -351,7 +345,7 @@
         /* Pricing Section */
         .pricing-tiers {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
             gap: 2rem;
             align-items: stretch;
         }
@@ -457,7 +451,7 @@
         }
         
         .faq-item.active {
-            background-color: var(--bg-color);
+            background-color: var(--bg-color); /* Slightly darker when active */
         }
 
         .faq-question {
@@ -479,7 +473,7 @@
 
         .faq-question .icon {
             font-size: 1.5rem;
-            font-weight: 400;
+            font-weight: 400; /* Adjusted for better +/- visual */
             color: var(--text-secondary);
             transition: transform 0.2s ease, color 0.2s ease;
         }
@@ -495,12 +489,12 @@
             transition: max-height 0.3s ease-out, padding 0.3s ease-out;
         }
         .faq-item.active .faq-answer {
-            padding: 0 2rem 1.5rem 2rem;
+            padding: 0 2rem 1.5rem 2rem; /* Only set padding when active */
         }
 
         .faq-answer p {
             color: var(--text-secondary);
-            margin-bottom: 0;
+            margin-bottom: 0; /* Remove default paragraph margin */
             line-height: 1.7;
         }
 
@@ -635,9 +629,7 @@
             .hero {
                 background-attachment: scroll; /* Fix for mobile devices */
             }
-            .features-grid { grid-template-columns: 1fr; }
-            .roi-content { grid-template-columns: 1fr; }
-            .pricing-tiers, .faq-grid, .pre-cta-content { grid-template-columns: 1fr; } /* pre-cta goes to 1 column */
+            .features-grid, .roi-content, .pricing-tiers, .faq-grid, .pre-cta-content, .audit-steps { grid-template-columns: 1fr; }
             .tier.highlight { transform: scale(1); }
         }
     </style>
@@ -650,12 +642,12 @@
             <nav>
                 <a href="#why-us">How It Works</a>
                 <a href="blog.html">Blog</a>
-                <a href="#roi">ROI Calculator</a>
+                <a href="#audit">Start Your Audit</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
             </nav>
             <div class="header-ctas">
-                <a href="#pricing" class="cta-button">Get Started</a>
+                <a href="#audit" class="cta-button">Start Your Revenue Audit</a>
             </div>
         </div>
     </header>
@@ -666,7 +658,7 @@
                 <h1>Never Miss a Hot Lead Again.</h1>
                 <p>SilverBullet Pro is your 24/7 speed-to-lead advantage. Our system finds the urgent opportunities buried in your voicemail <em>instantly</em>, ensuring you're the first to respond to every high-value inquiry.</p>
                 <div class="hero-buttons">
-                     <a href="#roi" class="cta-button">Calculate Your ROI</a>
+                     <a href="#audit" class="cta-button">Start Your Revenue Audit</a>
                      <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
                 </div>
             </div>
@@ -692,6 +684,34 @@
             </div>
         </section>
 
+        <section id="audit" class="audit-section">
+            <div class="container">
+                <h2>The Revenue Recovery Audit</h2>
+                <p class="section-subtitle">A bespoke analysis to quantify your missed opportunities and provide a strategic roadmap for growth. This is the first step for all new clients.</p>
+                <div class="audit-steps">
+                    <div class="audit-step">
+                        <div class="icon"><i class="fas fa-search-dollar"></i></div>
+                        <h3>1. Deep Discovery</h3>
+                        <p>We conduct a thorough analysis of your current client intake process, call flows, and technology stack.</p>
+                    </div>
+                    <div class="audit-step">
+                        <div class="icon"><i class="fas fa-calculator"></i></div>
+                        <h3>2. Financial Modeling</h3>
+                        <p>We use your firm's data to build a precise financial model calculating the exact cost of your leaked revenue.</p>
+                    </div>
+                    <div class="audit-step">
+                        <div class="icon"><i class="fas fa-map-signs"></i></div>
+                        <h3>3. Roadmap Delivery</h3>
+                        <p>We deliver a comprehensive 'Revenue Recovery Roadmap'—a tangible asset outlining the problem and a clear path to a solution.</p>
+                    </div>
+                </div>
+                <div class="audit-footer">
+                    <p class="price">A one-time investment of <span>£1,500</span></p>
+                    <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Free 15-Min Intro Call</a>
+                </div>
+            </div>
+        </section>
+        
         <section id="roi" class="roi-calculator">
             <div class="container">
                 <h2>Calculate Your ROI</h2>
@@ -734,7 +754,7 @@
                  <div class="roi-summary">
                     <div>
                         <h4>Annual Cost of SilverBullet Pro</h4>
-                        <p>£12,000</p>
+                        <p>£11,988</p>
                         <span>(Solo Professional Plan)</span>
                     </div>
                     <div>
@@ -765,7 +785,7 @@
                             <li>Includes up to 1,000 WhatsApp alerts / month</li>
                             <li>Standard Support</li>
                         </ul>
-                        <a href="#" class="cta-button secondary-button">Choose Complete</a>
+                        <a href="#audit" class="cta-button secondary-button">Start Your Audit</a>
                     </div>
                     <div class="tier">
                         <h3>👤 Solo Professional</h3>
@@ -778,7 +798,7 @@
                             <li>Includes up to 2,000 WhatsApp alerts / month</li>
                             <li>Standard Support</li>
                         </ul>
-                        <a href="#" class="cta-button secondary-button">Choose Solo</a>
+                        <a href="#audit" class="cta-button secondary-button">Start Your Audit</a>
                     </div>
                     <div class="tier highlight">
                          <h3>🏢 Multi-Partner Firm</h3>
@@ -792,7 +812,7 @@
                             <li>Priority Support & SLAs</li>
                             <li>CRM Integration</li>
                         </ul>
-                        <a href="#" class="cta-button">Book a Demo</a>
+                        <a href="#audit" class="cta-button">Start Your Audit</a>
                     </div>
                     <div class="tier">
                         <h3>🏛️ Enterprise</h3>
@@ -806,7 +826,7 @@
                             <li>Dedicated Account Management</li>
                             <li>Full Audit Logs</li>
                         </ul>
-                        <a href="#" class="cta-button secondary-button">Contact Sales</a>
+                        <a href="#audit" class="cta-button secondary-button">Contact Sales</a>
                     </div>
                 </div>
             </div>
@@ -900,7 +920,7 @@
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>We do not offer a free trial, but we provide a comprehensive, no-obligation demo that showcases exactly how SilverBullet Pro will integrate with your operations and deliver value.</p>
+                            <p>We do not offer a free trial, but our paid 'Revenue Recovery Audit' is the first step for all new clients. It provides immense value and a clear roadmap before you commit to a full subscription.</p>
                         </div>
                     </div>
                      <div class="faq-item">
@@ -937,7 +957,7 @@
                         <div class="label">Support</div>
                     </div>
                  </div>
-                 <a href="https://calendly.com/silverbulletpro/15min" target="_blank" class="cta-button">Book Your Free Demo</a>
+                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Free Intro Call</a>
             </div>
         </section>
     </main>
