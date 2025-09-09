@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stop Losing High-Value Leads: How an AI Answering Service Transforms Your Client Intake</title>
+    <title>Blog — SilverBullet Pro</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
     <meta name="description" content="For law firms and estate agencies, a missed call is a lost opportunity. Discover how an AI answering service with instant WhatsApp alerts can revolutionize your lead management and client intake process.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,12 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0D1117;
-            --primary-purple: #7C3AED;
-            --text-primary: #F0F6FC;
-            --text-secondary: #8B949E;
-            --border-color: #30363D;
+            --bg-color: #000000;
+            --primary-yellow: #FFD133;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #222222;
+            --card-bg: #111111;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
@@ -24,10 +26,11 @@
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
+
         header {
             padding: 20px 0;
             position: sticky; top: 0; width: 100%;
-            background: rgba(13, 17, 23, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px); z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
@@ -39,17 +42,34 @@
             font-weight: 800; font-size: 1.8rem;
             color: var(--text-primary); text-decoration: none;
         }
+        .logo span { color: var(--primary-yellow); }
+
         nav { display: flex; align-items: center; gap: 40px; }
         nav a {
             color: var(--text-secondary); text-decoration: none;
             font-weight: 500; transition: color 0.2s ease;
         }
-        nav a:hover { color: var(--primary-purple); }
+        nav a:hover, nav a.active { color: var(--primary-yellow); }
+        .header-ctas a {
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: #000000;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+            margin-left: 10px;
+        }
+        .header-ctas a:hover { transform: translateY(-2px); }
+
         .container {
-            max-width: 800px; /* Optimal width for reading */
+            max-width: 800px;
             margin: 0 auto;
             padding: 80px 20px;
         }
+
         .blog-header { text-align: center; margin-bottom: 4rem; }
         .blog-header h1 {
             font-size: 3.5rem;
@@ -57,59 +77,75 @@
             font-weight: 800;
             margin-bottom: 1.5rem;
         }
-        .article-content h2 {
-            font-size: 2rem;
+
+        .article-content h2, .article-content h3 {
             font-weight: 700;
             margin-top: 3rem;
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border-color);
         }
+        .article-content h2 { font-size: 2rem; }
+        .article-content h3 { font-size: 1.5rem; }
+
         .article-content p, .article-content li {
             font-size: 1.15rem;
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
-        .article-content ul { padding-left: 20px; }
-        .article-content a { color: var(--primary-purple); text-decoration: none; }
+        .article-content ul, .article-content ol { padding-left: 25px; }
+        .article-content a { color: var(--primary-yellow); text-decoration: none; }
         .article-content a:hover { text-decoration: underline; }
+
         .callout {
-            background-color: #161B22;
-            border-left: 4px solid var(--primary-purple);
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--primary-yellow);
             padding: 1.5rem;
             margin: 2rem 0;
             border-radius: 8px;
         }
-        .callout p { margin-bottom: 0; }
+        .callout p { margin-bottom: 0; color: var(--text-primary); }
+
         .cta-section {
             text-align: center;
-            padding: 4rem;
+            padding: 4rem 2rem;
             margin-top: 4rem;
-            background-color: #161B22;
+            background-color: var(--card-bg);
             border-radius: 12px;
             border: 1px solid var(--border-color);
         }
-        .cta-section h2 { font-size: 2.2rem; border-bottom: none; }
+        .cta-section h2 { border-bottom: none; }
         .cta-button {
-            display: inline-block; background-color: var(--primary-purple); color: #FFFFFF;
-            font-size: 1rem; font-weight: 600; text-decoration: none;
-            padding: 14px 28px; border-radius: 8px;
-            transition: background-color 0.2s ease, transform 0.2s ease; margin-top: 1rem;
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: #000000;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 1rem;
         }
-        .cta-button:hover { background-color: #6D28D9; transform: translateY(-2px); }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 209, 51, 0.2);
+        }
+
         footer {
-            padding: 60px 0;
-            background-color: #161B22;
+            padding: 80px 0 40px 0;
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
-        .footer-content {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
-        }
         .footer-content p { margin: 0; color: var(--text-secondary); }
         .footer-legal { font-size: 0.9rem; margin-bottom: 1rem !important; }
-        .footer-links a { color: var(--text-secondary); text-decoration: none; margin: 0 10px; }
-        .footer-links a:hover { color: var(--primary-purple); }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover { color: var(--primary-yellow); }
 
         @media (max-width: 768px) {
             nav { display: none; }
@@ -121,21 +157,23 @@
 <body>
     <header>
         <div class="header-content">
-            <a href="/" class="logo">SilverBullet Pro</a>
+            <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
             <nav>
                 <a href="/#why-us">How It Works</a>
-                <a href="/#roi">ROI Calculator</a>
+                <a href="/#revenue-rescue-audit">AI Audit</a>
                 <a href="/#pricing">Pricing</a>
-                <a href="blog.html">Blog</a>
+                <a href="blog.html" class="active">Blog</a>
             </nav>
+            <div class="header-ctas">
+                <a href="/#revenue-rescue-audit">Start Your Audit</a>
+            </div>
         </div>
     </header>
     <main>
         <div class="container">
             <div class="blog-header">
-                <h1>Stop Losing High-Value Leads: How an AI Answering Service Transforms Your Client Intake</h1>
+                <h1>Stop Losing High-Value Leads: How AI Voicemail Triage Transforms Client Intake</h1>
             </div>
-
             <article class="article-content">
                 <h2>The £25,000 Missed Call: The Real Cost of Voicemail</h2>
                 <p>For a high-value professional firm, the "voicemail black hole" is a silent killer of revenue. A potential client, ready to instruct on a lucrative case or list a prime property, calls your office. You're in court, in a client meeting, or it's after hours. The call goes to a generic voicemail, and the opportunity hangs in the balance.</p>
@@ -160,35 +198,21 @@
                 <h2>How SilverBullet Pro Turns Missed Calls into Revenue</h2>
                 <p>Our system is built on a robust, three-step process designed for maximum impact and efficiency, delivering critical information in under 90 seconds.</p>
                 <ol>
-                    <li><strong>Instant Voicemail Capture & Transcription</strong><br>Every call missed to your dedicated virtual phone number is instantly captured. We then use state-of-the-art OpenAI Whisper API technology to produce a highly accurate transcription of the voicemail. No more struggling to decipher muffled messages.</li>
-                    <li><strong>AI-Powered Triage and Analysis</strong><br>This is where the magic happens. The transcription is sent to a custom-tuned Large Language Model (GPT-4) that has been trained to understand the specific needs of your business. It performs an intelligent triage, analyzing the message for urgency and business value to provide:
-                        <ul>
-                            <li><strong>Priority Level:</strong> (e.g., URGENT, LEAD, LOW)</li>
-                            <li><strong>Actionable Summary:</strong> A concise summary of the caller's needs.</li>
-                            <li><strong>Extracted Data:</strong> Automatically pulls out the caller's name, callback number, and business name.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Hybrid Delivery: Email Records & Instant WhatsApp Alerts</strong><br>We deliver the results through a powerful hybrid system:
-                        <ul>
-                            <li><strong>Email Summary:</strong> A professionally formatted email is sent for every voicemail, creating a complete record for your files.</li>
-                            <li><strong>Instant WhatsApp Alerts:</strong> For any message classified as "High Priority" or "LEAD," an alert is sent directly to your WhatsApp. This is the "house is on fire" notification that allows you to act immediately, wherever you are.</li>
-                        </ul>
-                    </li>
+                    <li><strong>Instant Capture & Transcription:</strong> Every missed call is captured and transcribed with state-of-the-art accuracy.</li>
+                    <li><strong>AI-Powered Triage and Analysis:</strong> Our custom-tuned AI analyzes the message for urgency and business value, extracting key data like name, number, and a concise summary.</li>
+                    <li><strong>Instant WhatsApp & Email Alerts:</strong> High-priority leads trigger an instant WhatsApp alert to the right person, while all messages are logged via email for your records.</li>
                 </ol>
-
-                <h2>Coming in V2: Full CRM Automation</h2>
-                <p>The next evolution of SilverBullet Pro will introduce interactive WhatsApp buttons. Accept a lead with a single tap, and the system will automatically create a new client record in your CRM, assign it to you, and notify your team. This is true workflow automation that closes the loop from first contact to client intake.</p>
                 
                 <div class="cta-section">
                     <h2>Don't Just Answer Calls—Action Them Instantly</h2>
-                    <p>Stop letting your most valuable opportunities slip through the cracks. It's time to upgrade from a passive voicemail system to an active, intelligent lead capture machine. Give your firm the competitive edge it deserves.</p>
-                    <a href="/#pricing" class="cta-button">Book a Private Demo</a>
+                    <p>Stop letting your most valuable opportunities slip through the cracks. It's time to upgrade from a passive voicemail system to an active, intelligent lead capture machine.</p>
+                    <a href="/#revenue-rescue-audit" class="cta-button">Start Your Revenue Rescue Audit</a>
                 </div>
             </article>
         </div>
     </main>
     <footer>
-        <div class="footer-content">
+        <div class="container footer-content">
             <p class="footer-legal">Silver Bullet Pro is a trading name of Oakbank Innovations Ltd.</p>
             <p>© 2025 SilverBullet Pro. All Rights Reserved.</p>
             <div class="footer-links">

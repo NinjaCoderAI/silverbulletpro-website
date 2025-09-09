@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — SilverBullet Pro</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #FFFFFF;
-            --primary-purple: #5A19FF;
-            --text-primary: #121212;
-            --text-secondary: #555555;
-            --border-color: #EAEAEA;
+            --bg-color: #000000;
+            --primary-yellow: #FFD133;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #222222;
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -24,7 +25,7 @@
         header {
             padding: 20px 0;
             position: sticky; top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px); z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
@@ -36,14 +37,17 @@
             font-weight: 800; font-size: 1.8rem;
             color: var(--text-primary); text-decoration: none;
         }
+        .logo span { color: var(--primary-yellow); }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 80px 20px;
         }
         h1, h2 {
-            color: var(--text-primary);
             margin-bottom: 1rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
         }
         h1 { font-size: 2.8rem; }
         h2 { font-size: 1.5rem; margin-top: 2rem; }
@@ -53,37 +57,26 @@
             margin-bottom: 1rem;
         }
         ul { padding-left: 20px; }
-        a { color: var(--primary-purple); }
+        a { color: var(--primary-yellow); }
+        strong { color: var(--text-primary); }
         footer {
-            padding: 60px 0;
-            background-color: #F9FAFB;
+            padding: 80px 0 40px 0;
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
-        .footer-content {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
-        }
+        .footer-content p { margin: 0; color: var(--text-secondary); }
     </style>
 </head>
 <body>
    <header>
         <div class="container header-content">
-            <a href="/" class="logo">SilverBullet Pro</a>
-            <nav>
-                <a href="/#why-us">How It Works</a>
-                <a href="/#roi">ROI Calculator</a>
-                <a href="/#pricing">Pricing</a>
-                <a href="blog.html">Blog</a>
-            </nav>
-            <div class="header-ctas">
-                <a href="/#pricing" class="cta-button">Get Started</a>
-            </div>
+            <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
         </div>
     </header>
     <main>
         <div class="container">
             <h1>Privacy Policy</h1>
-            <p><strong>Last Updated:</strong> August 26, 2025</p>
+            <p><strong>Last Updated:</strong> 26 August 2025</p>
 
             <h2>1. Introduction</h2>
             <p>Welcome to SilverBullet Pro ("we," "us," or "our"). We are committed to protecting the privacy of our clients and the data they process through our service. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered voicemail triage and routing service (the "Service").</p>
@@ -112,7 +105,7 @@
                 <li><strong>Twilio:</strong> Used for programmable voice services (to receive voicemails) and for delivering alerts via the WhatsApp Business API.</li>
                 <li><strong>OpenAI:</strong> Used for audio transcription (Whisper API) and generating intelligent summaries (GPT API). Data is processed in accordance with OpenAI's API data usage policies.</li>
                 <li><strong>Transactional Email Provider (e.g., Resend):</strong> Used to deliver email alerts and notifications.</li>
-                <li><strong>Cloud Hosting & Database Providers (e.g., Railway, Supabase):</strong> Used to host our application and store your data securely.</li>
+                <li><strong>Cloud Hosting & Database Providers (e.g., Vercel, Supabase):</strong> Used to host our application and store your data securely.</li>
             </ul>
             <p>We ensure that all sub-processors are compliant with stringent data protection standards.</p>
 
@@ -129,21 +122,20 @@
                 <li>The right to <strong>data portability</strong>.</li>
                 <li>The right to <strong>object</strong> to processing.</li>
             </ul>
-            <p>To exercise these rights, please contact us at [Your Contact Email].</p>
+            <p>To exercise these rights, please contact us at privacy@silverbulletpro.com.</p>
 
             <h2>7. Changes to This Privacy Policy</h2>
             <p>We may update this policy from time to time. We will notify you of any significant changes by email or through the Service.</p>
 
             <h2>8. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, please contact us at:<br>
-            [SilverBullet Pro]<br>
-            [privacy@silverbulletpro.com]<br>
-            
+            SilverBullet Pro<br>
+            privacy@silverbulletpro.com<br>
         </div>
     </main>
     <footer>
-        <div class="footer-content">
-            <p>© 2025 SilverBullet Pro - OBI Ltd. All Rights Reserved.</p>
+        <div class="container footer-content">
+            <p>© 2025 SilverBullet Pro - Oakbank Innovations Ltd. All Rights Reserved.</p>
         </div>
     </footer>
 </body>
