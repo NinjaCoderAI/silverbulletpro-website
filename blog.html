@@ -48,8 +48,20 @@
         nav a {
             color: var(--text-secondary); text-decoration: none;
             font-weight: 500; transition: color 0.2s ease;
+            position: relative;
+            padding-bottom: 8px;
         }
-        nav a:hover, nav a.active { color: var(--primary-yellow); }
+        nav a:hover { color: var(--primary-yellow); }
+        nav a.active { color: var(--primary-yellow); }
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-yellow);
+        }
         .header-ctas a {
             display: inline-block;
             background-color: var(--primary-yellow);
@@ -70,12 +82,29 @@
             padding: 80px 20px;
         }
 
-        .blog-header { text-align: center; margin-bottom: 4rem; }
+        .blog-header { text-align: center; margin-bottom: 2rem; }
         .blog-header h1 {
             font-size: 3.5rem;
             line-height: 1.2;
             font-weight: 800;
             margin-bottom: 1.5rem;
+        }
+        .featured-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            font-size: 0.9rem;
         }
 
         .article-content h2, .article-content h3 {
@@ -93,7 +122,34 @@
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
-        .article-content ul, .article-content ol { padding-left: 25px; }
+        .article-content ul { padding-left: 25px; }
+        .article-content ol {
+            list-style: none;
+            counter-reset: styled-counter;
+            padding-left: 0;
+        }
+        .article-content ol li {
+            counter-increment: styled-counter;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ol li::before {
+            content: counter(styled-counter);
+            background: var(--primary-yellow);
+            color: var(--bg-color);
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            margin-top: 4px; /* Align with text */
+        }
         .article-content a { color: var(--primary-yellow); text-decoration: none; }
         .article-content a:hover { text-decoration: underline; }
 
@@ -165,7 +221,7 @@
                 <a href="blog.html" class="active">Blog</a>
             </nav>
             <div class="header-ctas">
-                <a href="/#revenue-rescue-audit">Start Your Audit</a>
+                <a href="/#revenue-rescue-audit" class="cta-button">Start Your Audit</a>
             </div>
         </div>
     </header>
@@ -174,8 +230,16 @@
             <div class="blog-header">
                 <h1>Stop Losing High-Value Leads: How AI Voicemail Triage Transforms Client Intake</h1>
             </div>
+            
+            <img class="featured-image" src="https://images.unsplash.com/photo-1587590227264-0ac64ce63ce8?q=80&w=2070&auto=format&fit=crop" alt="Abstract sound waves representing AI voice analysis">
+            
+            <div class="article-meta">
+                <p>Published on September 9, 2025</p>
+                <span>&bull;</span>
+                <p>3 min read</p>
+            </div>
+
             <article class="article-content">
-                <h2>The £25,000 Missed Call: The Real Cost of Voicemail</h2>
                 <p>For a high-value professional firm, the "voicemail black hole" is a silent killer of revenue. A potential client, ready to instruct on a lucrative case or list a prime property, calls your office. You're in court, in a client meeting, or it's after hours. The call goes to a generic voicemail, and the opportunity hangs in the balance.</p>
                 <div class="callout">
                     <p>By the time you listen to that message, the lead has already called three of your competitors. The first one to respond wins the business. This isn't just a missed call; it's a lost lead and a direct hit to your bottom line.</p>
@@ -191,16 +255,12 @@
                 </ul>
                 <p>The challenge is clear: you need a system that can instantly capture, analyze, and action every potential opportunity, 24/7.</p>
 
-                <h2>The Solution: An Intelligent, Automated Client Intake System</h2>
-                <p>Imagine a system that acts as your firm's perfect front-of-house. It never misses a call and has the intelligence to understand exactly what the caller needs, instantly. This is the power of an AI answering service designed specifically for high-value professional firms.</p>
-                <p>SilverBullet Pro is a "done-for-you" automated client intake platform that transforms your missed calls from a liability into an asset. We don't just record messages; we provide an end-to-end lead management solution.</p>
-
                 <h2>How SilverBullet Pro Turns Missed Calls into Revenue</h2>
                 <p>Our system is built on a robust, three-step process designed for maximum impact and efficiency, delivering critical information in under 90 seconds.</p>
                 <ol>
-                    <li><strong>Instant Capture & Transcription:</strong> Every missed call is captured and transcribed with state-of-the-art accuracy.</li>
-                    <li><strong>AI-Powered Triage and Analysis:</strong> Our custom-tuned AI analyzes the message for urgency and business value, extracting key data like name, number, and a concise summary.</li>
-                    <li><strong>Instant WhatsApp & Email Alerts:</strong> High-priority leads trigger an instant WhatsApp alert to the right person, while all messages are logged via email for your records.</li>
+                    <li><div><strong>Instant Capture & Transcription:</strong> Every missed call is captured and transcribed with state-of-the-art accuracy.</div></li>
+                    <li><div><strong>AI-Powered Triage and Analysis:</strong> Our custom-tuned AI analyzes the message for urgency and business value, extracting key data like name, number, and a concise summary.</div></li>
+                    <li><div><strong>Instant WhatsApp & Email Alerts:</strong> High-priority leads trigger an instant WhatsApp alert to the right person, while all messages are logged via email for your records.</div></li>
                 </ol>
                 
                 <div class="cta-section">
