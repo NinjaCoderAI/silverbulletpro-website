@@ -153,16 +153,24 @@
         /* Hero Section */
         .hero {
             padding: 120px 0;
-            text-align: center;
+            text-align: left; /* Changed to left for the new layout */
         }
         
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem; /* Added gap between text and image */
+        }
+
         .hero-text {
-             max-width: 850px;
-             margin: 0 auto;
+             max-width: 600px; /* Constrained width for left column */
+             margin: 0; /* Reset margin */
         }
         
         .hero-text h1 {
             color: var(--text-primary);
+            text-align: left; /* Ensure text alignment for left column */
         }
         .hero-text h1 span {
             color: var(--primary-yellow);
@@ -170,15 +178,28 @@
         
         .hero-text p {
             font-size: 1.25rem;
-            max-width: 650px;
-            margin: 0 auto 2.5rem auto;
+            max-width: 600px; /* Constrained width for paragraph */
+            margin: 0 0 2.5rem 0; /* Adjusted margin */
             color: var(--text-secondary);
+            text-align: left; /* Ensure text alignment for left column */
         }
         
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
+            justify-content: flex-start; /* Aligned buttons to the left */
+        }
+
+        .hero-image {
+            flex-shrink: 0; /* Prevent image from shrinking */
+            max-width: 500px; /* Max width for the image */
+            width: 100%; /* Make image responsive */
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Remove extra space below image */
         }
         
         /* Why Us Section */
@@ -543,6 +564,11 @@
             .features-grid, .roi-content, .audit-content-wrapper { grid-template-columns: 1fr; }
             .audit-description h2 { text-align: center; }
             .audit-cta-card { margin-top: 3rem; }
+            .hero .container { flex-direction: column; text-align: center; }
+            .hero-text { max-width: 100%; }
+            .hero-text h1, .hero-text p { text-align: center; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { order: -1; margin-bottom: 40px; } /* Image above text on mobile */
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
@@ -575,12 +601,17 @@
 
     <main>
         <section class="hero">
-            <div class="hero-text">
-                <h1>Never Miss A <span>Hot Lead</span> Again.</h1>
-                <p>SilverBullet Pro is your 24/7 speed-to-lead advantage. Our system finds the urgent opportunities buried in your voicemail <em>instantly</em>, ensuring you're the first to respond to every high-value inquiry.</p>
-                <div class="hero-buttons">
-                     <a href="#revenue-rescue-audit" class="cta-button">Start Your Revenue Audit</a>
-                     <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
+            <div class="container">
+                <div class="hero-text">
+                    <h1>Never Miss A <span>Hot Lead</span> Again.</h1>
+                    <p>SilverBullet Pro is your 24/7 speed-to-lead advantage. Our system finds the urgent opportunities buried in your voicemail <em>instantly</em>, ensuring you're the first to respond to every high-value inquiry.</p>
+                    <div class="hero-buttons">
+                         <a href="#revenue-rescue-audit" class="cta-button">Start Your Revenue Audit</a>
+                         <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://i.imgur.com/QhM1b6j.png" alt="SilverBullet Pro Voicemail Triage in action on mobile devices">
                 </div>
             </div>
         </section>
