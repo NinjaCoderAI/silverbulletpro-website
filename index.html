@@ -150,27 +150,49 @@
             margin-left: 10px;
         }
 
-        /* Hero Section */
+        /* Hero Section - UPDATED FOR VIDEO */
         .hero {
-            padding: 120px 0;
-            text-align: left; /* Changed to left for the new layout */
+            padding: 160px 0; /* Increased padding for more vertical space */
+            position: relative;
+            overflow: hidden;
+            text-align: center;
         }
         
-        .hero .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem; /* Added gap between text and image */
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
         }
 
+        .hero::after { /* Dark overlay for text readability */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 3; /* Ensure content is above video and overlay */
+        }
+        
         .hero-text {
-             max-width: 600px; /* Constrained width for left column */
-             margin: 0; /* Reset margin */
+            max-width: 850px;
+            margin: 0 auto;
         }
         
         .hero-text h1 {
             color: var(--text-primary);
-            text-align: left; /* Ensure text alignment for left column */
         }
         .hero-text h1 span {
             color: var(--primary-yellow);
@@ -178,28 +200,16 @@
         
         .hero-text p {
             font-size: 1.25rem;
-            max-width: 600px; /* Constrained width for paragraph */
-            margin: 0 0 2.5rem 0; /* Adjusted margin */
-            color: var(--text-secondary);
-            text-align: left; /* Ensure text alignment for left column */
+            max-width: 650px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--text-primary); /* Changed to white for better contrast on video */
+            opacity: 0.9;
         }
         
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: flex-start; /* Aligned buttons to the left */
-        }
-
-        .hero-image {
-            flex-shrink: 0; /* Prevent image from shrinking */
-            max-width: 500px; /* Max width for the image */
-            width: 100%; /* Make image responsive */
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            display: block; /* Remove extra space below image */
+            justify-content: center;
         }
         
         /* Why Us Section */
@@ -564,11 +574,6 @@
             .features-grid, .roi-content, .audit-content-wrapper { grid-template-columns: 1fr; }
             .audit-description h2 { text-align: center; }
             .audit-cta-card { margin-top: 3rem; }
-            .hero .container { flex-direction: column; text-align: center; }
-            .hero-text { max-width: 100%; }
-            .hero-text h1, .hero-text p { text-align: center; }
-            .hero-buttons { justify-content: center; }
-            .hero-image { order: -1; margin-bottom: 40px; } /* Image above text on mobile */
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
@@ -578,6 +583,7 @@
             .pricing-tiers, .faq-grid { grid-template-columns: 1fr; }
             .tier.highlight { transform: scale(1); }
             .roi-summary { grid-template-columns: 1fr; gap: 1.5rem; }
+            .hero { padding: 120px 0; }
         }
     </style>
 </head>
@@ -601,6 +607,10 @@
 
     <main>
         <section class="hero">
+            <video id="hero-video" autoplay loop muted playsinline poster="images/hero-image.png">
+                <source src="images/SilverBullet-HeroImage.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             <div class="container">
                 <div class="hero-text">
                     <h1>Never Miss A <span>Hot Lead</span> Again.</h1>
@@ -609,9 +619,6 @@
                          <a href="#revenue-rescue-audit" class="cta-button">Start Your Revenue Audit</a>
                          <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
                     </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://i.imgur.com/QhM1b6j.png" alt="SilverBullet Pro Voicemail Triage in action on mobile devices">
                 </div>
             </div>
         </section>
