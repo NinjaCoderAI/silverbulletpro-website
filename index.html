@@ -229,6 +229,8 @@
             border-radius: 12px;
             border: 1px solid var(--border-color);
             transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .feature-card:hover {
@@ -239,6 +241,28 @@
         .feature-card h3 {
             color: var(--text-primary);
             margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            flex-grow: 1; /* Pushes the stat down */
+        }
+        
+        .stat-highlight {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-highlight .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            line-height: 1;
+        }
+        
+        .stat-highlight .stat-description {
+            font-size: 1rem;
+            margin-bottom: 0;
         }
 
         /* Testimonials Section */
@@ -706,19 +730,31 @@
         <section id="why-us" class="why-us">
             <div class="container">
                 <h2>Why Our Triage Wins More Business</h2>
-                <p class="section-subtitle">We go beyond simple transcription to deliver a fully managed, intelligent lead routing service that gives you an immediate competitive advantage.</p>
+                <p class="section-subtitle">We go beyond simple transcription to deliver an intelligent lead routing service that gives you an immediate, measurable competitive advantage.</p>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <h3>Intelligence That Understands Your Firm</h3>
-                        <p>Our AI isn't generic. We tune it to recognise the specific language, urgency, and value signals of your industry and firm.</p>
-                    </div>
                     <div class="feature-card">
                         <h3>From Voicemail to Action in Seconds</h3>
                         <p>High-priority leads are routed directly to the right professional's WhatsApp for immediate action. The speed of response wins clients.</p>
+                        <div class="stat-highlight">
+                            <div class="stat-number">391%</div>
+                            <p class="stat-description">Higher conversion rate for leads contacted within the first minute.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Be The First and Only Response</h3>
+                        <p>Capture the majority of the market by simply being the fastest. Our system ensures you're always first in line for every opportunity.</p>
+                        <div class="stat-highlight">
+                            <div class="stat-number">78%</div>
+                            <p class="stat-description">Of buyers choose the first company that responds, regardless of price.</p>
+                        </div>
                     </div>
                     <div class="feature-card">
                         <h3>A Bespoke System, Not a DIY App</h3>
-                        <p>We handle all setup, integrations, and ongoing support. This is a fully managed, white-glove service for serious firms.</p>
+                        <p>We handle all setup, integrations, and ongoing support. This is a fully managed, white-glove service for serious firms who value their time.</p>
+                         <div class="stat-highlight">
+                            <div class="stat-number">24/7</div>
+                            <p class="stat-description">Lead capture and qualification, turning your voicemail into your hardest-working employee.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1021,7 +1057,7 @@
             <div class="container">
                  <h2>Ready to Stop Leaking Revenue?</h2>
                  <p class="section-subtitle">Start the process today with a no-obligation introductory call to see if the Revenue Rescue AI Audit is right for your firm.</p>
-                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book a Free Intro Call</a>
+                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Free Intro Call</a>
             </div>
         </section>
     </main>
@@ -1104,4 +1140,3 @@
     
 </body>
 </html>
-```
