@@ -244,7 +244,7 @@
         }
 
         .feature-card p {
-            flex-grow: 1; /* Pushes the stat down */
+            flex-grow: 1;
         }
         
         .stat-highlight {
@@ -341,87 +341,83 @@
         /* Revenue Rescue AI Audit Section */
         .revenue-rescue-section {
             border-top: 1px solid var(--border-color);
-            background-color: var(--card-bg);
+            background-color: var(--bg-color);
         }
+
         .audit-content-wrapper {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
             gap: 4rem;
             align-items: center;
         }
+
         .audit-description h2 {
             text-align: left;
+            font-size: 3.5rem;
         }
+
         .audit-description p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            max-width: 90%;
         }
-        .audit-steps {
+        
+        .scarcity-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-yellow);
+            padding: 1.5rem;
             margin-top: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            border-radius: 8px;
         }
-        .audit-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
+
+        .scarcity-block p {
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
         }
-        .audit-step .icon {
-            flex-shrink: 0;
-            background-color: var(--border-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .audit-step .icon svg {
-            width: 24px;
-            height: 24px;
+        
+        .scarcity-block .spots-remaining {
+            font-weight: 700;
             color: var(--primary-yellow);
         }
-        .audit-step-text h3 {
-            margin-bottom: 0.25rem;
-            font-size: 1.15rem;
-            font-weight: 600;
-        }
-        .audit-step-text p {
-            margin-bottom: 0;
-            font-size: 1rem;
-        }
+
         .audit-cta-card {
-            background-color: var(--bg-color);
+            background-color: var(--card-bg);
             padding: 2.5rem;
             border-radius: 16px;
             border: 1px solid var(--border-color);
             text-align: center;
         }
+
         .audit-cta-card h3 {
             font-size: 1.5rem;
             font-weight: 700;
         }
+
         .audit-cta-card .price {
             font-size: 3.5rem;
             font-weight: 800;
             color: var(--primary-yellow);
             margin: 1rem 0 0.5rem;
         }
+
         .audit-cta-card .price-clarifier {
             color: var(--text-secondary);
             margin-top: -0.5rem;
             margin-bottom: 2rem;
         }
+
         .audit-cta-card .cta-button {
             width: 100%;
-            margin-top: 1rem;
         }
+
         .audit-cta-card ul {
             list-style: none;
             text-align: left;
             margin-top: 2rem;
             margin-bottom: 2rem;
         }
+
         .audit-cta-card ul li {
             margin-bottom: 1rem;
             display: flex;
@@ -430,10 +426,24 @@
             font-size: 1rem;
             color: var(--text-secondary);
         }
+
         .audit-cta-card ul li svg {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
+            color: var(--primary-yellow);
+        }
+
+        .direct-purchase-link {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .direct-purchase-link:hover {
             color: var(--primary-yellow);
         }
         
@@ -809,36 +819,11 @@
             <div class="container">
                 <div class="audit-content-wrapper">
                     <div class="audit-description">
-                        <h2>Revenue Rescue AI Audit</h2>
-                        <p>Before you subscribe, we prove our value. Our one-time audit is the essential first step to plugging your revenue leaks. We analyze your current lead capture process, quantify the exact financial cost of missed opportunities, and deliver a strategic roadmap to turn your voicemails into a revenue-generating asset.</p>
-                        <div class="audit-steps">
-                            <div class="audit-step">
-                                <div class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
-                                </div>
-                                <div class="audit-step-text">
-                                    <h3>1. Deep Discovery & Analysis</h3>
-                                    <p>We conduct a thorough analysis of your current client intake process, call flows, and technology stack.</p>
-                                </div>
-                            </div>
-                            <div class="audit-step">
-                                <div class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12.75h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" /></svg>
-                                </div>
-                                <div class="audit-step-text">
-                                    <h3>2. Financial Modeling</h3>
-                                    <p>We use your firm's data to build a precise financial model calculating the exact cost of your leaked revenue.</p>
-                                </div>
-                            </div>
-                            <div class="audit-step">
-                                <div class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                </div>
-                                <div class="audit-step-text">
-                                    <h3>3. Revenue Roadmap Delivery</h3>
-                                    <p>You receive a comprehensive 'Revenue Rescue Roadmap'—a tangible asset outlining the problem and a clear path to a solution.</p>
-                                </div>
-                            </div>
+                        <h2>Find Your Leaked Revenue. Guaranteed.</h2>
+                        <p>Our Revenue Rescue AI Audit is the single most powerful diagnostic tool for your firm's growth. We provide a data-backed, undeniable report that precisely quantifies your leaked revenue, turning your biggest liability into your most profitable asset.</p>
+                        <div class="scarcity-block">
+                            <p>To ensure the highest quality of analysis, we only conduct <strong>10 audits per month.</strong></p>
+                            <p class="spots-remaining">There are 3 spots remaining for September.</p>
                         </div>
                     </div>
                     <div class="audit-cta-card">
@@ -849,9 +834,10 @@
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Full Intake Process Audit</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Revenue Leakage Report</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Custom Implementation Plan</li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Actionable Revenue Roadmap</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Unlocks a 90-Day Paid Pilot</li>
                         </ul>
                         <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book a Free Intro Call</a>
+                        <a href="https://buy.stripe.com/4gM14n67EcJg3Jlgm97ss03" target="_blank" class="direct-purchase-link">Or, purchase your audit directly to get started now →</a>
                     </div>
                 </div>
             </div>
@@ -882,7 +868,7 @@
                                 <label for="avgClientValue">Average Value of a New Client (£)</label>
                                 <span id="avgClientValueValue" class="slider-value">£5,000</span>
                             </div>
-                            <input type="range" id="avgClientValue" min="500" max="50000" step="500" value="5000">
+                            <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="5000">
                         </div>
                     </div>
                     <div class="roi-results">
@@ -917,7 +903,7 @@
         <section id="pricing" class="pricing">
             <div class="container">
                 <h2>Simple, High-Value Pricing</h2>
-                <p class="section-subtitle">A premium, done-for-you service tailored to your firm's structure. All plans are preceded by the Revenue Rescue AI Audit and include our white-glove setup.</p>
+                <p class="section-subtitle">All plans are available after completing the Revenue Rescue AI Audit, which unlocks access to a 90-day paid pilot to prove our value.</p>
                 <div class="pricing-tiers">
                     <div class="tier">
                         <h3>🚀 Complete</h3>
@@ -977,27 +963,6 @@
             </div>
         </section>
 
-        <section id="compliance" class="compliance">
-            <div class="container">
-                <h2>Secure, Compliant & Enterprise-Ready</h2>
-                <p class="section-subtitle">We set the standard for secure business automation, giving CTOs and compliance officers the robust data protection and transparent oversight they demand.</p>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h3>Data Privacy & Security</h3>
-                        <p>Full GDPR compliance (consent, access, erasure), data residency options, and single sign-on with full audit logs.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Audit & Risk Mitigation</h3>
-                        <p>Human-readable explanations of AI decisions, automated compliance checks, and risk-aware escalation and routing.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Technical Account Management</h3>
-                        <p>Deep integrations with your existing CRMs, dedicated success manager, and custom onboarding for your team.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="faq" class="faq-section">
             <div class="container">
                 <div class="faq-header">
@@ -1015,6 +980,15 @@
                     </div>
                      <div class="faq-item">
                         <div class="faq-question">
+                            <h3>What happens after the audit?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Once the audit proves the business case, we move to a 90-day paid pilot. This allows you to validate our solution in your live environment with your core team, with zero long-term commitment. After a successful pilot, we seamlessly transition to a 12-month partnership.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
                             <h3>Do you integrate with our existing VoIP/phone system?</h3>
                             <span class="icon">+</span>
                         </div>
@@ -1029,15 +1003,6 @@
                         </div>
                         <div class="faq-answer">
                             <p>Our white-glove setup service typically gets you live within 3-5 business days after the audit is complete. This includes number setup, AI tuning, and integration with your systems.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>How does the AI understand our specific business needs?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Our AI is not generic. During onboarding, we tune it using specific examples and language relevant to your industry and firm, ensuring it accurately identifies urgency, client value, and key instructions.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1093,6 +1058,7 @@
         const ANNUAL_COST = 11988; 
 
         function calculateROI() {
+            if (!missedCallsSlider) return;
             const missedCalls = parseInt(missedCallsSlider.value);
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
