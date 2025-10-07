@@ -851,15 +851,15 @@
         <section id="roi" class="roi-calculator">
             <div class="container">
                 <h2>Calculate Your Potential ROI</h2>
-                <p class="section-subtitle">Use our interactive calculator to see how converting missed calls into captured leads can impact your firm's bottom line.</p>
+                <p class="section-subtitle">Even one missed high-value call a day can have a huge impact. Slide the numbers below to model your firm's potential leaked revenue.</p>
                 <div class="roi-content">
                     <div class="roi-inputs">
                         <div class="slider-group">
                             <div class="label-container">
-                                <label for="missedCalls">Potential High-Value Missed Calls / Month</label>
-                                <span id="missedCallsValue" class="slider-value">5</span>
+                                <label for="missedCalls">Potential High-Value Missed Calls / Day</label>
+                                <span id="missedCallsValue" class="slider-value">1</span>
                             </div>
-                            <input type="range" id="missedCalls" min="1" max="50" value="5">
+                            <input type="range" id="missedCalls" min="1" max="25" value="1">
                         </div>
                         <div class="slider-group">
                             <div class="label-container">
@@ -890,7 +890,7 @@
                  <div class="roi-summary">
                     <div>
                         <h4>Annual Cost of SilverBullet Pro</h4>
-                        <p>£11,988</p>
+                        <p>£13,987</p>
                         <span>(Solo Professional Plan)</span>
                     </div>
                     <div>
@@ -1062,17 +1062,22 @@
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
         const ANNUAL_COST = 11988; 
 
-        function calculateROI() {
+   function calculateROI() {
             if (!missedCallsSlider) return;
-            const missedCalls = parseInt(missedCallsSlider.value);
+            const missedCallsPerDay = parseInt(missedCallsSlider.value);
+            const monthlyMissedCalls = missedCallsPerDay * 30; // Convert daily to monthly
+            
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
-            const capturedLeads = missedCalls * (conversionRate / 100);
+
+            const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
             const roiMultiple = annualRevenue / ANNUAL_COST;
+
             const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
-            missedCallsValue.textContent = missedCalls;
+            
+            missedCallsValue.textContent = missedCallsPerDay;
             conversionRateValue.textContent = `${conversionRate}%`;
             avgClientValueValue.textContent = currencyFormatter.format(avgClientValue);
             monthlyRevenueOutput.textContent = currencyFormatter.format(monthlyRevenue);
