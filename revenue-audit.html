@@ -52,12 +52,6 @@
             padding: 0 20px;
         }
 
-        h1, h2, h3 {
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
-
         h2 { font-size: 3.5rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; }
 
         p {
@@ -154,17 +148,21 @@
             border: 1px solid var(--border-color);
         }
         
-        .roi-results .result-item {
-            margin-bottom: 1.5rem;
+        .result-item {
+            margin-bottom: 2rem;
+        }
+        .result-item:last-child {
+            margin-bottom: 0;
         }
 
-        .roi-results .result-label {
+        .result-label {
             color: var(--text-secondary);
             font-weight: 500;
             margin-bottom: 0.25rem;
+            font-size: 1rem;
         }
         
-        .roi-results .result-value {
+        .result-value {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--primary-yellow);
@@ -185,12 +183,14 @@
             color: var(--text-secondary);
             font-weight: 500;
             margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
         
         .roi-summary p {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
+            margin-bottom: 0;
         }
         
         .roi-inputs {
@@ -205,6 +205,53 @@
             align-items: center;
             margin-bottom: 0.75rem;
             font-weight: 500;
+        }
+
+        .label-container .label-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 18px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tooltip-icon .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            text-align: left;
+            border-radius: 6px;
+            padding: 1rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .tooltip-icon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
 
         .slider-group .slider-value {
@@ -279,7 +326,7 @@
         <div class="container header-content">
             <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
             <div class="header-ctas">
-                <a href="/#revenue-rescue-audit" class="cta-button">Book Free Audit</a>
+                <a href="/#revenue-rescue-audit" class="cta-button">Book Audit</a>
             </div>
         </div>
     </header>
@@ -288,39 +335,45 @@
         <div class="calculator-wrapper">
             <div class="container">
                 <h2>Calculate Your Leaked Revenue</h2>
-                <p class="section-subtitle">Even one missed high-value call a day can have a huge impact. Slide the numbers below to model your firm's potential lost revenue.</p>
+                <p class="section-subtitle">Even one missed opportunity a day can have a huge impact. Slide the numbers to build a business case for your firm.</p>
                 <div class="roi-content">
                     <div class="roi-inputs">
                         <div class="slider-group">
                             <div class="label-container">
-                                <label for="missedCalls">Potential High-Value Missed Calls / Day</label>
+                                <div class="label-text">
+                                    <label for="missedCalls">Your Estimated Missed Calls / Day</label>
+                                    <div class="tooltip-icon">i<span class="tooltip-text">Consider calls after-hours, when lines are busy, or during staff lunches. A conservative starting estimate might be 1-2 per day for a busy firm.</span></div>
+                                </div>
                                 <span id="missedCallsValue" class="slider-value">1</span>
                             </div>
                             <input type="range" id="missedCalls" min="1" max="50" value="1">
                         </div>
                         <div class="slider-group">
                             <div class="label-container">
-                                <label for="conversionRate">Lead-to-Client Conversion Rate (%)</label>
-                                <span id="conversionRateValue" class="slider-value">20%</span>
+                                 <div class="label-text">
+                                    <label for="conversionRate">Your Team's Typical Conversion Rate (%)</label>
+                                    <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified inbound leads does your sales team typically close? For warm calls, industry averages often range from 10% to 25%.</span></div>
+                                </div>
+                                <span id="conversionRateValue" class="slider-value">15%</span>
                             </div>
-                            <input type="range" id="conversionRate" min="5" max="75" value="20">
+                            <input type="range" id="conversionRate" min="5" max="75" value="15">
                         </div>
                         <div class="slider-group">
                             <div class="label-container">
                                 <label for="avgClientValue">Average Value of a New Client (£)</label>
-                                <span id="avgClientValueValue" class="slider-value">£5,000</span>
+                                <span id="avgClientValueValue" class="slider-value">£70,000</span>
                             </div>
-                            <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="5000">
+                            <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="70000">
                         </div>
                     </div>
                     <div class="roi-results">
                         <div class="result-item">
                             <div class="result-label">Additional Monthly Revenue</div>
-                            <div class="result-value" id="monthlyRevenueOutput">£5,000</div>
+                            <div class="result-value" id="monthlyRevenueOutput">£315,000</div>
                         </div>
                          <div class="result-item">
                             <div class="result-label">Captured Monthly Clients</div>
-                            <div class="result-value" id="capturedLeadsOutput">1</div>
+                            <div class="result-value" id="capturedLeadsOutput">4.5</div>
                         </div>
                     </div>
                 </div>
@@ -332,11 +385,11 @@
                     </div>
                     <div>
                         <h4>Additional Annual Revenue</h4>
-                        <p id="annualRevenueOutput">£60,000</p>
+                        <p id="annualRevenueOutput">£3,780,000</p>
                     </div>
                      <div>
-                        <h4>ROI Multiple</h4>
-                        <p id="roiMultipleOutput">4.3x</p>
+                        <h4>Annual ROI Multiple</h4>
+                        <p id="roiMultipleOutput">269.2x</p>
                     </div>
                 </div>
                 <div class="final-cta">
@@ -363,36 +416,47 @@
         const missedCallsSlider = document.getElementById('missedCalls');
         const conversionRateSlider = document.getElementById('conversionRate');
         const avgClientValueSlider = document.getElementById('avgClientValue');
+        
         const missedCallsValue = document.getElementById('missedCallsValue');
         const conversionRateValue = document.getElementById('conversionRateValue');
         const avgClientValueValue = document.getElementById('avgClientValueValue');
+        
         const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
+        
         const ANNUAL_COST = 13987; // Based on Solo Pro (£999 * 12 + £1999 setup)
 
         function calculateROI() {
             if (!missedCallsSlider) return;
+
             const missedCallsPerDay = parseInt(missedCallsSlider.value);
-            const monthlyMissedCalls = missedCallsPerDay * 30;
-            
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
-
+            
+            const monthlyMissedCalls = missedCallsPerDay * 30;
             const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
-            const roiMultiple = annualRevenue / ANNUAL_COST;
-
-            const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
             
+            // Correct ROI Formula: (Net Gain / Cost)
+            const netProfit = annualRevenue - ANNUAL_COST;
+            const roiMultiple = (ANNUAL_COST > 0) ? netProfit / ANNUAL_COST : 0;
+            
+            const currencyFormatter = (value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }).format(value);
+            
+            // Update UI
             missedCallsValue.textContent = missedCallsPerDay;
             conversionRateValue.textContent = `${conversionRate}%`;
-            avgClientValueValue.textContent = currencyFormatter.format(avgClientValue);
-            monthlyRevenueOutput.textContent = currencyFormatter.format(monthlyRevenue);
+            avgClientValueValue.textContent = currencyFormatter(avgClientValue);
+
+            // Update Results Box
+            monthlyRevenueOutput.textContent = currencyFormatter(monthlyRevenue);
             capturedLeadsOutput.textContent = capturedLeads.toFixed(1);
-            annualRevenueOutput.textContent = currencyFormatter.format(annualRevenue);
+            
+            // Update Summary Boxes
+            annualRevenueOutput.textContent = currencyFormatter(annualRevenue);
             roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`;
         }
 
