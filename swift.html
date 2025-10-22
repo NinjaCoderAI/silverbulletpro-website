@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y72NK9S6TS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-Y72NK9S6TS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilverBullet Pro: Swift — AI Voicemail Assistant</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
+    <meta name="description" content="Stop losing jobs to voicemail. Our AI listens to your voicemails, finds the urgent leads, and sends instant alerts via Email & WhatsApp so you can call back first.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --primary-yellow: #FFD133;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #222222;
+            --card-bg: #111111;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 4rem; letter-spacing: -0.03em; }
+        h2 { font-size: 3rem; letter-spacing: -0.02em; text-align: center; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.25rem; }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: -1rem auto 4rem auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-yellow);
+            color: #000000;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid var(--primary-yellow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 209, 51, 0.2);
+        }
+        
+        /* Simplified Header */
+        header {
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary-yellow); }
+
+        .header-ctas a {
+            margin-left: 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero-text {
+             max-width: 750px;
+             margin: 0 auto;
+        }
+        
+        .hero-text h1 {
+            color: var(--text-primary);
+        }
+        .hero-text h1 span {
+            color: var(--primary-yellow);
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--text-secondary);
+        }
+        
+        /* Problem Section */
+        .problem-section {
+             border-top: 1px solid var(--border-color);
+             background-color: var(--card-bg);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .problem-card {
+            text-align: center;
+        }
+        
+        .problem-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-yellow);
+        }
+        
+        /* Solution Section */
+        .solution-section {
+            border-top: 1px solid var(--border-color);
+        }
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .solution-image img {
+            width: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+        .how-it-works-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .step-card {
+            background-color: var(--bg-color);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .step-card .step-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            margin-bottom: 0.5rem;
+        }
+        .step-card h4 {
+            margin-bottom: 0.5rem;
+        }
+        .step-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        .disclaimer-box {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-yellow);
+            padding: 1.5rem;
+            margin-top: 3rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .disclaimer-box p {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Who Is It For Section */
+        .who-is-it-for {
+            border-top: 1px solid var(--border-color);
+        }
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .who-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .who-card svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary-yellow);
+            flex-shrink: 0;
+        }
+        .who-card h4 {
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Features Section */
+        .features-section {
+             border-top: 1px solid var(--border-color);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .feature-card svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+        }
+        .feature-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+        .pricing-card-swift {
+            background-color: var(--bg-color);
+            border-radius: 16px;
+            border: 2px solid var(--primary-yellow);
+            padding: 3rem;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .pricing-card-swift h3 {
+            font-size: 2rem;
+        }
+        .pricing-card-swift .price {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            margin: 0.5rem 0 0.5rem 0;
+        }
+        .pricing-card-swift .price span {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        .pricing-card-swift .cancel-anytime {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: -1rem;
+            margin-bottom: 2rem;
+        }
+        .pricing-card-swift ul {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+        .pricing-card-swift ul li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        .pricing-card-swift ul li svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-yellow);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            border-top: 1px solid var(--border-color);
+        }
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+        .faq-question:hover { color: var(--primary-yellow); }
+        .faq-question .icon {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            transition: transform 0.2s ease;
+        }
+        .faq-item.active .faq-question .icon { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 2rem 1.5rem 2rem;
+        }
+        .faq-answer p { color: var(--text-secondary); margin-bottom: 0; line-height: 1.7; }
+
+        /* Footer */
+        footer { 
+            padding: 80px 0 40px 0; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color);
+        }
+        .footer-content p { margin: 0; color: var(--text-secondary); }
+        .footer-legal { font-size: 0.9rem; margin-bottom: 1rem !important; }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover { color: var(--primary-yellow); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            section { padding: 80px 0; }
+            .problem-grid, .how-it-works-steps, .features-grid, .who-grid { grid-template-columns: 1fr; }
+            .solution-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
+            <div class="header-ctas">
+                <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Sign Up Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Stop Losing Jobs to Voicemail. Get <span>Instant AI Lead Alerts.</span></h1>
+                <p>Our AI listens to your voicemails, finds the urgent jobs, and sends instant alerts via Email & WhatsApp so you can call back first.</p>
+                <div class="hero-buttons">
+                     <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Start Catching Leads Today</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-section">
+            <div class="container">
+                <h2>How much money is hiding in your voicemail?</h2>
+                <p class="section-subtitle">Every missed call is a potential high-value job lost to a competitor who answered the phone. Your voicemail box is full of lost opportunities.</p>
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h4>You waste time</h4>
+                        <p>Wasting time listening to spam, sales pitches, and non-urgent messages just to find the one real lead.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.091 1.21-.138 2.43-.138 3.662a48.64 48.64 0 000 7.324 4.006 4.006 0 003.7 3.7 48.678 48.678 0 007.324 0 4.006 4.006 0 003.7-3.7c.091-1.21.138-2.43.138-3.662zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" /></svg>
+                        </div>
+                        <h4>You miss leads</h4>
+                        <p>Missing urgent calls while you're on a job, with a client, or after hours. By the time you call back, they're gone.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 10-8.5 0v6.188a3.75 3.75 0 107.5 0V7.756zM12.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5z" /></svg>
+                        </div>
+                        <h4>You lose money</h4>
+                        <p>78% of buyers choose the first company that responds. If you're not first, you're not getting the business.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="solution-section">
+            <div class="container">
+                <div class="solution-content">
+                    <div>
+                        <h2>SilverBullet Swift: Your 24/7 AI Receptionist</h2>
+                        <p>SilverBullet Pro: Swift is a simple, powerful tool that turns your voicemail from a liability into a lead-generating machine.</p>
+                        <p>It connects to your existing phone's voicemail system and uses AI to instantly analyze every message. It identifies genuine leads, flags them as urgent, and sends you an alert so you can stop what you're doing and secure the business.</p>
+                    </div>
+                    <div class="solution-image">
+                        <img src="https://images.unsplash.com/photo-1581155355209-a3d3a06a8e32?q=80&w=1974&auto=format&fit=crop" alt="Tradesperson checking an instant lead alert on their phone on a job site.">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2>Get Set Up in 3 Simple Steps</h2>
+                <p class="section-subtitle">No complex integrations. No need to change your phone number. Just connect your existing voicemail system and go.</p>
+                <div class="how-it-works-steps">
+                    <div class="step-card">
+                        <p class="step-number">Step 1</p>
+                        <h4>Sign Up</h4>
+                        <p>Click the link to sign up via Stripe. It's one simple, flat monthly fee. No hidden costs.</p>
+                    </div>
+                    <div class="step-card">
+                        <p class="step-number">Step 2</p>
+                        <h4>Get Your Unique Email</h4>
+                        <p>We'll email you a unique, private address (e.g., your-id@silverbullets.win) for our system.</p>
+                    </div>
+                    <div class="step-card">
+                        <p class="step-number">Step 3</p>
+                        <h4>Forward Your Voicemails</h4>
+                        <p>Set up one simple email forwarding rule to send your voicemail audio attachments to your new SilverBullet address.</p>
+                    </div>
+                </div>
+                <div class="disclaimer-box">
+                    <p><strong>Please note:</strong> Initial accounts are manually provisioned. Please allow up to 24 business hours after signup to receive your unique email address and setup instructions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="who-is-it-for">
+            <div class="container">
+                <h2>Perfect For Busy Trades & Solo Professionals</h2>
+                <p class="section-subtitle">If you rely on your phone for jobs, you can't afford to miss a call. Swift is built for you.</p>
+                <div class="who-grid">
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.83-5.83M11.42 15.17l.004-.004L14.996 11.6l-5.83-5.83a2.652 2.652 0 00-3.75 0l-5.83 5.83a2.652 2.652 0 000 3.75l5.83 5.83c1.04 1.04 2.71 1.04 3.75 0z" /></svg>
+                        <h4>Plumbers</h4>
+                    </div>
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+                        <h4>Electricians</h4>
+                    </div>
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.388c.527-1.105 1.662-2.004 2.884-2.47M11.25 15.75l-1.72-1.72m0 0l-1.72 1.72m1.72-1.72l1.72 1.72m0 0l1.72-1.72M11.25 15.75l1.72-1.72M14.25 8.25l-1.12-1.12M14.25 8.25L13.13 7.13m0 0l-1.12 1.12m1.12-1.12l1.12 1.12m0 0l-1.12 1.12M14.25 8.25L15.37 9.37m0 0l1.12-1.12M15.37 9.37l-1.12 1.12m0 0l1.12 1.12m-1.12-1.12L14.25 8.25" /></svg>
+                        <h4>Builders & Roofers</h4>
+                    </div>
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c1.35 0 2.463-.153 3.488-.431M12 21c-1.35 0-2.463-.153-3.488-.431M12 3a9.004 9.004 0 00-8.716 6.747M12 3a9.004 9.004 0 018.716 6.747M12 3c1.35 0 2.463.153 3.488.431M12 3C10.65 3.153 9.537 3 8.512 3M3 9.747a9.004 9.004 0 0018 0M3 9.747c.626.28 1.282.49 1.99.646M18 9.747c-.626.28-1.282.49-1.99.646M5.044 16.366c.3.3.624.56.968.782M18.956 16.366c-.3.3-.624.56-.968.782M5.044 7.634A8.966 8.966 0 0112 3c1.35 0 2.64.29 3.82.818M18.956 7.634A8.966 8.966 0 0012 3C10.65 3 9.36 2.71 8.18 2.182" /></svg>
+                        <h4>Landscapers</h4>
+                    </div>
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-1.5M6 21v-9M18 21v-9" /></svg>
+                        <h4>Solo Estate Agents</h4>
+                    </div>
+                    <div class="who-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.02a2.25 2.25 0 01-2.25 2.25H5.625a2.25 2.25 0 01-2.25-2.25v-4.02m16.5 0M20.25 14.15v-4.493a1.125 1.125 0 00-1.125-1.125h-1.5a1.125 1.125 0 00-1.125 1.125v4.493m-4.5 0v-4.493a1.125 1.125 0 00-1.125-1.125H9a1.125 1.125 0 00-1.125 1.125v4.493m-4.5 0v-4.493a1.125 1.125 0 00-1.125-1.125H3.375a1.125 1.125 0 00-1.125 1.125v4.493" /></svg>
+                        <h4>Consultants</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <h2>All The Power. None of the Hassle.</h2>
+                <p class="section-subtitle">Everything you need to stop losing leads and start winning more business.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" /></svg>
+                        <h4>AI-Powered Transcription</h4>
+                        <p>Know what every voicemail says without having to listen to it, all in a clean, readable text format.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048l5.962-5.962a.75.75 0 011.06 1.06l-5.962 5.962A6.75 6.75 0 0012 19.5a6.75 6.75 0 005.362-10.714l-5.362 5.362a.75.75 0 01-1.06-1.06l5.362-5.362z" /></svg>
+                        <h4>Instant Lead Identification</h4>
+                        <p>Our AI reads every message and instantly flags hot leads (LEAD) and urgent calls (URGENT) for you.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                        <h4>Email Summaries for All</h4>
+                        <p>Get a clean email summary and transcription for every single voicemail, creating a perfect audit trail.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+                        <h4>Instant WhatsApp Alerts</h4>
+                        <p>Never miss a hot lead again. Get an immediate alert sent straight to your phone for high-priority calls.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
+                        <h4>Works With Your Number</h4>
+                        <p>Keep the business number your customers already know and trust. There's no need to change anything.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        <h4>Simple Email Forwarding</h4>
+                        <p>If you can forward an email, you can set up SilverBullet Swift. No complex phone system changes required.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-section">
+            <div class="container">
+                <h2>Simple, No-Risk Pricing</h2>
+                <div class="pricing-card-swift">
+                    <h3>SilverBullet Pro: Swift</h3>
+                    <div class="price">£79.99<span>/month</span></div>
+                    <p class="cancel-anytime">No long-term contracts. Cancel anytime.</p>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> AI-Powered Voicemail Triage</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Instant WhatsApp & Email Alerts</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Full Transcription & Summaries</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Works with Your Existing Number</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Sign Up Now - £79.99/month</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do I need to change my phone number?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. You keep your existing business number that your customers already know and trust. Our system works by simply processing the voicemail notifications that your phone provider already sends to your email.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How does it connect to my phone?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>SilverBullet Swift connects to your phone's existing "voicemail-to-email" feature. Most modern providers (like O2, Vodafone, RingCentral, etc.) can send you an email with an MP3 audio file of a voicemail. You simply set up an automatic forwarding rule in your email to send those specific emails to us, and our AI handles the rest.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is it hard to set up?</h3>
+                            <span class="icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Not at all. If you can set up an email filter or forwarding rule (e.g., "forward all emails from 'voicemail@myprovider.com'"), you can set up SilverBullet Swift. We provide simple, step-by-step instructions after you sign up.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="footer-legal">Silver Bullet Pro is a trading name of Oakbank Innovations Ltd.</p>
+            <p>© 2025 SilverBullet Pro. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="terms.html">Terms of Service</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:hello@silverbulletpro.com">hello@silverbulletpro.com</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion Script
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const answer = item.querySelector('.faq-answer');
+                const currentlyActive = item.classList.contains('active');
+
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-answer').style.maxHeight = 0;
+                    el.querySelector('.icon').textContent = '+';
+                });
+
+                if (!currentlyActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    item.querySelector('.icon').textContent = '×';
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
