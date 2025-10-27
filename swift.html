@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro: Swift — AI Lead Alert System</title>
+    <title>SilverBullet Pro: Swift — AI Voicemail Assistant</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
     <meta name="description" content="Stop losing jobs to voicemail. Our AI listens to your voicemails, finds the urgent leads, and sends instant alerts via Email & WhatsApp so you can call back first.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,20 +133,15 @@
             margin-left: 10px;
         }
 
-        /* --- START: UPDATED HERO SECTION CSS --- */
+        /* Hero Section */
         .hero {
             padding: 120px 0;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+            text-align: center;
         }
         
         .hero-text {
              max-width: 750px;
+             margin: 0 auto;
         }
         
         .hero-text h1 {
@@ -159,17 +154,9 @@
         .hero-text p {
             font-size: 1.25rem;
             max-width: 650px;
-            margin-bottom: 2.5rem;
+            margin: 0 auto 2.5rem auto;
             color: var(--text-secondary);
         }
-
-        .hero-visual video { /* UPDATED from img to video */
-            width: 100%;
-            border-radius: 12px;
-            object-fit: cover;
-        }
-        /* --- END: UPDATED HERO SECTION CSS --- */
-
         
         /* Problem Section */
         .problem-section {
@@ -193,7 +180,7 @@
             color: var(--primary-yellow);
         }
         
-        /* --- START: RE-ADDED SOLUTION SECTION CSS --- */
+        /* Solution Section */
         .solution-section {
             border-top: 1px solid var(--border-color);
         }
@@ -208,7 +195,6 @@
             border-radius: 12px;
             object-fit: cover;
         }
-        /* --- END: RE-ADDED SOLUTION SECTION CSS --- */
         
         /* How It Works Section */
         .how-it-works {
@@ -313,6 +299,187 @@
         .feature-card p {
             font-size: 1rem;
             margin-bottom: 0;
+        }
+
+        /* ROI Calculator Section */
+        .roi-calculator {
+             border-top: 1px solid var(--border-color);
+        }
+
+        .calculator-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .roi-content {
+             background-color: var(--card-bg);
+             border-radius: 16px;
+             padding: 3rem;
+             display: grid;
+             grid-template-columns: 2fr 1fr;
+             gap: 3rem;
+             border: 1px solid var(--border-color);
+        }
+
+        .roi-results {
+            background-color: var(--bg-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        .result-item {
+            margin-bottom: 2rem;
+        }
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+        
+        .roi-summary {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .roi-summary h4 {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .roi-summary p {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0;
+        }
+        .roi-summary span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .roi-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .slider-group .label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .label-container .label-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 18px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tooltip-icon .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            text-align: left;
+            border-radius: 6px;
+            padding: 1rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .tooltip-icon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .slider-group .slider-value {
+            font-weight: 600;
+            color: var(--bg-color);
+            background-color: var(--primary-yellow);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-yellow);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-yellow);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        .final-cta {
+            text-align: center;
+            margin-top: 4rem;
         }
         
         /* Pricing Section */
@@ -434,20 +601,10 @@
             h1 { font-size: 2.8rem; }
             h2 { font-size: 2.2rem; }
             section { padding: 80px 0; }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-text h1, .hero-text p {
-                text-align: center;
-            }
-            .hero-visual {
-                margin-top: 3rem;
-            }
-            
             .problem-grid, .how-it-works-steps, .features-grid, .who-grid { grid-template-columns: 1fr; }
-            .solution-content { grid-template-columns: 1fr; } /* This rule is now active again */
+            .solution-content { grid-template-columns: 1fr; }
+            .roi-content { grid-template-columns: 1fr; }
+            .roi-summary { grid-template-columns: 1fr; gap: 1.5rem; }
         }
     </style>
 </head>
@@ -464,19 +621,15 @@
 
     <main>
         <section class="hero">
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <h1>Stop Losing Jobs to Voicemail. Get <span>Instant AI Lead Alerts.</span></h1>
-                    <p>Our AI listens to your voicemails, finds the urgent jobs, and sends instant alerts via Email & WhatsApp so you can call back first.</p>
-                    <div class="hero-buttons">
-                         <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Start Catching Leads Today</a>
-                         </div>
-                </div>
-                <div class="hero-visual">
-                    <video src="images/SilverBullet-HeroImage.mp4" autoplay loop muted playsinline alt="Animation showing an email summary and a WhatsApp alert for a new lead."></video>
+            <div class="hero-text">
+                <h1>Stop Losing Jobs to Voicemail. Get <span>Instant AI Lead Alerts.</span></h1>
+                <p>Our AI listens to your voicemails, finds the urgent jobs, and sends instant alerts via Email & WhatsApp so you can call back first.</p>
+                <div class="hero-buttons">
+                     <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Start Catching Leads Today - £79.99/month</a>
                 </div>
             </div>
         </section>
+
         <section class="problem-section">
             <div class="container">
                 <h2>How much money is hiding in your voicemail?</h2>
@@ -491,7 +644,7 @@
                     </div>
                     <div class="problem-card">
                         <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.091 1.21-.138 2.43-.138 3.662a48.64 48.64 0 000 7.324 4.006 4.006 0 003.7 3.7 48.678 48.678 0 007.324 0 4.006 4.006 0 003.7-3.7c.091-1.21.138 2.43.138-3.662zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.091 1.21-.138 2.43-.138 3.662a48.64 48.64 0 000 7.324 4.006 4.006 0 003.7 3.7 48.678 48.678 0 007.324 0 4.006 4.006 0 003.7-3.7c.091-1.21.138-2.43.138-3.662zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" /></svg>
                         </div>
                         <h4>You miss leads</h4>
                         <p>Missing urgent calls while you're on a job, with a client, or after hours. By the time you call back, they're gone.</p>
@@ -511,17 +664,17 @@
             <div class="container">
                 <div class="solution-content">
                     <div>
-                        <h2>SilverBullet Swift: Your 24/7 AI Lead Alert System</h2>
-                        <p>SilverBullet Pro: Swift is an instant, powerful tool that turns your voicemail from a liability into a lead-generating machine.</p>
-                        <p>It connects to your existing phone's voicemail system and uses AI to instantly analyse every message. It identifies genuine leads, flags them as urgent, and sends you an alert so you can stop what you're doing and secure the business.</p>
+                        <h2>SilverBullet Swift: Your 24/7 AI Receptionist</h2>
+                        <p>SilverBullet Pro: Swift is a simple, powerful tool that turns your voicemail from a liability into a lead-generating machine.</p>
+                        <p>It connects to your existing phone's voicemail system and uses AI to instantly analyze every message. It identifies genuine leads, flags them as urgent, and sends you an alert so you can stop what you're doing and secure the business.</p>
                     </div>
                     <div class="solution-image">
-                        <img src="worker.png" alt="Smiling construction manager checking lead alerts on his phone at a job site." style="margin-bottom: 1rem;">
-                        <img src="office.png" alt="Professional businesswoman smiling while reading a notification on her phone in an office.">
+                        <img src="https://images.unsplash.com/photo-1581155355209-a3d3a06a8e32?q=80&w=1974&auto=format&fit=crop" alt="Tradesperson checking an instant lead alert on their phone on a job site.">
                     </div>
                 </div>
             </div>
         </section>
+
         <section class="how-it-works">
             <div class="container">
                 <h2>Get Set Up in 3 Simple Steps</h2>
@@ -548,7 +701,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section class="who-is-it-for">
             <div class="container">
                 <h2>Perfect For Busy Trades & Solo Professionals</h2>
@@ -616,6 +769,71 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
                         <h4>Simple Email Forwarding</h4>
                         <p>If you can forward an email, you can set up SilverBullet Swift. No complex phone system changes required.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roi-calculator" class="roi-calculator">
+            <div class="calculator-wrapper">
+                <div class="container">
+                    <h2>Calculate Your Missed Revenue</h2>
+                    <p class="section-subtitle">Even one missed job a day can have a huge impact. Slide the numbers below to see what you might be leaving on the table.</p>
+                    <div class="roi-content">
+                        <div class="roi-inputs">
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <div class="label-text">
+                                        <label for="missedCalls">Your Estimated Missed Calls / Day</label>
+                                        <div class="tooltip-icon">i<span class="tooltip-text">Consider calls after-hours, when your line is busy, or when you're on a job. A conservative estimate is 1-2 per day.</span></div>
+                                    </div>
+                                    <span id="missedCallsValue" class="slider-value">2</span>
+                                </div>
+                                <input type="range" id="missedCalls" min="1" max="20" value="2">
+                            </div>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                     <div class="label-text">
+                                        <label for="conversionRate">Your Typical Conversion Rate (%)</label>
+                                        <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified leads do you typically close? For hot inbound calls, this is often 25% or higher.</span></div>
+                                    </div>
+                                    <span id="conversionRateValue" class="slider-value">25%</span>
+                                </div>
+                                <input type="range" id="conversionRate" min="10" max="75" value="25">
+                            </div>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <label for="avgClientValue">Average Value of a New Job (£)</label>
+                                    <span id="avgClientValueValue" class="slider-value">£1,500</span>
+                                </div>
+                                <input type="range" id="avgClientValue" min="100" max="10000" step="100" value="1500">
+                            </div>
+                        </div>
+                        <div class="roi-results">
+                            <div class="result-item">
+                                <div class="result-label">Additional Monthly Revenue</div>
+                                <div class="result-value" id="monthlyRevenueOutput">£22,500</div>
+                            </div>
+                             <div class="result-item">
+                                <div class="result-label">Captured Monthly Jobs</div>
+                                <div class="result-value" id="capturedLeadsOutput">15.0</div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="roi-summary">
+                        <div>
+                            <h4>Annual Cost of Swift</h4>
+                            <p>~£960</p>
+                            <span>(£79.99 / month)</span>
+                        </div>
+                        <div>
+                            <h4>Additional Annual Revenue</h4>
+                            <p id="annualRevenueOutput">£270,000</p>
+                        </div>
+                         <div>
+                            <h4>Annual ROI Multiple</h4>
+                            <p id="roiMultipleOutput">280.4x</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -709,6 +927,61 @@
                 }
             });
         });
+
+        // ROI Calculator Script
+        const missedCallsSlider = document.getElementById('missedCalls');
+        const conversionRateSlider = document.getElementById('conversionRate');
+        const avgClientValueSlider = document.getElementById('avgClientValue');
+        
+        const missedCallsValue = document.getElementById('missedCallsValue');
+        const conversionRateValue = document.getElementById('conversionRateValue');
+        const avgClientValueValue = document.getElementById('avgClientValueValue');
+        
+        const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
+        const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
+        const annualRevenueOutput = document.getElementById('annualRevenueOutput');
+        const roiMultipleOutput = document.getElementById('roiMultipleOutput');
+        
+        const ANNUAL_COST = 79.99 * 12; // Swift Plan Annual Cost
+
+        function calculateROI() {
+            if (!missedCallsSlider) return;
+
+            const missedCallsPerDay = parseInt(missedCallsSlider.value);
+            const conversionRate = parseInt(conversionRateSlider.value);
+            const avgClientValue = parseInt(avgClientValueSlider.value);
+            
+            const monthlyMissedCalls = missedCallsPerDay * 30;
+            const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
+            const monthlyRevenue = capturedLeads * avgClientValue;
+            const annualRevenue = monthlyRevenue * 12;
+            
+            // Correct ROI Formula: (Net Gain / Cost)
+            const netProfit = annualRevenue - ANNUAL_COST;
+            const roiMultiple = (ANNUAL_COST > 0) ? netProfit / ANNUAL_COST : 0;
+            
+            const currencyFormatter = (value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }).format(value);
+            
+            // Update UI
+            missedCallsValue.textContent = missedCallsPerDay;
+            conversionRateValue.textContent = `${conversionRate}%`;
+            avgClientValueValue.textContent = currencyFormatter(avgClientValue);
+
+            // Update Results Box
+            monthlyRevenueOutput.textContent = currencyFormatter(monthlyRevenue);
+            capturedLeadsOutput.textContent = capturedLeads.toFixed(1);
+            
+            // Update Summary Boxes
+            annualRevenueOutput.textContent = currencyFormatter(annualRevenue);
+            roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`;
+        }
+
+        if (missedCallsSlider) {
+            [missedCallsSlider, conversionRateSlider, avgClientValueSlider].forEach(slider => {
+                slider.addEventListener('input', calculateROI);
+            });
+            calculateROI(); // Initial calculation on page load
+        }
     </script>
     
 </body>
