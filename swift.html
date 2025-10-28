@@ -139,6 +139,29 @@
             text-align: center;
         }
         
+        .hero-social-proof {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem; /* <-- EDITED: Reduced gap (was 2rem) */
+        }
+        .hero-social-proof .star-rating {
+            display: flex;
+            gap: 4px;
+        }
+        .hero-social-proof .star-rating svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-yellow);
+        }
+        .hero-social-proof p {
+            font-size: 0.1rem; /* <-- EDITED: Made font smaller (was 1rem) */
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
         .hero-text {
              max-width: 750px;
              margin: 0 auto;
@@ -612,7 +635,7 @@
 
     <header>
         <div class="container header-content">
-            <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
+            <a href="/" class="logo">SilverBullet<span>.</span>Swift</a>
             <div class="header-ctas">
                 <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Sign Up Now</a>
             </div>
@@ -622,10 +645,20 @@
     <main>
         <section class="hero">
             <div class="hero-text">
+                <div class="hero-social-proof">
+                    <div class="star-rating">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg>
+                    </div>
+                    <p>Trusted by Founders and Sole Traders Worldwide</p>
+                </div>
                 <h1>Stop Losing Jobs to Voicemail. Get <span>Instant AI Lead Alerts.</span></h1>
                 <p>Our AI listens to your voicemails, finds the urgent jobs, and sends instant alerts via Email & WhatsApp so you can call back first.</p>
                 <div class="hero-buttons">
-                     <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Start Catching Leads Today - £79.99/month</a>
+                     <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Start Catching Leads Today!</a>
                 </div>
             </div>
         </section>
@@ -767,7 +800,7 @@
                     </div>
                     <div class="feature-card">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-                        <h4>Instant Email Forwarding</h4>
+                        <h4>Simple Email Forwarding</h4>
                         <p>If you can forward an email, you can set up SilverBullet Swift. No complex phone system changes required.</p>
                     </div>
                 </div>
@@ -940,6 +973,7 @@
         const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
+GET_MOVIES_BY_ACTOR
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
         
         const ANNUAL_COST = 79.99 * 12; // Swift Plan Annual Cost
