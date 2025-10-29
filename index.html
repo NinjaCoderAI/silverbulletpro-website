@@ -440,17 +440,20 @@
         .roi-calculator, .pricing, .compliance, .faq-section, footer {
              border-top: 1px solid var(--border-color);
         }
-
+        
         .roi-content {
              background-color: var(--card-bg);
              border-radius: 16px;
              padding: 3rem;
-             display: grid;
-             grid-template-columns: 2fr 1fr;
-             gap: 3rem;
              border: 1px solid var(--border-color);
         }
 
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
         .roi-results {
             background-color: var(--bg-color);
             border-radius: 12px;
@@ -462,17 +465,21 @@
             border: 1px solid var(--border-color);
         }
         
-        .roi-results .result-item {
-            margin-bottom: 1.5rem;
+        .result-item {
+            margin-bottom: 2rem;
+        }
+        .result-item:last-child {
+            margin-bottom: 0;
         }
 
-        .roi-results .result-label {
+        .result-label {
             color: var(--text-secondary);
             font-weight: 500;
             margin-bottom: 0.25rem;
+            font-size: 1rem;
         }
         
-        .roi-results .result-value {
+        .result-value {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--primary-yellow);
@@ -493,12 +500,19 @@
             color: var(--text-secondary);
             font-weight: 500;
             margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
         
         .roi-summary p {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
+            margin-bottom: 0;
+        }
+
+         .roi-summary span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
         
         .roi-inputs {
@@ -513,6 +527,53 @@
             align-items: center;
             margin-bottom: 0.75rem;
             font-weight: 500;
+        }
+        
+        .label-container .label-text {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tooltip-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 18px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tooltip-icon .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            text-align: left;
+            border-radius: 6px;
+            padding: 1rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .tooltip-icon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
 
         .slider-group .slider-value {
@@ -849,58 +910,66 @@
             </div>
         </section>
         
-        <section id="roi" class="roi-calculator">
+  <section id="roi-calculator" class="roi-calculator">
             <div class="container">
                 <h2>Calculate Your Potential ROI</h2>
-                <p class="section-subtitle">Even one missed high-value call a day can have a huge impact. Slide the numbers below to model your firm's potential leaked revenue.</p>
+                <p class="section-subtitle">Even a few missed high-value calls a week can have a huge impact. Slide the numbers below to model your firm's potential leaked revenue.</p>
                 <div class="roi-content">
-                    <div class="roi-inputs">
-                        <div class="slider-group">
-                            <div class="label-container">
-                                <label for="missedCalls">Potential High-Value Missed Calls / Day</label>
-                                <span id="missedCallsValue" class="slider-value">1</span>
+                    <div class="roi-grid">
+                        <div class="roi-inputs">
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <div class="label-text">
+                                        <label for="missedCalls">Your Estimated Missed Calls / Week</label>
+                                        <div class="tooltip-icon">i<span class="tooltip-text">Consider all calls you might miss in a typical week (after-hours, weekends, or when busy). A good starting estimate might be 5-10.</span></div>
+                                    </div>
+                                    <span id="missedCallsValue" class="slider-value">5</span>
+                                </div>
+                                <input type="range" id="missedCalls" min="1" max="100" value="5">
                             </div>
-                            <input type="range" id="missedCalls" min="1" max="25" value="1">
-                        </div>
-                        <div class="slider-group">
-                            <div class="label-container">
-                                <label for="conversionRate">Lead-to-Client Conversion Rate (%)</label>
-                                <span id="conversionRateValue" class="slider-value">20%</span>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <div class="label-text">
+                                        <label for="conversionRate">Your Team's Typical Conversion Rate (%)</label>
+                                        <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified inbound leads does your sales team typically close? For warm calls, industry averages often range from 10% to 25%.</span></div>
+                                    </div>
+                                    <span id="conversionRateValue" class="slider-value">15%</span>
+                                </div>
+                                <input type="range" id="conversionRate" min="5" max="75" value="15">
                             </div>
-                            <input type="range" id="conversionRate" min="5" max="75" value="20">
-                        </div>
-                        <div class="slider-group">
-                            <div class="label-container">
-                                <label for="avgClientValue">Average Value of a New Client (£)</label>
-                                <span id="avgClientValueValue" class="slider-value">£5,000</span>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <label for="avgClientValue">Average Value of a New Client (£)</label>
+                                    <span id="avgClientValueValue" class="slider-value">£70,000</span>
+                                </div>
+                                <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="70000">
                             </div>
-                            <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="5000">
+                        </div>
+                        <div class="roi-results">
+                            <div class="result-item">
+                                <div class="result-label">Additional Monthly Revenue</div>
+                                <div class="result-value" id="monthlyRevenueOutput">£227,500</div>
+                            </div>
+                             <div class="result-item">
+                                <div class="result-label">Captured Monthly Clients</div>
+                                <div class="result-value" id="capturedLeadsOutput">3.2</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="roi-results">
-                        <div class="result-item">
-                            <div class="result-label">Additional Monthly Revenue</div>
-                            <div class="result-value" id="monthlyRevenueOutput">£5,000</div>
+                     <div class="roi-summary">
+                        <div>
+                            <h4>Annual Cost of SilverBullet Pro</h4>
+                            <p>£13,987</p>
+                            <span>(Solo Professional Plan + Setup)</span>
                         </div>
-                         <div class="result-item">
-                            <div class="result-label">Captured Monthly Clients</div>
-                            <div class="result-value" id="capturedLeadsOutput">1</div>
+                        <div>
+                            <h4>Additional Annual Revenue</h4>
+                            <p id="annualRevenueOutput">£2,730,000</p>
                         </div>
-                    </div>
-                </div>
-                 <div class="roi-summary">
-                    <div>
-                        <h4>Annual Cost of SilverBullet Pro</h4>
-                        <p>£13,987</p>
-                        <span>(Solo Professional Plan)</span>
-                    </div>
-                    <div>
-                        <h4>Additional Annual Revenue</h4>
-                        <p id="annualRevenueOutput">£60,000</p>
-                    </div>
-                     <div>
-                        <h4>ROI Multiple</h4>
-                        <p id="roiMultipleOutput">5x</p>
+                         <div>
+                            <h4>Annual ROI Multiple</h4>
+                            <p id="roiMultipleOutput">194.2x</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1054,19 +1123,26 @@
         const missedCallsSlider = document.getElementById('missedCalls');
         const conversionRateSlider = document.getElementById('conversionRate');
         const avgClientValueSlider = document.getElementById('avgClientValue');
+        
         const missedCallsValue = document.getElementById('missedCallsValue');
         const conversionRateValue = document.getElementById('conversionRateValue');
         const avgClientValueValue = document.getElementById('avgClientValueValue');
+        
         const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
         const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
-        const ANNUAL_COST = 11988; 
+        
+        const ANNUAL_COST = 13987; // Based on Solo Pro (£999 * 12 + £1999 setup)
 
-   function calculateROI() {
-            if (!missedCallsSlider) return;
-            const missedCallsPerDay = parseInt(missedCallsSlider.value);
-            const monthlyMissedCalls = missedCallsPerDay * 30; // Convert daily to monthly
+      function calculateROI() {
+            if (!missedCallsSlider) return; // Safeguard if element doesn't exist
+            
+            // 1. Get weekly calls from the slider
+            const missedCallsPerWeek = parseInt(missedCallsSlider.value);
+            
+            // 2. Convert weekly calls to monthly (using 52 weeks / 12 months)
+            const monthlyMissedCalls = missedCallsPerWeek * (52 / 12); 
             
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
@@ -1074,25 +1150,33 @@
             const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
-            const roiMultiple = annualRevenue / ANNUAL_COST;
-
-            const currencyFormatter = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 });
             
-            missedCallsValue.textContent = missedCallsPerDay;
+            // 3. Correct ROI Formula: (Net Gain / Cost)
+            const netProfit = annualRevenue - ANNUAL_COST;
+            const roiMultiple = (ANNUAL_COST > 0) ? netProfit / ANNUAL_COST : 0;
+            
+            const currencyFormatter = (value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }).format(value);
+            
+            // 4. Update slider display value to show the weekly number
+            missedCallsValue.textContent = missedCallsPerWeek; 
             conversionRateValue.textContent = `${conversionRate}%`;
-            avgClientValueValue.textContent = currencyFormatter.format(avgClientValue);
-            monthlyRevenueOutput.textContent = currencyFormatter.format(monthlyRevenue);
+            avgClientValueValue.textContent = currencyFormatter(avgClientValue);
+            
+            // Update main results
+            monthlyRevenueOutput.textContent = currencyFormatter(monthlyRevenue);
             capturedLeadsOutput.textContent = capturedLeads.toFixed(1);
-            annualRevenueOutput.textContent = currencyFormatter.format(annualRevenue);
-            roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`;
+            
+            // Update summary results
+            annualRevenueOutput.textContent = currencyFormatter(annualRevenue);
+            roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`; // Now shows correct ROI
         }
+
         if (missedCallsSlider) {
             [missedCallsSlider, conversionRateSlider, avgClientValueSlider].forEach(slider => {
                 slider.addEventListener('input', calculateROI);
             });
-            calculateROI();
+            calculateROI(); // Initial calculation on page load
         }
-
         // FAQ Accordion Script
         document.querySelectorAll('.faq-item').forEach(item => {
             const question = item.querySelector('.faq-question');
