@@ -693,6 +693,72 @@
             </div>
         </section>
 
+        <section id="roi-calculator" class="roi-calculator">
+            <div class="calculator-wrapper">
+                <div class="container">
+                    <h2>Calculate Your Missed Revenue</h2>
+                    <p class="section-subtitle">Even one missed job a week can have a huge impact. Slide the numbers below to see what you might be leaving on the table.</p>
+                    <div class="roi-content">
+                        <div class="roi-inputs">
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <div class="label-text">
+                                        <label for="missedCalls">Your Estimated Missed Calls / Week</label>
+                                        <div class="tooltip-icon">i
+                                            <span class="tooltip-text">Consider calls after-hours, when your line is busy, or when you're on a job. Be conservative!</span>
+                                        </div>
+                                    </div>
+                                    <span id="missedCallsValue" class="slider-value">5</span>
+                                </div>
+                                <input type="range" id="missedCalls" min="1" max="50" value="5">
+                            </div>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                     <div class="label-text">
+                                        <label for="conversionRate">Your Typical Conversion Rate (%)</label>
+                                        <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified leads do you typically close? For hot inbound calls, this is often 25% or higher.</span></div>
+                                    </div>
+                                    <span id="conversionRateValue" class="slider-value">25%</span>
+                                </div>
+                                <input type="range" id="conversionRate" min="10" max="75" value="25">
+                            </div>
+                            <div class="slider-group">
+                                <div class="label-container">
+                                    <label for="avgClientValue">Average Value of a New Job (£)</label>
+                                    <span id="avgClientValueValue" class="slider-value">£1,500</span>
+                                </div>
+                                <input type="range" id="avgClientValue" min="100" max="10000" step="100" value="1500">
+                            </div>
+                        </div>
+                        <div class="roi-results">
+                            <div class="result-item">
+                                <div class="result-label">Additional Monthly Revenue</div>
+                                <div class="result-value" id="monthlyRevenueOutput">£4,875</div>
+                            </div>
+                             <div class="result-item">
+                                <div class="result-label">Captured Monthly Jobs</div>
+                                <div class="result-value" id="capturedLeadsOutput">3.3</div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="roi-summary">
+                        <div>
+                            <h4>Annual Cost of Swift</h4>
+                            <p>~£960</p>
+                            <span>(£79.99 / month)</span>
+                        </div>
+                        <div>
+                            <h4>Additional Annual Revenue</h4>
+                            <p id="annualRevenueOutput">£58,500</p>
+                        </div>
+                         <div>
+                            <h4>The Payback</h4>
+                            <p id="roiMultipleOutput">59.9x</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="solution-section">
             <div class="container">
                 <div class="solution-content">
@@ -807,72 +873,6 @@
             </div>
         </section>
 
-        <section id="roi-calculator" class="roi-calculator">
-            <div class="calculator-wrapper">
-                <div class="container">
-                    <h2>Calculate Your Missed Revenue</h2>
-                    <p class="section-subtitle">Even one missed job a week can have a huge impact. Slide the numbers below to see what you might be leaving on the table.</p>
-                    <div class="roi-content">
-                        <div class="roi-inputs">
-                            <div class="slider-group">
-                                <div class="label-container">
-                                    <div class="label-text">
-                                        <label for="missedCalls">Your Estimated Missed Calls / Week</label>
-                                        <div class="tooltip-icon">i
-                                            <span class="tooltip-text">Consider calls after-hours, when your line is busy, or when you're on a job. Be conservative!</span>
-                                        </div>
-                                    </div>
-                                    <span id="missedCallsValue" class="slider-value">5</span>
-                                </div>
-                                <input type="range" id="missedCalls" min="1" max="50" value="5">
-                            </div>
-                            <div class="slider-group">
-                                <div class="label-container">
-                                     <div class="label-text">
-                                        <label for="conversionRate">Your Typical Conversion Rate (%)</label>
-                                        <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified leads do you typically close? For hot inbound calls, this is often 25% or higher.</span></div>
-                                    </div>
-                                    <span id="conversionRateValue" class="slider-value">25%</span>
-                                </div>
-                                <input type="range" id="conversionRate" min="10" max="75" value="25">
-                            </div>
-                            <div class="slider-group">
-                                <div class="label-container">
-                                    <label for="avgClientValue">Average Value of a New Job (£)</label>
-                                    <span id="avgClientValueValue" class="slider-value">£1,500</span>
-                                </div>
-                                <input type="range" id="avgClientValue" min="100" max="10000" step="100" value="1500">
-                            </div>
-                        </div>
-                        <div class="roi-results">
-                            <div class="result-item">
-                                <div class="result-label">Additional Monthly Revenue</div>
-                                <div class="result-value" id="monthlyRevenueOutput">£4,875</div>
-                            </div>
-                             <div class="result-item">
-                                <div class="result-label">Captured Monthly Jobs</div>
-                                <div class="result-value" id="capturedLeadsOutput">3.3</div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="roi-summary">
-                        <div>
-                            <h4>Annual Cost of Swift</h4>
-                            <p>~£960</p>
-                            <span>(£79.99 / month)</span>
-                        </div>
-                        <div>
-                            <h4>Additional Annual Revenue</h4>
-                            <p id="annualRevenueOutput">£58,500</p>
-                        </div>
-                         <div>
-                            <h4>Annual ROI Multiple</h4>
-                            <p id="roiMultipleOutput">59.9x</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section class="pricing-section">
             <div class="container">
                 <h2>Simple, No-Risk Pricing</h2>
@@ -1046,3 +1046,5 @@
     
 </body>
 </html>
+
+ 
