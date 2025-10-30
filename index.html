@@ -11,9 +11,9 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro — AI Voicemail Triage for High-Value Leads</title>
+    <title>SilverBullet Pro — Free AI Revenue Rescue Audit</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
-    <meta name="description" content="Built for elite firms that can't afford to miss a single high-value instruction. We turn your voicemail from a liability into your fastest revenue-capture channel.">
+    <meta name="description" content="In 15 minutes, we'll calculate the exact amount of commission your firm is losing to missed voicemails each month. Guaranteed. Book your free audit.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -358,11 +358,10 @@
             font-size: 1.25rem;
             color: var(--text-secondary);
             font-weight: 400;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             line-height: 1.6;
         }
         .audit-steps {
-            margin-top: 3rem;
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -436,11 +435,12 @@
             font-size: 1.1rem;
         }
         
-        /* ROI Calculator Section */
+        /* ROI Calculator, Pricing, etc. */
         .roi-calculator, .pricing, .compliance, .faq-section, footer {
              border-top: 1px solid var(--border-color);
         }
         
+        /* ROI Calculator Section */
         .roi-content {
              background-color: var(--card-bg);
              border-radius: 16px;
@@ -614,7 +614,7 @@
         /* Pricing Section */
         .pricing-tiers {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             align-items: stretch;
         }
@@ -727,7 +727,7 @@
             .pricing-tiers { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 992px) {
-            .features-grid, .roi-content, .audit-content-wrapper { grid-template-columns: 1fr; }
+            .features-grid, .audit-content-wrapper { grid-template-columns: 1fr; }
             .audit-description h2 { text-align: center; }
             .audit-cta-card { margin-top: 3rem; }
             .hero .container { flex-direction: column; text-align: center; }
@@ -736,6 +736,7 @@
             .hero-buttons { justify-content: center; }
             .hero-media { order: -1; margin-bottom: 40px; }
             .testimonial-scroller { grid-template-columns: repeat(2, 1fr); }
+            .roi-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
@@ -746,6 +747,7 @@
             .tier.highlight { transform: scale(1); }
             .roi-summary { grid-template-columns: 1fr; gap: 1.5rem; }
             .testimonial-scroller { grid-template-columns: 1fr; }
+            .pricing-tiers { grid-template-columns: 1fr; } /* Force 1 column on mobile */
         }
     </style>
 </head>
@@ -763,7 +765,7 @@
                 <a href="#faq">FAQ</a>
             </nav>
             <div class="header-ctas">
-                <a href="#revenue-rescue-audit" class="cta-button">Start Your Audit</a>
+                <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
             </div>
         </div>
     </header>
@@ -775,7 +777,7 @@
                     <h1>Never Miss A <span>Hot Lead</span> Again.</h1>
                     <p>SilverBullet Pro is your 24/7 speed-to-lead advantage. Our system finds the urgent opportunities buried in your voicemail <em>instantly</em>, ensuring you're the first to respond to every high-value inquiry.</p>
                     <div class="hero-buttons">
-                         <a href="#revenue-rescue-audit" class="cta-button">Start Your Revenue Audit</a>
+                         <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
                          <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
                     </div>
                 </div>
@@ -790,14 +792,14 @@
 
         <section id="why-us" class="why-us">
             <div class="container">
-                <h2>Why Our System Wins More Business</h2>
+                <h2>Why Our Triage Wins More Business</h2>
                 <p class="section-subtitle">We go beyond simple transcription to deliver an intelligent lead routing service that gives you an immediate, measurable competitive advantage.</p>
                 <div class="features-grid">
                     <div class="feature-card">
                         <h3>From Voicemail to Action in Seconds</h3>
                         <p>High-priority leads are routed directly to the right professional's WhatsApp for immediate action. The speed of response wins clients.</p>
                         <div class="stat-highlight">
-                            <div class="stat-number">400%+</div>
+                            <div class="stat-number">391%</div>
                             <p class="stat-description">Higher conversion rate for leads contacted within the first minute.</p>
                         </div>
                     </div>
@@ -805,7 +807,7 @@
                         <h3>Be The First and Only Response</h3>
                         <p>Capture the majority of the market by simply being the fastest. Our system ensures you're always first in line for every opportunity.</p>
                         <div class="stat-highlight">
-                            <div class="stat-number">Up to 80%</div>
+                            <div class="stat-number">78%</div>
                             <p class="stat-description">Of buyers choose the first company that responds, regardless of price.</p>
                         </div>
                     </div>
@@ -866,24 +868,24 @@
             </div>
         </section>
 
-   <section id="revenue-rescue-audit" class="revenue-rescue-section">
+        <section id="revenue-rescue-audit" class="revenue-rescue-section">
             <div class="container">
                 <div class="audit-content-wrapper">
                     <div class="audit-description">
-                        <h2>Find Your Leaked Revenue and Gain Your Unfair Advantage. Instantly.</h2>
-                        <p class="audit-subtitle">In a 15-minute Discovery call, we'll build the business case for you by calculating the exact cost of your missed leads.</p>
+                        <h2>Your Complimentary Revenue Rescue Audit</h2>
+                        <p class="audit-subtitle">In a 15-minute strategy call, we'll build the business case for you by calculating the exact cost of your missed leads—at no cost for qualifying firms.</p>
                         <div class="audit-steps">
                             <div class="audit-step">
                                 <div class="step-icon">1</div>
                                 <div class="step-text">
-                                    <h3>Pinpoint the Problem</h3>
-                                    <p>We'll quickly map your current lead handling process and identify the exact points of failure.</p>
+                                    <h3>Diagnose the Problem</h3>
+                                    <p>We'll quickly map your current lead handling process to identify the exact points of revenue leakage.</p>
                                 </div>
                             </div>
                             <div class="audit-step">
                                 <div class="step-icon">2</div>
                                 <div class="step-text">
-                                    <h3>Calculate the Cost</h3>
+                                    <h3>Calculate the Impact</h3>
                                     <p>Using your own metrics, we'll do the maths with you, live on the call, to calculate your precise monthly revenue leakage.</p>
                                 </div>
                             </div>
@@ -891,26 +893,26 @@
                                 <div class="step-icon">3</div>
                                 <div class="step-text">
                                     <h3>Prescribe the Solution</h3>
-                                    <p>You'll leave the call with a clear, actionable plan to fix the leaks and capture more revenue. No cost, no obligation.</p>
+                                    <p>You'll leave with a clear, actionable plan to fix the leaks and capture more revenue. No cost, no obligation.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="audit-cta-card">
-                        <h3>Your Revenue Rescue Audit Delivers:</h3>
+                        <h3>Your Complimentary Diagnostic Delivers:</h3>
                         <ul>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>A Data-Backed Figure of Your Leaked Revenue</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Clarity on Your #1 Sales Bottleneck</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>A Proven Plan to Increase Conversions</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>15 Minutes of Pure Value. No Cost.</li>
                         </ul>
-                        <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Free Audit Now</a>
+                        <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Audit</a>
                     </div>
                 </div>
             </div>
         </section>
         
-  <section id="roi-calculator" class="roi-calculator">
+        <section id="roi-calculator" class="roi-calculator">
             <div class="container">
                 <h2>Calculate Your Potential ROI</h2>
                 <p class="section-subtitle">Even a few missed high-value calls a week can have a huge impact. Slide the numbers below to model your firm's potential leaked revenue.</p>
@@ -959,8 +961,8 @@
                      <div class="roi-summary">
                         <div>
                             <h4>Annual Cost of SilverBullet Pro</h4>
-                            <p>£13,987</p>
-                            <span>(Solo Professional Plan + Setup)</span>
+                            <p>£6,987</p>
+                            <span>(Solo Plan + Setup)</span>
                         </div>
                         <div>
                             <h4>Additional Annual Revenue</h4>
@@ -968,7 +970,7 @@
                         </div>
                          <div>
                             <h4>Annual ROI Multiple</h4>
-                            <p id="roiMultipleOutput">194.2x</p>
+                            <p id="roiMultipleOutput">390.4x</p>
                         </div>
                     </div>
                 </div>
@@ -981,54 +983,40 @@
                 <p class="section-subtitle">Our solutions are tailored to your firm's specific needs. The process begins with a complimentary Revenue Rescue Audit to diagnose your current system and prescribe the perfect plan to eliminate revenue leakage.</p>
                 <div class="pricing-tiers">
                     <div class="tier">
-                        <h3>🚀 Complete</h3>
-                        <p class="price">From £499 <span>/month</span></p>
-                        <p class="setup-fee">+ White-Glove Onboarding & AI Tuning</p>
-                        <p>Your all-in-one AI voicemail solution. Perfect for new practices or those without a complex VoIP system.</p>
+                        <h3>👤 SOLO</h3>
+                        <p class="price">From £499<span>/month</span></p>
+                        <p class="setup-fee">+White-Glove Onboarding & AI Tuning</p>
+                        <p>White-glove setup for one main business line. We provision you a dedicated number for 100% reliability.</p>
                         <ul>
-                            <li>1 Dedicated Twilio Phone Line</li>
+                            <li>1 Dedicated, Managed Line</li>
                             <li>AI-Powered Triage</li>
-                            <li>Includes up to 1,000 AI-Triaged Voicemails / month</li>
+                            <li>Includes up to 1,000 WhatsApp alerts / month</li>
                             <li>Standard Support</li>
                         </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button secondary-button">Start Your Audit</a>
-                    </div>
-                    <div class="tier">
-                        <h3>👤 Solo Professional</h3>
-                        <p class="price">From £999 <span>/month</span></p>
-                        <p class="setup-fee">+ System Integration & AI Tuning</p>
-                        <p>Integrate our AI with your existing system. Ideal for established individual partners or top-performing agents.</p>
-                        <ul>
-                            <li>Integrates with your current system</li>
-                            <li>AI-Powered Triage</li>
-                            <li>Includes up to 2,000 WhatsApp alerts / month</li>
-                            <li>Standard Support</li>
-                        </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button secondary-button">Start Your Audit</a>
+                        <a href="#revenue-rescue-audit" class="cta-button secondary-button">Book Audit</a>
                     </div>
                     <div class="tier highlight">
-                         <h3>🏢 Multi-Partner Firm</h3>
+                         <h3>🏢 TEAM</h3>
                         <p class="price">From £2499 <span>/month</span></p>
                         <p class="setup-fee">+ Full Firm Implementation & AI Engineering</p>
-                        <p>For firms needing custom routing, multiple user lines, and advanced integrations to support the whole team.</p>
+                        <p>For firms needing custom routing for each team member to prevent internal lead-stealing and ensure full accountability.</p>
                          <ul>
                             <li>Up to 10 Dedicated Lines</li>
                             <li>Custom AI Triage Logic</li>
                             <li>Includes up to 6,000 WhatsApp alerts / month</li>
                             <li>Priority Support & SLAs</li>
-                    
                         </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button">Start Your Audit</a>
+                        <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
                     </div>
                     <div class="tier">
-                        <h3>🏛️ Enterprise</h3>
+                        <h3>🏛️ ENTERPRISE</h3>
                         <p class="price">Custom <span></span></p>
                         <p class="setup-fee">+ Custom setup & onboarding</p>
                         <p>Bespoke solutions for large firms with complex security, compliance, and technical requirements.</p>
                          <ul>
                             <li>Unlimited Lines & Users</li>
                             <li>Bespoke AI Models</li>
-                            <li>Bespoke alert volume with tiered pricing</li>
+                            <li>Bespoke alert volume</li>
                             <li>Dedicated Account Management</li>
                             <li>Full Audit Logs</li>
                         </ul>
@@ -1046,20 +1034,20 @@
                 <div class="faq-grid">
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What is the 'Revenue Rescue AI Audit' and why is it required?</h3>
+                            <h3>Is the Revenue Rescue AI Audit really free?</h3>
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>The Audit is a complimentary, one-time deep dive into your current lead capture process. It's required because it allows us to prove our value upfront by quantifying your exact revenue leakage. It also provides us with the data needed to create a bespoke implementation plan, ensuring our service is perfectly tailored to your firm before you commit to a monthly subscription.</p>
+                            <p>Yes, 100%. The 15-minute diagnostic call where we calculate your revenue leakage is completely free and comes with zero obligation. It's our way of proving the value of our system and making an undeniable business case before you ever consider moving forward.</p>
                         </div>
                     </div>
                      <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What happens after the audit?</h3>
+                            <h3>What happens after the free audit?</h3>
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Once the audit proves the business case, we can prescribe the most suitable solution for your business.</p>
+                            <p>If the audit proves a compelling business case, we will prescribe the right solution for your firm. This typically begins with a 90-day paid pilot to validate the solution in your live environment with zero long-term commitment. After a successful pilot, we can transition to a 12-month partnership.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1068,25 +1056,17 @@
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes, for our "Solo Professional" tier and above, we integrate with most modern VoIP systems to seamlessly divert voicemails for AI triage.</p>
+                            <p>Yes. Our "white-glove" setup is built around integrating with your existing systems, whether you use a modern VoIP service or standard mobile phones. This is a core part of our premium "Pro" service.</p>
                         </div>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>How long does the setup process take after the audit?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Our white-glove setup service typically gets you live within 3-5 business days after the audit is complete. This includes number setup, AI tuning, and integration with your systems.</p>
-                        </div>
-                    </div>
+                    
                     <div class="faq-item">
                         <div class="faq-question">
                             <h3>Is SilverBullet Pro GDPR compliant?</h3>
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Absolutely. We prioritize data privacy and security, offering full GDPR compliance (consent, access, erasure), data residency options, and comprehensive audit logs for transparent oversight.</p>
+                            <p>Absolutely. We prioritize data privacy and security, offering full GDPR compliance, data residency options, and comprehensive audit logs for transparent oversight.</p>
                         </div>
                     </div>
                 </div>
@@ -1095,9 +1075,9 @@
 
         <section class="pre-cta">
             <div class="container">
-                 <h2>Ready to Stop Leaking Revenue and Gain Your Unfair Advantage?</h2>
-                 <p class="section-subtitle">Start the process today with a no-obligation introductory call to see if the Revenue Rescue AI Audit is right for your firm.</p>
-                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Free Intro Call</a>
+                 <h2>Ready to Stop Leaking Revenue?</h2>
+                 <p class="section-subtitle">Start the process today with a complimentary 15-minute audit to diagnose your revenue leaks and prescribe a solution.</p>
+                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Audit</a>
             </div>
         </section>
     </main>
@@ -1110,7 +1090,6 @@
                 <a href="terms.html">Terms of Service</a>
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="mailto:hello@silverbulletpro.com">hello@silverbulletpro.com</a>
-            </div>
         </div>
     </footer>
 
@@ -1133,9 +1112,9 @@
         const annualRevenueOutput = document.getElementById('annualRevenueOutput');
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
         
-        const ANNUAL_COST = 13987; // Based on Solo Pro (£999 * 12 + £1999 setup)
+        const ANNUAL_COST = 6987; // NEW: Based on SOLO Plan (£499 * 12 + £999 setup)
 
-      function calculateROI() {
+        function calculateROI() {
             if (!missedCallsSlider) return; // Safeguard if element doesn't exist
             
             // 1. Get weekly calls from the slider
@@ -1177,6 +1156,7 @@
             });
             calculateROI(); // Initial calculation on page load
         }
+
         // FAQ Accordion Script
         document.querySelectorAll('.faq-item').forEach(item => {
             const question = item.querySelector('.faq-question');
@@ -1201,3 +1181,4 @@
     
 </body>
 </html>
+```
