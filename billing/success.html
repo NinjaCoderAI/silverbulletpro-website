@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Complete — SilverBullet Swift</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/17LsH4G.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --primary-yellow: #FFD133;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #222222;
+            --card-bg: #111111;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 600px; margin: 0 auto; padding: 0 20px; }
+        h2 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: var(--text-primary); }
+        p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
+        .cta-button {
+            display: inline-block; background-color: var(--primary-yellow); color: #000000; font-size: 1rem;
+            font-weight: 700; text-decoration: none; padding: 14px 28px; border-radius: 8px;
+            transition: transform 0.2s ease; border: 2px solid var(--primary-yellow); cursor: pointer;
+        }
+        .cta-button:disabled { background-color: var(--text-secondary); border-color: var(--text-secondary); cursor: not-allowed; }
+        header { padding: 20px 0; width: 100%; background: var(--bg-color); border-bottom: 1px solid var(--border-color); }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo { font-weight: 800; font-size: 1.8rem; color: var(--text-primary); text-decoration: none; }
+        .logo span { color: var(--primary-yellow); }
+        .main-content { padding: 100px 0; }
+        .setup-box {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        form div { margin-bottom: 1.5rem; }
+        form label { display: block; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary); }
+        form input, form textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        form textarea { resize: vertical; min-height: 100px; }
+        form input:focus, form textarea:focus { outline: none; border-color: var(--primary-yellow); }
+        form button { width: 100%; font-size: 1.1rem; padding: 16px; }
+        #setup-message { display: none; margin-top: 1.5rem; text-align: center; font-size: 1.1rem; }
+        footer { padding: 80px 0 40px 0; text-align: center; border-top: 1px solid var(--border-color); }
+        .footer-content p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">SilverBullet<span>.</span>SWIFT</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="setup-box">
+                <h2>Success! Your account is active.</h2>
+                <p>Just one last step to configure your AI assistant:</p>
+                <form id="swift-setup-form">
+                    <input type="hidden" id="business_id" name="business_id">
+                    
+                    <div>
+                        <label for="alert_whatsapp_number">WhatsApp Number (for alerts)</label>
+                        <input type="tel" id="alert_whatsapp_number" name="alert_whatsapp_number" placeholder="+447...">
+                    </div>
+                    
+                    <div>
+                        <label for="business_description">Business Description</label>
+                        <textarea id="business_description" name="business_description" 
+                                  placeholder="e.g., We are a plumbing and heating company based in London..."></textarea>
+                    </div>
+
+                    <div>
+                        <label for="greeting_message">Custom Greeting</label>
+                        <textarea id="greeting_message" name="greeting_message" 
+                                  placeholder="e.g., Thanks for calling... Please leave a message."></textarea>
+                    </div>
+
+                    <button type="submit" id="setup-submit-button" class="cta-button">Complete Setup</button>
+                    <div id="setup-message"></div>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 SilverBullet Pro. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // This script handles the "Step 2" setup form
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('swift-setup-form');
+          const messageEl = document.getElementById('setup-message');
+          const submitButton = document.getElementById('setup-submit-button');
+          const businessIdInput = document.getElementById('business_id');
+
+          if (!form) return;
+
+          // 1. Get the business_id from the URL and set the hidden input
+          try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const businessId = urlParams.get('business_id');
+            if (!businessId) {
+              throw new Error('No business ID found.');
+            }
+            businessIdInput.value = businessId;
+          } catch (e) {
+            messageEl.style.color = 'red';
+            messageEl.innerText = 'Error: Could not find your account ID. Please contact support.';
+            messageEl.style.display = 'block';
+            submitButton.disabled = true;
+          }
+
+          // 2. Handle the form submission
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.innerText = 'Saving...';
+            messageEl.style.display = 'none';
+
+            const formData = {
+              business_id: form.business_id.value,
+              alert_whatsapp_number: form.alert_whatsapp_number.value,
+              business_description: form.business_description.value,
+              greeting_message: form.greeting_message.value
+            };
+
+            try {
+              // 3. Send data to the new "complete-setup" endpoint
+              //    NOTE: This is a relative path. Your server must be running on the same domain.
+              const response = await fetch('/api/onboarding/complete-setup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+              });
+              
+              const data = await response.json();
+              if (!response.ok) {
+                throw new Error(data.error || 'Could not save details. Please contact support.');
+              }
+
+              // 4. Show success message and hide form
+              messageEl.style.color = 'green';
+              messageEl.innerText = 'All done! Your account is fully configured.';
+              messageEl.style.display = 'block';
+              form.style.display = 'none'; // Hide the form
+
+            } catch (error) {
+              messageEl.style.color = 'red';
+              messageEl.innerText = error.message;
+              messageEl.style.display = 'block';
+              submitButton.disabled = false;
+              submitButton.innerText = 'Complete Setup';
+            }
+          });
+        });
+    </script>
+</body>
+</html>

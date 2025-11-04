@@ -93,6 +93,7 @@
             border-radius: 8px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid var(--primary-yellow);
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -558,6 +559,52 @@
             color: var(--primary-yellow);
         }
         
+        /* Signup Form Styles */
+        #swift-signup-form {
+            text-align: left;
+        }
+        #swift-signup-form div {
+            margin-bottom: 1rem;
+        }
+        #swift-signup-form label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        #swift-signup-form input[type="text"],
+        #swift-signup-form input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        #swift-signup-form input[type="text"]:focus,
+        #swift-signup-form input[type="email"]:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+        }
+        #swift-signup-form button {
+            width: 100%;
+            font-size: 1.1rem;
+            padding: 16px;
+        }
+        #swift-signup-form button:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+            border-color: var(--text-secondary);
+        }
+        #form-message {
+            display: none; 
+            color: red; 
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
         /* FAQ Section */
         .faq-section {
             border-top: 1px solid var(--border-color);
@@ -638,7 +685,7 @@
         <div class="container header-content">
             <a href="/" class="logo">SilverBullet<span>.</span>SWIFT</a>
             <div class="header-ctas">
-                <a href="https://buy.stripe.com/aFa00j9jQeRo1Bd3zn7ss05" class="cta-button">Sign Up Now</a>
+                <a href="#pricing-section" class="cta-button">Sign Up Now</a>
             </div>
         </div>
     </header>
@@ -659,7 +706,7 @@
                 <h1>Instant Lead Alerts for <span id="dynamicProfession">Plumbers</span></h1>
                 <p>Our AI listens to your voicemails, finds the urgent jobs, and sends instant alerts via Email & WhatsApp so you can call back first.</p>
                 <div class="hero-buttons">
-                     <a href="https://buy.stripe.com/aFa00j9jQeRo1Bd3zn7ss05" class="cta-button">Get Started Today</a>
+                     <a href="#pricing-section" class="cta-button">Get Started Today</a>
                 </div>
             </div>
         </section>
@@ -760,9 +807,8 @@
                 </div>
             </div>
         </section>
-    
 
-       <section class="how-it-works">
+        <section class="how-it-works">
             <div class="container">
                 <h2>Get Set Up in 3 Simple Steps</h2>
                 <p class="section-subtitle">No complex integrations. No need to change your phone number. Just set up call forwarding for missed calls or after hours.</p>
@@ -861,11 +907,10 @@
             </div>
         </section>
 
-        <section class="pricing-section">
-            <div class="container">
+        <section class="pricing-section" id="pricing-section"> <div class="container">
                 <h2>Simple, No-Risk Pricing</h2>
                 <div class="pricing-card-swift">
-                    <h3>SilverBullet SWIFT</h3>
+                    <h3>SilverBullet Pro: Swift</h3>
                     <div class="price">£99<span>/month</span></div>
                     <p class="cancel-anytime">No long-term contracts. Cancel anytime.</p>
                     <ul>
@@ -874,8 +919,28 @@
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Full Transcription & Summaries</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg> Works with Your Existing Number</li>
                     </ul>
-                    <a href="https://buy.stripe.com/00wbJ1anU5gO6Vx3zn7ss04" class="cta-button">Sign Up Now - £99/month</a>
-                </div>
+
+                    <form id="swift-signup-form">
+                        <div style="margin-bottom: 1rem;">
+                            <label for="business_name" style="display: block; text-align: left; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary);">Business Name</label>
+                            <input type="text" id="business_name" name="business_name" required style="width: 100%; padding: 12px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <label for="owner_name" style="display: block; text-align: left; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary);">Your Name</label>
+                            <input type="text" id="owner_name" name="owner_name" required style="width: 100%; padding: 12px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="owner_email" style="display: block; text-align: left; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary);">Your Email</label>
+                            <input type="email" id="owner_email" name="owner_email" required style="width: 100%; padding: 12px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 1rem;">
+                        </div>
+
+                        <button type="submit" id="swift-submit-button" class="cta-button" style="width: 100%; font-size: 1.1rem; padding: 16px;">Go to Payment - £99/month</button>
+                        
+                        <div id="form-message" style="display: none; color: red; margin-top: 15px; text-align: center; font-size: 0.9rem;"></div>
+                    </form>
+                    </div>
             </div>
         </section>
 
@@ -898,7 +963,8 @@
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>SilverBullet Swift connects to your phone via simple call forwarding. Once set up, SWIFT does the rest.
+                            <p>It's simple. We give you a unique phone number for your account. You just go into your phone's settings and set up "Conditional Call Forwarding" (e.g., forward when busy or unanswered) to that number. Our system then answers the call as your AI assistant.</p>
+                        </div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question">
@@ -906,7 +972,7 @@
                             <span class="icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p>Not at all. If you can set up a call forwarding rule, you can set up SilverBullet Swift. We provide simple, step-by-step instructions after you sign up.</p>
+                            <p>Not at all. It's a simple setting on your existing mobile or landline provider. It usually takes less than 5 minutes, and we provide simple instructions after you sign up.</p>
                         </div>
                     </div>
                 </div>
@@ -949,7 +1015,7 @@
             });
         });
 
-        // === UPDATED ROI CALCULATOR SCRIPT (WEEKLY) ===
+        // === UPDATED ROI CALCULATOR SCRIPT (WEEKLY & £99) ===
         const missedCallsSlider = document.getElementById('missedCalls');
         const conversionRateSlider = document.getElementById('conversionRate');
         const avgClientValueSlider = document.getElementById('avgClientValue');
@@ -964,21 +1030,16 @@
         const roiMultipleOutput = document.getElementById('roiMultipleOutput');
         
         const ANNUAL_COST = 99 * 12; // Swift Plan Annual Cost
-        const WEEKS_IN_MONTH = 4.333; // Average weeks in a month (365.25 / 12 / 7)
+        const WEEKS_IN_MONTH = 52 / 12; // Average weeks in a month (365.25 / 12 / 7)
 
         function calculateROI() {
             if (!missedCallsSlider) return;
 
-            // EDITED: Changed variable name for clarity
             const missedCallsPerWeek = parseInt(missedCallsSlider.value); 
             const conversionRate = parseInt(conversionRateSlider.value);
             const avgClientValue = parseInt(avgClientValueSlider.value);
             
-            // --- EDITED CALCULATION LOGIC ---
-            // Convert weekly missed calls to monthly missed calls
             const monthlyMissedCalls = missedCallsPerWeek * WEEKS_IN_MONTH; 
-            // --- END EDITED CALCULATION ---
-
             const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
             const monthlyRevenue = capturedLeads * avgClientValue;
             const annualRevenue = monthlyRevenue * 12;
@@ -1040,6 +1101,58 @@
             // Then set an interval to change it every 3 seconds (3000 milliseconds)
             setInterval(updateProfession, 3000);
         }
+
+        // === NEW SWIFT SIGNUP FORM SCRIPT ===
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('swift-signup-form'); // This is the ID of the new form
+          const messageEl = document.getElementById('form-message');
+          const submitButton = document.getElementById('swift-submit-button');
+
+          if (!form) return;
+
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop the form from submitting normally
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerText = 'Redirecting to payment...';
+            messageEl.style.display = 'none';
+
+            // 1. Get the form data
+            const formData = {
+              business_name: form.business_name.value,
+              owner_name: form.owner_name.value,
+              owner_email: form.owner_email.value
+            };
+
+            try {
+              // 2. Send data to your new backend endpoint
+              //    NOTE: This is a relative path. Your server must be running on the same domain.
+              const response = await fetch('/api/onboarding/start-swift', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+              });
+
+              const data = await response.json();
+
+              if (!response.ok) {
+                // 3a. Handle errors (e.g., "Email already in use")
+                throw new Error(data.error || 'An unknown error occurred.');
+              }
+
+              // 3b. Success! Redirect to Stripe
+              window.location.href = data.checkoutUrl;
+
+            } catch (error) {
+              // 3c. Show error message and re-enable form
+              messageEl.innerText = error.message;
+              messageEl.style.display = 'block';
+              submitButton.disabled = false;
+              submitButton.innerText = 'Go to Payment - £99/month';
+            }
+          });
+        });
 
     </script>
     
