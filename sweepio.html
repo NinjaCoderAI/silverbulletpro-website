@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet SWEEP.io | The 2026 Reactivation Engine</title>
+    <title>SilverBullet SWEEP | The 2026 Reactivation Engine</title>
     
+    <link rel="icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -89,6 +92,21 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
+        /* Text Rotation Animation Classes */
+        .rotator-wrapper {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .rotator-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .rotator-in {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
         /* WhatsApp Notification Simulation */
         .notification-pop {
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -103,13 +121,15 @@
             }
         }
 
-        /* Custom Range Slider Styling */
+        /* Custom Range Slider Styling - Cross Browser Compatible */
         input[type=range] {
             -webkit-appearance: none; /* WebKit */
             appearance: none;         /* Standard */
             width: 100%;
             background: transparent;
         }
+        
+        /* WebKit/Blink (Chrome, Safari, Edge) */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             height: 20px;
@@ -120,7 +140,15 @@
             margin-top: -8px;
             box-shadow: 0 0 10px rgba(245,158,11,0.5);
         }
-        /* Firefox Thumb */
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+
+        /* Firefox */
         input[type=range]::-moz-range-thumb {
             height: 20px;
             width: 20px;
@@ -130,15 +158,6 @@
             border: none;
             box-shadow: 0 0 10px rgba(245,158,11,0.5);
         }
-        
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #334155;
-            border-radius: 2px;
-        }
-        /* Firefox Track */
         input[type=range]::-moz-range-track {
             width: 100%;
             height: 4px;
@@ -154,7 +173,7 @@
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between mx-auto p-4 md:px-8">
             <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
                 <span class="self-center text-xl font-semibold whitespace-nowrap tracking-tight text-white">
-                    SilverBullet <span class="text-slate-600 px-1">|</span> <span class="text-electric-400 font-bold tracking-wide">SWEEP.io</span>
+                    SilverBullet <span class="text-slate-600 px-1">|</span> <span class="text-electric-400 font-bold tracking-wide">SWEEP</span>
                 </span>
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-4 rtl:space-x-reverse">
@@ -181,10 +200,19 @@
                 Priority Access: 2026 Deployment Slots Open
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight animate-fade-in-up" style="animation-delay: 100ms;">
+            <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-2 leading-tight animate-fade-in-up" style="animation-delay: 100ms;">
                 Your Database Holds <br class="hidden md:block" />
                 Your Next <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">5 High-Value Clients.</span>
             </h1>
+
+            <div class="h-12 md:h-16 mb-6 flex items-center justify-center animate-fade-in-up" style="animation-delay: 150ms;">
+                <p class="text-lg md:text-2xl text-slate-400 font-medium">
+                    Designed to Reactivate Leads For: 
+                    <span id="industry-rotator" class="rotator-wrapper inline-block ml-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-electric-400 to-blue-500">
+                        Estate Agencies
+                    </span>
+                </p>
+            </div>
 
             <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 200ms;">
                 Stop burning cash on cold traffic. 
@@ -463,6 +491,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- DYNAMIC INDUSTRY ROTATOR LOGIC ---
+            const industries = [
+                "Estate Agencies",
+                "Car Dealerships",
+                "SaaS Companies",
+                "Coaching Businesses",
+                "Mortgage Brokers",
+                "Trades & Services"
+            ];
+            
+            const rotatorEl = document.getElementById('industry-rotator');
+            let industryIndex = 0;
+            
+            setInterval(() => {
+                // Fade Out / Move Up
+                rotatorEl.classList.remove('rotator-wrapper'); 
+                rotatorEl.classList.add('rotator-out');
+                
+                setTimeout(() => {
+                    // Change Text
+                    industryIndex = (industryIndex + 1) % industries.length;
+                    rotatorEl.textContent = industries[industryIndex];
+                    
+                    // Instant move to bottom (invisible)
+                    rotatorEl.classList.remove('rotator-out');
+                    rotatorEl.classList.add('rotator-in');
+                    
+                    // Small delay to allow browser to register the position change
+                    setTimeout(() => {
+                        // Smoothly move back to center
+                        rotatorEl.classList.remove('rotator-in');
+                        rotatorEl.classList.add('rotator-wrapper');
+                    }, 50);
+                    
+                }, 500); // Wait for fade out animation (0.5s)
+                
+            }, 2000); // 2-second interval
+
+
             // --- ROI CALCULATOR LOGIC ---
             const leadsInput = document.getElementById('leads-input');
             const rateInput = document.getElementById('rate-input');
