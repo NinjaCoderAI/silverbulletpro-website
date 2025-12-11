@@ -107,6 +107,28 @@
             transform: translateY(-10px);
         }
 
+        /* GOLD SPARKLE EFFECT */
+        @keyframes sparkle {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(100%);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(130%);
+            }
+        }
+        .text-gold-sparkle {
+            color: #fbbf24; /* Fallback */
+            background-image: linear-gradient(90deg, #f59e0b, #fbbf24, #fff7ed, #fbbf24, #f59e0b);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: sparkle 3s linear infinite;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
         /* WhatsApp Notification Simulation */
         .notification-pop {
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -201,13 +223,13 @@
             </div>
 
             <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-2 leading-tight animate-fade-in-up" style="animation-delay: 100ms;">
-                Your Database Holds <br class="hidden md:block" />
-                Your Next <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">5 High-Value Clients.</span>
+                Uncover The <span class="text-gold-sparkle">Gold</span> <br class="hidden md:block" />
+                Hidden In Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Database.</span>
             </h1>
 
             <div class="h-12 md:h-16 mb-6 flex items-center justify-center animate-fade-in-up" style="animation-delay: 150ms;">
                 <p class="text-lg md:text-2xl text-slate-400 font-medium">
-                    Trusted By Leading: 
+                    Trusted By: 
                     <span id="industry-rotator" class="rotator-wrapper inline-block ml-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-electric-400 to-blue-500">
                         Estate Agencies
                     </span>
@@ -215,10 +237,10 @@
             </div>
 
             <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 200ms;">
-                Stop burning cash on cold traffic. 
+                Stop paying for strangers. 
                 <span class="text-white font-medium">The 2026 Reactivation Engine</span> 
-                mines your ignored archive to uncover the prospects ready to buy 
-                <span class="italic text-white">right now</span>—before your competitors return from the holidays.
+                mines your ignored archive to find the clients ready to buy
+                <span class="italic text-white">right now</span>.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 300ms;">
