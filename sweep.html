@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet SWEEP | Database Reactivation Engine</title>
+    <title>SilverBullet SWEEP | Intelligent Data Hygiene & Compliance</title>
     
+    <link rel="icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,6 +35,10 @@
                         electric: {
                             400: '#22d3ee', // Tech Blue
                             500: '#06b6d4',
+                        },
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
                         }
                     },
                     backgroundImage: {
@@ -89,18 +96,88 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
+        /* Text Rotation Animation Classes */
+        .rotator-wrapper {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .rotator-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .rotator-in {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* GOLD SPARKLE EFFECT - Used sparingly for ROI */
+        @keyframes sparkle {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .text-gold-sparkle {
+            color: #fbbf24;
+            background-image: linear-gradient(90deg, #d97706, #fbbf24, #fff, #fbbf24, #d97706);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: sparkle 3s linear infinite;
+            display: inline-block;
+        }
+
         /* WhatsApp Notification Simulation */
         .notification-pop {
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             opacity: 0;
             transform: scale(0.8) translateY(20px);
         }
-        
         @keyframes popIn {
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Cross-Browser Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        /* WebKit */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(245,158,11,0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+        /* Firefox */
+        input[type=range]::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(245,158,11,0.5);
+        }
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -110,52 +187,59 @@
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between mx-auto p-4 md:px-8">
             <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
                 <span class="self-center text-xl font-semibold whitespace-nowrap tracking-tight text-white">
-                    SilverBullet <span class="text-slate-600 px-1">|</span> <span class="text-electric-400 font-bold tracking-wide">SWEEP</span>
+                    SilverBullet <span class="text-slate-600 px-1">|</span> <span class="text-electric-400 font-bold tracking-wide">SWEEP.io</span>
                 </span>
             </a>
             <div class="flex md:order-2 space-x-3 md:space-x-4 rtl:space-x-reverse">
                 <button type="button" class="text-slate-300 hover:text-white font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors">
                     Login
                 </button>
-                <a href="https://buy.stripe.com/eVqdR953A5gO5Rtc5T7ss09" class="text-slate-900 bg-gold-500 hover:bg-gold-400 focus:ring-4 focus:outline-none focus:ring-gold-500/30 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                    Get Started
+                <a href="mailto:david@silverbulletpro.com?subject=Inquiry: Data Hygiene & Compliance Audit" class="text-slate-900 bg-white hover:bg-slate-200 focus:ring-4 focus:outline-none focus:ring-slate-500/30 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-all shadow-lg">
+                    Request Audit
                 </a>
             </div>
         </div>
     </nav>
 
     <section class="relative pt-32 pb-20 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
             
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8 animate-fade-in-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-8 animate-fade-in-up">
                 <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                Boxing Day Priority Access Now Open
+                GDPR & PECR Compliance Standards: 2026 Ready
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight animate-fade-in-up" style="animation-delay: 100ms;">
-                Your Database Holds <br class="hidden md:block" />
-                Your Next <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">5 Instructions.</span>
+            <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-2 leading-tight animate-fade-in-up" style="animation-delay: 100ms;">
+                Turn Your GDPR Liability <br class="hidden md:block" />
+                Into <span class="text-gold-sparkle">Recovered Revenue.</span>
             </h1>
 
+            <div class="h-12 md:h-16 mb-6 flex items-center justify-center animate-fade-in-up" style="animation-delay: 150ms;">
+                <p class="text-lg md:text-2xl text-slate-400 font-medium">
+                    Automated Data Hygiene For: 
+                    <span id="industry-rotator" class="rotator-wrapper inline-block ml-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-electric-400 to-blue-500">
+                        Recruitment Firms
+                    </span>
+                </p>
+            </div>
+
             <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 200ms;">
-                Stop burning cash on Rightmove leads. 
-                <span class="text-white font-medium">The Boxing Day Stock Booster</span> 
-                mines your ignored 2024 archive to uncover the homeowners ready to sell 
-                <span class="italic text-white">right now</span>—before your competitors return from the holidays.
+                Holding dormant personal data is a legal risk.
+                <span class="text-white font-medium">SilverBullet SWEEP</span> 
+                audits your archive, updates consent records, and identifies the <span class="text-white underline decoration-gold-500/50 underline-offset-4">active opportunities</span> hiding in the noise.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 300ms;">
-                <a href="https://buy.stripe.com/eVqdR953A5gO5Rtc5T7ss09" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-lg font-bold text-lg hover:bg-blue-50 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2">
-                    Secure Your Slot
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                <a href="mailto:david@silverbulletpro.com?subject=Inquiry: Data Hygiene & Compliance Audit" class="w-full sm:w-auto px-8 py-4 bg-gold-500 text-slate-950 rounded-lg font-bold text-lg hover:bg-gold-400 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2">
+                    Start Your Database Audit
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </a>
                 <span class="text-slate-500 text-sm mt-2 sm:mt-0 sm:ml-4">
-                    No Win, No Fee Guarantee applied automatically.
+                    Strictly compliant with UK ICO guidelines.
                 </span>
             </div>
 
@@ -165,38 +249,106 @@
     <section class="py-20 bg-slate-950/50 relative border-y border-white/5">
         <div class="max-w-screen-xl mx-auto px-4 md:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Stop Paying the <span class="text-slate-500 line-through decoration-red-500/50">'Rightmove Tax'.</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Why "Do Nothing" is <span class="text-red-400">Dangerous.</span></h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 reveal">
-                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-electric-400">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-red-400">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">High Lead Costs</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">The GDPR Liability</h3>
                     <p class="text-slate-400 leading-relaxed">
-                        You pay £150+ for a valuation lead on portals, yet ignore the thousands of leads sitting in your CRM for free.
+                        Under GDPR, you cannot hold personal data indefinitely without a valid reason. Our audit creates a fresh "Legitimate Interest" timestamp for every contact.
                     </p>
                 </div>
 
                 <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 100ms;">
                     <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-electric-400">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Follow-Up Gap</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">The "Admin" Waste</h3>
                     <p class="text-slate-400 leading-relaxed">
-                        Your negotiators are busy closing. They don't have time to call 500 people from last year. We do.
+                        Your consultants waste 30% of their week calling dead numbers and ex-clients. We filter the noise so they only speak to active humans.
                     </p>
                 </div>
 
                 <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 200ms;">
-                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-electric-400">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-emerald-400">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Boxing Day Rush</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">The "Found" Revenue</h3>
                     <p class="text-slate-400 leading-relaxed">
-                        If you have empty shelves on Dec 26th, you miss the Q1 market. You need stock <em class="text-white not-italic">now</em>.
+                        The by-product of cleaning your data is finding the 5% who are ready to move *now*. We hand these opportunities to you on a silver platter.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-slate-900 border-b border-white/5 relative overflow-hidden">
+        <div class="ambient-glow bg-gold-500/10 w-[600px] h-[600px] top-1/2 right-0 translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="max-w-screen-xl mx-auto px-4">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">Calculate Recovered Pipeline</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    Data decay costs you money every month. Model the potential value hiding in your dormant archive below.
+                </p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 md:p-12 border border-white/10 reveal shadow-2xl bg-black/40">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="space-y-10">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-white font-medium">Records to Audit</label>
+                                <span class="bg-gold-500/10 text-gold-400 px-3 py-1 rounded-md font-bold" id="leads-display">2500</span>
+                            </div>
+                            <input type="range" min="100" max="10000" step="100" value="2500" id="leads-input" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <p class="text-xs text-slate-500 mt-2">The size of the CSV file you want us to sweep.</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-white font-medium">Verified Active Rate (%)</label>
+                                <span class="bg-gold-500/10 text-gold-400 px-3 py-1 rounded-md font-bold" id="rate-display">4%</span>
+                            </div>
+                            <input type="range" min="1" max="15" step="0.5" value="4" id="rate-input" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <p class="text-xs text-slate-500 mt-2">We typically find 3-12% of data is "Immediate Active".</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-white font-medium">Avg. Placement/Deal Fee (£)</label>
+                                <span class="bg-gold-500/10 text-gold-400 px-3 py-1 rounded-md font-bold" id="value-display">£5,000</span>
+                            </div>
+                            <input type="range" min="1000" max="50000" step="1000" value="5000" id="value-input" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <p class="text-xs text-slate-500 mt-2">How much is one closed deal worth to your business?</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 rounded-2xl p-8 border border-slate-800 relative overflow-hidden text-center flex flex-col justify-center h-full">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-electric-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                        
+                        <div class="mb-8">
+                            <p class="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">Recovered Pipeline Value</p>
+                            <h3 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight" id="revenue-output">£500,000</h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-800 pt-8">
+                            <div>
+                                <p class="text-slate-500 text-xs uppercase mb-1">Reactivated Contacts</p>
+                                <p class="text-2xl font-bold text-gold-400" id="leads-output">100</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-500 text-xs uppercase mb-1">Audit ROI</p>
+                                <p class="text-2xl font-bold text-green-400" id="roi-output">501x</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -210,7 +362,7 @@
             <div class="reveal relative w-full max-w-md">
                 <div class="relative bg-slate-900 border border-slate-700 rounded-[2.5rem] shadow-2xl p-4 overflow-hidden">
                     <div class="flex justify-between items-center mb-6 px-2 pt-2">
-                        <div class="text-xs text-slate-500 font-medium">10:42</div>
+                        <div class="text-xs text-slate-500 font-medium">14:22</div>
                         <div class="flex space-x-1">
                             <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
                             <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
@@ -227,8 +379,8 @@
                                     <h4 class="text-white font-bold text-sm">🔥 HOT LEAD REPLY</h4>
                                     <span class="text-slate-400 text-xs">Now</span>
                                 </div>
-                                <p class="text-slate-200 text-sm mt-1 font-medium">Name: David Smith</p>
-                                <p class="text-slate-400 text-sm mt-1">"Yes, looking to sell in Jan. Can you pop round?"</p>
+                                <p class="text-slate-200 text-sm mt-1 font-medium">Name: Sarah Jenkins</p>
+                                <p class="text-slate-400 text-sm mt-1">"Thanks for the update. I am actually looking for a new role in Jan. When can we speak?"</p>
                             </div>
                         </div>
                     </div>
@@ -237,82 +389,114 @@
 
             <div class="mt-8 text-center reveal">
                 <p class="text-slate-400 text-lg">
-                    From <span class="text-slate-500">'Dead Lead'</span> to <span class="text-green-400 font-semibold">'WhatsApp Alert'</span> in under 15 seconds.
+                    Real-time "Hot Lead" alerts sent directly to your WhatsApp.
                 </p>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-slate-900 border-y border-white/5">
-        <div class="max-w-screen-xl mx-auto px-4 md:px-8">
-            <div class="grid md:grid-cols-3 gap-12 relative">
-                <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-slate-700 to-transparent z-0"></div>
-
-                <div class="relative z-10 text-center reveal">
-                    <div class="w-16 h-16 mx-auto bg-slate-950 border border-slate-700 rounded-full flex items-center justify-center text-xl font-bold text-electric-400 shadow-xl mb-6">1</div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Extraction</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed px-4">
-                        Send us your CSV. We clean, filter, and verify the data to remove noise.
+    <section class="py-24 bg-slate-950 border-y border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+        
+        <div class="max-w-screen-xl mx-auto px-4 md:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-6">
+                        The <span class="text-electric-400">Compliance First</span> Architecture.
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        We don't "blast" messages. We use an intelligent hygiene protocol designed to verify data accuracy while respecting user privacy.
                     </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0 text-electric-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Administrative Intent</h4>
+                                <p class="text-slate-500 text-sm">Messages are framed as "Profile Updates" (Legitimate Interest), not marketing sales pitches.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0 text-electric-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Human-Speed Processing</h4>
+                                <p class="text-slate-500 text-sm">Our engine mimics natural typing delays, ensuring high deliverability and zero spam flags.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="relative z-10 text-center reveal" style="transition-delay: 150ms;">
-                    <div class="w-16 h-16 mx-auto bg-slate-950 border border-electric-500/50 rounded-full flex items-center justify-center text-xl font-bold text-electric-400 shadow-[0_0_15px_rgba(34,211,238,0.2)] mb-6">2</div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Sweep</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed px-4">
-                        Our AI Engine initiates a compliant, human-style SMS conversation with every prospect.
-                    </p>
+                <div class="reveal relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-electric-500 to-blue-600 rounded-xl blur opacity-20"></div>
+                    
+                    <div class="relative bg-[#0f172a] rounded-xl border border-slate-700 shadow-2xl overflow-hidden font-mono text-xs md:text-sm">
+                        <div class="bg-slate-900 px-4 py-3 flex items-center gap-2 border-b border-slate-800">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-2 text-slate-500 text-xs">sweep-compliance-node — 80x24</div>
+                        </div>
+                        
+                        <div class="p-6 h-[320px] overflow-hidden flex flex-col justify-end">
+                            <div id="terminal-content" class="text-slate-300 space-y-2">
+                                </div>
+                            <div class="mt-2 flex items-center text-electric-400">
+                                <span class="mr-2">➜</span>
+                                <span class="w-2 h-4 bg-electric-400 animate-pulse"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="relative z-10 text-center reveal" style="transition-delay: 300ms;">
-                    <div class="w-16 h-16 mx-auto bg-slate-950 border border-gold-500/50 rounded-full flex items-center justify-center text-xl font-bold text-gold-500 shadow-[0_0_15px_rgba(245,158,11,0.2)] mb-6">3</div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Handover</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed px-4">
-                        Hot leads are diverted to your personal mobile instantly. You call them while the phone is in their hand.
-                    </p>
-                </div>
             </div>
         </div>
     </section>
 
     <section id="pricing" class="py-24 relative">
         <div class="max-w-lg mx-auto px-4 reveal">
-            <div class="glass-card relative rounded-3xl p-8 md:p-12 overflow-hidden border-gold-500/30 border">
-                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-gold-500/20 blur-3xl rounded-full"></div>
+            <div class="glass-card relative rounded-3xl p-8 md:p-12 overflow-hidden border-white/10 border">
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full"></div>
 
                 <div class="text-center mb-8">
-                    <h3 class="text-xl font-medium text-slate-300">The Boxing Day Booster</h3>
+                    <h3 class="text-xl font-medium text-slate-300">The 2026 Hygiene Audit</h3>
                     <div class="flex items-baseline justify-center mt-4">
+                        <span class="text-xl text-slate-400 mr-2">from</span>
                         <span class="text-5xl font-extrabold text-white">£997</span>
-                        <span class="ml-1 text-xl text-slate-500">/campaign</span>
+                        <span class="ml-1 text-xl text-slate-500">/scan</span>
                     </div>
                 </div>
 
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-center space-x-3">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-slate-300">Up to <strong class="text-white">2,500 Contacts</strong> Reactivated</span>
+                        <svg class="flex-shrink-0 w-5 h-5 text-electric-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-slate-300">Up to <strong class="text-white">5,000 Records</strong> Audited</span>
                     </li>
                     <li class="flex items-center space-x-3">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-slate-300">Full Data Cleansing & Formatting</span>
+                        <svg class="flex-shrink-0 w-5 h-5 text-electric-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-slate-300">"Soft Opt-in" Compliance Framework</span>
                     </li>
                     <li class="flex items-center space-x-3">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-slate-300">UK-Compliant "Soft Opt-in" framework</span>
+                        <svg class="flex-shrink-0 w-5 h-5 text-electric-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-slate-300">Removal of Dead Numbers & Opt-outs</span>
                     </li>
                     <li class="flex items-center space-x-3">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-slate-300">Real-time WhatsApp Alerts</span>
+                        <svg class="flex-shrink-0 w-5 h-5 text-electric-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-slate-300">Active Leads Sent via WhatsApp</span>
                     </li>
                     <li class="flex items-start space-x-3 pt-2 border-t border-white/10">
                         <svg class="flex-shrink-0 w-5 h-5 text-green-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        <span class="text-slate-300 text-sm">GUARANTEE: <strong class="text-white">5 Valuation Leads</strong> or we refund you entirely.</span>
+                        <span class="text-slate-300 text-sm">GUARANTEE: <strong class="text-white">5 Verified Leads</strong> or you don't pay.</span>
                     </li>
                 </ul>
 
-                <a href="https://buy.stripe.com/eVqdR953A5gO5Rtc5T7ss09" class="block w-full py-4 px-6 bg-gold-500 hover:bg-gold-400 text-slate-900 font-bold text-center rounded-xl transition-all hover:scale-[1.02] shadow-lg">
-                    Book Your Campaign Now
+                <a href="mailto:david@silverbulletpro.com?subject=Inquiry: Data Hygiene & Compliance Audit" class="block w-full py-4 px-6 bg-white hover:bg-slate-200 text-slate-900 font-bold text-center rounded-xl transition-all hover:scale-[1.02] shadow-lg">
+                    Book Your Audit
                 </a>
             </div>
         </div>
@@ -324,18 +508,18 @@
             
             <div class="space-y-6">
                 <div class="reveal border-b border-slate-800 pb-6">
-                    <h4 class="text-lg font-semibold text-white mb-2">Is this GDPR compliant?</h4>
-                    <p class="text-slate-400">Yes. We use soft opt-in protocols compliant with PECR regulations and handle all opt-outs automatically via our suppression system.</p>
+                    <h4 class="text-lg font-semibold text-white mb-2">Is this legal in the UK (GDPR/PECR)?</h4>
+                    <p class="text-slate-400">Yes. We utilize the "Soft Opt-in" exception for previous customers/inquiries, and we frame our outreach as "Data Accuracy Checks" (Administrative) rather than direct marketing, ensuring full compliance.</p>
                 </div>
                 
                 <div class="reveal border-b border-slate-800 pb-6">
-                    <h4 class="text-lg font-semibold text-white mb-2">Do I need to install software?</h4>
-                    <p class="text-slate-400">No. This is a Done-For-You service. You securely send us the CSV file, and our team handles the data cleaning, setup, and AI deployment.</p>
+                    <h4 class="text-lg font-semibold text-white mb-2">What happens to the data?</h4>
+                    <p class="text-slate-400">We process the CSV securely to run the audit, then provide you with a cleansed file. We do not retain or sell your data. We act as a Data Processor under your instruction.</p>
                 </div>
                 
                 <div class="reveal border-b border-slate-800 pb-6">
-                    <h4 class="text-lg font-semibold text-white mb-2">What happens if they call back?</h4>
-                    <p class="text-slate-400">Our system diverts the call straight to your office mobile or landline instantly. You never miss a conversation with a potential vendor.</p>
+                    <h4 class="text-lg font-semibold text-white mb-2">What happens if a contact calls back?</h4>
+                    <p class="text-slate-400">Our system is intelligent. If a contact calls the verification number, it is instantly diverted to your office line or mobile, ensuring no missed connections.</p>
                 </div>
             </div>
         </div>
@@ -344,13 +528,135 @@
     <footer class="bg-slate-950 border-t border-slate-900 py-12">
         <div class="max-w-screen-xl mx-auto px-4 text-center">
             <p class="text-slate-500 text-sm">Oakbank AI. Copyright 2025.</p>
-            <p class="text-slate-600 text-xs mt-2">Revenue Acceleration Specialists.</p>
+            <p class="text-slate-600 text-xs mt-2">Data Infrastructure & Compliance Specialists.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Scroll Reveal Observer
+            // --- DYNAMIC INDUSTRY ROTATOR LOGIC ---
+            const industries = [
+                "Recruitment Firms",
+                "Estate Agencies",
+                "Automotive Dealerships",
+                "Financial Brokers",
+                "Private Clinics"
+            ];
+            
+            const rotatorEl = document.getElementById('industry-rotator');
+            let industryIndex = 0;
+            
+            setInterval(() => {
+                rotatorEl.classList.remove('rotator-wrapper'); 
+                rotatorEl.classList.add('rotator-out');
+                
+                setTimeout(() => {
+                    industryIndex = (industryIndex + 1) % industries.length;
+                    rotatorEl.textContent = industries[industryIndex];
+                    
+                    rotatorEl.classList.remove('rotator-out');
+                    rotatorEl.classList.add('rotator-in');
+                    
+                    setTimeout(() => {
+                        rotatorEl.classList.remove('rotator-in');
+                        rotatorEl.classList.add('rotator-wrapper');
+                    }, 50);
+                    
+                }, 500); 
+                
+            }, 2500); 
+
+
+            // --- ROI CALCULATOR LOGIC ---
+            const leadsInput = document.getElementById('leads-input');
+            const rateInput = document.getElementById('rate-input');
+            const valueInput = document.getElementById('value-input');
+            
+            const leadsDisplay = document.getElementById('leads-display');
+            const rateDisplay = document.getElementById('rate-display');
+            const valueDisplay = document.getElementById('value-display');
+            
+            const revenueOutput = document.getElementById('revenue-output');
+            const leadsOutput = document.getElementById('leads-output');
+            const roiOutput = document.getElementById('roi-output');
+
+            const campaignCost = 997;
+
+            function calculateROI() {
+                const leads = parseInt(leadsInput.value);
+                const rate = parseFloat(rateInput.value);
+                const value = parseInt(valueInput.value);
+
+                leadsDisplay.textContent = leads.toLocaleString();
+                rateDisplay.textContent = rate + '%';
+                valueDisplay.textContent = '£' + value.toLocaleString();
+
+                const reactivatedLeads = Math.round(leads * (rate / 100));
+                const potentialRevenue = reactivatedLeads * value;
+                
+                const roiMultiple = potentialRevenue > 0 ? (potentialRevenue / campaignCost).toFixed(0) + 'x' : '0x';
+
+                leadsOutput.textContent = reactivatedLeads.toLocaleString();
+                revenueOutput.textContent = '£' + potentialRevenue.toLocaleString();
+                roiOutput.textContent = roiMultiple;
+            }
+
+            leadsInput.addEventListener('input', calculateROI);
+            rateInput.addEventListener('input', calculateROI);
+            valueInput.addEventListener('input', calculateROI);
+            calculateROI();
+
+
+            // --- TERMINAL TYPING ANIMATION (UPDATED FOR COMPLIANCE) ---
+            const terminalContent = document.getElementById('terminal-content');
+            
+            const terminalLines = [
+                { text: "> Initializing SWEEP Core v3.0...", color: "text-slate-400" },
+                { text: "> Loading archive_data.csv", color: "text-slate-300" },
+                { text: "> [AUDIT] 2,500 dormant records detected.", color: "text-blue-400" },
+                { text: "> Verifying 'Legitimate Interest' status...", color: "text-electric-400" },
+                { text: "> Removing dead numbers (HLR Lookup)... OK.", color: "text-slate-400" },
+                { text: "> Sending 'Profile Update' requests...", color: "text-white font-bold" },
+                { text: "> [FILTERING] 96% Opt-out / No Reply.", color: "text-slate-500" },
+                { text: "> ...", color: "text-slate-500" },
+                { text: "> [RESPONSE] 'Yes, still looking.' DETECTED.", color: "text-emerald-400 font-bold" },
+                { text: "> Routing to Client WhatsApp...", color: "text-slate-300" }
+            ];
+
+            let lineIndex = 0;
+
+            function typeTerminal() {
+                if (!terminalContent) return;
+                
+                if (lineIndex >= terminalLines.length) {
+                    setTimeout(() => {
+                        terminalContent.innerHTML = '';
+                        lineIndex = 0;
+                        typeTerminal();
+                    }, 5000); 
+                    return;
+                }
+
+                const line = terminalLines[lineIndex];
+                const p = document.createElement('div');
+                p.className = `${line.color} font-mono tracking-wide opacity-0 transform translate-y-2 transition-all duration-300`;
+                p.textContent = line.text;
+                
+                terminalContent.appendChild(p);
+                
+                requestAnimationFrame(() => {
+                    p.classList.remove('opacity-0', 'translate-y-2');
+                });
+
+                lineIndex++;
+                const randomDelay = Math.random() * (800 - 100) + 100;
+                setTimeout(typeTerminal, randomDelay);
+            }
+
+            setTimeout(typeTerminal, 1000);
+
+
+            // --- SCROLL REVEAL ANIMATIONS ---
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -361,8 +667,6 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        
-                        // Special trigger for notification animation
                         const notification = entry.target.querySelector('#notification-card');
                         if (notification) {
                             setTimeout(() => {
