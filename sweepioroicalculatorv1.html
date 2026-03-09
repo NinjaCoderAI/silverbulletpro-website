@@ -185,16 +185,16 @@
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 transition-colors duration-300">
                     Revenue Projection Model
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 transition-colors duration-300">Calculate Your Hidden Pipeline</h1>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 transition-colors duration-300">Calculate Your Hidden ROI</h1>
                 <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg transition-colors duration-300">
-                    We deliver the hot leads. Your team closes the deals. Slide the numbers below to see the value of the dormant pipeline sitting in your database.
+                    Even a small percentage of reactivated leads can yield massive returns. Slide the numbers below to model the revenue currently leaking from your database.
                 </p>
             </div>
 
-            <div class="glass-card rounded-3xl p-6 md:p-12 shadow-2xl border-t-4 border-t-gold-500 max-w-6xl mx-auto">
-                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div class="glass-card rounded-3xl p-6 md:p-12 shadow-2xl border-t-4 border-t-gold-500 max-w-5xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     
-                    <div class="lg:col-span-6 space-y-12">
+                    <div class="space-y-12">
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Dormant Leads in Database</label>
@@ -206,11 +206,11 @@
 
                         <div>
                             <div class="flex justify-between items-center mb-4">
-                                <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Expected Reply Rate</label>
-                                <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="rate-display">6%</span>
+                                <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Conservative Reply Rate</label>
+                                <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="rate-display">4%</span>
                             </div>
-                            <input type="range" min="1" max="15" step="0.5" value="6" id="rate-input" class="mb-2">
-                            <p class="text-sm text-slate-500">We typically see 3-12% engagement depending on data age. These are the "Hot Leads" delivered to your team.</p>
+                            <input type="range" min="1" max="15" step="0.5" value="4" id="rate-input" class="mb-2">
+                            <p class="text-sm text-slate-500">We typically see 3-12% engagement depending on data age.</p>
                         </div>
 
                         <div>
@@ -218,37 +218,37 @@
                                 <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Avg. Deal Value</label>
                                 <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="value-display">£5,000</span>
                             </div>
-                            <input type="range" min="500" max="50000" step="500" value="5000" id="value-input" class="mb-2">
+                            <input type="range" min="1000" max="50000" step="1000" value="5000" id="value-input" class="mb-2">
                             <p class="text-sm text-slate-500">How much is one closed deal worth to your business?</p>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-6 bg-white dark:bg-slate-950 rounded-2xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 relative overflow-hidden text-center flex flex-col justify-center shadow-xl transition-colors duration-300 h-full">
+                    <div class="bg-white dark:bg-slate-950 rounded-2xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 relative overflow-hidden text-center flex flex-col justify-center shadow-xl transition-colors duration-300 h-full">
                         <div class="absolute top-0 right-0 w-40 h-40 bg-electric-400/10 dark:bg-electric-500/10 blur-3xl rounded-full pointer-events-none"></div>
                         <div class="absolute bottom-0 left-0 w-40 h-40 bg-gold-400/10 dark:bg-gold-500/10 blur-3xl rounded-full pointer-events-none"></div>
                         
                         <div class="mb-10 relative z-10">
-                            <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-3">Reactivated Pipeline Value</p>
-                            <h3 class="text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors duration-300" id="revenue-output">£0</h3>
+                            <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-3">Potential Reactivated Revenue</p>
+                            <h3 class="text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors duration-300" id="revenue-output">£500,000</h3>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2 border-t border-slate-200 dark:border-slate-800 pt-8 mb-8 transition-colors duration-300 relative z-10">
-                            <div class="border-r border-slate-200 dark:border-slate-800">
-                                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">Hot Leads / Appts</p>
-                                <p class="text-3xl font-black text-gold-600 dark:text-gold-400 transition-colors duration-300" id="leads-output">0</p>
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 dark:border-slate-800 pt-8 mb-8 transition-colors duration-300 relative z-10">
+                            <div>
+                                <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Reactivated Leads</p>
+                                <p class="text-3xl font-black text-gold-600 dark:text-gold-400 transition-colors duration-300" id="leads-output">100</p>
                             </div>
                             <div>
-                                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">Est. Campaign Cost</p>
-                                <p class="text-3xl font-black text-slate-900 dark:text-white transition-colors duration-300" id="cost-output">£0</p>
+                                <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Estimated ROI</p>
+                                <p class="text-3xl font-black text-green-600 dark:text-green-400 transition-colors duration-300" id="roi-output">501x</p>
                             </div>
                         </div>
 
                         <div class="relative z-10">
-                            <a id="claim-revenue-btn" href="#" class="block w-full py-4 px-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 font-bold text-center rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
-                                Unlock This Pipeline
+                            <a id="claim-revenue-btn" href="mailto:david@silverbulletpro.com?subject=I'd like to claim my hidden revenue" class="block w-full py-4 px-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 font-bold text-center rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                                Claim This Revenue
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </a>
-                            <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed">*Campaign Cost includes a standard £997 infrastructure build fee + £90 per Hot Lead delivered directly to your sales team.</p>
+                            <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-4">*ROI multiple based on average baseline infrastructure setup cost.</p>
                         </div>
                     </div>
 
@@ -272,6 +272,7 @@
             const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
             const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
+            // Set initial icon state
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 themeToggleLightIcon.classList.remove('hidden');
             } else {
@@ -301,7 +302,7 @@
                 }
             });
 
-            // --- FOUND REVENUE / PIPELINE CALCULATOR LOGIC ---
+            // --- ROI CALCULATOR LOGIC ---
             const leadsInput = document.getElementById('leads-input');
             const rateInput = document.getElementById('rate-input');
             const valueInput = document.getElementById('value-input');
@@ -312,39 +313,34 @@
             
             const revenueOutput = document.getElementById('revenue-output');
             const leadsOutput = document.getElementById('leads-output');
-            const costOutput = document.getElementById('cost-output');
+            const roiOutput = document.getElementById('roi-output');
             const claimBtn = document.getElementById('claim-revenue-btn');
 
-            // Base costs mapped out for accurate cost modeling
-            const buildFee = 997;
-            const costPerLead = 90;
+            const assumedBaseCost = 1500; 
 
             function calculateROI() {
-                const totalLeads = parseInt(leadsInput.value);
-                const replyRate = parseFloat(rateInput.value);
-                const dealValue = parseInt(valueInput.value);
+                const leads = parseInt(leadsInput.value);
+                const rate = parseFloat(rateInput.value);
+                const value = parseInt(valueInput.value);
 
                 // Update Slider Visuals
-                leadsDisplay.textContent = totalLeads.toLocaleString();
-                rateDisplay.textContent = replyRate + '%';
-                valueDisplay.textContent = '£' + dealValue.toLocaleString();
+                leadsDisplay.textContent = leads.toLocaleString();
+                rateDisplay.textContent = rate + '%';
+                valueDisplay.textContent = '£' + value.toLocaleString();
 
-                // 1. Calculate Hot Leads (Replies)
-                const hotLeads = Math.round(totalLeads * (replyRate / 100));
+                // Math
+                const reactivatedLeads = Math.round(leads * (rate / 100));
+                const potentialRevenue = reactivatedLeads * value;
                 
-                // 2. Calculate Total Pipeline Value (Hot Leads * Deal Value)
-                const pipelineValue = hotLeads * dealValue;
-                
-                // 3. Calculate Estimated Campaign Cost
-                const totalCampaignCost = buildFee + (hotLeads * costPerLead);
-                
-                // Update Outputs
-                leadsOutput.textContent = hotLeads.toLocaleString();
-                costOutput.textContent = '£' + totalCampaignCost.toLocaleString();
-                revenueOutput.textContent = '£' + pipelineValue.toLocaleString();
+                const roiMultiple = potentialRevenue > 0 ? Math.floor(potentialRevenue / assumedBaseCost) + 'x' : '0x';
+
+                // Update Output
+                leadsOutput.textContent = reactivatedLeads.toLocaleString();
+                revenueOutput.textContent = '£' + potentialRevenue.toLocaleString();
+                roiOutput.textContent = roiMultiple;
 
                 // Update Email CTA dynamically
-                claimBtn.href = `mailto:david@silverbulletpro.com?subject=I'd like to unlock my £${pipelineValue.toLocaleString()} pipeline&body=Hi David,%0D%0A%0D%0AI just used the SWEEP calculator and it showed I have £${pipelineValue.toLocaleString()} in potential pipeline sitting in my dormant database of ${totalLeads.toLocaleString()} leads.%0D%0A%0D%0AWhen are you free for a 15-minute chat to show me how this works?`;
+                claimBtn.href = `mailto:david@silverbulletpro.com?subject=I'd like to claim my hidden £${potentialRevenue.toLocaleString()}&body=Hi David,%0D%0A%0D%0AI just used the SWEEP calculator and it showed I could be missing out on £${potentialRevenue.toLocaleString()} from my dormant database of ${leads.toLocaleString()} leads.%0D%0A%0D%0AWhen are you free for a 15-minute chat to show me how this works?`;
             }
 
             // Event Listeners
