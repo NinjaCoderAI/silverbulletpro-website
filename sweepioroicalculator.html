@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWEEP.io | Revenue Reactivation Calculator</title>
+    
+    <link rel="icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/SilverBullet SWEEP Logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enables class-based dark mode
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        electric: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        }
+                    }
+                }
+            }
+        }
+
+        // Script to check local storage and apply theme before page load to prevent flashing
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <style>
+        /* Custom Animations & Utilities */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        /* Light mode glow adjustment */
+        html:not(.dark) .ambient-glow {
+            opacity: 0.2;
+        }
+
+        /* Glassmorphism Card Utility - Responsive to Theme */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fade In Up Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Cross-Browser Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        /* WebKit */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 15px rgba(245,158,11,0.5);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #cbd5e1; /* Light mode track */
+            border-radius: 3px;
+        }
+        .dark input[type=range]::-webkit-slider-runnable-track {
+            background: #334155; /* Dark mode track */
+        }
+        /* Firefox */
+        input[type=range]::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(245,158,11,0.5);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-moz-range-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark input[type=range]::-moz-range-track {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-electric-500 selection:text-white bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <nav class="w-full z-50 top-0 start-0 border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300 relative">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between p-4 md:px-8">
+            <a href="https://silverbulletpro.com" class="flex items-center space-x-2 rtl:space-x-reverse">
+                <span class="self-center text-xl font-semibold whitespace-nowrap tracking-tight text-slate-900 dark:text-white">
+                    SilverBullet <span class="text-slate-400 dark:text-slate-600 px-1">|</span> <span class="text-electric-500 dark:text-electric-400 font-bold tracking-wide">SWEEP.io</span>
+                </span>
+            </a>
+            <div class="flex items-center space-x-3 md:space-x-4 rtl:space-x-reverse">
+                
+                <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2.5 transition-colors">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+
+                <a href="mailto:david@silverbulletpro.com?subject=I'm interested in The 2026 Reactivation Engine" class="text-white dark:text-slate-900 bg-gold-600 dark:bg-gold-500 hover:bg-gold-500 dark:hover:bg-gold-400 focus:ring-4 focus:outline-none focus:ring-gold-500/30 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center py-16 relative">
+        <div class="ambient-glow bg-gold-400/20 dark:bg-gold-500/10 w-[600px] h-[600px] top-1/2 right-0 translate-x-1/2 -translate-y-1/2"></div>
+        <div class="ambient-glow bg-electric-400/20 dark:bg-electric-500/10 w-[500px] h-[500px] bottom-0 left-0 -translate-x-1/3 translate-y-1/3"></div>
+        
+        <div class="max-w-screen-xl mx-auto px-4 w-full relative z-10 animate-fade-in-up">
+            
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 transition-colors duration-300">
+                    Revenue Projection Model
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 transition-colors duration-300">Calculate Your Hidden ROI</h1>
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg transition-colors duration-300">
+                    Even a small percentage of reactivated leads can yield massive returns. Slide the numbers below to model the revenue currently leaking from your database.
+                </p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 md:p-12 shadow-2xl border-t-4 border-t-gold-500 max-w-5xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    
+                    <div class="space-y-12">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Dormant Leads in Database</label>
+                                <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="leads-display">2500</span>
+                            </div>
+                            <input type="range" min="100" max="10000" step="100" value="2500" id="leads-input" class="mb-2">
+                            <p class="text-sm text-slate-500">The total size of the CSV file you want us to sweep.</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Conservative Reply Rate</label>
+                                <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="rate-display">4%</span>
+                            </div>
+                            <input type="range" min="1" max="15" step="0.5" value="4" id="rate-input" class="mb-2">
+                            <p class="text-sm text-slate-500">We typically see 3-12% engagement depending on data age.</p>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-300">Avg. Deal Value</label>
+                                <span class="bg-gold-100 dark:bg-gold-500/10 text-gold-600 dark:text-gold-400 px-4 py-1.5 rounded-lg font-black text-xl transition-colors duration-300 shadow-inner" id="value-display">£5,000</span>
+                            </div>
+                            <input type="range" min="1000" max="50000" step="1000" value="5000" id="value-input" class="mb-2">
+                            <p class="text-sm text-slate-500">How much is one closed deal worth to your business?</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-950 rounded-2xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 relative overflow-hidden text-center flex flex-col justify-center shadow-xl transition-colors duration-300 h-full">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-electric-400/10 dark:bg-electric-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 w-40 h-40 bg-gold-400/10 dark:bg-gold-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                        
+                        <div class="mb-10 relative z-10">
+                            <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-3">Potential Reactivated Revenue</p>
+                            <h3 class="text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors duration-300" id="revenue-output">£500,000</h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 dark:border-slate-800 pt-8 mb-8 transition-colors duration-300 relative z-10">
+                            <div>
+                                <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Reactivated Leads</p>
+                                <p class="text-3xl font-black text-gold-600 dark:text-gold-400 transition-colors duration-300" id="leads-output">100</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Estimated ROI</p>
+                                <p class="text-3xl font-black text-green-600 dark:text-green-400 transition-colors duration-300" id="roi-output">501x</p>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <a id="claim-revenue-btn" href="mailto:david@silverbulletpro.com?subject=I'd like to claim my hidden revenue" class="block w-full py-4 px-6 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 font-bold text-center rounded-xl transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                                Claim This Revenue
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                            <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-4">*ROI multiple based on average baseline infrastructure setup cost.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-8 transition-colors duration-300 mt-auto relative z-10">
+        <div class="max-w-screen-xl mx-auto px-4 text-center">
+            <p class="text-slate-500 font-medium text-sm">SilverBullet SWEEP.io | Copyright 2026.</p>
+            <p class="text-slate-400 text-xs mt-1">Built by Oakbank AI — Revenue Acceleration Specialists.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- THEME TOGGLE LOGIC ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Set initial icon state
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            themeToggleBtn.addEventListener('click', function() {
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+            });
+
+            // --- ROI CALCULATOR LOGIC ---
+            const leadsInput = document.getElementById('leads-input');
+            const rateInput = document.getElementById('rate-input');
+            const valueInput = document.getElementById('value-input');
+            
+            const leadsDisplay = document.getElementById('leads-display');
+            const rateDisplay = document.getElementById('rate-display');
+            const valueDisplay = document.getElementById('value-display');
+            
+            const revenueOutput = document.getElementById('revenue-output');
+            const leadsOutput = document.getElementById('leads-output');
+            const roiOutput = document.getElementById('roi-output');
+            const claimBtn = document.getElementById('claim-revenue-btn');
+
+            const assumedBaseCost = 1500; 
+
+            function calculateROI() {
+                const leads = parseInt(leadsInput.value);
+                const rate = parseFloat(rateInput.value);
+                const value = parseInt(valueInput.value);
+
+                // Update Slider Visuals
+                leadsDisplay.textContent = leads.toLocaleString();
+                rateDisplay.textContent = rate + '%';
+                valueDisplay.textContent = '£' + value.toLocaleString();
+
+                // Math
+                const reactivatedLeads = Math.round(leads * (rate / 100));
+                const potentialRevenue = reactivatedLeads * value;
+                
+                const roiMultiple = potentialRevenue > 0 ? Math.floor(potentialRevenue / assumedBaseCost) + 'x' : '0x';
+
+                // Update Output
+                leadsOutput.textContent = reactivatedLeads.toLocaleString();
+                revenueOutput.textContent = '£' + potentialRevenue.toLocaleString();
+                roiOutput.textContent = roiMultiple;
+
+                // Update Email CTA dynamically
+                claimBtn.href = `mailto:david@silverbulletpro.com?subject=I'd like to claim my hidden £${potentialRevenue.toLocaleString()}&body=Hi David,%0D%0A%0D%0AI just used the SWEEP calculator and it showed I could be missing out on £${potentialRevenue.toLocaleString()} from my dormant database of ${leads.toLocaleString()} leads.%0D%0A%0D%0AWhen are you free for a 15-minute chat to show me how this works?`;
+            }
+
+            // Event Listeners
+            leadsInput.addEventListener('input', calculateROI);
+            rateInput.addEventListener('input', calculateROI);
+            valueInput.addEventListener('input', calculateROI);
+
+            // Init
+            calculateROI();
+        });
+    </script>
+</body>
+</html>
