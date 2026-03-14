@@ -286,10 +286,75 @@
         </div>
     </section>
 
+    <section id="calculator" class="py-24 bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-white/5 relative overflow-hidden">
+        <div class="ambient-glow bg-gold-400/20 dark:bg-gold-500/10 w-[600px] h-[600px] top-1/2 right-0 translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-10 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">See How Much Cash You're Sitting On</h2>
+                <span class="inline-block mt-4 px-4 py-2 rounded-full bg-electric-500/10 border border-electric-500/20 text-electric-600 dark:text-electric-400 font-bold text-sm">
+                    💡 Most companies recover 2–5% of dormant leads within 48 hours.
+                </span>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-start reveal">
+                <div class="lg:col-span-5 space-y-8 glass-card p-8 rounded-3xl">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">1. Size of Your Old Lead List</label>
+                            <span class="text-xl font-black text-gold-500" id="val-leads">3,000</span>
+                        </div>
+                        <input type="range" min="500" max="20000" step="500" value="3000" id="input-leads">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">2. Expected Reply Rate</label>
+                            <span class="text-xl font-black text-gold-500" id="val-rate">4%</span>
+                        </div>
+                        <input type="range" min="1" max="15" step="0.5" value="4" id="input-rate">
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Most companies see 2–5%.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">3. Your Close Rate</label>
+                            <span class="text-xl font-black text-gold-500" id="val-close">25%</span>
+                        </div>
+                        <input type="range" min="5" max="50" step="1" value="25" id="input-close">
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Use your normal close rate.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">4. Average Deal Value</label>
+                            <span class="text-xl font-black text-gold-500" id="val-deal">£6,000</span>
+                        </div>
+                        <input type="range" min="500" max="20000" step="500" value="6000" id="input-deal">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-2xl border-l-4 border-gold-500 h-full flex flex-col justify-center">
+                    <div class="text-xl md:text-3xl font-medium leading-relaxed text-slate-700 dark:text-slate-300 space-y-4">
+                        <p>Imagine you had <span class="font-black text-slate-900 dark:text-white" id="out-leads">3,000</span> old leads sitting in your CRM.</p>
+                        <p>SWEEP messages them all.</p>
+                        <p>Even if just <span class="font-black text-slate-900 dark:text-white" id="out-rate">4%</span> reply...</p>
+                        <p>You suddenly have <span class="font-black text-gold-500" id="out-hot">120</span> people asking about your service again.</p>
+                        <p>If you close <span class="font-black text-slate-900 dark:text-white" id="out-close">25%</span> at <span class="font-black text-slate-900 dark:text-white" id="out-deal">£6,000</span> each...</p>
+                        <p class="pt-4 border-t border-slate-200 dark:border-slate-800">
+                            That’s <span class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-electric-500 tracking-tighter block mt-2" id="out-rev">£180,000</span> <span class="text-lg font-bold text-slate-500 uppercase tracking-widest block mt-1">in new revenue.</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section class="py-20 bg-white dark:bg-slate-950/50 relative border-b border-slate-200 dark:border-white/5">
         <div class="max-w-screen-xl mx-auto px-4 md:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">Stop Paying the <span class="text-slate-400 dark:text-slate-500 line-through decoration-red-500/50">'Lead Gen Tax'.</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">Stop Burning Money on <span class="text-red-500">Expensive New Leads.</span></h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
@@ -422,71 +487,6 @@
                     <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-3">Retail, Health & Lifestyle</h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">E-Commerce, Travel Agencies, Hot Tubs, Spas, Fitness Centers, Pet Care, Coaching.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="calculator" class="py-24 bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-white/5 relative overflow-hidden">
-        <div class="ambient-glow bg-gold-400/20 dark:bg-gold-500/10 w-[600px] h-[600px] top-1/2 right-0 translate-x-1/2 -translate-y-1/2"></div>
-        
-        <div class="max-w-6xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-10 reveal">
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Calculate Your Potential ROI</h2>
-                <span class="inline-block mt-4 px-4 py-2 rounded-full bg-electric-500/10 border border-electric-500/20 text-electric-600 dark:text-electric-400 font-bold text-sm">
-                    💡 Most companies recover 2–5% of dormant leads within 48 hours.
-                </span>
-            </div>
-            
-            <div class="grid lg:grid-cols-12 gap-12 items-start reveal">
-                <div class="lg:col-span-5 space-y-8 glass-card p-8 rounded-3xl">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-bold text-slate-900 dark:text-white">1. Size of Your Old Lead List</label>
-                            <span class="text-xl font-black text-gold-500" id="val-leads">3,000</span>
-                        </div>
-                        <input type="range" min="500" max="20000" step="500" value="3000" id="input-leads">
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-bold text-slate-900 dark:text-white">2. Expected Reply Rate</label>
-                            <span class="text-xl font-black text-gold-500" id="val-rate">4%</span>
-                        </div>
-                        <input type="range" min="1" max="15" step="0.5" value="4" id="input-rate">
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Most companies see 2–5%.</p>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-bold text-slate-900 dark:text-white">3. Your Close Rate</label>
-                            <span class="text-xl font-black text-gold-500" id="val-close">25%</span>
-                        </div>
-                        <input type="range" min="5" max="50" step="1" value="25" id="input-close">
-                        <p class="text-xs text-slate-500 mt-1 font-medium">Use your normal close rate.</p>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-bold text-slate-900 dark:text-white">4. Average Deal Value</label>
-                            <span class="text-xl font-black text-gold-500" id="val-deal">£6,000</span>
-                        </div>
-                        <input type="range" min="500" max="20000" step="500" value="6000" id="input-deal">
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-2xl border-l-4 border-gold-500 h-full flex flex-col justify-center">
-                    <div class="text-xl md:text-3xl font-medium leading-relaxed text-slate-700 dark:text-slate-300 space-y-4">
-                        <p>Imagine you had <span class="font-black text-slate-900 dark:text-white" id="out-leads">3,000</span> old leads sitting in your CRM.</p>
-                        <p>SWEEP messages them all.</p>
-                        <p>Even if just <span class="font-black text-slate-900 dark:text-white" id="out-rate">4%</span> reply...</p>
-                        <p>You suddenly have <span class="font-black text-gold-500" id="out-hot">120</span> people asking about your service again.</p>
-                        <p>If you close <span class="font-black text-slate-900 dark:text-white" id="out-close">25%</span> at <span class="font-black text-slate-900 dark:text-white" id="out-deal">£6,000</span> each...</p>
-                        <p class="pt-4 border-t border-slate-200 dark:border-slate-800">
-                            That’s <span class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-electric-500 tracking-tighter block mt-2" id="out-rev">£180,000</span> <span class="text-lg font-bold text-slate-500 uppercase tracking-widest block mt-1">in new revenue.</span>
-                        </p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
