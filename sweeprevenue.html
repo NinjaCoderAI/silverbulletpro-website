@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWEEP.io | Turn Old Quotes Into New Jobs</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: { 850: '#151e2e', 900: '#0f172a', 950: '#020617' },
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        electric: { 400: '#22d3ee', 500: '#06b6d4' }
+                    }
+                }
+            }
+        }
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <style>
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        .ambient-glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4; z-index: -1; }
+        html:not(.dark) .ambient-glow { opacity: 0.2; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 28px; width: 28px; border-radius: 50%;
+            background: #f59e0b; cursor: pointer; margin-top: -10px;
+            box-shadow: 0 0 15px rgba(245,158,11,0.5); transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 8px; cursor: pointer; background: #cbd5e1; border-radius: 4px;
+        }
+        .dark input[type=range]::-webkit-slider-runnable-track { background: #334155; }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold-500 selection:text-white bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <nav class="w-full z-50 top-0 start-0 border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300 relative">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between p-4 md:px-8">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="self-center text-xl font-bold whitespace-nowrap tracking-tight">
+                    SWEEP.io
+                </span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" type="button" class="text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-sm p-2.5 transition-colors">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative">
+        <div class="ambient-glow bg-gold-400/20 dark:bg-gold-500/10 w-[600px] h-[600px] top-0 right-0 translate-x-1/2 -translate-y-1/4"></div>
+        <div class="ambient-glow bg-electric-400/20 dark:bg-electric-500/10 w-[500px] h-[500px] bottom-0 left-0 -translate-x-1/3 translate-y-1/3"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 pt-20 pb-12 text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+                Cold Database to Closed Revenue <span class="text-gold-500">Fast.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-medium">
+                SWEEP follows up with every prospect who ghosted your quote, and hands you back the hot leads ready to buy. Instantly.
+            </p>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 mb-20 relative z-10">
+            <h2 class="text-center text-sm font-black uppercase tracking-widest text-slate-400 mb-8">How SWEEP Works</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-black text-gold-500">1</div>
+                    <h3 class="font-bold text-lg mb-2">Upload Your Old Leads</h3>
+                    <p class="text-sm text-slate-500">We import your CRM and clean the data.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-black text-gold-500">2</div>
+                    <h3 class="font-bold text-lg mb-2">AI Reactivates Them</h3>
+                    <p class="text-sm text-slate-500">Every contact receives a natural text message.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-black text-gold-500">3</div>
+                    <h3 class="font-bold text-lg mb-2">You Get The Interested Ones</h3>
+                    <p class="text-sm text-slate-500">Only people who reply with genuine interest are sent to you.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 mb-16 relative z-10">
+            
+            <div class="text-center mb-10">
+                <span class="inline-block px-4 py-2 rounded-full bg-electric-500/10 border border-electric-500/20 text-electric-600 dark:text-electric-400 font-bold text-sm">
+                    💡 Most companies recover 2–5% of dormant leads within 48 hours.
+                </span>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-5 space-y-8 glass-card p-8 rounded-3xl">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">1. Size of Your Old Lead List</label>
+                            <span class="text-xl font-black text-gold-500" id="val-leads">3,000</span>
+                        </div>
+                        <input type="range" min="500" max="20000" step="500" value="3000" id="input-leads">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">2. Expected Reply Rate</label>
+                            <span class="text-xl font-black text-gold-500" id="val-rate">4%</span>
+                        </div>
+                        <input type="range" min="1" max="15" step="0.5" value="4" id="input-rate">
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Most companies see 2–5%.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">3. Your Close Rate</label>
+                            <span class="text-xl font-black text-gold-500" id="val-close">25%</span>
+                        </div>
+                        <input type="range" min="5" max="50" step="1" value="25" id="input-close">
+                        <p class="text-xs text-slate-500 mt-1 font-medium">Use your normal close rate.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="font-bold text-slate-900 dark:text-white">4. Average Job Value</label>
+                            <span class="text-xl font-black text-gold-500" id="val-deal">£6,000</span>
+                        </div>
+                        <input type="range" min="500" max="20000" step="500" value="6000" id="input-deal">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-2xl border-l-4 border-gold-500 h-full flex flex-col justify-center">
+                    <div class="text-xl md:text-3xl font-medium leading-relaxed text-slate-700 dark:text-slate-300 space-y-4">
+                        <p>Imagine you had <span class="font-black text-slate-900 dark:text-white" id="out-leads">3,000</span> old leads sitting in your CRM.</p>
+                        <p>SWEEP messages them all.</p>
+                        <p>Even if just <span class="font-black text-slate-900 dark:text-white" id="out-rate">4%</span> reply...</p>
+                        <p>You suddenly have <span class="font-black text-gold-500" id="out-hot">120</span> people asking about your service again.</p>
+                        <p>If you close <span class="font-black text-slate-900 dark:text-white" id="out-close">25%</span> at <span class="font-black text-slate-900 dark:text-white" id="out-deal">£6,000</span> each...</p>
+                        <p class="pt-4 border-t border-slate-200 dark:border-slate-800">
+                            That’s <span class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-electric-500 tracking-tighter block mt-2" id="out-rev">£180,000</span> <span class="text-lg font-bold text-slate-500 uppercase tracking-widest block mt-1">in new revenue.</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-4 mb-20 relative z-10">
+            <h2 class="text-center text-sm font-black uppercase tracking-widest text-slate-400 mb-6">Typical Results</h2>
+            <div class="glass-card rounded-2xl p-6 flex flex-wrap justify-between items-center text-center divide-x divide-slate-200 dark:divide-slate-800">
+                <div class="flex-1 px-2">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Database</p>
+                    <p class="text-xl font-black">3,200 leads</p>
+                </div>
+                <div class="flex-1 px-2">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Replies</p>
+                    <p class="text-xl font-black text-electric-500">142</p>
+                </div>
+                <div class="flex-1 px-2">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Booked Jobs</p>
+                    <p class="text-xl font-black">18</p>
+                </div>
+                <div class="flex-1 px-2">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Revenue</p>
+                    <p class="text-xl font-black text-gold-500">£96,000</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto px-4 text-center pb-24 relative z-10">
+            <p class="text-lg font-medium text-slate-600 dark:text-slate-400 mb-8 italic">
+                "Most CRMs contain years of forgotten leads. Every day they become harder to reach. Run a Sweep before they disappear completely."
+            </p>
+            
+            <a id="claim-btn" href="#" class="inline-block w-full md:w-auto py-5 px-12 bg-gold-500 hover:bg-gold-400 text-slate-950 font-black text-2xl rounded-2xl transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                Reactivate My Leads
+            </a>
+            
+            <div class="mt-6 p-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl inline-block text-left border border-slate-200 dark:border-slate-800">
+                <p class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    You only pay for leads who reply with genuine interest.
+                </p>
+                <p class="text-xs text-slate-500 mt-1 pl-7">£750 setup + £100 per hot lead sent to your team.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Theme Toggle
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+            }
+
+            themeToggleBtn.addEventListener('click', function() {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            });
+
+            // Inputs
+            const inLeads = document.getElementById('input-leads');
+            const inRate = document.getElementById('input-rate');
+            const inClose = document.getElementById('input-close');
+            const inDeal = document.getElementById('input-deal');
+
+            // Values beside sliders
+            const vLeads = document.getElementById('val-leads');
+            const vRate = document.getElementById('val-rate');
+            const vClose = document.getElementById('val-close');
+            const vDeal = document.getElementById('val-deal');
+
+            // Output Story Text
+            const oLeads = document.getElementById('out-leads');
+            const oRate = document.getElementById('out-rate');
+            const oHot = document.getElementById('out-hot');
+            const oClose = document.getElementById('out-close');
+            const oDeal = document.getElementById('out-deal');
+            const oRev = document.getElementById('out-rev');
+
+            const ctaBtn = document.getElementById('claim-btn');
+
+            function calculateROI() {
+                const leads = parseInt(inLeads.value);
+                const rate = parseFloat(inRate.value);
+                const close = parseInt(inClose.value);
+                const deal = parseInt(inDeal.value);
+
+                // Math
+                const hotLeads = Math.round(leads * (rate / 100));
+                const closedDeals = Math.round(hotLeads * (close / 100));
+                const revenue = closedDeals * deal;
+
+                // Update Slider Labels
+                vLeads.textContent = leads.toLocaleString();
+                vRate.textContent = rate + '%';
+                vClose.textContent = close + '%';
+                vDeal.textContent = '£' + deal.toLocaleString();
+
+                // Update Conversational Story
+                oLeads.textContent = leads.toLocaleString();
+                oRate.textContent = rate + '%';
+                oHot.textContent = hotLeads.toLocaleString();
+                oClose.textContent = close + '%';
+                oDeal.textContent = '£' + deal.toLocaleString();
+                oRev.textContent = '£' + revenue.toLocaleString();
+
+                // Update CTA Link
+                ctaBtn.href = `mailto:david@silverbulletpro.com?subject=Reactivate My CRM Leads&body=Hi David,%0D%0A%0D%0AI have roughly ${leads.toLocaleString()} old leads in my database. Based on the SWEEP calculator, it looks like we could uncover £${revenue.toLocaleString()} in new revenue.%0D%0A%0D%0AWhat are the next steps to get this started?`;
+            }
+
+            [inLeads, inRate, inClose, inDeal].forEach(el => el.addEventListener('input', calculateROI));
+            calculateROI(); // Initialize default 180k state
+        });
+    </script>
+</body>
+</html>

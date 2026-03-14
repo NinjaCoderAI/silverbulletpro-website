@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SWEEP | Golf Club Revenue Calculator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+
+fontFamily: {
+sans: ['Inter','sans-serif']
+},
+
+colors: {
+
+golf: {
+500:"#166534",
+600:"#14532d",
+700:"#052e16"
+},
+
+gold: {
+500:"#d4af37",
+600:"#b8962e"
+}
+
+}
+}
+}
+}
+</script>
+
+<style>
+
+body{
+transition:all .3s ease;
+}
+
+.glass{
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(12px);
+border:1px solid rgba(0,0,0,0.05);
+}
+
+.dark .glass{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.05);
+}
+
+</style>
+
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white font-sans">
+
+<div class="max-w-6xl mx-auto py-16 px-6">
+
+<div class="text-center mb-12">
+
+<h1 class="text-5xl font-bold mb-4">
+Golf Club Revenue Calculator
+</h1>
+
+<p class="text-slate-500 max-w-2xl mx-auto">
+See how much revenue is sitting inside your past golfer database.
+Unused tee times = lost revenue.
+</p>
+
+</div>
+
+<div class="grid lg:grid-cols-2 gap-10 glass p-10 rounded-3xl">
+
+<!-- LEFT SIDE -->
+
+<div class="space-y-10">
+
+<div>
+
+<div class="flex justify-between mb-2">
+<label class="font-bold">Dormant Golfers in Database</label>
+<span id="leads-display">3000</span>
+</div>
+
+<input id="leads-input" type="range" min="500" max="10000" step="100" value="3000" class="w-full">
+
+<p class="text-sm text-slate-500">
+Past visitors, society enquiries and inactive members
+</p>
+
+</div>
+
+<div>
+
+<div class="flex justify-between mb-2">
+<label class="font-bold">Expected Booking Rate</label>
+<span id="rate-display">6%</span>
+</div>
+
+<input id="rate-input" type="range" min="2" max="15" step="0.5" value="6" class="w-full">
+
+<p class="text-sm text-slate-500">
+Typical SMS campaigns generate 4–10% responses
+</p>
+
+</div>
+
+<div>
+
+<div class="flex justify-between mb-2">
+<label class="font-bold">Average Round / Package Value</label>
+<span id="value-display">£120</span>
+</div>
+
+<input id="value-input" type="range" min="40" max="300" step="10" value="120" class="w-full">
+
+<p class="text-sm text-slate-500">
+Green fee, society package, or golf day booking
+</p>
+
+</div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+
+<div class="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center">
+
+<p class="text-sm uppercase tracking-widest text-slate-400 mb-4">
+Unused Tee Time Revenue
+</p>
+
+<h2 id="revenue-output" class="text-6xl font-bold mb-8">
+£0
+</h2>
+
+<div class="grid grid-cols-2 gap-6 border-t pt-6">
+
+<div>
+
+<p class="text-xs uppercase text-slate-400 mb-1">
+Bookings Generated
+</p>
+
+<p id="leads-output" class="text-3xl font-bold text-golf-600">
+0
+</p>
+
+</div>
+
+<div>
+
+<p class="text-xs uppercase text-slate-400 mb-1">
+Campaign Cost
+</p>
+
+<p id="cost-output" class="text-3xl font-bold">
+£0
+</p>
+
+</div>
+
+</div>
+
+<a id="cta"
+class="block mt-10 bg-golf-600 hover:bg-golf-700 text-white py-4 rounded-xl font-bold">
+Book A Demo
+</a>
+
+<p class="text-xs text-slate-400 mt-4">
+*Includes £997 setup + £25 per confirmed booking
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const leadsInput = document.getElementById("leads-input")
+const rateInput = document.getElementById("rate-input")
+const valueInput = document.getElementById("value-input")
+
+const leadsDisplay = document.getElementById("leads-display")
+const rateDisplay = document.getElementById("rate-display")
+const valueDisplay = document.getElementById("value-display")
+
+const revenueOutput = document.getElementById("revenue-output")
+const leadsOutput = document.getElementById("leads-output")
+const costOutput = document.getElementById("cost-output")
+const cta = document.getElementById("cta")
+
+const setupFee = 997
+const costPerBooking = 25
+
+function calculate(){
+
+const leads = parseInt(leadsInput.value)
+const rate = parseFloat(rateInput.value)
+const value = parseInt(valueInput.value)
+
+leadsDisplay.textContent = leads.toLocaleString()
+rateDisplay.textContent = rate + "%"
+valueDisplay.textContent = "£" + value
+
+const bookings = Math.round(leads * (rate/100))
+
+const revenue = bookings * value
+
+const cost = setupFee + (bookings * costPerBooking)
+
+leadsOutput.textContent = bookings
+revenueOutput.textContent = "£" + revenue.toLocaleString()
+costOutput.textContent = "£" + cost.toLocaleString()
+
+cta.href = `mailto:david@silverbulletpro.com?subject=Golf Club Revenue Reactivation&body=Hi David,%0D%0A%0D%0AI ran the golf club calculator and it showed £${revenue.toLocaleString()} in potential revenue from my past golfer database. Let's discuss how this works.`
+
+}
+
+leadsInput.addEventListener("input",calculate)
+rateInput.addEventListener("input",calculate)
+valueInput.addEventListener("input",calculate)
+
+calculate()
+
+</script>
+
+</body>
+</html>
