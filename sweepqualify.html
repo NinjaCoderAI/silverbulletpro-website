@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweep Prospect Qualifier — Silver Bullet Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #141414;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --text: #e0e0e0;
+    --muted: #555;
+    --green: #00ff88;
+    --blue: #4fc3f7;
+    --amber: #ffb74d;
+    --red: #ef5350;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px;
+    background: linear-gradient(180deg, #131313 0%, var(--bg) 100%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-icon {
+    width: 46px; height: 46px;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .header-label {
+    font-size: 9px; letter-spacing: 4px; color: var(--muted); margin-bottom: 4px;
+  }
+  .header-title {
+    font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 1px;
+  }
+  .header-sub {
+    font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-top: 3px;
+  }
+
+  /* LAYOUT */
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 97px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    padding: 20px 14px;
+    overflow-y: auto;
+  }
+  .sidebar-label {
+    font-size: 8px; letter-spacing: 3px; color: var(--muted);
+    margin-bottom: 10px; padding-left: 4px;
+  }
+  .ind-btn {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; background: transparent;
+    border: 1px solid transparent;
+    border-left: 3px solid var(--border);
+    color: #555;
+    padding: 9px 11px; text-align: left; cursor: pointer;
+    font-size: 11px; font-family: var(--mono);
+    margin-bottom: 3px;
+    transition: all 0.12s;
+  }
+  .ind-btn:hover { color: #999; border-left-color: #333; background: rgba(255,255,255,0.02); }
+  .ind-btn.active-god    { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.07); border-left-color: var(--green); }
+  .ind-btn.active-strong { color: var(--blue);  border-color: var(--blue);  background: rgba(79,195,247,0.07); border-left-color: var(--blue); }
+  .ind-btn.active-marginal { color: var(--amber); border-color: var(--amber); background: rgba(255,183,77,0.07); border-left-color: var(--amber); }
+  .ind-btn.active-weak   { color: var(--red);   border-color: var(--red);   background: rgba(239,83,80,0.07); border-left-color: var(--red); }
+  .ind-btn.active-custom { color: #aaa; border-color: #444; background: rgba(255,255,255,0.04); border-left-color: #444; }
+  .ind-icon { font-size: 11px; width: 14px; flex-shrink: 0; }
+
+  /* MAIN */
+  .main {
+    flex: 1; padding: 28px 32px; overflow-y: auto;
+  }
+
+  /* EMPTY STATE */
+  .empty {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; height: 100%; opacity: 0.2;
+    text-align: center;
+  }
+  .empty-arrow { font-size: 40px; margin-bottom: 12px; }
+  .empty-text { font-size: 10px; letter-spacing: 3px; color: var(--muted); }
+
+  /* CUSTOM INPUTS */
+  .custom-box {
+    padding: 20px; border: 1px solid var(--border);
+    background: var(--surface); margin-bottom: 22px;
+  }
+  .custom-box-label {
+    font-size: 8px; letter-spacing: 3px; color: var(--muted); margin-bottom: 14px;
+  }
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .input-group label {
+    display: block; font-size: 8px; letter-spacing: 2px;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .input-group input {
+    background: var(--bg); border: 1px solid var(--border2); color: #fff;
+    padding: 10px 12px; width: 100%; font-family: var(--mono);
+    font-size: 15px; outline: none; transition: border-color 0.15s;
+  }
+  .input-group input:focus { border-color: #444; }
+
+  /* TIER BADGE */
+  .tier-badge {
+    padding: 18px 22px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .tier-icon { font-size: 30px; flex-shrink: 0; }
+  .tier-label { font-size: 12px; letter-spacing: 3px; font-weight: 700; margin-bottom: 2px; }
+  .tier-name { font-size: 15px; color: #fff; }
+  .tier-verdict { font-size: 11px; color: #aaa; margin-top: 6px; line-height: 1.6; font-family: var(--sans); }
+
+  /* DATA GRIDS */
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 1px; }
+  .grid3:last-of-type { margin-bottom: 18px; }
+  .cell {
+    background: var(--surface); padding: 15px 18px;
+  }
+  .cell-label { font-size: 8px; letter-spacing: 2px; color: var(--muted); margin-bottom: 5px; }
+  .cell-value { font-size: 21px; font-weight: 700; color: #fff; }
+  .cell-sub { font-size: 9px; color: var(--muted); margin-top: 2px; }
+  .cell-value.green { color: var(--green); }
+  .cell-value.blue { color: var(--blue); }
+
+  /* REVENUE BOX */
+  .rev-box {
+    padding: 18px 22px; background: var(--surface);
+    border: 1px solid var(--border); margin-bottom: 14px;
+  }
+  .rev-label { font-size: 8px; letter-spacing: 3px; color: var(--muted); margin-bottom: 12px; }
+  .rev-main { display: flex; gap: 28px; align-items: baseline; }
+  .rev-big { font-size: 34px; color: var(--green); font-weight: 700; }
+  .rev-sub { font-size: 10px; color: var(--muted); margin-top: 3px; font-family: var(--sans); }
+  .rev-breakdown { font-size: 11px; color: #555; line-height: 2; font-family: var(--sans); }
+
+  /* PITCH BOX */
+  .pitch-box {
+    padding: 18px 22px; background: var(--surface);
+    border: 1px solid var(--border); margin-bottom: 14px;
+  }
+  .pitch-label { font-size: 8px; letter-spacing: 3px; color: var(--muted); margin-bottom: 12px; }
+  .pitch-text {
+    font-size: 12px; color: #bbb; line-height: 1.95;
+    font-family: var(--sans); font-style: italic;
+  }
+  .pitch-text .hi { color: var(--green); font-style: normal; font-weight: 500; }
+  .pitch-text .wh { color: #fff; font-style: normal; }
+  .pitch-tip {
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 10px; color: #444; font-family: var(--sans);
+  }
+
+  /* JAMIE FLAG */
+  .jamie-box {
+    padding: 15px 20px; background: rgba(255,183,77,0.04);
+    border: 1px solid var(--amber); margin-bottom: 14px;
+  }
+  .jamie-label { font-size: 8px; letter-spacing: 2px; color: var(--amber); margin-bottom: 8px; }
+  .jamie-text { font-size: 11px; color: #999; line-height: 1.8; font-family: var(--sans); }
+
+  /* RESET BTN */
+  .reset-btn {
+    background: transparent; color: #444;
+    border: 1px solid var(--border);
+    padding: 10px 20px; font-size: 10px; letter-spacing: 2px;
+    cursor: pointer; font-family: var(--mono); margin-top: 8px;
+    transition: all 0.12s;
+  }
+  .reset-btn:hover { color: #777; border-color: #333; }
+
+  /* TIER COLOURS */
+  .god    { --tc: var(--green); --tbg: rgba(0,255,136,0.07); }
+  .strong { --tc: var(--blue);  --tbg: rgba(79,195,247,0.07); }
+  .marginal { --tc: var(--amber); --tbg: rgba(255,183,77,0.07); }
+  .weak   { --tc: var(--red);   --tbg: rgba(239,83,80,0.07); }
+  .custom { --tc: #888;         --tbg: rgba(255,255,255,0.03); }
+
+  @media (max-width: 700px) {
+    .sidebar { width: 200px; }
+    .input-grid { grid-template-columns: 1fr; }
+    .grid3 { grid-template-columns: 1fr; }
+    .rev-main { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">🧹</div>
+  <div>
+    <div class="header-label">SILVER BULLET PRO</div>
+    <div class="header-title">SWEEP PROSPECT QUALIFIER</div>
+    <div class="header-sub">QUALIFY IN OR OUT · PRICE WITH PRECISION · NEVER REPEAT JAMIE</div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-label">SELECT INDUSTRY</div>
+    <div id="industryList"></div>
+  </div>
+  <div class="main" id="mainPanel">
+    <div class="empty">
+      <div class="empty-arrow">←</div>
+      <div class="empty-text">SELECT AN INDUSTRY TO BEGIN</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const industries = [
+  { name:"Personal Injury / Claims",        cpl:120, deal:8000,  db:5000, tier:"god" },
+  { name:"Equity Release / Mortgages",      cpl:90,  deal:3000,  db:5000, tier:"god" },
+  { name:"Solar Installation",              cpl:65,  deal:12000, db:5000, tier:"god" },
+  { name:"Managed IT / B2B Tech",           cpl:80,  deal:25000, db:1500, tier:"god" },
+  { name:"Car / Van Dealership",            cpl:45,  deal:3000,  db:5000, tier:"strong" },
+  { name:"Debt Consolidation",              cpl:55,  deal:2000,  db:5000, tier:"strong" },
+  { name:"Home Improvement / Renovation",   cpl:40,  deal:15000, db:1500, tier:"strong" },
+  { name:"Medical Aesthetics / MedSpa",     cpl:35,  deal:2500,  db:1500, tier:"strong" },
+  { name:"Financial Planning / IFA",        cpl:70,  deal:5000,  db:1500, tier:"strong" },
+  { name:"Private Healthcare / Dentistry",  cpl:50,  deal:3000,  db:1500, tier:"strong" },
+  { name:"Golf Club Membership",            cpl:15,  deal:600,   db:300,  tier:"marginal" },
+  { name:"Home Rewiring / Electrician",     cpl:20,  deal:4000,  db:300,  tier:"marginal" },
+  { name:"Gym / Fitness Centre",            cpl:12,  deal:500,   db:1500, tier:"weak" },
+  { name:"Beauty Salon",                    cpl:8,   deal:200,   db:300,  tier:"weak" },
+  { name:"Pet Services",                    cpl:5,   deal:150,   db:300,  tier:"weak" },
+  { name:"Home Cleaning",                   cpl:8,   deal:300,   db:300,  tier:"weak" },
+  { name:"Custom / Manual Entry",           cpl:0,   deal:0,     db:0,    tier:"custom" },
+];
+
+const tierMeta = {
+  god:      { label:"GOD TIER",      icon:"🎯", verdict:"Pitch immediately. The ROI case writes itself." },
+  strong:   { label:"STRONG FIT",    icon:"✅", verdict:"Solid opportunity. Frame around cost-per-appointment vs. cost-per-lead." },
+  marginal: { label:"MARGINAL",      icon:"⚠️", verdict:"Viable only with large database or strong lifetime value argument. Tread carefully on pricing." },
+  weak:     { label:"WALK AWAY",     icon:"🚫", verdict:"Margins too thin. Your pricing will cause friction before you even start." },
+  custom:   { label:"CUSTOM ENTRY",  icon:"📊", verdict:"Fill in all three fields to generate your qualification result." },
+};
+
+let selectedName = null;
+
+function calcPricing(cpl, deal, db) {
+  const leads   = Math.round(db * 0.04);
+  const closes  = Math.round(leads * 0.3);
+  const revenue = closes * deal;
+  const setup   = cpl >= 60 ? 1500 : cpl >= 35 ? 1000 : cpl >= 20 ? 750 : 500;
+  const perLead = Math.round(Math.min(cpl * 0.75, deal * 0.015));
+  return { leads, closes, revenue, setup, perLead };
+}
+
+function getTier(cpl, deal) {
+  if (cpl >= 60 && deal >= 2000) return "god";
+  if (cpl >= 35 && deal >= 1500) return "strong";
+  if (cpl >= 20 && deal >= 1000) return "marginal";
+  return "weak";
+}
+
+function fmt(n) { return n.toLocaleString('en-GB'); }
+
+// Build sidebar
+const listEl = document.getElementById('industryList');
+industries.forEach(ind => {
+  const btn = document.createElement('button');
+  btn.className = 'ind-btn';
+  btn.dataset.name = ind.name;
+  const icon = tierMeta[ind.tier].icon;
+  btn.innerHTML = `<span class="ind-icon">${icon}</span><span>${ind.name}</span>`;
+  btn.addEventListener('click', () => selectIndustry(ind.name));
+  listEl.appendChild(btn);
+});
+
+function selectIndustry(name) {
+  selectedName = name;
+  document.querySelectorAll('.ind-btn').forEach(b => {
+    b.className = 'ind-btn';
+    if (b.dataset.name === name) {
+      const ind = industries.find(i => i.name === name);
+      b.className = 'ind-btn active-' + ind.tier;
+    }
+  });
+  renderMain();
+}
+
+function renderMain() {
+  const panel = document.getElementById('mainPanel');
+  const ind = industries.find(i => i.name === selectedName);
+  if (!ind) return;
+
+  if (ind.tier === 'custom') {
+    panel.innerHTML = `
+      <div class="custom-box">
+        <div class="custom-box-label">ENTER PROSPECT DATA</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label>GOOGLE ADS COST PER LEAD (£)</label>
+            <input type="number" id="cCustomCpl" placeholder="e.g. 45" oninput="renderCustomResult()">
+          </div>
+          <div class="input-group">
+            <label>AVG DEAL VALUE (£)</label>
+            <input type="number" id="cCustomDeal" placeholder="e.g. 3000" oninput="renderCustomResult()">
+          </div>
+          <div class="input-group">
+            <label>CRM / DATABASE SIZE</label>
+            <input type="number" id="cCustomDb" placeholder="e.g. 2000" oninput="renderCustomResult()">
+          </div>
+        </div>
+      </div>
+      <div id="customResult"></div>
+    `;
+    return;
+  }
+
+  const tm = tierMeta[ind.tier];
+  const p  = calcPricing(ind.cpl, ind.deal, ind.db);
+
+  panel.innerHTML = buildResult(ind.tier, tm, ind.name, ind.cpl, ind.deal, ind.db, p);
+}
+
+function renderCustomResult() {
+  const cpl  = parseFloat(document.getElementById('cCustomCpl')?.value) || 0;
+  const deal = parseFloat(document.getElementById('cCustomDeal')?.value) || 0;
+  const db   = parseInt(document.getElementById('cCustomDb')?.value) || 0;
+  const el   = document.getElementById('customResult');
+  if (!el) return;
+
+  if (!cpl || !deal || !db) { el.innerHTML = ''; return; }
+
+  const tier = getTier(cpl, deal);
+  const tm   = tierMeta[tier];
+  const p    = calcPricing(cpl, deal, db);
+  el.innerHTML = buildResult(tier, tm, "Custom Prospect", cpl, deal, db, p);
+}
+
+function buildResult(tier, tm, name, cpl, deal, db, p) {
+  const tierClass = tier;
+  const jamie = tier === 'marginal' ? `
+    <div class="jamie-box">
+      <div class="jamie-label">⚠ THE JAMIE FLAG — PROCEED WITH CAUTION</div>
+      <div class="jamie-text">
+        Low CPL relative to your standard pricing. Before proceeding confirm:
+        (1) database has 500+ contacts, (2) their close rate justifies the maths,
+        (3) anchor pricing on deal value not lead cost.
+        Consider reducing per-lead fee with a minimum volume commitment.
+      </div>
+    </div>` : '';
+
+  return `
+    <div class="tier-badge ${tierClass}" style="border:1px solid var(--tc); background:var(--tbg)">
+      <div class="tier-icon">${tm.icon}</div>
+      <div>
+        <div class="tier-label" style="color:var(--tc)">${tm.label}</div>
+        <div class="tier-name">${name}</div>
+        <div class="tier-verdict">${tm.verdict}</div>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="cell"><div class="cell-label">THEIR COST / LEAD</div><div class="cell-value">£${fmt(cpl)}</div><div class="cell-sub">Google Ads</div></div>
+      <div class="cell"><div class="cell-label">AVG DEAL VALUE</div><div class="cell-value">£${fmt(deal)}</div><div class="cell-sub">per close</div></div>
+      <div class="cell"><div class="cell-label">DATABASE SIZE</div><div class="cell-value">${fmt(db)}</div><div class="cell-sub">est. contacts</div></div>
+    </div>
+    <div class="grid3" style="margin-bottom:18px">
+      <div class="cell"><div class="cell-label">SUGGESTED SETUP FEE</div><div class="cell-value green">£${fmt(p.setup)}</div><div class="cell-sub">one-off</div></div>
+      <div class="cell"><div class="cell-label">SUGGESTED PER-LEAD FEE</div><div class="cell-value green">£${fmt(p.perLead)}</div><div class="cell-sub">per hot lead</div></div>
+      <div class="cell"><div class="cell-label">EST. LEADS TO REACTIVATE</div><div class="cell-value blue">${fmt(p.leads)}</div><div class="cell-sub">from database</div></div>
+    </div>
+
+    <div class="rev-box">
+      <div class="rev-label">REVENUE RECOVERY POTENTIAL FOR CLIENT</div>
+      <div class="rev-main">
+        <div>
+          <div class="rev-big">£${fmt(p.revenue)}</div>
+          <div class="rev-sub">estimated recovered revenue</div>
+        </div>
+        <div class="rev-breakdown">
+          ${fmt(p.leads)} leads reactivated<br>
+          × 30% close rate<br>
+          = ${p.closes} deals × £${fmt(deal)}
+        </div>
+      </div>
+    </div>
+
+    <div class="pitch-box">
+      <div class="pitch-label">YOUR PITCH NARRATIVE</div>
+      <div class="pitch-text">
+        "You're currently paying <span class="hi">£${cpl} per cold Google lead</span>.
+        We reactivate <span class="hi">~${fmt(p.leads)} warm contacts</span> already sitting in your database —
+        people who already raised their hand. At your typical close rate that's roughly
+        <span class="hi">${p.closes} additional deals</span> worth
+        <span class="hi">£${fmt(p.revenue)}</span> in recovered revenue.
+        My fee is <span class="wh">£${fmt(p.setup)} to set up, then £${p.perLead} per hot lead</span> —
+        a fraction of what you're already paying per booked appointment."
+      </div>
+      <div class="pitch-tip">⚡ Never compare to their Google Ads CPL. Always anchor to their cost-per-booked-appointment.</div>
+    </div>
+
+    ${jamie}
+
+    <button class="reset-btn" onclick="resetTool()">← RESET</button>
+  `;
+}
+
+function resetTool() {
+  selectedName = null;
+  document.querySelectorAll('.ind-btn').forEach(b => b.className = 'ind-btn');
+  document.getElementById('mainPanel').innerHTML = `
+    <div class="empty">
+      <div class="empty-arrow">←</div>
+      <div class="empty-text">SELECT AN INDUSTRY TO BEGIN</div>
+    </div>`;
+}
+</script>
+</body>
+</html>
