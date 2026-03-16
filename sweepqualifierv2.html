@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWEEP | Prospect Qualifier</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'sans-serif'] },
+        colors: {
+          slate: { 850: '#151e2e', 900: '#0f172a', 950: '#020617' },
+          gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+          electric: { 400: '#22d3ee', 500: '#06b6d4' }
+        }
+      }
+    }
+  }
+  if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+
+<style>
+  body { transition: background-color 0.3s ease, color 0.3s ease; }
+
+  .ambient-glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: 0.35; z-index: 0; pointer-events: none;
+  }
+  html:not(.dark) .ambient-glow { opacity: 0.15; }
+
+  .glass-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+  }
+  .dark .glass-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* Tier card hover */
+  .tier-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+  .tier-card:hover { transform: translateY(-2px); }
+  .tier-card.selected-god    { border-color: #10b981 !important; background: rgba(16,185,129,0.08) !important; }
+  .tier-card.selected-strong { border-color: #06b6d4 !important; background: rgba(6,182,212,0.08) !important; }
+  .tier-card.selected-marginal { border-color: #f59e0b !important; background: rgba(245,158,11,0.08) !important; }
+  .tier-card.selected-weak   { border-color: #ef4444 !important; background: rgba(239,68,68,0.08) !important; }
+  .tier-card.selected-custom { border-color: #94a3b8 !important; background: rgba(148,163,184,0.08) !important; }
+
+  /* Result panel fade in */
+  #result-panel { transition: opacity 0.3s ease; }
+  #result-panel.hidden { display: none; }
+
+  /* Verdict colours */
+  .verdict-god    { color: #10b981; }
+  .verdict-strong { color: #06b6d4; }
+  .verdict-marginal { color: #f59e0b; }
+  .verdict-weak   { color: #ef4444; }
+
+  .verdict-border-god    { border-left-color: #10b981 !important; }
+  .verdict-border-strong { border-left-color: #06b6d4 !important; }
+  .verdict-border-marginal { border-left-color: #f59e0b !important; }
+  .verdict-border-weak   { border-left-color: #ef4444 !important; }
+</style>
+</head>
+
+<body class="antialiased bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 min-h-screen relative overflow-x-hidden font-sans">
+
+<!-- NAV -->
+<nav class="w-full z-50 border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <a href="#" class="text-xl font-black tracking-tight text-slate-900 dark:text-white">SWEEP.io</a>
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline text-xs font-bold uppercase tracking-widest text-slate-400">Prospect Qualifier</span>
+      <button id="theme-toggle" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <svg id="icon-dark" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        <svg id="icon-light" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- AMBIENT GLOWS -->
+<div class="ambient-glow bg-gold-400 w-[500px] h-[500px] top-0 right-0 translate-x-1/3 -translate-y-1/4"></div>
+<div class="ambient-glow bg-electric-400 w-[400px] h-[400px] bottom-0 left-0 -translate-x-1/3 translate-y-1/4"></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-12 relative z-10">
+
+  <!-- HEADER -->
+  <div class="text-center mb-12">
+    <span class="inline-block px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-600 dark:text-gold-400 font-bold text-xs uppercase tracking-widest mb-5">
+      Internal Sales Tool
+    </span>
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+      Should You Pitch <span class="text-gold-500">This Prospect?</span>
+    </h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium">
+      Select their industry, see if the economics work, and get the exact pitch narrative — before you walk into any meeting.
+    </p>
+  </div>
+
+  <!-- STEP 1: INDUSTRY GRID -->
+  <div class="mb-10">
+    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-5 text-center">Step 1 — Select Their Industry</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3" id="industry-grid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- STEP 2: CUSTOM INPUTS (hidden unless custom selected) -->
+  <div id="custom-inputs" class="hidden mb-10">
+    <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-5 text-center">Step 2 — Enter Their Numbers</p>
+    <div class="glass-card rounded-2xl p-6 max-w-3xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Google Ads Cost / Lead (£)</label>
+          <input type="number" id="c-cpl" placeholder="e.g. 45"
+            class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gold-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Average Deal Value (£)</label>
+          <input type="number" id="c-deal" placeholder="e.g. 3000"
+            class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gold-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">CRM / Database Size</label>
+          <input type="number" id="c-db" placeholder="e.g. 2000"
+            class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gold-500">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div id="result-panel" class="hidden">
+
+    <!-- VERDICT BANNER -->
+    <div id="verdict-banner" class="glass-card rounded-2xl p-6 mb-6 border-l-4 flex items-center gap-5">
+      <div id="verdict-icon" class="text-4xl flex-shrink-0"></div>
+      <div class="flex-1">
+        <div id="verdict-label" class="text-xs font-black uppercase tracking-widest mb-1"></div>
+        <div id="verdict-industry" class="text-2xl font-black text-slate-900 dark:text-white"></div>
+        <div id="verdict-text" class="text-sm text-slate-600 dark:text-slate-400 mt-1 font-medium"></div>
+      </div>
+    </div>
+
+    <!-- METRICS ROW -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Their CPL</p>
+        <p class="text-2xl font-black text-slate-900 dark:text-white" id="m-cpl">—</p>
+        <p class="text-xs text-slate-500">Google Ads</p>
+      </div>
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Avg Deal</p>
+        <p class="text-2xl font-black text-slate-900 dark:text-white" id="m-deal">—</p>
+        <p class="text-xs text-slate-500">per close</p>
+      </div>
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Database</p>
+        <p class="text-2xl font-black text-slate-900 dark:text-white" id="m-db">—</p>
+        <p class="text-xs text-slate-500">est. contacts</p>
+      </div>
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Setup Fee</p>
+        <p class="text-2xl font-black text-gold-500" id="m-setup">—</p>
+        <p class="text-xs text-slate-500">one-off</p>
+      </div>
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Per Lead</p>
+        <p class="text-2xl font-black text-gold-500" id="m-perlead">—</p>
+        <p class="text-xs text-slate-500">hot lead fee</p>
+      </div>
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Reactivations</p>
+        <p class="text-2xl font-black text-electric-500" id="m-leads">—</p>
+        <p class="text-xs text-slate-500">est. leads</p>
+      </div>
+    </div>
+
+    <!-- REVENUE + PITCH -->
+    <div class="grid lg:grid-cols-2 gap-6 mb-6">
+
+      <!-- Revenue recovery -->
+      <div class="glass-card rounded-2xl p-6 border-t-2 border-gold-500">
+        <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Revenue Recovery Potential</p>
+        <p class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-electric-500 tracking-tight mb-2" id="m-revenue">—</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mb-4">estimated recovered revenue for client</p>
+        <div class="bg-slate-100 dark:bg-slate-800/60 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-400 font-medium space-y-1">
+          <div class="flex justify-between"><span id="m-breakdown1">—</span><span class="text-slate-400">leads reactivated</span></div>
+          <div class="flex justify-between"><span id="m-breakdown2">—</span><span class="text-slate-400">× 30% close rate</span></div>
+          <div class="flex justify-between font-bold"><span id="m-breakdown3">—</span><span class="text-slate-400">deals closed</span></div>
+        </div>
+      </div>
+
+      <!-- Pitch narrative -->
+      <div class="glass-card rounded-2xl p-6 border-t-2 border-electric-500">
+        <p class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Your Pitch Narrative</p>
+        <p id="pitch-text" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic font-medium"></p>
+        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-start gap-2">
+          <span class="text-electric-500 flex-shrink-0">⚡</span>
+          <p class="text-xs text-slate-500 font-medium">Never compare to their Google Ads CPL. Always anchor to their cost-per-booked-appointment.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- JAMIE FLAG -->
+    <div id="jamie-flag" class="hidden mb-6">
+      <div class="rounded-2xl p-6 border border-gold-500/40 bg-gold-500/5">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl flex-shrink-0">⚠️</span>
+          <div>
+            <p class="font-black text-gold-500 text-sm uppercase tracking-widest mb-2">The Jamie Flag — Proceed With Caution</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+              This prospect has a low cost-per-lead relative to your standard pricing. Before proceeding: confirm their database has 500+ contacts, verify their deal value justifies the maths, and anchor all pricing on deal value — not lead cost. Consider a lower per-lead fee with a minimum volume commitment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESET -->
+    <div class="text-center">
+      <button id="reset-btn" class="px-6 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        ← Qualify Another Prospect
+      </button>
+    </div>
+
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div id="empty-state" class="text-center py-16 text-slate-400">
+    <div class="text-5xl mb-4">☝️</div>
+    <p class="text-sm font-bold uppercase tracking-widest">Select an industry above to begin</p>
+  </div>
+
+</main>
+
+<script>
+const industries = [
+  { name:"Personal Injury / Claims",       cpl:120, deal:8000,  db:5000, tier:"god" },
+  { name:"Equity Release / Mortgages",     cpl:90,  deal:3000,  db:5000, tier:"god" },
+  { name:"Solar Installation",             cpl:65,  deal:12000, db:5000, tier:"god" },
+  { name:"Managed IT / B2B Tech",          cpl:80,  deal:25000, db:1500, tier:"god" },
+  { name:"Car / Van Dealership",           cpl:45,  deal:3000,  db:5000, tier:"strong" },
+  { name:"Debt Consolidation",             cpl:55,  deal:2000,  db:5000, tier:"strong" },
+  { name:"Home Improvement / Renovation",  cpl:40,  deal:15000, db:1500, tier:"strong" },
+  { name:"Medical Aesthetics / MedSpa",    cpl:35,  deal:2500,  db:1500, tier:"strong" },
+  { name:"Financial Planning / IFA",       cpl:70,  deal:5000,  db:1500, tier:"strong" },
+  { name:"Private Healthcare / Dentistry", cpl:50,  deal:3000,  db:1500, tier:"strong" },
+  { name:"Golf Club Membership",           cpl:15,  deal:600,   db:300,  tier:"marginal" },
+  { name:"Home Rewiring / Electrician",    cpl:20,  deal:4000,  db:300,  tier:"marginal" },
+  { name:"Gym / Fitness Centre",           cpl:12,  deal:500,   db:1500, tier:"weak" },
+  { name:"Beauty Salon",                   cpl:8,   deal:200,   db:300,  tier:"weak" },
+  { name:"Pet Services",                   cpl:5,   deal:150,   db:300,  tier:"weak" },
+  { name:"Home Cleaning",                  cpl:8,   deal:300,   db:300,  tier:"weak" },
+  { name:"Custom / Manual Entry",          cpl:0,   deal:0,     db:0,    tier:"custom" },
+];
+
+const tierMeta = {
+  god:      { label:"God Tier",    icon:"🎯", verdict:"Pitch immediately. The ROI case writes itself.", color:"#10b981", cls:"god" },
+  strong:   { label:"Strong Fit",  icon:"✅", verdict:"Solid opportunity. Frame around cost-per-appointment, not cost-per-lead.", color:"#06b6d4", cls:"strong" },
+  marginal: { label:"Marginal",    icon:"⚠️", verdict:"Viable only with a large database or strong lifetime value argument. Tread carefully on pricing.", color:"#f59e0b", cls:"marginal" },
+  weak:     { label:"Walk Away",   icon:"🚫", verdict:"Margins too thin. Your pricing will cause friction before you even start.", color:"#ef4444", cls:"weak" },
+  custom:   { label:"Custom",      icon:"📊", verdict:"Enter data above to generate your qualification.", color:"#94a3b8", cls:"custom" },
+};
+
+function fmt(n) { return Number(n).toLocaleString('en-GB'); }
+
+function calcPricing(cpl, deal, db) {
+  const leads   = Math.round(db * 0.04);
+  const closes  = Math.round(leads * 0.3);
+  const revenue = closes * deal;
+  const setup   = cpl >= 60 ? 1500 : cpl >= 35 ? 1000 : cpl >= 20 ? 750 : 500;
+  const perLead = Math.round(Math.min(cpl * 0.75, deal * 0.015));
+  return { leads, closes, revenue, setup, perLead };
+}
+
+function getTierFromValues(cpl, deal) {
+  if (cpl >= 60 && deal >= 2000) return "god";
+  if (cpl >= 35 && deal >= 1500) return "strong";
+  if (cpl >= 20 && deal >= 1000) return "marginal";
+  return "weak";
+}
+
+let selectedInd = null;
+
+// Build industry grid
+const grid = document.getElementById('industry-grid');
+industries.forEach(ind => {
+  const tm = tierMeta[ind.tier];
+  const tierColors = {
+    god: 'hover:border-emerald-500/50',
+    strong: 'hover:border-electric-500/50',
+    marginal: 'hover:border-gold-500/50',
+    weak: 'hover:border-red-500/50',
+    custom: 'hover:border-slate-400/50',
+  };
+  const btn = document.createElement('button');
+  btn.className = `tier-card glass-card rounded-xl p-4 text-left ${tierColors[ind.tier]}`;
+  btn.dataset.name = ind.name;
+  btn.innerHTML = `
+    <div class="flex items-start gap-3">
+      <span class="text-xl flex-shrink-0 mt-0.5">${tm.icon}</span>
+      <div>
+        <p class="font-bold text-slate-900 dark:text-white text-sm leading-tight">${ind.name}</p>
+        <p class="text-xs font-bold mt-1" style="color:${tm.color}">${tm.label}</p>
+      </div>
+    </div>
+  `;
+  btn.addEventListener('click', () => selectIndustry(ind.name));
+  grid.appendChild(btn);
+});
+
+function selectIndustry(name) {
+  selectedInd = name;
+  // Update card states
+  document.querySelectorAll('.tier-card').forEach(c => {
+    const cname = c.dataset.name;
+    const ind2 = industries.find(i => i.name === cname);
+    c.className = c.className.replace(/selected-\w+/g, '').trim();
+    if (cname === name) c.classList.add('selected-' + ind2.tier);
+  });
+
+  const ind = industries.find(i => i.name === name);
+  const isCustom = ind.tier === 'custom';
+
+  document.getElementById('custom-inputs').classList.toggle('hidden', !isCustom);
+  document.getElementById('empty-state').classList.add('hidden');
+
+  if (isCustom) {
+    document.getElementById('result-panel').classList.add('hidden');
+    ['c-cpl','c-deal','c-db'].forEach(id => {
+      document.getElementById(id).addEventListener('input', tryCustomRender);
+    });
+  } else {
+    renderResult(ind.cpl, ind.deal, ind.db, ind.tier, name);
+  }
+}
+
+function tryCustomRender() {
+  const cpl  = parseFloat(document.getElementById('c-cpl').value) || 0;
+  const deal = parseFloat(document.getElementById('c-deal').value) || 0;
+  const db   = parseInt(document.getElementById('c-db').value)    || 0;
+  if (cpl && deal && db) {
+    const tier = getTierFromValues(cpl, deal);
+    renderResult(cpl, deal, db, tier, 'Custom Prospect');
+  }
+}
+
+function renderResult(cpl, deal, db, tier, name) {
+  const tm = tierMeta[tier];
+  const p  = calcPricing(cpl, deal, db);
+
+  // Verdict banner
+  const banner = document.getElementById('verdict-banner');
+  banner.className = banner.className.replace(/verdict-border-\w+/g,'').trim();
+  banner.classList.add('glass-card','rounded-2xl','p-6','mb-6','border-l-4','flex','items-center','gap-5','verdict-border-'+tm.cls);
+
+  document.getElementById('verdict-icon').textContent = tm.icon;
+  const lbl = document.getElementById('verdict-label');
+  lbl.textContent = tm.label;
+  lbl.className = 'text-xs font-black uppercase tracking-widest mb-1 verdict-' + tm.cls;
+  document.getElementById('verdict-industry').textContent = name;
+  document.getElementById('verdict-text').textContent = tm.verdict;
+
+  // Metrics
+  document.getElementById('m-cpl').textContent    = '£' + fmt(cpl);
+  document.getElementById('m-deal').textContent   = '£' + fmt(deal);
+  document.getElementById('m-db').textContent     = fmt(db);
+  document.getElementById('m-setup').textContent  = '£' + fmt(p.setup);
+  document.getElementById('m-perlead').textContent= '£' + fmt(p.perLead);
+  document.getElementById('m-leads').textContent  = fmt(p.leads);
+  document.getElementById('m-revenue').textContent= '£' + fmt(p.revenue);
+
+  // Breakdown
+  document.getElementById('m-breakdown1').textContent = fmt(p.leads);
+  document.getElementById('m-breakdown2').textContent = fmt(p.leads);
+  document.getElementById('m-breakdown3').textContent = p.closes;
+
+  // Pitch narrative
+  document.getElementById('pitch-text').innerHTML =
+    `"You're currently paying <strong class="text-slate-900 dark:text-white not-italic">£${fmt(cpl)} per cold Google lead</strong>. ` +
+    `We reactivate <strong class="text-gold-500 not-italic">~${fmt(p.leads)} warm contacts</strong> already sitting in your database — ` +
+    `people who already raised their hand. At your typical close rate that's roughly ` +
+    `<strong class="text-gold-500 not-italic">${p.closes} additional deals</strong> worth ` +
+    `<strong class="text-gold-500 not-italic">£${fmt(p.revenue)}</strong> in recovered revenue. ` +
+    `My fee is <strong class="text-slate-900 dark:text-white not-italic">£${fmt(p.setup)} to set up, then £${fmt(p.perLead)} per hot lead</strong> — ` +
+    `a fraction of what you're already paying per booked appointment."`;
+
+  // Jamie flag
+  document.getElementById('jamie-flag').classList.toggle('hidden', tier !== 'marginal');
+
+  // Show result
+  document.getElementById('result-panel').classList.remove('hidden');
+}
+
+// Reset
+document.getElementById('reset-btn').addEventListener('click', () => {
+  selectedInd = null;
+  document.querySelectorAll('.tier-card').forEach(c => c.className = c.className.replace(/selected-\w+/g,'').trim());
+  document.getElementById('result-panel').classList.add('hidden');
+  document.getElementById('custom-inputs').classList.add('hidden');
+  document.getElementById('empty-state').classList.remove('hidden');
+  ['c-cpl','c-deal','c-db'].forEach(id => document.getElementById(id).value = '');
+});
+
+// Theme toggle
+const themeBtn = document.getElementById('theme-toggle');
+const iconDark  = document.getElementById('icon-dark');
+const iconLight = document.getElementById('icon-light');
+
+function syncIcons() {
+  const isDark = document.documentElement.classList.contains('dark');
+  iconDark.classList.toggle('hidden', isDark);
+  iconLight.classList.toggle('hidden', !isDark);
+}
+syncIcons();
+themeBtn.addEventListener('click', () => {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  syncIcons();
+});
+</script>
+</body>
+</html>
