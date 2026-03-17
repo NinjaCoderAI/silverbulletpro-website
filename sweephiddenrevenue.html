@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hidden Revenue Calculator — SWEEP by SilverBullet</title>
+  <style>
+    /* ── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font-family: inherit; cursor: pointer; }
+    a { text-decoration: none; }
+
+    /* ── Theme tokens ───────────────────────────────────────────── */
+    :root {
+      --bg:              #0a0a0a;
+      --bg-card:         #111111;
+      --bg-card-alt:     #0d0d0d;
+      --border:          #1a1a1a;
+      --border-gold:     #d4af37;
+      --text-primary:    #f5f5f0;
+      --text-secondary:  #888888;
+      --text-muted:      #555555;
+      --text-dim:        #444444;
+      --text-very-dim:   #333333;
+      --gold:            #d4af37;
+      --gold-light:      #f0d060;
+      --gold-dark:       #b8962e;
+      --slider-empty:    #222222;
+      --input-border:    #333333;
+      --progress-bg:     #1a1a1a;
+      --dot-inactive:    #222222;
+      --grid-line:       rgba(212,175,55,0.03);
+      --radial-1:        rgba(212,175,55,0.04);
+      --radial-2:        rgba(255,255,255,0.02);
+      --toggle-bg:       #1a1a1a;
+      --toggle-border:   #2a2a2a;
+      --btn-text:        #0a0a0a;
+      --secondary-border:#222222;
+      --secondary-text:  #555555;
+      --shadow:          0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    [data-theme="light"] {
+      --bg:              #f7f4ee;
+      --bg-card:         #ffffff;
+      --bg-card-alt:     #faf8f3;
+      --border:          #e8e2d6;
+      --border-gold:     #b8962e;
+      --text-primary:    #1a1a1a;
+      --text-secondary:  #555555;
+      --text-muted:      #888888;
+      --text-dim:        #999999;
+      --text-very-dim:   #bbbbbb;
+      --gold:            #b8962e;
+      --gold-light:      #9a7a20;
+      --gold-dark:       #8a6a10;
+      --slider-empty:    #dddddd;
+      --input-border:    #cccccc;
+      --progress-bg:     #e8e2d6;
+      --dot-inactive:    #dddddd;
+      --grid-line:       rgba(184,150,46,0.06);
+      --radial-1:        rgba(184,150,46,0.05);
+      --radial-2:        rgba(0,0,0,0.02);
+      --toggle-bg:       #ffffff;
+      --toggle-border:   #e0d9cc;
+      --btn-text:        #ffffff;
+      --secondary-border:#cccccc;
+      --secondary-text:  #888888;
+      --shadow:          0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* ── Base ───────────────────────────────────────────────────── */
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      color: var(--text-primary);
+      transition: background 0.3s ease, color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background layers */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 50%, var(--radial-1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, var(--radial-2) 0%, transparent 50%);
+      transition: background 0.3s ease;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transition: background-image 0.3s ease;
+    }
+
+    /* ── Toggle button ──────────────────────────────────────────── */
+    #theme-toggle {
+      position: fixed; top: 20px; right: 20px; z-index: 100;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 24px;
+      padding: 8px 14px;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+    #theme-toggle svg { display: block; flex-shrink: 0; }
+    #toggle-label {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); font-family: 'Arial', sans-serif; font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    /* ── Main container ─────────────────────────────────────────── */
+    #app {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 620px;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    #app.animating { opacity: 0; transform: translateY(8px); }
+    #app.theme-fade { opacity: 0; }
+
+    /* ── Logo ───────────────────────────────────────────────────── */
+    .logo {
+      text-align: center; margin-bottom: 32px;
+      font-family: 'Arial Black', 'Arial Bold', sans-serif;
+      font-size: 13px; letter-spacing: 0.15em;
+      color: var(--text-muted); text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .logo span { color: var(--gold); transition: color 0.3s ease; }
+
+    /* ── Progress bar ───────────────────────────────────────────── */
+    #progress-wrap { margin-bottom: 32px; }
+    #progress-track {
+      height: 2px; background: var(--progress-bg); border-radius: 2px; overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    #progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.4s ease;
+    }
+    #step-dots { display: flex; justify-content: space-between; margin-top: 8px; }
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--dot-inactive); transition: background 0.3s ease;
+    }
+    .step-dot.done { background: var(--gold); }
+    .step-dot.current { background: var(--gold-light); }
+
+    /* ── Screens ────────────────────────────────────────────────── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── Intro ──────────────────────────────────────────────────── */
+    #intro { text-align: center; }
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      font-size: 11px; letter-spacing: 0.2em; padding: 6px 16px;
+      text-transform: uppercase; margin-bottom: 28px;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .intro-title {
+      color: var(--text-primary);
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: normal; line-height: 1.15;
+      margin-bottom: 20px; letter-spacing: -0.02em;
+      transition: color 0.3s ease;
+    }
+    .intro-title em { font-style: normal; color: var(--gold); transition: color 0.3s ease; }
+    .intro-sub {
+      color: var(--text-secondary); font-size: 16px; line-height: 1.7;
+      max-width: 480px; margin: 0 auto 12px;
+      transition: color 0.3s ease;
+    }
+    .intro-note { color: var(--text-dim); font-size: 13px; margin-bottom: 40px; transition: color 0.3s ease; }
+
+    /* ── Question ───────────────────────────────────────────────── */
+    .q-label {
+      color: var(--gold); font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 20px; transition: color 0.3s ease;
+    }
+    .q-title {
+      color: var(--text-primary);
+      font-size: clamp(18px, 3.5vw, 26px);
+      font-weight: normal; line-height: 1.3; margin-bottom: 12px;
+      letter-spacing: -0.01em; transition: color 0.3s ease;
+    }
+    .q-hint {
+      color: var(--text-muted); font-size: 13px; margin-bottom: 36px;
+      font-style: italic; transition: color 0.3s ease;
+    }
+
+    /* Value card */
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 24px 24px 20px;
+      margin-bottom: 24px; text-align: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .value-unit {
+      color: var(--text-dim); font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 12px; transition: color 0.3s ease;
+    }
+    .value-display {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .value-prefix, .value-suffix {
+      font-size: clamp(28px, 6vw, 44px);
+      color: var(--gold); line-height: 1; transition: color 0.3s ease;
+    }
+    .value-input {
+      font-size: clamp(36px, 8vw, 56px);
+      color: var(--gold);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-weight: normal; letter-spacing: -0.03em; line-height: 1;
+      background: transparent; border: none;
+      border-bottom: 1px solid var(--input-border);
+      outline: none; text-align: center;
+      min-width: 3ch; max-width: 100%;
+      -moz-appearance: textfield;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .value-input::-webkit-inner-spin-button,
+    .value-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .value-tip {
+      color: var(--text-very-dim); font-size: 11px;
+      margin-top: 8px; font-style: italic; transition: color 0.3s ease;
+    }
+
+    /* Slider */
+    .slider-wrap { margin-bottom: 36px; }
+    .slider {
+      width: 100%; height: 2px; appearance: none; outline: none; cursor: pointer;
+      border-radius: 2px;
+    }
+    .slider::-webkit-slider-thumb {
+      appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--gold); cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--bg); cursor: pointer;
+    }
+    .slider-labels {
+      display: flex; justify-content: space-between;
+      margin-top: 8px; color: var(--text-very-dim); font-size: 11px;
+      transition: color 0.3s ease;
+    }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 12px; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--btn-text); border: none;
+      padding: 16px 32px; font-size: 14px;
+      letter-spacing: 0.05em; font-family: 'Arial', sans-serif;
+      font-weight: 700; text-transform: uppercase;
+      border-radius: 2px; flex: 1;
+      transition: opacity 0.2s ease, background 0.3s ease;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary {
+      background: transparent; color: var(--secondary-text);
+      border: 1px solid var(--secondary-border);
+      padding: 16px 20px; font-size: 13px;
+      letter-spacing: 0.05em; font-family: 'Arial', sans-serif;
+      border-radius: 2px; white-space: nowrap;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-full { width: 100%; }
+
+    /* ── Results ────────────────────────────────────────────────── */
+    #results { opacity: 0; transition: opacity 0.3s ease; }
+    #results.revealed { opacity: 1; }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px; padding: 36px 28px;
+      margin-bottom: 20px; text-align: center;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s,
+                  background 0.3s ease, border-color 0.3s ease;
+    }
+    #results.revealed .hero-card { opacity: 1; transform: translateY(0); }
+    .hero-label {
+      color: var(--text-muted); font-size: 12px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 12px; transition: color 0.3s ease;
+    }
+    .hero-number {
+      font-size: clamp(42px, 10vw, 68px); color: var(--gold);
+      font-weight: normal; letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 8px; transition: color 0.3s ease;
+    }
+    .hero-sub { color: var(--text-dim); font-size: 13px; transition: color 0.3s ease; }
+
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 20px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s;
+    }
+    #results.revealed .stats-grid { opacity: 1; transform: translateY(0); }
+    .stat-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 20px 16px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .stat-card.highlight { border-color: var(--border-gold); }
+    .stat-value {
+      font-size: clamp(20px, 4vw, 28px); color: var(--text-primary);
+      letter-spacing: -0.02em; margin-bottom: 4px; transition: color 0.3s ease;
+    }
+    .stat-card.highlight .stat-value { color: var(--gold); }
+    .stat-label {
+      color: var(--text-muted); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 2px; transition: color 0.3s ease;
+    }
+    .stat-sub { color: var(--text-very-dim); font-size: 11px; font-style: italic; transition: color 0.3s ease; }
+
+    .narrative-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 24px; margin-bottom: 24px;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.4s, background 0.3s ease, border-color 0.3s ease;
+    }
+    #results.revealed .narrative-card { opacity: 1; }
+    .narrative-card p {
+      color: var(--text-secondary); font-size: 14px;
+      line-height: 1.75; transition: color 0.3s ease;
+    }
+    .narrative-card strong { color: var(--gold); font-weight: normal; transition: color 0.3s ease; }
+
+    .cta-wrap {
+      text-align: center; opacity: 0;
+      transition: opacity 0.5s ease 0.55s;
+    }
+    #results.revealed .cta-wrap { opacity: 1; }
+    .cta-note { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; transition: color 0.3s ease; }
+    .btn-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--btn-text); padding: 16px 40px;
+      font-size: 14px; letter-spacing: 0.05em;
+      font-family: 'Arial', sans-serif; font-weight: 700;
+      text-transform: uppercase; border-radius: 2px;
+      transition: opacity 0.2s ease, background 0.3s ease;
+      margin-bottom: 16px;
+    }
+    .btn-cta:hover { opacity: 0.88; }
+    .btn-recalc {
+      background: none; border: none;
+      color: var(--text-very-dim); font-size: 12px;
+      cursor: pointer; text-decoration: underline;
+      font-family: 'Georgia', serif; transition: color 0.3s ease;
+      display: block; margin: 0 auto;
+    }
+    .btn-recalc:hover { color: var(--gold); }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 420px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <button id="theme-toggle" aria-label="Toggle theme">
+    <svg id="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Sun (default for dark mode) -->
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <span id="toggle-label">Light</span>
+  </button>
+
+  <div id="app">
+
+    <!-- Logo -->
+    <div class="logo">SilverBullet <span>SWEEP</span></div>
+
+    <!-- Progress (hidden on intro) -->
+    <div id="progress-wrap" style="display:none;">
+      <div id="progress-track"><div id="progress-fill"></div></div>
+      <div id="step-dots">
+        <div class="step-dot" id="dot-0"></div>
+        <div class="step-dot" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+        <div class="step-dot" id="dot-4"></div>
+      </div>
+    </div>
+
+    <!-- ── INTRO ───────────────────────────────────────────────── -->
+    <div id="intro" class="screen active">
+      <div class="badge">Free Diagnostic</div>
+      <h1 class="intro-title">How Much Revenue<br><em>Is Hiding In Your Database?</em></h1>
+      <p class="intro-sub">5 questions. 90 seconds. We'll show you exactly how much money is sitting in your unconverted leads — and what it would take to recover it.</p>
+      <p class="intro-note">No email required. No pitch. Just the number.</p>
+      <button class="btn-primary btn-full" onclick="goTo(1)">Show Me The Number →</button>
+    </div>
+
+    <!-- ── QUESTIONS (generated by JS) ───────────────────────── -->
+    <div id="question" class="screen">
+      <div class="q-label" id="q-label"></div>
+      <h2 class="q-title" id="q-title"></h2>
+      <p class="q-hint" id="q-hint"></p>
+      <div class="value-card">
+        <div class="value-unit" id="v-unit"></div>
+        <div class="value-display">
+          <span class="value-prefix" id="v-prefix"></span>
+          <input class="value-input" id="v-input" type="number" />
+          <span class="value-suffix" id="v-suffix"></span>
+        </div>
+        <div class="value-tip">type a number or use the slider below</div>
+      </div>
+      <div class="slider-wrap">
+        <input class="slider" id="v-slider" type="range" />
+        <div class="slider-labels">
+          <span id="s-min"></span>
+          <span id="s-max"></span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" id="btn-back" onclick="goBack()">← Back</button>
+        <button class="btn-primary" id="btn-next" onclick="goNext()">Next →</button>
+      </div>
+    </div>
+
+    <!-- ── RESULTS ─────────────────────────────────────────────── -->
+    <div id="results" class="screen">
+      <div class="badge">Your Hidden Revenue Report</div>
+      <div class="hero-card">
+        <div class="hero-label">Estimated Revenue Sitting In Your Database</div>
+        <div class="hero-number" id="r-hero"></div>
+        <div class="hero-sub">from leads you already paid to acquire</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="r-recoverable"></div>
+          <div class="stat-label">Recoverable contacts</div>
+          <div class="stat-sub">never properly followed up</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="r-hot"></div>
+          <div class="stat-label">Likely to respond</div>
+          <div class="stat-sub">warm replies via SMS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="r-closes"></div>
+          <div class="stat-label">Estimated closes</div>
+          <div class="stat-sub">at your close rate</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="stat-value" id="r-leakage"></div>
+          <div class="stat-label">Annual leakage</div>
+          <div class="stat-sub">from new leads monthly</div>
+        </div>
+      </div>
+      <div class="narrative-card">
+        <p id="r-narrative"></p>
+      </div>
+      <div class="cta-wrap">
+        <p class="cta-note">Want to see exactly how this works for your business?</p>
+        <a class="btn-cta" href="https://silverbulletpro.com/sweepnow" target="_blank" rel="noopener">See How Sweep Works →</a><br>
+        <button class="btn-recalc" onclick="reset()">Recalculate with different numbers</button>
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <script>
+    // ── Data ──────────────────────────────────────────────────────
+    const STEPS = [
+      { id:'leads',     question:'How many new leads or enquiries does your business generate per month?',                              hint:'Include all enquiries — calls, forms, referrals, ads',                        unit:'leads/month', prefix:'',  suffix:'',  min:1,   max:2000,  def:50    },
+      { id:'closeRate', question:'What percentage of those leads do you typically close into paying customers?',                        hint:'Be honest — most businesses close 10–30% of enquiries',                       unit:'%',           prefix:'',  suffix:'%', min:1,   max:80,    def:20    },
+      { id:'database',  question:'How many unconverted or old enquiries are sitting in your database right now?',                       hint:'Think CRM, spreadsheets, old quote requests, past enquiries',                  unit:'contacts',    prefix:'',  suffix:'',  min:10,  max:50000, def:300   },
+      { id:'jobValue',  question:"What's the average value of a job or sale when you close one?",                                       hint:'Your typical transaction value — not lifetime value',                          unit:'£ per job',   prefix:'£', suffix:'',  min:100, max:100000,def:3000  },
+      { id:'coldPerc',  question:'Of those old leads, what % do you think genuinely went cold vs were just never properly followed up?',hint:'Most business owners say 60–80% were never properly followed up',             unit:'%',           prefix:'',  suffix:'%', min:10,  max:100,   def:65    },
+    ];
+
+    let currentStep = 0; // 0=intro, 1-5=questions, 6=results
+    const answers = { leads:50, closeRate:20, database:300, jobValue:3000, coldPerc:65 };
+
+    // ── Formatting ────────────────────────────────────────────────
+    function fmtCurrency(n) {
+      if (n >= 1e6) return '£' + (n/1e6).toFixed(1) + 'm';
+      if (n >= 1000) return '£' + Math.round(n/1000) + 'k';
+      return '£' + Math.round(n).toLocaleString();
+    }
+    function fmtNum(n) { return Math.round(n).toLocaleString(); }
+
+    // ── Calculate ─────────────────────────────────────────────────
+    function calc() {
+      const cr = answers.closeRate / 100;
+      const cp = answers.coldPerc / 100;
+      const recoverable = Math.round(answers.database * cp);
+      const hot = Math.max(Math.round(recoverable * 0.04), 1);
+      const closes = Math.max(Math.round(hot * cr), 1);
+      const revenue = Math.max(closes * answers.jobValue, answers.jobValue);
+      const monthly = Math.round(answers.leads * (1-cr) * 0.4 * cr * answers.jobValue);
+      return { recoverable, hot, closes, revenue, annual: monthly * 12 };
+    }
+
+    // ── Slider gradient ───────────────────────────────────────────
+    function updateSliderGradient(slider, val, min, max) {
+      const pct = ((val - min) / (max - min)) * 100;
+      const goldColor = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim();
+      const emptyColor = getComputedStyle(document.documentElement).getPropertyValue('--slider-empty').trim();
+      slider.style.background = `linear-gradient(to right, ${goldColor} ${pct}%, ${emptyColor} ${pct}%)`;
+    }
+
+    // ── Render question ───────────────────────────────────────────
+    function renderQuestion(stepIndex) {
+      const s = STEPS[stepIndex - 1];
+      const val = answers[s.id];
+
+      document.getElementById('q-label').textContent = `Question ${stepIndex} of 5`;
+      document.getElementById('q-title').textContent = s.question;
+      document.getElementById('q-hint').textContent = s.hint;
+      document.getElementById('v-unit').textContent = s.unit === '£ per job' ? 'average job value' : s.unit === '%' ? 'percentage' : s.unit;
+      document.getElementById('v-prefix').textContent = s.prefix;
+      document.getElementById('v-suffix').textContent = s.suffix;
+
+      const input = document.getElementById('v-input');
+      input.min = s.min; input.max = s.max; input.value = val;
+      input.style.width = Math.max(3, String(val).length + 1) + 'ch';
+
+      const slider = document.getElementById('v-slider');
+      slider.min = s.min; slider.max = s.max; slider.value = val;
+      updateSliderGradient(slider, val, s.min, s.max);
+
+      document.getElementById('s-min').textContent = s.prefix + s.min.toLocaleString() + s.suffix;
+      document.getElementById('s-max').textContent = s.prefix + s.max.toLocaleString() + s.suffix;
+
+      document.getElementById('btn-back').style.display = stepIndex > 1 ? 'inline-block' : 'none';
+      document.getElementById('btn-next').textContent = stepIndex === 5 ? 'Calculate My Hidden Revenue →' : 'Next →';
+
+      // Sync input ↔ slider
+      input.oninput = () => {
+        let v = parseInt(input.value) || s.min;
+        v = Math.min(s.max, Math.max(s.min, v));
+        input.style.width = Math.max(3, String(v).length + 1) + 'ch';
+        slider.value = v;
+        updateSliderGradient(slider, v, s.min, s.max);
+      };
+      slider.oninput = () => {
+        const v = parseInt(slider.value);
+        input.value = v;
+        input.style.width = Math.max(3, String(v).length + 1) + 'ch';
+        updateSliderGradient(slider, v, s.min, s.max);
+      };
+    }
+
+    // ── Render results ────────────────────────────────────────────
+    function renderResults() {
+      const r = calc();
+      document.getElementById('r-hero').textContent = fmtCurrency(r.revenue);
+      document.getElementById('r-recoverable').textContent = fmtNum(r.recoverable);
+      document.getElementById('r-hot').textContent = fmtNum(r.hot);
+      document.getElementById('r-closes').textContent = fmtNum(r.closes);
+      document.getElementById('r-leakage').textContent = fmtCurrency(r.annual);
+      document.getElementById('r-narrative').innerHTML =
+        `Based on your numbers, roughly <strong>${fmtNum(r.recoverable)} contacts</strong> in your database were never properly followed up. With AI-driven SMS reactivation, a conservative 4% of those will respond with genuine interest — that's <strong>${fmtNum(r.hot)} warm conversations</strong> you'd otherwise never have. At your close rate, that translates to <strong>${fmtNum(r.closes)} additional deals</strong> worth <strong>${fmtCurrency(r.revenue)}</strong>. From leads you already paid for.`;
+      setTimeout(() => document.getElementById('results').classList.add('revealed'), 400);
+    }
+
+    // ── Navigation ────────────────────────────────────────────────
+    function saveCurrentAnswer() {
+      if (currentStep >= 1 && currentStep <= 5) {
+        const s = STEPS[currentStep - 1];
+        const v = parseInt(document.getElementById('v-input').value) || s.def;
+        answers[s.id] = Math.min(s.max, Math.max(s.min, v));
+      }
+    }
+
+    function goTo(step) {
+      saveCurrentAnswer();
+      const app = document.getElementById('app');
+      app.classList.add('animating');
+      setTimeout(() => {
+        currentStep = step;
+        showStep();
+        app.classList.remove('animating');
+      }, 180);
+    }
+
+    function goNext() { goTo(currentStep + 1); }
+    function goBack() { goTo(currentStep - 1); }
+    function reset()  {
+      document.getElementById('results').classList.remove('revealed');
+      goTo(0);
+    }
+
+    function showStep() {
+      // Screens
+      document.getElementById('intro').classList.toggle('active', currentStep === 0);
+      document.getElementById('question').classList.toggle('active', currentStep >= 1 && currentStep <= 5);
+      document.getElementById('results').classList.toggle('active', currentStep === 6);
+
+      // Progress
+      const pw = document.getElementById('progress-wrap');
+      pw.style.display = currentStep === 0 ? 'none' : 'block';
+      const pct = currentStep === 6 ? 100 : currentStep === 0 ? 0 : (currentStep / 5) * 100;
+      document.getElementById('progress-fill').style.width = pct + '%';
+
+      // Dots
+      for (let i = 0; i < 5; i++) {
+        const dot = document.getElementById('dot-' + i);
+        dot.className = 'step-dot';
+        if (i < currentStep - 1) dot.classList.add('done');
+        else if (i === currentStep - 1) dot.classList.add('current');
+      }
+
+      if (currentStep >= 1 && currentStep <= 5) renderQuestion(currentStep);
+      if (currentStep === 6) renderResults();
+    }
+
+    // ── Theme toggle ──────────────────────────────────────────────
+    const SUN_SVG = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+    const MOON_SVG = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+
+    let isDark = true;
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const app = document.getElementById('app');
+      app.classList.add('theme-fade');
+      setTimeout(() => {
+        isDark = !isDark;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        document.getElementById('toggle-icon').innerHTML = isDark ? SUN_SVG : MOON_SVG;
+        document.getElementById('toggle-label').textContent = isDark ? 'Light' : 'Dark';
+        // Re-render slider gradient with new theme colours
+        if (currentStep >= 1 && currentStep <= 5) {
+          const s = STEPS[currentStep - 1];
+          const slider = document.getElementById('v-slider');
+          updateSliderGradient(slider, parseInt(slider.value), s.min, s.max);
+        }
+        app.classList.remove('theme-fade');
+      }, 150);
+    });
+
+    // ── Init ──────────────────────────────────────────────────────
+    showStep();
+  </script>
+</body>
+</html>
