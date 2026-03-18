@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Strategy Audit — Consultant Edition</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+button,input,textarea,select{font-family:inherit;cursor:pointer;}
+a{text-decoration:none;}
+
+/* ── Root vars ──────────────────────────────────────── */
+:root{
+  --bg:#0d0f14;
+  --bg2:#131620;
+  --card:#161b26;
+  --card2:#1c2234;
+  --border:#232a3a;
+  --border2:#2d3650;
+  --gold:#c9a84c;
+  --gold2:#e8c96a;
+  --gold-faint:rgba(201,168,76,0.07);
+  --cyan:#38bdf8;
+  --cyan-dim:rgba(56,189,248,0.12);
+  --red:#f87171;
+  --red-dim:rgba(248,113,113,0.1);
+  --green:#4ade80;
+  --green-dim:rgba(74,222,128,0.1);
+  --amber:#fb923c;
+  --amber-dim:rgba(251,146,60,0.1);
+  --text:#e8eaf0;
+  --text2:#9ba3b8;
+  --text3:#5a6380;
+  --text4:#343d54;
+  --shadow:0 4px 24px rgba(0,0,0,0.5);
+}
+.light{
+  --bg:#f4f3ef;
+  --bg2:#eceae4;
+  --card:#ffffff;
+  --card2:#f8f7f3;
+  --border:#ddd9cf;
+  --border2:#c9c3b5;
+  --gold:#8a6b1e;
+  --gold2:#b8922e;
+  --gold-faint:rgba(138,107,30,0.06);
+  --cyan:#0284c7;
+  --cyan-dim:rgba(2,132,199,0.1);
+  --red:#dc2626;
+  --red-dim:rgba(220,38,38,0.08);
+  --green:#16a34a;
+  --green-dim:rgba(22,163,74,0.08);
+  --amber:#c2410c;
+  --amber-dim:rgba(194,65,12,0.08);
+  --text:#1a1c24;
+  --text2:#4a5068;
+  --text3:#8a92a8;
+  --text4:#c0c8d8;
+  --shadow:0 4px 24px rgba(0,0,0,0.1);
+}
+
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Georgia','Times New Roman',serif;
+  min-height:100vh; transition:background 0.3s ease,color 0.3s ease;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+.shell{display:flex;min-height:100vh;}
+
+/* Sidebar */
+.sidebar{
+  width:260px;min-width:260px;background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;height:100vh;
+  z-index:100;transition:transform 0.3s ease,background 0.3s ease;
+  overflow-y:auto;
+}
+.sidebar-top{padding:24px 20px 16px;}
+.sidebar-logo{font-family:'Arial Black',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;}
+.sidebar-logo span{color:var(--gold);}
+.sidebar-edition{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text4);font-family:'Arial',sans-serif;padding:3px 8px;border:1px solid var(--border2);border-radius:2px;display:inline-block;}
+.sidebar-client{margin-top:16px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:4px;}
+.sidebar-client-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;margin-bottom:4px;}
+.sidebar-client-name{color:var(--gold);font-size:13px;font-family:'Arial',sans-serif;font-weight:700;}
+.sidebar-client-date{color:var(--text3);font-size:11px;margin-top:2px;}
+
+.sidebar-nav{padding:8px 12px;flex:1;}
+.nav-section-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--text4);font-family:'Arial',sans-serif;padding:10px 8px 6px;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:3px;cursor:pointer;
+  transition:background 0.15s ease,color 0.15s ease;
+  margin-bottom:2px;
+}
+.nav-item:hover{background:var(--gold-faint);}
+.nav-item.active{background:var(--gold-faint);border-left:2px solid var(--gold);}
+.nav-item.active .nav-item-text{color:var(--gold);}
+.nav-item.completed .nav-dot{background:var(--green);}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:background 0.2s ease;}
+.nav-item-text{font-size:12px;color:var(--text2);font-family:'Arial',sans-serif;flex:1;}
+.nav-item-count{font-size:10px;color:var(--text3);font-family:'Arial',sans-serif;}
+
+.sidebar-progress{padding:16px 20px;border-top:1px solid var(--border);}
+.progress-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;margin-bottom:8px;display:flex;justify-content:space-between;}
+.progress-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));width:0%;transition:width 0.4s ease;}
+
+/* Main content */
+.main{margin-left:260px;flex:1;display:flex;flex-direction:column;}
+
+/* Top bar */
+.topbar{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.topbar-left{display:flex;align-items:center;gap:16px;}
+.topbar-section{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;}
+.topbar-title{font-size:16px;color:var(--text);letter-spacing:-0.01em;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+
+.btn-sm{
+  padding:8px 16px;font-size:12px;letter-spacing:0.06em;font-family:'Arial',sans-serif;
+  font-weight:700;text-transform:uppercase;border-radius:2px;border:none;
+  transition:opacity 0.2s ease;cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;}
+.btn-gold:hover{opacity:0.85;}
+.btn-outline{background:transparent;border:1px solid var(--border2)!important;color:var(--text2);}
+.btn-outline:hover{border-color:var(--gold)!important;color:var(--gold);}
+.btn-cyan{background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--cyan)!important;}
+.btn-cyan:hover{opacity:0.8;}
+.theme-btn{background:var(--card);border:1px solid var(--border)!important;color:var(--text2);padding:8px 14px;border-radius:20px;display:flex;align-items:center;gap:6px;}
+.theme-btn svg{display:block;}
+
+/* Content area */
+.content{padding:32px;max-width:860px;margin:0 auto;width:100%;}
+
+/* Setup screen */
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.setup-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;}
+.setup-card.full{grid-column:1/-1;}
+.setup-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;margin-bottom:8px;}
+.setup-input{
+  width:100%;background:var(--bg2)!important;border:1px solid var(--border)!important;
+  border-radius:3px;padding:12px 14px;color:var(--text)!important;font-size:14px;
+  outline:none!important;box-shadow:none!important;transition:border-color 0.2s ease;
+}
+.setup-input:focus{border-color:var(--gold)!important;}
+.setup-input::placeholder{color:var(--text3);}
+.setup-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6380' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+
+/* Pillar header */
+.pillar-header{margin-bottom:28px;}
+.pillar-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-faint);border:1px solid rgba(201,168,76,0.2);border-radius:2px;padding:6px 14px;margin-bottom:14px;}
+.pillar-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+.pillar-badge-text{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-family:'Arial',sans-serif;font-weight:700;}
+.pillar-title{font-size:clamp(20px,3vw,28px);color:var(--text);font-weight:normal;letter-spacing:-0.02em;margin-bottom:8px;}
+.pillar-desc{color:var(--text2);font-size:14px;line-height:1.65;}
+
+/* Question card */
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;margin-bottom:16px;transition:border-color 0.2s ease,background 0.3s ease;}
+.q-card:hover{border-color:var(--border2);}
+.q-card.answered{border-left:3px solid var(--green);}
+.q-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.q-tag{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;}
+.q-importance{font-size:9px;padding:3px 8px;border-radius:2px;font-family:'Arial',sans-serif;font-weight:700;letter-spacing:0.08em;}
+.q-importance.critical{background:var(--red-dim);color:var(--red);}
+.q-importance.high{background:var(--amber-dim);color:var(--amber);}
+.q-importance.standard{background:var(--cyan-dim);color:var(--cyan);}
+.q-title{font-size:15px;color:var(--text);line-height:1.4;margin-bottom:6px;letter-spacing:-0.01em;}
+.q-subtitle{color:var(--text2);font-size:12px;line-height:1.55;margin-bottom:18px;font-style:italic;}
+
+/* Choice grid */
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.choice-grid.cols-1{grid-template-columns:1fr;}
+.choice-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+.c-btn{
+  background:var(--bg2);border:1px solid var(--border);border-radius:3px;
+  padding:12px 14px;cursor:pointer;text-align:left;
+  transition:border-color 0.15s ease,background 0.15s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.c-btn:hover{border-color:var(--border2);}
+.c-btn.sel{border-color:var(--gold);background:var(--gold-faint);}
+.c-btn-label{color:var(--text);font-size:13px;line-height:1.35;}
+.c-btn-sub{color:var(--text3);font-size:11px;margin-top:3px;}
+
+/* Scale */
+.scale-wrap{margin-bottom:16px;}
+.scale-track{display:flex;gap:6px;}
+.scale-pt{
+  flex:1;height:36px;background:var(--bg2);border:1px solid var(--border);
+  border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--text2);font-family:'Arial',sans-serif;
+  transition:background 0.15s ease,border-color 0.15s ease,color 0.15s ease;
+}
+.scale-pt:hover{border-color:var(--border2);color:var(--text);}
+.scale-pt.sel{background:var(--gold-faint);border-color:var(--gold);color:var(--gold);font-weight:700;}
+.scale-labels{display:flex;justify-content:space-between;margin-top:6px;}
+.scale-label-text{font-size:10px;color:var(--text3);font-family:'Arial',sans-serif;}
+
+/* Text area */
+.q-textarea{
+  width:100%;background:var(--bg2)!important;border:1px solid var(--border)!important;
+  border-radius:3px;padding:14px 16px;color:var(--text)!important;
+  font-size:13px;line-height:1.65;resize:vertical;min-height:80px;
+  outline:none!important;box-shadow:none!important;
+  transition:border-color 0.2s ease;margin-bottom:12px;
+}
+.q-textarea:focus{border-color:var(--gold)!important;}
+.q-textarea::placeholder{color:var(--text3);}
+
+/* Consultant note */
+.note-wrap{margin-top:12px;}
+.note-label{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text4);font-family:'Arial',sans-serif;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.note-label::before{content:'';display:inline-block;width:16px;height:1px;background:var(--border2);}
+.note-label::after{content:'';display:inline-block;width:16px;height:1px;background:var(--border2);}
+.q-note{
+  width:100%;background:rgba(201,168,76,0.04)!important;
+  border:1px dashed rgba(201,168,76,0.2)!important;
+  border-radius:3px;padding:10px 14px;color:var(--text2)!important;
+  font-size:12px;line-height:1.6;resize:vertical;min-height:56px;
+  outline:none!important;box-shadow:none!important;
+  transition:border-color 0.2s ease;font-style:italic;
+}
+.q-note:focus{border-color:rgba(201,168,76,0.5)!important;}
+.q-note::placeholder{color:var(--text4);}
+
+/* Rating pills */
+.rating-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.rating-pill{
+  padding:7px 14px;border-radius:20px;border:1px solid var(--border);
+  font-size:12px;color:var(--text2);font-family:'Arial',sans-serif;
+  cursor:pointer;transition:all 0.15s ease;background:var(--bg2);
+  -webkit-tap-highlight-color:transparent;
+}
+.rating-pill:hover{border-color:var(--border2);}
+.rating-pill.sel{border-color:var(--gold);background:var(--gold-faint);color:var(--gold);}
+
+/* Nav footer */
+.nav-footer{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+
+/* Results */
+.results-topbar{background:var(--card);border:1px solid var(--border-gold,var(--gold));border-radius:4px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.r-score-wrap{display:flex;align-items:center;gap:16px;}
+.r-score{font-size:48px;color:var(--gold);letter-spacing:-0.04em;line-height:1;}
+.r-score-label{font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;font-family:'Arial',sans-serif;}
+.r-band{display:inline-block;padding:5px 14px;border-radius:2px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-family:'Arial',sans-serif;font-weight:700;margin-bottom:6px;}
+.r-band.low{background:var(--red-dim);color:var(--red);}
+.r-band.mid{background:var(--amber-dim);color:var(--amber);}
+.r-band.high{background:var(--green-dim);color:var(--green);}
+.r-actions{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* Pillar score grid */
+.pillar-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.ps-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;}
+.ps-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;margin-bottom:8px;}
+.ps-score{font-size:24px;color:var(--text);letter-spacing:-0.02em;margin-bottom:4px;}
+.ps-bar-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.ps-bar-fill{height:100%;border-radius:2px;transition:width 0.6s ease;}
+
+/* Opportunity cards */
+.opp-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:20px 22px;margin-bottom:12px;}
+.opp-card.critical-opp{border-left:3px solid var(--red);}
+.opp-card.high-opp{border-left:3px solid var(--amber);}
+.opp-card.quick-opp{border-left:3px solid var(--green);}
+.opp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.opp-title{font-size:15px;color:var(--text);letter-spacing:-0.01em;}
+.opp-badge{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;font-family:'Arial',sans-serif;font-weight:700;flex-shrink:0;}
+.opp-badge.critical{background:var(--red-dim);color:var(--red);}
+.opp-badge.high{background:var(--amber-dim);color:var(--amber);}
+.opp-badge.quick{background:var(--green-dim);color:var(--green);}
+.opp-meta{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
+.opp-meta-item{font-size:11px;color:var(--text3);font-family:'Arial',sans-serif;}
+.opp-meta-val{color:var(--text2);font-weight:700;}
+.opp-finding{color:var(--text2);font-size:13px;line-height:1.65;margin-bottom:12px;}
+.opp-prescription{background:var(--card2);border:1px solid var(--border);border-radius:3px;padding:14px 16px;}
+.opp-rx-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan);font-family:'Arial',sans-serif;margin-bottom:6px;}
+.opp-rx-text{color:var(--text2);font-size:13px;line-height:1.6;}
+.opp-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tool-tag{background:var(--cyan-dim);color:var(--cyan);font-size:10px;padding:3px 10px;border-radius:2px;font-family:'Arial',sans-serif;}
+
+/* ROI table */
+.roi-table{width:100%;border-collapse:collapse;margin-top:12px;}
+.roi-table th{background:var(--card2);padding:10px 14px;text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);font-family:'Arial',sans-serif;font-weight:700;border-bottom:1px solid var(--border);}
+.roi-table td{padding:10px 14px;font-size:13px;color:var(--text2);border-bottom:1px solid var(--border);}
+.roi-table tr:last-child td{border-bottom:none;}
+.roi-table .total-row td{color:var(--gold);font-weight:700;font-size:14px;}
+.roi-table .val-col{color:var(--text);font-family:'Arial',sans-serif;}
+
+/* Roadmap */
+.roadmap-item{display:flex;gap:16px;margin-bottom:16px;}
+.roadmap-num{width:32px;height:32px;border-radius:50%;border:1px solid var(--border-gold,var(--gold));color:var(--gold);font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Arial',sans-serif;font-weight:700;}
+.roadmap-content{flex:1;padding-top:4px;}
+.roadmap-title{color:var(--text);font-size:14px;margin-bottom:4px;}
+.roadmap-desc{color:var(--text2);font-size:13px;line-height:1.6;}
+.roadmap-meta{display:flex;gap:12px;margin-top:6px;}
+.roadmap-tag{font-size:10px;padding:2px 8px;border-radius:2px;font-family:'Arial',sans-serif;}
+
+/* Mobile sidebar */
+.sidebar-toggle{display:none;position:fixed;bottom:20px;right:20px;z-index:200;width:48px;height:48px;border-radius:50%;background:var(--gold);border:none;color:#fff;font-size:20px;align-items:center;justify-content:center;box-shadow:var(--shadow);}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .sidebar-toggle{display:flex;}
+  .content{padding:20px 16px;}
+  .setup-grid{grid-template-columns:1fr;}
+  .choice-grid{grid-template-columns:1fr;}
+  .choice-grid.cols-3{grid-template-columns:1fr 1fr;}
+  .pillar-scores{grid-template-columns:1fr 1fr;}
+  .topbar{padding:0 16px;}
+}
+
+/* Screens */
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* Tooltip hint */
+.field-hint{font-size:11px;color:var(--text3);font-style:italic;margin-top:4px;}
+
+/* Whitelabel badge in sidebar */
+.wl-badge{margin:0 12px 12px;padding:10px 12px;background:var(--gold-faint);border:1px solid rgba(201,168,76,0.15);border-radius:3px;}
+.wl-firm{font-size:12px;color:var(--gold);font-family:'Arial',sans-serif;font-weight:700;}
+.wl-tagline{font-size:10px;color:var(--text3);margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="shell" id="shell">
+
+  <!-- ── Sidebar ─────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">SilverBullet <span>SWEEP</span></div>
+      <div class="sidebar-edition">Consultant Edition</div>
+      <div class="sidebar-client" id="sidebar-client" style="display:none">
+        <div class="sidebar-client-label">Current Client</div>
+        <div class="sidebar-client-name" id="sc-name">—</div>
+        <div class="sidebar-client-date" id="sc-date">—</div>
+      </div>
+    </div>
+
+    <div class="wl-badge" id="wl-badge" style="display:none">
+      <div class="wl-firm" id="wl-firm-name">—</div>
+      <div class="wl-tagline" id="wl-tagline">AI Strategy Consultancy</div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- Generated by JS -->
+    </nav>
+
+    <div class="sidebar-progress">
+      <div class="progress-label">
+        <span>Audit Progress</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+  </aside>
+
+  <!-- ── Main ───────────────────────────────────────── -->
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div>
+          <div class="topbar-section" id="tb-section">Setup</div>
+          <div class="topbar-title" id="tb-title">Configure Your Audit</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-sm theme-btn" onclick="toggleTheme()">
+          <svg id="th-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <span id="th-label">Light</span>
+        </button>
+        <button class="btn-sm btn-outline" id="btn-reset" onclick="resetAudit()" style="display:none">↺ Reset</button>
+        <button class="btn-sm btn-cyan" id="btn-generate" onclick="goToResults()" style="display:none">Generate Report →</button>
+      </div>
+    </header>
+
+    <div class="content" id="content-area">
+
+      <!-- ── SETUP SCREEN ────────────────────────── -->
+      <div class="screen active" id="screen-setup">
+        <div class="pillar-header" style="margin-bottom:32px;">
+          <div class="pillar-badge"><span class="pillar-badge-dot"></span><span class="pillar-badge-text">Audit Configuration</span></div>
+          <h1 class="pillar-title">Set Up Your AI Strategy Audit</h1>
+          <p class="pillar-desc">Enter client and firm details before beginning. These will appear on all outputs and the final PDF report.</p>
+        </div>
+
+        <div class="setup-grid">
+          <div class="setup-card">
+            <div class="setup-label">Client Business Name *</div>
+            <input class="setup-input" id="s-client" type="text" placeholder="e.g. Google Ltd"/>
+          </div>
+          <div class="setup-card">
+            <div class="setup-label">Primary Contact Name *</div>
+            <input class="setup-input" id="s-contact" type="text" placeholder="e.g. John Smith"/>
+          </div>
+          <div class="setup-card">
+            <div class="setup-label">Client Industry / Sector</div>
+            <input class="setup-input" id="s-industry" type="text" placeholder="e.g. Software Development"/>
+          </div>
+          <div class="setup-card">
+            <div class="setup-label">Approx. Annual Revenue</div>
+            <select class="setup-input setup-select" id="s-revenue">
+              <option value="">Select range</option>
+              <option value="sub500k">Under £500k</option>
+              <option value="500k-1m">£500k – £1m</option>
+              <option value="1m-5m">£1m – £5m</option>
+              <option value="5m-20m">£5m – £20m</option>
+              <option value="20m+">£20m+</option>
+            </select>
+          </div>
+          <div class="setup-card">
+            <div class="setup-label">Your Firm / Consultancy Name</div>
+            <input class="setup-input" id="s-firm" type="text" placeholder="e.g. SilverBullet SWEEP"/>
+            <div class="field-hint">Appears on the report as "Prepared by"</div>
+          </div>
+          <div class="setup-card">
+            <div class="setup-label">Your Name</div>
+            <input class="setup-input" id="s-consultant" type="text" placeholder="e.g. David Brown"/>
+          </div>
+          <div class="setup-card full">
+            <div class="setup-label">Audit Scope — Which areas will you cover today?</div>
+            <div class="choice-grid" style="margin-top:12px;">
+              <div class="c-btn sel" data-scope="operations" onclick="toggleScope(this)"><div class="c-btn-label">⚙️ Operations & Admin</div></div>
+              <div class="c-btn sel" data-scope="sales" onclick="toggleScope(this)"><div class="c-btn-label">💰 Sales & Lead Management</div></div>
+              <div class="c-btn sel" data-scope="marketing" onclick="toggleScope(this)"><div class="c-btn-label">📢 Marketing & Content</div></div>
+              <div class="c-btn sel" data-scope="customer" onclick="toggleScope(this)"><div class="c-btn-label">💬 Customer Experience</div></div>
+              <div class="c-btn sel" data-scope="people" onclick="toggleScope(this)"><div class="c-btn-label">👥 People & HR</div></div>
+              <div class="c-btn sel" data-scope="finance" onclick="toggleScope(this)"><div class="c-btn-label">📊 Finance & Reporting</div></div>
+            </div>
+          </div>
+          <div class="setup-card full">
+            <div class="setup-label">Initial Business Context (optional)</div>
+            <textarea class="q-textarea" id="s-context" placeholder="Brief notes on the business — what they do, any known pain points, context from initial conversations..." style="min-height:80px;"></textarea>
+          </div>
+        </div>
+        <div id="setup-error" style="color:var(--red);font-size:13px;margin-bottom:12px;display:none;">Please enter a client name and contact to continue.</div>
+        <button class="btn-sm btn-gold" style="padding:14px 32px;font-size:13px;" onclick="startAudit()">Begin Audit →</button>
+      </div>
+
+      <!-- ── PILLAR SCREENS (generated) ─────────────── -->
+      <div id="screen-audit" class="screen"></div>
+
+      <!-- ── RESULTS ─────────────────────────────────── -->
+      <div id="screen-results" class="screen"></div>
+
+    </div>
+  </main>
+</div>
+
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA MODEL
+// ═══════════════════════════════════════════════════════
+const config = { client:'', contact:'', industry:'', revenue:'', firm:'SilverBullet SWEEP', consultant:'David Bennett', context:'', scope:['operations','sales','marketing','customer','people','finance'] };
+const auditData = {}; // pillar -> question_id -> { answer, score, note }
+
+// ── Pillar definitions ─────────────────────────────────
+const PILLARS = [
+  {
+    id:'operations', label:'Operations & Admin', icon:'⚙️',
+    desc:'Map repetitive manual processes, data entry workflows, and administrative bottlenecks.',
+    questions:[
+      { id:'ops_manual_hours', label:'Manual Task Volume', importance:'critical',
+        text:'How many hours per week does the team collectively spend on manual, repetitive tasks?',
+        sub:'Include data entry, copy-pasting, filing, form-filling, report compilation.',
+        type:'scale', min:0, max:40, unit:'hrs/week',
+        lowLabel:'Almost none', highLabel:'40+ hours',
+        scoring:(v)=>v>=20?0:v>=10?25:v>=5?55:80,
+        rx:(v)=>v>=10?{title:'Process Automation',finding:`The business is losing approximately ${v} hours/week to manual operations — equivalent to £${Math.round(v*30*52).toLocaleString()} per year in staff time.`,solution:'Workflow automation via Make.com or Zapier can eliminate the majority of data entry and copy-paste tasks. Combined with AI document generation, admin overhead typically reduces by 60–80%.',tools:['Make.com','Zapier','ChatGPT','Notion AI','Google Workspace AI'],priority:'critical'}:null },
+      { id:'ops_systems', label:'Tech Stack & Integration', importance:'high',
+        text:'How well do your current software systems communicate with each other?',
+        sub:'Are staff manually moving data between systems, or does it flow automatically?',
+        type:'single', cols:1,
+        options:[{v:'none',l:'Systems are completely siloed — everything is manual',score:0},{v:'partial',l:'Some integrations exist but significant manual bridging required',score:30},{v:'mostly',l:'Mostly connected with occasional manual steps',score:65},{v:'full',l:'Fully integrated — data flows automatically between systems',score:100}],
+        rx:(v)=>v==='none'||v==='partial'?{title:'Systems Integration',finding:'Disconnected software forces staff to act as human bridges between systems. This creates errors, delays, and significant hidden cost.',solution:'A lightweight integration layer (Make.com or Zapier) can connect your CRM, email, calendar, accounting, and project tools — eliminating manual data transfer entirely.',tools:['Make.com','Zapier','HubSpot','Pipedrive','Xero API'],priority:'high'}:null },
+      { id:'ops_reporting', label:'Reporting & Analytics', importance:'standard',
+        text:'How are business reports and performance updates currently produced?',
+        sub:'Who creates them, how long does it take, and how current is the data?',
+        type:'single', cols:1,
+        options:[{v:'manual_slow',l:'Manually compiled — takes hours, often outdated by the time it lands',score:0},{v:'manual_fast',l:'Manual but reasonably quick — spreadsheets and templates',score:35},{v:'semi_auto',l:'Semi-automated — some dashboards but still requires human input',score:65},{v:'auto',l:'Fully automated reporting and live dashboards',score:100}],
+        rx:(v)=>v==='manual_slow'?{title:'AI Reporting Automation',finding:'Manual report production is a significant hidden cost — not just in time, but in decision-making quality when reports are stale.',solution:'AI-powered reporting connects to your data sources and produces formatted reports automatically on schedule. Executives receive accurate, current insights without any manual effort.',tools:['Google Looker Studio','Power BI','ChatGPT + Sheets','Notion AI'],priority:'standard'}:null },
+    ]
+  },
+  {
+    id:'sales', label:'Sales & Lead Management', icon:'💰',
+    desc:'Assess lead generation, follow-up processes, pipeline management, and conversion rates.',
+    questions:[
+      { id:'sales_followup', label:'Lead Follow-Up Process', importance:'critical',
+        text:'How does the business currently follow up with leads, enquiries, and old prospects?',
+        sub:'This is consistently the highest-ROI area for AI in service businesses.',
+        type:'single', cols:1,
+        options:[{v:'none',l:'No formal process — leads go cold without follow-up',score:0},{v:'adhoc',l:'Ad hoc — whoever remembers to call or email',score:15},{v:'manual_crm',l:'CRM reminders but manually executed by the sales team',score:45},{v:'email_seq',l:'Automated email sequences but no conversational follow-up',score:65},{v:'full_auto',l:'Fully automated multi-channel follow-up with AI qualification',score:100}],
+        rx:(v)=>['none','adhoc','manual_crm'].includes(v)?{title:'AI Lead Reactivation (SWEEP)',finding:'The business has no systematic follow-up for unconverted enquiries. Every week, warm leads cool further and revenue disappears permanently.',solution:'SWEEP\'s AI-driven SMS reactivation contacts dormant leads conversationally, qualifies their intent in real time, and routes hot prospects directly to the sales team via WhatsApp alert — or books appointments automatically.',tools:['SWEEP Recover','SWEEP Qualify','Twilio','OpenAI'],priority:'critical'}:null },
+      { id:'sales_crm_size', label:'Dormant Database Size', importance:'critical',
+        text:'Approximately how many unconverted or lapsed leads exist in the business\'s database?',
+        sub:'Include CRM contacts, old quote requests, past enquirers, lapsed customers.',
+        type:'scale', min:0, max:10000, unit:'contacts',
+        lowLabel:'None', highLabel:'10,000+',
+        scoring:(v)=>v>=2000?5:v>=500?20:v>=100?50:85,
+        rx:(v)=>v>100?{title:'Database Revenue Recovery',finding:`${v.toLocaleString()} dormant contacts represent a significant untapped revenue asset. These people already expressed interest — they simply weren't converted. Conservative 4% reactivation rate = ${Math.round(v*0.04).toLocaleString()} warm conversations.`,solution:'A structured DBR (Database Reactivation) campaign using AI SMS can be deployed within 48 hours, generating qualified leads from existing data with zero additional ad spend.',tools:['SWEEP','Twilio SMS','WhatsApp Business','CRM Export'],priority:'critical'}:null },
+      { id:'sales_pipeline_visibility', label:'Pipeline Visibility', importance:'high',
+        text:'How clearly can leadership see the status of all active opportunities at any given moment?',
+        sub:'Rate from 1 (completely blind) to 5 (full real-time visibility).',
+        type:'rating', options:['1','2','3','4','5'],
+        labels:['No visibility','Partial','Reasonable','Good','Full real-time'],
+        scoring:(v)=>({1:0,2:20,3:50,4:75,5:100}[v]||50),
+        rx:(v)=>parseInt(v)<=2?{title:'CRM & Pipeline AI',finding:'Poor pipeline visibility means decisions are made on gut feel rather than data. Deals fall through gaps and forecasting is unreliable.',solution:'A properly configured CRM with AI deal scoring, automated stage progression, and weekly pipeline digests gives leadership real-time clarity without requiring manual updates.',tools:['HubSpot','Pipedrive AI','Salesforce Einstein','Monday CRM'],priority:'high'}:null },
+      { id:'sales_proposal_time', label:'Proposal & Quote Generation', importance:'standard',
+        text:'How long does it take to produce a proposal or quote for a typical opportunity?',
+        sub:'Include research, writing, pricing, and review time.',
+        type:'single', cols:2,
+        options:[{v:'days',l:'Multiple days',score:10},{v:'half_day',l:'Half a day',score:30},{v:'hour',l:'About an hour',score:65},{v:'mins',l:'Under 30 minutes',score:100}],
+        rx:(v)=>['days','half_day'].includes(v)?{title:'AI Proposal Generation',finding:'Slow proposal creation costs sales velocity and signals operational inefficiency. Prospects who wait days for a quote often move to competitors.',solution:'AI proposal templates trained on your best-performing proposals can produce accurate, personalised quotes in minutes. Approval workflows then take seconds rather than hours.',tools:['ChatGPT','PandaDoc','Proposify','Notion AI','HubSpot Quotes'],priority:'standard'}:null },
+    ]
+  },
+  {
+    id:'marketing', label:'Marketing & Content', icon:'📢',
+    desc:'Evaluate content creation efficiency, channel management, and marketing automation capability.',
+    questions:[
+      { id:'mkt_content_hours', label:'Content Creation Time', importance:'high',
+        text:'How many hours per week does the team spend creating marketing content?',
+        sub:'Include social posts, email newsletters, blogs, ads copy, case studies.',
+        type:'scale', min:0, max:20, unit:'hrs/week',
+        lowLabel:'Minimal', highLabel:'20+ hours',
+        scoring:(v)=>v>=10?15:v>=5?40:v>=2?70:90,
+        rx:(v)=>v>=4?{title:'AI Content Production',finding:`${v} hours/week on content creation is significant. Much of this — first drafts, social variations, email sequences — can be handled by AI with human review.`,solution:'An AI content system trained on your brand voice can produce first drafts, repurpose long-form content into social posts, and maintain a consistent publishing schedule with minimal human input.',tools:['ChatGPT Team','Claude','Jasper','Buffer AI','Canva AI'],priority:'high'}:null },
+      { id:'mkt_lead_gen', label:'Lead Generation Sources', importance:'high',
+        text:'How does the business currently generate new leads?',
+        sub:'Select the primary source — the one that drives the most enquiries.',
+        type:'single', cols:1,
+        options:[{v:'referrals_only',l:'Referrals only — no active marketing',score:20},{v:'ads',l:'Paid advertising (Google, Meta, etc.)',score:55},{v:'seo_content',l:'SEO and organic content',score:70},{v:'outbound',l:'Active outbound / cold outreach',score:60},{v:'mixed',l:'Multiple channels working in parallel',score:90}],
+        rx:(v)=>v==='referrals_only'?{title:'Digital Lead Generation',finding:'Sole reliance on referrals creates a fragile pipeline with no predictability. If referrals slow, revenue immediately suffers.',solution:'AI-assisted outbound (LinkedIn automation, cold email sequences, targeted ads) can create a predictable, scalable lead flow running alongside the existing referral base.',tools:['Apollo.io','Instantly','LinkedIn Sales Nav','Meta Ads AI','Google Performance Max'],priority:'high'}:null },
+      { id:'mkt_email', label:'Email Marketing Automation', importance:'standard',
+        text:'How sophisticated is the business\'s email marketing capability?',
+        type:'single', cols:1,
+        options:[{v:'none',l:'No email marketing at all',score:0},{v:'basic_blast',l:'Occasional bulk emails — no segmentation or automation',score:20},{v:'segments',l:'Segmented lists with some automation',score:60},{v:'full_auto',l:'Full automation with triggers, nurture sequences, and personalisation',score:100}],
+        rx:(v)=>['none','basic_blast'].includes(v)?{title:'Email Automation & Nurture',finding:'Without email automation, the business is missing the most cost-effective follow-up channel available. Every lead should enter a nurture sequence automatically.',solution:'A properly configured email automation system qualifies leads, educates prospects, and re-engages lapsed contacts — all without human intervention after initial setup.',tools:['Mailchimp','ActiveCampaign','Klaviyo','HubSpot Email','ConvertKit'],priority:'standard'}:null },
+    ]
+  },
+  {
+    id:'customer', label:'Customer Experience', icon:'💬',
+    desc:'Examine inbound handling, response times, support processes, and retention systems.',
+    questions:[
+      { id:'cx_enquiry_volume', label:'Inbound Enquiry Volume', importance:'critical',
+        text:'How many inbound enquiries or support requests does the business handle per week?',
+        sub:'Include all channels: phone, email, web form, WhatsApp, social media.',
+        type:'single', cols:2,
+        options:[{v:'low',l:'Under 20 / week',score:85},{v:'moderate',l:'20–50 / week',score:65},{v:'high',l:'50–150 / week',score:30},{v:'very_high',l:'150+ / week',score:10}],
+        rx:(v)=>['high','very_high'].includes(v)?{title:'AI Triage & First Response',finding:'High inbound volume creates bottlenecks, delays, and inconsistent customer experiences. The first 5 minutes of response are critical to conversion.',solution:'An AI triage system can handle first-touch responses instantly, 24/7 — qualifying intent, answering FAQs, booking appointments, and routing complex queries to the right team member.',tools:['SWEEP Qualify','Intercom AI','Tidio','Voiceflow','WhatsApp Business API'],priority:'critical'}:null },
+      { id:'cx_response_time', label:'Average Response Time', importance:'high',
+        text:'How quickly does the business typically respond to a new enquiry during business hours?',
+        type:'single', cols:2,
+        options:[{v:'instant',l:'Under 5 minutes',score:100},{v:'hour',l:'Within an hour',score:75},{v:'same_day',l:'Same day',score:45},{v:'next_day',l:'Next day or longer',score:10}],
+        rx:(v)=>['same_day','next_day'].includes(v)?{title:'Response Time Automation',finding:'Slow response times directly cost sales. Studies consistently show conversion rates drop by 80%+ when response time exceeds one hour.',solution:'Automated immediate acknowledgement with personalised first-touch AI response maintains engagement while a human picks up within their normal workflow.',tools:['SWEEP','Intercom','Zapier','Calendly','WhatsApp API'],priority:'high'}:null },
+      { id:'cx_faq_repeat', label:'Repetitive Enquiry Rate', importance:'standard',
+        text:'What proportion of inbound enquiries ask the same questions or follow predictable patterns?',
+        type:'rating', options:['1','2','3','4','5'],
+        labels:['All unique','Mostly unique','Mixed','Mostly repetitive','Almost all repetitive'],
+        scoring:(v)=>({1:100,2:80,3:55,4:25,5:5}[v]||55),
+        rx:(v)=>parseInt(v)>=3?{title:'AI FAQ & Knowledge Base',finding:'High repetitive enquiry volume is a strong signal that an AI chatbot can handle the majority of incoming contact without human involvement.',solution:'An AI knowledge base trained on your business\'s most common questions can deflect 60-70% of enquiries automatically, freeing the team for high-value interactions.',tools:['Tidio AI','Intercom Fin','Voiceflow','ChatGPT API','Zendesk AI'],priority:'standard'}:null },
+      { id:'cx_retention', label:'Customer Retention Activity', importance:'standard',
+        text:'Does the business have a systematic process for retaining and re-engaging existing customers?',
+        type:'single', cols:1,
+        options:[{v:'none',l:'No — customers are served and then largely forgotten',score:0},{v:'ad_hoc',l:'Occasional check-ins when we remember',score:20},{v:'annual',l:'Annual outreach or renewal reminders',score:50},{v:'proactive',l:'Structured retention programme with regular touchpoints',score:100}],
+        rx:(v)=>['none','ad_hoc'].includes(v)?{title:'Customer Retention AI',finding:'Acquiring a new customer costs 5-7x more than retaining an existing one. Without a retention system, repeat revenue and referrals are left to chance.',solution:'Automated re-engagement campaigns triggered by time since last purchase, contract renewal dates, or inactivity keep customers engaged and create natural upsell opportunities.',tools:['SWEEP Recover','HubSpot','Klaviyo','ActiveCampaign','Intercom'],priority:'standard'}:null },
+    ]
+  },
+  {
+    id:'people', label:'People & HR', icon:'👥',
+    desc:'Review recruitment efficiency, onboarding processes, training delivery, and team productivity.',
+    questions:[
+      { id:'hr_recruitment', label:'Recruitment Process Efficiency', importance:'standard',
+        text:'How would you describe the current recruitment process?',
+        type:'single', cols:1,
+        options:[{v:'chaotic',l:'Reactive and unstructured — hiring happens in a panic',score:0},{v:'basic',l:'Basic process but very manual and time-consuming',score:25},{v:'structured',l:'Structured with templates but still labour-intensive',score:60},{v:'optimised',l:'Efficient and partially automated',score:100}],
+        rx:(v)=>['chaotic','basic'].includes(v)?{title:'AI-Assisted Recruitment',finding:'Unstructured recruitment wastes management time, produces inconsistent outcomes, and often results in poor hires that cost significantly more to fix.',solution:'AI can generate job descriptions, screen applications against criteria, schedule interviews, and produce onboarding documentation automatically — cutting hiring time by 50%.',tools:['ChatGPT','Notion AI','Calendly','HireVue','BambooHR'],priority:'standard'}:null },
+      { id:'hr_onboarding', label:'New Starter Onboarding', importance:'standard',
+        text:'How long does it take for a new team member to become fully productive?',
+        type:'single', cols:2,
+        options:[{v:'weeks',l:'Weeks — knowledge is scattered and inconsistent',score:10},{v:'structured_slow',l:'Structured but slow — takes 4-8 weeks',score:35},{v:'structured_ok',l:'Reasonably well structured — 2-4 weeks',score:65},{v:'fast',l:'Rapid onboarding — under 2 weeks to full productivity',score:100}],
+        rx:(v)=>['weeks','structured_slow'].includes(v)?{title:'AI Onboarding System',finding:'Slow onboarding is expensive — a team member not at full productivity is a direct cost drag. It also signals that knowledge is held in people rather than systems.',solution:'AI can generate personalised onboarding plans, create role-specific training materials, answer new starter questions, and surface institutional knowledge on demand.',tools:['Notion AI','ChatGPT','Loom','Trainual','Guru'],priority:'standard'}:null },
+      { id:'hr_knowledge', label:'Knowledge Management', importance:'high',
+        text:'How does the business capture and share institutional knowledge and standard procedures?',
+        sub:'What happens when a key person is unavailable or leaves?',
+        type:'single', cols:1,
+        options:[{v:'heads',l:'It lives in people\'s heads — losing someone is catastrophic',score:0},{v:'scattered',l:'Scattered across emails, WhatsApps, and shared drives',score:20},{v:'documented',l:'Documented SOPs exist but not maintained or easy to find',score:50},{v:'searchable',l:'Centralised, searchable knowledge base actively used',score:100}],
+        rx:(v)=>['heads','scattered'].includes(v)?{title:'AI Knowledge Base',finding:'When critical knowledge exists only in people\'s heads, the business is one resignation away from operational disruption. This is a significant operational risk.',solution:'An AI-powered knowledge base captures SOPs, decision frameworks, and institutional knowledge — making it searchable and accessible to anyone who needs it, including new starters.',tools:['Notion AI','Guru','Confluence AI','ChatGPT','Loom'],priority:'high'}:null },
+    ]
+  },
+  {
+    id:'finance', label:'Finance & Reporting', icon:'📊',
+    desc:'Assess invoicing, financial reporting, cash flow visibility, and finance process automation.',
+    questions:[
+      { id:'fin_invoicing', label:'Invoicing & Accounts Process', importance:'high',
+        text:'How is invoicing and accounts management currently handled?',
+        type:'single', cols:1,
+        options:[{v:'manual',l:'Fully manual — invoices created individually and tracked in spreadsheets',score:0},{v:'software_manual',l:'Software used but significant manual input and chasing required',score:35},{v:'mostly_auto',l:'Mostly automated with some manual oversight',score:75},{v:'full_auto',l:'Fully automated — invoicing, reminders, reconciliation',score:100}],
+        rx:(v)=>['manual','software_manual'].includes(v)?{title:'Finance Process Automation',finding:'Manual invoicing and accounts management is error-prone and time-consuming — and delayed invoicing directly damages cash flow.',solution:'Automated invoicing with AI-powered reconciliation, payment reminders, and cash flow forecasting eliminates manual finance admin and accelerates receivables.',tools:['Xero + AI','QuickBooks AI','Dext','AutoEntry','Chaser AI'],priority:'high'}:null },
+      { id:'fin_cashflow', label:'Cash Flow Visibility', importance:'high',
+        text:'How clear is leadership\'s view of cash flow over the next 90 days?',
+        type:'rating', options:['1','2','3','4','5'],
+        labels:['Blind','Vague','Moderate','Good','Crystal clear'],
+        scoring:(v)=>({1:0,2:20,3:50,4:75,5:100}[v]||50),
+        rx:(v)=>parseInt(v)<=2?{title:'AI Cash Flow Forecasting',finding:'Poor cash flow visibility is one of the most common causes of business failure. Decisions made without financial clarity are inherently risky.',solution:'AI-powered cash flow forecasting pulls from your accounting software, CRM pipeline, and payment history to produce accurate 90-day projections automatically.',tools:['Float','Futrli','Xero AI','Dryrun','QuickBooks Cash Flow'],priority:'high'}:null },
+      { id:'fin_reporting', label:'Financial Reporting Cycle', importance:'standard',
+        text:'How quickly does the business receive management accounts after a period closes?',
+        type:'single', cols:2,
+        options:[{v:'weeks',l:'Weeks after month-end',score:0},{v:'10days',l:'Within 10 business days',score:40},{v:'5days',l:'Within 5 business days',score:70},{v:'realtime',l:'Near real-time dashboards',score:100}],
+        rx:(v)=>v==='weeks'?{title:'Automated Management Reporting',finding:'Waiting weeks for management accounts means decisions are made on historical information that\'s already obsolete.',solution:'Automated reporting pipelines pull financial data nightly, producing formatted management packs on schedule with no manual input from finance staff.',tools:['Xero','Power BI','Looker Studio','Google Sheets AI','Fathom'],priority:'standard'}:null },
+    ]
+  },
+];
+
+// ── State ──────────────────────────────────────────────────
+let currentPillar = 0;
+let isLight = false;
+const scopeSelected = new Set(['operations','sales','marketing','customer','people','finance']);
+
+// Active pillars = those in scope
+function activePillars() { return PILLARS.filter(p=>scopeSelected.has(p.id)); }
+
+// ── Setup ──────────────────────────────────────────────────
+function toggleScope(el) {
+  const s = el.dataset.scope;
+  if (scopeSelected.has(s)) { if(scopeSelected.size>1){scopeSelected.delete(s);el.classList.remove('sel');}}
+  else { scopeSelected.add(s); el.classList.add('sel'); }
+}
+
+function startAudit() {
+  const client = document.getElementById('s-client').value.trim();
+  const contact = document.getElementById('s-contact').value.trim();
+  if (!client||!contact) { document.getElementById('setup-error').style.display='block'; return; }
+  document.getElementById('setup-error').style.display='none';
+  config.client=client; config.contact=contact;
+  config.industry=document.getElementById('s-industry').value.trim();
+  config.revenue=document.getElementById('s-revenue').value;
+  config.firm=document.getElementById('s-firm').value.trim()||'SilverBullet SWEEP';
+  config.consultant=document.getElementById('s-consultant').value.trim()||'David Bennett';
+  config.context=document.getElementById('s-context').value.trim();
+  // Sidebar client
+  document.getElementById('sidebar-client').style.display='block';
+  document.getElementById('sc-name').textContent=client;
+  document.getElementById('sc-date').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  // Whitelabel badge
+  if(config.firm) {
+    document.getElementById('wl-badge').style.display='block';
+    document.getElementById('wl-firm-name').textContent=config.firm;
+    if(config.consultant) document.getElementById('wl-tagline').textContent='Consultant: '+config.consultant;
+  }
+  // Show controls
+  document.getElementById('btn-reset').style.display='';
+  document.getElementById('btn-generate').style.display='';
+  buildSidebar();
+  renderAuditPillar(0);
+  document.getElementById('screen-setup').classList.remove('active');
+  document.getElementById('screen-audit').classList.add('active');
+}
+
+// ── Sidebar ────────────────────────────────────────────────
+function buildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML='';
+  const ap = activePillars();
+  const lbl = document.createElement('div'); lbl.className='nav-section-label'; lbl.textContent='Audit Pillars'; nav.appendChild(lbl);
+  ap.forEach((p,i)=>{
+    const item=document.createElement('div');
+    item.className='nav-item'+(i===currentPillar?' active':'');
+    item.id='nav-'+p.id;
+    item.onclick=()=>{currentPillar=i;renderAuditPillar(i);};
+    item.innerHTML=`<span class="nav-dot" id="navdot-${p.id}"></span><span class="nav-item-text">${p.icon} ${p.label}</span><span class="nav-item-count">${p.questions.length}</span>`;
+    nav.appendChild(item);
+  });
+  const lbl2=document.createElement('div'); lbl2.className='nav-section-label'; lbl2.textContent='Report'; nav.appendChild(lbl2);
+  const resItem=document.createElement('div');
+  resItem.className='nav-item'; resItem.id='nav-results';
+  resItem.onclick=goToResults;
+  resItem.innerHTML=`<span class="nav-dot"></span><span class="nav-item-text">📋 Generate Report</span>`;
+  nav.appendChild(resItem);
+}
+
+function updateNav() {
+  const ap=activePillars();
+  ap.forEach((p,i)=>{
+    const item=document.getElementById('nav-'+p.id);
+    if(item){item.className='nav-item'+(i===currentPillar?' active':'');}
+    // Check completion
+    const pillarDone=p.questions.every(q=>auditData[p.id]&&auditData[p.id][q.id]);
+    const dot=document.getElementById('navdot-'+p.id);
+    if(dot&&pillarDone){dot.style.background='var(--green)';}
+  });
+  // Progress
+  const ap2=activePillars();
+  const totalQ=ap2.reduce((sum,p)=>sum+p.questions.length,0);
+  const doneQ=ap2.reduce((sum,p)=>sum+p.questions.filter(q=>auditData[p.id]&&auditData[p.id][q.id]).length,0);
+  const pct=totalQ>0?Math.round((doneQ/totalQ)*100):0;
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-pct').textContent=pct+'%';
+}
+
+// ── Render pillar ──────────────────────────────────────────
+function renderAuditPillar(idx) {
+  currentPillar=idx;
+  const ap=activePillars();
+  const pillar=ap[idx];
+  document.getElementById('tb-section').textContent='Pillar '+(idx+1)+' of '+ap.length;
+  document.getElementById('tb-title').textContent=pillar.label;
+  updateNav();
+  if(!auditData[pillar.id]) auditData[pillar.id]={};
+  let html=`
+    <div class="pillar-header">
+      <div class="pillar-badge"><span class="pillar-badge-dot"></span><span class="pillar-badge-text">${pillar.icon} ${pillar.label}</span></div>
+      <h2 class="pillar-title">${pillar.desc}</h2>
+    </div>
+  `;
+  pillar.questions.forEach(q=>{
+    const answered=!!(auditData[pillar.id][q.id]);
+    html+=`<div class="q-card${answered?' answered':''}" id="qcard-${q.id}">
+      <div class="q-meta">
+        <div class="q-tag">${q.label}</div>
+        <div class="q-importance ${q.importance}">${q.importance==='critical'?'🔴 Critical':q.importance==='high'?'🟡 High':'🔵 Standard'}</div>
+      </div>
+      <div class="q-title">${q.text}</div>
+      ${q.sub?`<div class="q-subtitle">${q.sub}</div>`:''}
+    `;
+    // Input type
+    if(q.type==='single'){
+      const cur=auditData[pillar.id][q.id];
+      const cols=q.cols||2;
+      html+=`<div class="choice-grid cols-${cols}">`;
+      q.options.forEach(o=>{
+        const sel=cur&&cur.value===o.v?' sel':'';
+        html+=`<div class="c-btn${sel}" onclick="selectQ('${pillar.id}','${q.id}','single',{value:'${o.v}',score:${o.score}},this,${JSON.stringify(q)})"><div class="c-btn-label">${o.l}</div></div>`;
+      });
+      html+=`</div>`;
+    }
+    else if(q.type==='scale'){
+      const cur=auditData[pillar.id][q.id];
+      const val=cur?cur.value:Math.round((q.min+q.max)/4);
+      const pct=((val-q.min)/(q.max-q.min))*100;
+      const gC='var(--gold)', eC='var(--border)';
+      html+=`<div class="slider-card" style="background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:12px;">
+        <div style="text-align:center;font-size:32px;color:var(--gold);letter-spacing:-0.03em;margin-bottom:4px;" id="sv-${q.id}">${val.toLocaleString()}</div>
+        <div style="text-align:center;font-size:11px;color:var(--text3);font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;">${q.unit}</div>
+        <input type="range" min="${q.min}" max="${q.max}" step="${q.max>100?50:1}" value="${val}"
+          style="width:100%;height:4px;appearance:none;border-radius:2px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--gold) ${pct}%,var(--border) ${pct}%)"
+          id="sl-${q.id}"
+          oninput="updateScale('${pillar.id}','${q.id}',this,${q.min},${q.max},${JSON.stringify(q)})"/>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text3);font-family:Arial,sans-serif;">
+          <span>${q.lowLabel||q.min}</span><span>${q.highLabel||q.max}</span>
+        </div>
+      </div>`;
+      // Initialise
+      if(!auditData[pillar.id][q.id]){
+        setTimeout(()=>{updateScale(pillar.id,q.id,document.getElementById('sl-'+q.id),q.min,q.max,q,true);},50);
+      }
+    }
+    else if(q.type==='rating'){
+      const cur=auditData[pillar.id][q.id];
+      html+=`<div class="rating-row">`;
+      q.options.forEach((o,oi)=>{
+        const sel=cur&&cur.value===o?' sel':'';
+        html+=`<div class="rating-pill${sel}" onclick="selectQ('${pillar.id}','${q.id}','rating',{value:'${o}',score:0},this,${JSON.stringify(q)})">${o}<br><span style="font-size:9px;color:var(--text3)">${q.labels[oi]||''}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    // Consultant notes
+    const noteVal=auditData[pillar.id][q.id]?.note||'';
+    html+=`<div class="note-wrap">
+      <div class="note-label">Consultant Notes</div>
+      <textarea class="q-note" id="note-${q.id}" placeholder="Observations, quotes from client, context for report..." oninput="saveNote('${pillar.id}','${q.id}',this.value)">${noteVal}</textarea>
+    </div>`;
+    html+=`</div>`;
+  });
+
+  // Nav
+  html+=`<div class="nav-footer">
+    <div>${idx>0?`<button class="btn-sm btn-outline" onclick="renderAuditPillar(${idx-1})">← Previous</button>`:''}</div>
+    <div style="display:flex;gap:10px;">
+      ${idx<ap.length-1?`<button class="btn-sm btn-gold" onclick="renderAuditPillar(${idx+1})">Next Pillar →</button>`:`<button class="btn-sm btn-gold" onclick="goToResults()">Generate Report →</button>`}
+    </div>
+  </div>`;
+
+  document.getElementById('screen-audit').innerHTML=html;
+}
+
+// ── Answer handlers ────────────────────────────────────────
+function selectQ(pillarId, qId, type, data, el, qDef) {
+  if(!auditData[pillarId]) auditData[pillarId]={};
+  const score = typeof qDef.scoring==='function' ? qDef.scoring(data.value) : data.score;
+  auditData[pillarId][qId] = { value:data.value, score, note:auditData[pillarId][qId]?.note||'' };
+  // Highlight
+  const siblings = el.closest('.choice-grid, .rating-row').querySelectorAll('.c-btn, .rating-pill');
+  siblings.forEach(s=>s.classList.remove('sel')); el.classList.add('sel');
+  document.getElementById('qcard-'+qId)?.classList.add('answered');
+  updateNav();
+}
+
+function updateScale(pillarId, qId, el, min, max, qDef, silent) {
+  const v=parseInt(el.value);
+  const d=document.getElementById('sv-'+qId); if(d) d.textContent=v.toLocaleString();
+  const pct=((v-min)/(max-min))*100;
+  el.style.background=`linear-gradient(to right,var(--gold) ${pct}%,var(--border) ${pct}%)`;
+  if(!auditData[pillarId]) auditData[pillarId]={};
+  const score=typeof qDef.scoring==='function'?qDef.scoring(v):50;
+  auditData[pillarId][qId]={ value:v, score, note:auditData[pillarId][qId]?.note||'' };
+  document.getElementById('qcard-'+qId)?.classList.add('answered');
+  if(!silent) updateNav();
+}
+
+function saveNote(pillarId, qId, val) {
+  if(!auditData[pillarId]) auditData[pillarId]={};
+  if(!auditData[pillarId][qId]) auditData[pillarId][qId]={value:null,score:50,note:''};
+  auditData[pillarId][qId].note=val;
+}
+
+// ── Score calculation ──────────────────────────────────────
+function calcPillarScore(pillar) {
+  const data=auditData[pillar.id]||{};
+  const answered=pillar.questions.filter(q=>data[q.id]&&data[q.id].score!==undefined);
+  if(!answered.length) return null;
+  const sum=answered.reduce((t,q)=>t+(data[q.id].score||50),0);
+  return Math.round(sum/answered.length);
+}
+
+function calcOverallScore() {
+  const ap=activePillars();
+  const scores=ap.map(p=>calcPillarScore(p)).filter(s=>s!==null);
+  if(!scores.length) return 0;
+  return Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+}
+
+function generateOpportunities() {
+  const opps=[];
+  const ap=activePillars();
+  ap.forEach(p=>{
+    const data=auditData[p.id]||{};
+    p.questions.forEach(q=>{
+      const ans=data[q.id];
+      if(!ans||!q.rx) return;
+      const rx=q.rx(ans.value);
+      if(rx){
+        const note=ans.note||'';
+        if(note) rx.finding += note?' (Consultant note: '+note+')':'';
+        rx.pillar=p.label; rx.question=q.label;
+        rx.clientScore=ans.score;
+        opps.push(rx);
+      }
+    });
+  });
+  // Sort: critical first, then high, then quick/standard
+  const order={critical:0,high:1,standard:2,quick:3};
+  opps.sort((a,b)=>(order[a.priority]||2)-(order[b.priority]||2));
+  return opps;
+}
+
+// ── Results ────────────────────────────────────────────────
+function goToResults() {
+  document.getElementById('screen-audit').classList.remove('active');
+  document.getElementById('screen-results').classList.add('active');
+  document.getElementById('tb-section').textContent='Report';
+  document.getElementById('tb-title').textContent=config.client+' — AI Strategy Report';
+  updateNav();
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('nav-results')?.classList.add('active');
+
+  const score=calcOverallScore();
+  const opps=generateOpportunities();
+  const ap=activePillars();
+  const hoursQ=PILLARS.find(p=>p.id==='operations')?.questions.find(q=>q.id==='ops_manual_hours');
+  const hoursVal=auditData['operations']?.['ops_manual_hours']?.value||10;
+  const weeklyLoss=hoursVal*30;
+  const annualLoss=weeklyLoss*52;
+
+  let bandClass='mid', bandText='Developing — AI Investment Recommended';
+  if(score<35){bandClass='low';bandText='Urgent — Significant AI Deficit';}
+  else if(score>=65){bandClass='high';bandText='Progressing — Optimise & Expand';}
+
+  let html=`
+    <div class="results-topbar">
+      <div class="r-score-wrap">
+        <div>
+          <div class="r-score">${score}<span style="font-size:24px;color:var(--text3)">/100</span></div>
+          <div class="r-score-label">AI Readiness Score</div>
+        </div>
+        <div>
+          <div class="r-band ${bandClass}">${bandText}</div>
+          <div style="color:var(--text2);font-size:13px;">${config.client}</div>
+          <div style="color:var(--text3);font-size:12px;font-family:Arial,sans-serif;">Audited by ${config.consultant||'David Bennett'} · ${new Date().toLocaleDateString('en-GB')}</div>
+        </div>
+      </div>
+      <div class="r-actions">
+        <button class="btn-sm btn-cyan" onclick="downloadPDF()">⬇ Export PDF Report</button>
+        <button class="btn-sm btn-outline" onclick="renderAuditPillar(0);document.getElementById('screen-audit').classList.add('active');document.getElementById('screen-results').classList.remove('active');">✎ Edit Responses</button>
+      </div>
+    </div>
+    <div class="pillar-scores">
+  `;
+
+  ap.forEach(p=>{
+    const ps=calcPillarScore(p);
+    const col=ps===null?'var(--border)':ps>=65?'var(--green)':ps>=35?'var(--gold)':'var(--red)';
+    html+=`<div class="ps-card">
+      <div class="ps-label">${p.icon} ${p.label}</div>
+      <div class="ps-score">${ps!==null?ps+'/100':'N/A'}</div>
+      <div class="ps-bar-track"><div class="ps-bar-fill" style="width:${ps||0}%;background:${col};"></div></div>
+    </div>`;
+  });
+  html+=`</div>`;
+
+  // Opportunities
+  html+=`<div class="section-title" style="color:var(--text);font-size:18px;font-weight:normal;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;">
+    <span>AI Opportunity Matrix</span>
+    <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-family:Arial,sans-serif;color:var(--gold);border:1px solid var(--gold);padding:3px 10px;border-radius:2px;">${opps.length} Identified</span>
+  </div>`;
+
+  if(opps.length===0){
+    html+=`<div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:32px;text-align:center;color:var(--text2);">Complete the audit questions above to generate AI opportunities.</div>`;
+  } else {
+    opps.forEach(opp=>{
+      const cls=opp.priority==='critical'?'critical-opp':opp.priority==='high'?'high-opp':'quick-opp';
+      const badge=opp.priority==='critical'?'critical':opp.priority==='high'?'high':'quick';
+      const badgeLabel=opp.priority==='critical'?'Critical Priority':opp.priority==='high'?'High Priority':'Quick Win';
+      html+=`<div class="opp-card ${cls}">
+        <div class="opp-top">
+          <div class="opp-title">${opp.title}</div>
+          <div class="opp-badge ${badge}">${badgeLabel}</div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-meta-item">Department: <span class="opp-meta-val">${opp.pillar}</span></div>
+          <div class="opp-meta-item">Area: <span class="opp-meta-val">${opp.question}</span></div>
+        </div>
+        <div class="opp-finding">${opp.finding}</div>
+        <div class="opp-prescription">
+          <div class="opp-rx-label">⚡ AI Prescription</div>
+          <div class="opp-rx-text">${opp.solution}</div>
+          <div class="opp-tools">${opp.tools.map(t=>`<span class="tool-tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>`;
+    });
+  }
+
+  // ROI table
+  html+=`<div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px;margin:24px 0;">
+    <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);font-family:Arial,sans-serif;margin-bottom:16px;">ROI Summary Estimate</div>
+    <table class="roi-table">
+      <thead><tr>
+        <th>Metric</th><th>Current State</th><th>With AI</th><th>Annual Impact</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Manual Task Hours</td><td class="val-col">${hoursVal} hrs/week</td><td class="val-col" style="color:var(--green);">${Math.round(hoursVal*0.25)} hrs/week</td><td class="val-col" style="color:var(--gold);">£${(hoursVal*0.75*30*52).toLocaleString()} saved</td></tr>
+        <tr><td>Lead Follow-Up</td><td class="val-col">${auditData.sales?.sales_followup?.value==='none'?'None':'Ad hoc'}</td><td class="val-col" style="color:var(--green);">Automated 24/7</td><td class="val-col" style="color:var(--gold);">Revenue recovery</td></tr>
+        <tr><td>Opportunities Identified</td><td class="val-col">${opps.length} areas</td><td class="val-col" style="color:var(--green);">Prioritised roadmap</td><td class="val-col" style="color:var(--gold);">—</td></tr>
+        <tr class="total-row"><td>Total Estimated Savings</td><td></td><td></td><td>£${annualLoss.toLocaleString()}+/year</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+
+  // Implementation roadmap
+  html+=`<div style="font-size:18px;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);">Implementation Roadmap</div>`;
+  const criticalOpps=opps.filter(o=>o.priority==='critical');
+  const highOpps=opps.filter(o=>o.priority==='high');
+  const otherOpps=opps.filter(o=>o.priority!=='critical'&&o.priority!=='high');
+  const phases=[
+    {label:'Phase 1 — Immediate (0–30 days)',color:'var(--red)',items:criticalOpps,desc:'Address critical gaps that are costing the business money or clients right now.'},
+    {label:'Phase 2 — Short-term (30–90 days)',color:'var(--amber)',items:highOpps,desc:'Implement high-impact improvements that build on Phase 1 foundations.'},
+    {label:'Phase 3 — Medium-term (90–180 days)',color:'var(--green)',items:otherOpps,desc:'Layer in optimisation and scale what is working from earlier phases.'},
+  ];
+  phases.filter(ph=>ph.items.length>0).forEach((ph,pi)=>{
+    html+=`<div style="margin-bottom:24px;">
+      <div style="font-size:13px;color:${ph.color};font-family:Arial,sans-serif;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;">${ph.label}</div>
+      <div style="color:var(--text2);font-size:13px;margin-bottom:12px;">${ph.desc}</div>`;
+    ph.items.forEach((item,ii)=>{
+      html+=`<div class="roadmap-item">
+        <div class="roadmap-num">${ii+1}</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">${item.title}</div>
+          <div class="roadmap-desc">${item.solution.substring(0,140)}...</div>
+          <div class="roadmap-meta">
+            <span class="roadmap-tag" style="background:var(--card2);color:var(--text3);">${item.pillar}</span>
+            ${item.tools.slice(0,3).map(t=>`<span class="roadmap-tag" style="background:var(--cyan-dim);color:var(--cyan);">${t}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+
+  html+=`<div style="background:var(--card);border:1px solid rgba(201,168,76,0.3);border-radius:4px;padding:24px;text-align:center;margin-top:32px;">
+    <div style="color:var(--text3);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px;">Prepared by</div>
+    <div style="font-size:18px;color:var(--text);margin-bottom:4px;">${config.firm}</div>
+    <div style="color:var(--text2);font-size:13px;margin-bottom:16px;">${config.consultant} · david@silverbulletpro.com · silverbulletpro.com</div>
+    <button class="btn-sm btn-gold" style="padding:14px 32px;font-size:14px;" onclick="downloadPDF()">⬇ Download Full PDF Report</button>
+  </div>`;
+
+  document.getElementById('screen-results').innerHTML=html;
+}
+
+// ── PDF Export ─────────────────────────────────────────────
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const W=210, H=297;
+  const score=calcOverallScore();
+  const opps=generateOpportunities();
+  const ap=activePillars();
+  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const hoursVal=auditData['operations']?.['ops_manual_hours']?.value||10;
+  const annualLoss=hoursVal*30*52;
+
+  // Colours
+  const DARK=[8,10,16], CARD=[22,27,38], CARD2=[28,34,52], GOLD=[180,140,58], GOLD2=[220,195,90];
+  const CYAN=[0,150,200], RED=[200,60,60], GREEN=[50,180,80], AMBER=[220,130,40];
+  const TEXT=[230,234,242], TEXT2=[155,163,184], TEXT3=[90,99,128], BORDER=[35,42,58];
+  const WHITE=[255,255,255], GREY=[180,180,180];
+
+  function setF(sz,style='normal',color=TEXT){doc.setFontSize(sz);doc.setFont('helvetica',style);doc.setTextColor(...color);}
+  function fillR(x,y,w,h,c,r=0){doc.setFillColor(...c);r?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');}
+  function strokeR(x,y,w,h,c,lw=0.3,r=0){doc.setDrawColor(...c);doc.setLineWidth(lw);r?doc.roundedRect(x,y,w,h,r,r,'S'):doc.rect(x,y,w,h,'S');}
+  function ln(x1,y1,x2,y2,c=BORDER,lw=0.3){doc.setDrawColor(...c);doc.setLineWidth(lw);doc.line(x1,y1,x2,y2);}
+  function txt(t,x,y,opts={}){doc.text(t,x,y,opts);}
+  function wrapTxt(t,x,y,mw,lh){const lines=doc.splitTextToSize(t,mw);doc.text(lines,x,y);return y+lines.length*lh;}
+  function pageFooter(pg) {
+    fillR(0,H-16,W,16,CARD);
+    ln(0,H-16,W,H-16,BORDER,0.3);
+    setF(7,'normal',TEXT3);
+    txt(config.firm||'SilverBullet SWEEP',14,H-7);
+    txt(config.client+' — AI Strategy Audit Report',W/2,H-7,{align:'center'});
+    txt('Page '+pg,W-14,H-7,{align:'right'});
+    fillR(0,H-2,W,2,GOLD);
+  }
+  function pageHeader(section) {
+    fillR(0,0,W,22,CARD);
+    fillR(0,0,W,2,GOLD);
+    ln(0,22,W,22,BORDER,0.3);
+    setF(7,'bold',GOLD);doc.setCharSpace(2);
+    txt('AI STRATEGY AUDIT REPORT',14,12);doc.setCharSpace(0);
+    setF(9,'bold',TEXT);txt(config.client,14,20);
+    setF(8,'normal',TEXT3);txt(section,W-14,20,{align:'right'});
+  }
+
+  // ── COVER PAGE ──────────────────────────────────────
+  fillR(0,0,W,H,DARK);
+  fillR(0,0,W,2,GOLD);
+  // Grid
+  doc.setDrawColor(22,27,38);doc.setLineWidth(0.15);
+  for(let x=0;x<W;x+=12)doc.line(x,0,x,H);
+  for(let y=0;y<H;y+=12)doc.line(0,y,W,y);
+  // Accent glows
+  doc.setFillColor(30,25,8);doc.ellipse(W*0.15,H*0.4,70,50,'F');
+  doc.setFillColor(8,20,30);doc.ellipse(W*0.85,H*0.6,60,40,'F');
+
+  // Firm name top right
+  setF(8,'bold',GOLD);doc.setCharSpace(2);
+  txt(config.firm.toUpperCase(),W-14,18,{align:'right'});doc.setCharSpace(0);
+
+  // Large title block
+  setF(32,'bold',TEXT);
+  txt('AI Strategy',14,80);
+  setF(32,'bold',GOLD);
+  txt('Audit Report',14,97);
+
+  // Decorative line
+  fillR(14,106,60,1.5,GOLD);
+
+  // Client info
+  setF(14,'normal',TEXT2);txt(config.client,14,120);
+  setF(10,'normal',TEXT3);txt(config.industry?config.industry:'',14,129);
+  setF(9,'normal',TEXT3);txt('Primary contact: '+config.contact,14,137);
+  setF(9,'normal',TEXT3);txt('Audit date: '+today,14,144);
+
+  // Score panel
+  fillR(W-90,66,76,92,CARD,3);
+  strokeR(W-90,66,76,92,GOLD,0.5,3);
+  setF(7,'bold',TEXT3);doc.setCharSpace(1.5);
+  txt('AI READINESS',W-90+38,78,{align:'center'});doc.setCharSpace(0);
+
+  // Score ring
+  const scx=W-90+38, scy=106, sr=20;
+  doc.setDrawColor(35,42,58);doc.setLineWidth(4);doc.circle(scx,scy,sr,'S');
+  doc.setDrawColor(...GOLD);doc.setLineWidth(4);
+  const scoreSegs=Math.round((score/100)*72);
+  for(let s=0;s<scoreSegs;s++){
+    const a1=(-90+s*5)*Math.PI/180, a2=(-90+(s+1)*5)*Math.PI/180;
+    doc.line(scx+sr*Math.cos(a1),scy+sr*Math.sin(a1),scx+sr*Math.cos(a2),scy+sr*Math.sin(a2));
+  }
+  setF(22,'bold',GOLD);txt(String(score),scx,scy+4,{align:'center'});
+  setF(8,'normal',TEXT3);txt('out of 100',scx,scy+11,{align:'center'});
+
+  // Readiness label
+  const bCol=score<35?RED:score>=65?GREEN:GOLD;
+  const bTxt=score<35?'URGENT':'PROGRESSING';
+  setF(7,'bold',bCol);doc.setCharSpace(1.5);
+  txt(bTxt,W-90+38,133,{align:'center'});doc.setCharSpace(0);
+
+  setF(7,'normal',TEXT3);
+  txt(opps.length+' opportunities',W-90+38,143,{align:'center'});
+  txt(config.consultant,W-90+38,150,{align:'center'});
+
+  // Context box
+  if(config.context){
+    fillR(14,160,W-28,28,CARD,2);
+    strokeR(14,160,W-28,28,BORDER,0.2,2);
+    setF(7,'bold',TEXT3);doc.setCharSpace(1.5);txt('AUDIT CONTEXT',22,170);doc.setCharSpace(0);
+    setF(8,'normal',TEXT2);
+    const cl=doc.splitTextToSize(config.context,W-44);
+    doc.text(cl.slice(0,3),22,177);
+  }
+
+  // Pillar overview
+  const pillarsPerRow=3, pW=(W-28-(pillarsPerRow-1)*6)/pillarsPerRow;
+  let px=14, py=200;
+  ap.forEach((p,i)=>{
+    if(i>0&&i%pillarsPerRow===0){px=14;py+=24;}
+    const ps=calcPillarScore(p);
+    const pc=ps===null?BORDER:ps>=65?GREEN:ps>=35?GOLD:RED;
+    fillR(px,py,pW,20,CARD,2);
+    strokeR(px,py,pW,20,BORDER,0.2,2);
+    fillR(px,py,3,20,pc,0);
+    setF(8,'bold',TEXT);txt(p.label,px+8,py+9);
+    setF(10,'bold',pc);txt(ps!==null?ps+'/100':'—',px+pW-8,py+13,{align:'right'});
+    px+=pW+6;
+  });
+
+  // Bottom bar
+  fillR(0,H-20,W,20,CARD);
+  ln(0,H-20,W,H-20,BORDER,0.3);
+  setF(8,'normal',TEXT3);
+  txt(config.firm+' · '+config.consultant,14,H-8);
+  txt('Confidential — Prepared for '+config.client,W/2,H-8,{align:'center'});
+  txt(today,W-14,H-8,{align:'right'});
+  fillR(0,H-2,W,2,GOLD);
+
+  // ── EXECUTIVE SUMMARY ──────────────────────────────
+  doc.addPage();
+  fillR(0,0,W,H,DARK);
+  pageHeader('Executive Summary');
+
+  let y=30;
+
+  // Score + band strip
+  fillR(14,y,W-28,20,CARD,2);
+  const bandC=score<35?RED:score>=65?GREEN:GOLD;
+  fillR(14,y,4,20,bandC,0);
+  strokeR(14,y,W-28,20,BORDER,0.2,2);
+  setF(16,'bold',bandC);txt(String(score),24,y+13);
+  setF(9,'normal',TEXT3);txt('/100  AI Readiness Score',36,y+13);
+  const bandTxt2=score<35?'URGENT: Significant AI deficit requiring immediate attention':score>=65?'PROGRESSING: Strong foundation with optimisation opportunities':'DEVELOPING: Clear quick wins available with targeted investment';
+  setF(8,'normal',TEXT2);txt(bandTxt2,W-14,y+13,{align:'right'});
+  y+=28;
+
+  // 4 stat cards
+  const stats=[
+    {l:'Overall Score',v:score+'/100',c:bandC},
+    {l:'Opportunities Found',v:opps.length.toString(),c:CYAN},
+    {l:'Critical Priorities',v:opps.filter(o=>o.priority==='critical').length.toString(),c:RED},
+    {l:'Est. Annual Impact',v:'£'+annualLoss.toLocaleString(),c:GOLD},
+  ];
+  const sW=(W-28-9)/4;
+  stats.forEach((s,i)=>{
+    const sx=14+i*(sW+3),sy=y;
+    fillR(sx,sy,sW,22,CARD,2);
+    strokeR(sx,sy,sW,22,BORDER,0.2,2);
+    setF(16,'bold',s.c);txt(s.v,sx+sW/2,sy+13,{align:'center'});
+    setF(6,'normal',TEXT3);doc.setCharSpace(0.5);txt(s.l.toUpperCase(),sx+sW/2,sy+19,{align:'center'});doc.setCharSpace(0);
+  });
+  y+=32;
+
+  // Context / background
+  if(config.context){
+    setF(9,'bold',TEXT);txt('Business Context',14,y);y+=7;
+    setF(8,'normal',TEXT2);y=wrapTxt(config.context,14,y,W-28,5)+8;
+  }
+
+  // Pillar scores table
+  setF(9,'bold',TEXT);txt('Pillar Scorecard',14,y);y+=8;
+  ap.forEach(p=>{
+    const ps=calcPillarScore(p);
+    const pc=ps===null?BORDER:ps>=65?GREEN:ps>=35?GOLD:RED;
+    fillR(14,y,W-28,9,CARD,1);
+    strokeR(14,y,W-28,9,BORDER,0.1,1);
+    fillR(14,y,3,9,pc,0);
+    setF(8,'normal',TEXT);txt(p.icon+' '+p.label,20,y+6);
+    setF(8,'bold',pc);txt(ps!==null?ps+'/100':'N/A',W-14,y+6,{align:'right'});
+    // Bar
+    const barW=(W-28-80)*((ps||0)/100);
+    fillR(W-80,y+3,barW,3,pc,0);
+    y+=11;
+  });
+  y+=8;
+
+  // Revenue impact box
+  fillR(14,y,W-28,26,CARD,2);
+  strokeR(14,y,W-28,26,GOLD,0.4,2);
+  setF(7,'bold',TEXT3);doc.setCharSpace(1.5);txt('ESTIMATED COST OF CURRENT MANUAL OPERATIONS',22,y+9);doc.setCharSpace(0);
+  setF(20,'bold',GOLD);txt('£'+annualLoss.toLocaleString()+' per year',22,y+21);
+  setF(8,'normal',TEXT3);txt('Based on '+hoursVal+'hrs/week manual tasks at £30/hr blended staff cost',W-14,y+21,{align:'right'});
+  y+=34;
+
+  pageFooter(2);
+
+  // ── OPPORTUNITIES PAGES ───────────────────────────
+  const renderOppsOnPage = (startIdx) => {
+    doc.addPage();
+    fillR(0,0,W,H,DARK);
+    pageHeader('AI Opportunity Matrix');
+    let oy=30;
+
+    for(let oi=startIdx;oi<opps.length;oi++){
+      const opp=opps[oi];
+      const pC=opp.priority==='critical'?RED:opp.priority==='high'?AMBER:GREEN;
+      const pLabel=opp.priority==='critical'?'CRITICAL':opp.priority==='high'?'HIGH PRIORITY':'QUICK WIN';
+
+      const findingLines=doc.splitTextToSize(opp.finding,W-52);
+      const solutionLines=doc.splitTextToSize(opp.solution,W-56);
+      const toolH=Math.ceil(opp.tools.length/5)*8;
+      const cardH=14+findingLines.length*5+solutionLines.length*5+toolH+38;
+
+      if(oy+cardH>H-20){
+        pageFooter(oi+2);
+        renderOppsOnPage(oi);
+        return;
+      }
+
+      fillR(14,oy,W-28,cardH,CARD,2);
+      fillR(14,oy,4,cardH,pC,0);
+      strokeR(14,oy,W-28,cardH,BORDER,0.2,2);
+
+      // Priority badge
+      const bW=doc.getTextWidth(pLabel)+8;
+      fillR(W-14-bW-4,oy+5,bW,7,[pC[0]*0.15,pC[1]*0.15,pC[2]*0.15],1);
+      strokeR(W-14-bW-4,oy+5,bW,7,pC,0.2,1);
+      setF(6,'bold',pC);doc.setCharSpace(1);txt(pLabel,W-14-bW/2-4,oy+10.5,{align:'center'});doc.setCharSpace(0);
+
+      setF(10,'bold',TEXT);txt(opp.title,22,oy+13);
+
+      // Meta
+      setF(7,'normal',TEXT3);
+      txt('Dept: '+opp.pillar+'  ·  Area: '+opp.question,22,oy+20);
+      oy+=25;
+
+      setF(7,'bold',TEXT3);doc.setCharSpace(1);txt('FINDING',22,oy);doc.setCharSpace(0);oy+=6;
+      setF(8,'normal',[200,205,215]);doc.text(findingLines,22,oy);oy+=findingLines.length*5+8;
+
+      // Prescription box
+      fillR(22,oy-2,W-44,solutionLines.length*5+toolH+18,[15,20,32],1);
+      strokeR(22,oy-2,W-44,solutionLines.length*5+toolH+18,[0,80,120],0.2,1);
+      setF(6,'bold',CYAN);doc.setCharSpace(1.5);txt('AI PRESCRIPTION',28,oy+5);doc.setCharSpace(0);oy+=10;
+      setF(8,'normal',TEXT2);doc.text(solutionLines,28,oy);oy+=solutionLines.length*5+6;
+
+      setF(7,'normal',CYAN);
+      let tx=28;
+      opp.tools.forEach(t=>{
+        const tw=doc.getTextWidth(t)+7;
+        if(tx+tw>W-20){tx=28;oy+=7;}
+        fillR(tx,oy-4,tw,6.5,[0,25,40],1);txt(t,tx+3.5,oy+0.8);tx+=tw+4;
+      });
+      oy+=14;
+    }
+    pageFooter(startIdx+3);
+  };
+  renderOppsOnPage(0);
+
+  // ── ROADMAP PAGE ──────────────────────────────────
+  doc.addPage();
+  fillR(0,0,W,H,DARK);
+  pageHeader('Implementation Roadmap');
+
+  const phases2=[
+    {l:'Phase 1 — Immediate (0–30 days)',c:RED,items:opps.filter(o=>o.priority==='critical')},
+    {l:'Phase 2 — Short-term (30–90 days)',c:AMBER,items:opps.filter(o=>o.priority==='high')},
+    {l:'Phase 3 — Medium-term (90–180 days)',c:GREEN,items:opps.filter(o=>o.priority!=='critical'&&o.priority!=='high')},
+  ];
+
+  let ry=30;
+  phases2.filter(ph=>ph.items.length>0).forEach(ph=>{
+    setF(8,'bold',ph.c);doc.setCharSpace(1);txt(ph.l.toUpperCase(),14,ry);doc.setCharSpace(0);ry+=3;
+    ln(14,ry,W-14,ry,ph.c,0.5);ry+=8;
+    ph.items.forEach((item,ii)=>{
+      if(ry>H-40){pageFooter(opps.length+4);doc.addPage();fillR(0,0,W,H,DARK);pageHeader('Implementation Roadmap');ry=30;}
+      // Number circle
+      doc.setDrawColor(...ph.c);doc.setLineWidth(0.5);doc.circle(20,ry+4,5,'S');
+      setF(8,'bold',ph.c);txt(String(ii+1),20,ry+6.5,{align:'center'});
+      setF(9,'bold',TEXT);txt(item.title,28,ry+4);
+      setF(7.5,'normal',TEXT2);
+      const dl=doc.splitTextToSize(item.solution.substring(0,160)+'...',W-44);
+      doc.text(dl,28,ry+10);
+      // Tool tags inline
+      setF(7,'normal',CYAN);
+      let rtx=28;
+      item.tools.slice(0,4).forEach(t=>{
+        const tw=doc.getTextWidth(t)+6;
+        fillR(rtx,ry+10+dl.length*5,tw,5.5,[0,20,35],1);
+        txt(t,rtx+3,ry+14+dl.length*5);rtx+=tw+4;
+      });
+      ry+=dl.length*5+22;
+    });
+    ry+=6;
+  });
+
+  pageFooter(opps.length+4);
+
+  // ── BACK PAGE ─────────────────────────────────────
+  doc.addPage();
+  fillR(0,0,W,H,DARK);
+  fillR(0,0,W,2,GOLD);
+  doc.setFillColor(20,16,6);doc.ellipse(W/2,80,120,70,'F');
+
+  setF(9,'bold',GOLD);doc.setCharSpace(2);txt('NEXT STEPS',W/2,55,{align:'center'});doc.setCharSpace(0);
+  setF(26,'bold',TEXT);txt('Ready to implement',W/2,74,{align:'center'});
+  setF(26,'bold',GOLD);txt('your AI roadmap?',W/2,88,{align:'center'});
+  setF(9,'normal',TEXT2);
+  const nextSub=`This report outlines ${opps.length} prioritised AI opportunities for ${config.client}. The recommended next step is a focused implementation session to begin Phase 1 immediately.`;
+  const nsl=doc.splitTextToSize(nextSub,150);
+  doc.text(nsl,W/2,102,{align:'center'});
+
+  // Calendly box
+  fillR(W/2-60,120,120,22,GOLD,2);
+  setF(10,'bold',[20,15,0]);txt('Book a Strategy Session',W/2,130,{align:'center'});
+  setF(8,'normal',[60,45,5]);txt('calendly.com/david-sweep/sweep-david-coffee-chat',W/2,139,{align:'center'});
+
+  // Contact card
+  fillR(14,165,W-28,40,CARD,2);
+  strokeR(14,165,W-28,40,GOLD,0.4,2);
+  setF(7,'bold',TEXT3);doc.setCharSpace(1.5);txt('PREPARED BY',22,176);doc.setCharSpace(0);
+  setF(12,'bold',TEXT);txt(config.firm,22,184);
+  setF(8,'normal',TEXT2);txt(config.consultant,22,191);txt(config.industry?'Specialising in '+config.industry:'AI Strategy & Implementation',22,197);
+  setF(8,'bold',GOLD);txt('david@silverbulletpro.com',W-14,184,{align:'right'});
+  txt('silverbulletpro.com',W-14,191,{align:'right'});
+  setF(7,'normal',TEXT3);txt('© '+new Date().getFullYear()+' '+config.firm,W-14,197,{align:'right'});
+
+  setF(8,'normal',TEXT3);
+  txt('This report is confidential and prepared exclusively for '+config.client+'.',W/2,220,{align:'center'});
+  txt('Reproduction or distribution without written consent is prohibited.',W/2,227,{align:'center'});
+
+  fillR(0,H-16,W,16,CARD);
+  ln(0,H-16,W,H-16,BORDER,0.3);
+  setF(7,'normal',TEXT3);
+  txt(config.firm,14,H-7);
+  txt(config.client+' — AI Strategy Audit Report',W/2,H-7,{align:'center'});
+  txt('© '+new Date().getFullYear(),W-14,H-7,{align:'right'});
+  fillR(0,H-2,W,2,GOLD);
+
+  doc.save(`AI_Strategy_Audit_${config.client.replace(/\s+/g,'_')}.pdf`);
+}
+
+// ── Reset ──────────────────────────────────────────────────
+function resetAudit() {
+  if(!confirm('Reset audit? All answers will be cleared.')) return;
+  Object.keys(auditData).forEach(k=>delete auditData[k]);
+  Object.assign(config,{client:'',contact:'',industry:'',revenue:'',firm:'SilverBullet SWEEP',consultant:'David Bennett',context:''});
+  document.getElementById('sidebar-client').style.display='none';
+  document.getElementById('wl-badge').style.display='none';
+  document.getElementById('btn-reset').style.display='none';
+  document.getElementById('btn-generate').style.display='none';
+  document.getElementById('screen-audit').classList.remove('active');
+  document.getElementById('screen-results').classList.remove('active');
+  document.getElementById('screen-setup').classList.add('active');
+  document.getElementById('sidebar-nav').innerHTML='';
+  document.getElementById('progress-fill').style.width='0%';
+  document.getElementById('progress-pct').textContent='0%';
+  document.getElementById('tb-section').textContent='Setup';
+  document.getElementById('tb-title').textContent='Configure Your Audit';
+  currentPillar=0;
+}
+
+// ── Theme ──────────────────────────────────────────────────
+const SUN='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+const MOON='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+function toggleTheme(){
+  isLight=!isLight;
+  document.body.classList.toggle('light',isLight);
+  document.getElementById('th-icon').innerHTML=isLight?MOON:SUN;
+  document.getElementById('th-label').textContent=isLight?'Dark':'Light';
+}
+</script>
+</body>
+</html>
