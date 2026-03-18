@@ -501,8 +501,8 @@
         <p id="r-narrative"></p>
       </div>
       <div class="cta-wrap">
-        <p class="cta-note">Want to see exactly how this works for your business?</p>
-        <a class="btn-cta" id="cta-mailto" href="#">Reactivate My Leads →</a><br>
+        <p class="cta-note">Ready to recover revenue from leads you've already paid for?</p>
+        <a class="btn-cta" id="cta-calendly" href="https://calendly.com/david-sweep/sweep-david-coffee-chat" target="_blank" rel="noopener">Yes, I'm Interested →</a><br>
         <button class="btn-recalc" onclick="reset()">Recalculate with different numbers</button>
       </div>
     </div>
@@ -593,41 +593,7 @@
       document.getElementById('r-leakage').textContent = fmtCurrency(r.annual);
       document.getElementById('r-narrative').innerHTML =
         `Based on your numbers, roughly <strong>${fmtNum(r.recoverable)} contacts</strong> in your database were never properly followed up. With AI-driven SMS reactivation, a conservative 4% of those will respond with genuine interest — that's <strong>${fmtNum(r.hot)} warm conversations</strong> you'd otherwise never have. At your close rate, that translates to <strong>${fmtNum(r.closes)} additional deals</strong> worth <strong>${fmtCurrency(r.revenue)}</strong>. From leads you already paid for.`;
-      // Build mailto with report data
-      const subjectLine = encodeURIComponent('Reactivate My CRM Leads — SWEEP Revenue Report');
-      const bodyText = encodeURIComponent(
-        'Hi David,' +
-        '\r\n\r\n' +
-        'I just used the SWEEP Hidden Revenue Calculator and wanted to get in touch.' +
-        '\r\n\r\n' +
-        '--- MY REPORT SUMMARY ---' +
-        '\r\n' +
-        'Database size: ' + answers.database.toLocaleString() + ' contacts' +
-        '\r\n' +
-        'Monthly new leads: ' + answers.leads.toLocaleString() +
-        '\r\n' +
-        'Average deal value: £' + answers.jobValue.toLocaleString() +
-        '\r\n' +
-        'My close rate: ' + answers.closeRate + '%' +
-        '\r\n' +
-        'Estimated recoverable contacts: ' + fmtNum(r.recoverable) +
-        '\r\n' +
-        'Estimated warm replies via SMS: ' + fmtNum(r.hot) +
-        '\r\n' +
-        'Estimated additional closes: ' + fmtNum(r.closes) +
-        '\r\n' +
-        'Estimated recovered revenue: ' + fmtCurrency(r.revenue) +
-        '\r\n' +
-        'Estimated annual leakage: ' + fmtCurrency(r.annual) +
-        '\r\n\r\n' +
-        'What are the next steps to get this started?' +
-        '\r\n\r\n' +
-        'Thanks'
-      );
-      const mailtoLink = document.getElementById('cta-mailto');
-      if (mailtoLink) {
-        mailtoLink.href = 'mailto:david@silverbulletpro.com?subject=' + subjectLine + '&body=' + bodyText;
-      }
+
       setTimeout(() => document.getElementById('results').classList.add('revealed'), 400);
     }
 
