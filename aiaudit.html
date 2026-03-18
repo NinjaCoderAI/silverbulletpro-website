@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Strategic AI Audit — SilverBullet SWEEP</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font-family: inherit; cursor: pointer; }
+    a { text-decoration: none; }
+    textarea, input, select { font-family: inherit; }
+
+    /* ── Wrapper theming (self-contained, immune to site CSS) ─── */
+    #audit-wrapper {
+      --bg:             #0a0a0a;
+      --bg-card:        #111111;
+      --bg-card-alt:    #0d0d0d;
+      --bg-pill:        #161616;
+      --border:         #1e1e1e;
+      --border-gold:    #d4af37;
+      --text-primary:   #f5f5f0;
+      --text-secondary: #888888;
+      --text-muted:     #555555;
+      --text-dim:       #444444;
+      --text-very-dim:  #2e2e2e;
+      --gold:           #d4af37;
+      --gold-light:     #f0d060;
+      --gold-dark:      #b8962e;
+      --gold-faint:     rgba(212,175,55,0.08);
+      --gold-faint2:    rgba(212,175,55,0.04);
+      --cyan:           #00c8ff;
+      --cyan-dim:       rgba(0,200,255,0.15);
+      --red-dim:        rgba(255,80,80,0.12);
+      --red:            #ff6b6b;
+      --green-dim:      rgba(80,200,120,0.12);
+      --green:          #50c878;
+      --slider-empty:   #222;
+      --input-border:   #2a2a2a;
+      --progress-bg:    #1a1a1a;
+      --dot-inactive:   #222;
+      --toggle-bg:      #1a1a1a;
+      --toggle-border:  #2a2a2a;
+      --shadow:         0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    /* ── Light mode ──────────────────────────────────────────── */
+    #audit-wrapper.light {
+      --bg:             #f7f4ee;
+      --bg-card:        #ffffff;
+      --bg-card-alt:    #faf8f3;
+      --bg-pill:        #f0ece2;
+      --border:         #e8e2d6;
+      --border-gold:    #b8962e;
+      --text-primary:   #1a1a1a;
+      --text-secondary: #555555;
+      --text-muted:     #888888;
+      --text-dim:       #999999;
+      --text-very-dim:  #bbbbbb;
+      --gold:           #b8962e;
+      --gold-light:     #9a7a20;
+      --gold-dark:      #8a6a10;
+      --gold-faint:     rgba(184,150,46,0.08);
+      --gold-faint2:    rgba(184,150,46,0.04);
+      --cyan:           #0099cc;
+      --cyan-dim:       rgba(0,153,204,0.12);
+      --red-dim:        rgba(200,60,60,0.10);
+      --red:            #cc3333;
+      --green-dim:      rgba(40,160,80,0.10);
+      --green:          #28a050;
+      --slider-empty:   #ddd;
+      --input-border:   #d0c8b8;
+      --progress-bg:    #e8e2d6;
+      --dot-inactive:   #ddd;
+      --toggle-bg:      #ffffff;
+      --toggle-border:  #e0d9cc;
+      --shadow:         0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    /* ── Theme toggle button ─────────────────────────────────── */
+    #theme-toggle {
+      position: fixed; top: 16px; right: 16px; z-index: 9999;
+      background: var(--toggle-bg) !important;
+      border: 1px solid var(--toggle-border) !important;
+      border-radius: 24px; padding: 10px 16px;
+      min-height: 44px; display: flex; align-items: center; gap: 8px;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow);
+      -webkit-tap-highlight-color: transparent; cursor: pointer;
+    }
+    #theme-toggle svg { display: block; flex-shrink: 0; }
+    #toggle-label {
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted) !important; font-family: 'Arial', sans-serif; font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    @media (max-width: 480px) {
+      #theme-toggle { top: 12px; right: 12px; }
+      #audit-wrapper { padding: 64px 16px 48px; }
+    }
+
+
+    #audit-wrapper {
+      min-height: 100vh;
+      width: 100%;
+      background-color: var(--bg) !important;
+      color: var(--text-primary) !important;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 72px 20px 60px;
+      position: relative;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease;
+    }
+    @media (min-height: 800px) and (min-width: 700px) {
+      #audit-wrapper { justify-content: center; }
+    }
+    #audit-wrapper::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background: radial-gradient(ellipse at 15% 40%, rgba(212,175,55,0.05) 0%, transparent 55%),
+                  radial-gradient(ellipse at 85% 70%, rgba(0,200,255,0.03) 0%, transparent 50%);
+    }
+    #audit-wrapper::after {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image: linear-gradient(rgba(212,175,55,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(212,175,55,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── App shell ───────────────────────────────────────────── */
+    #app {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 680px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #app.animating { opacity: 0; transform: translateY(10px); }
+
+    /* ── Logo ────────────────────────────────────────────────── */
+    .logo {
+      text-align: center; margin-bottom: 32px;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .logo span { color: var(--gold); }
+
+    /* ── Progress ────────────────────────────────────────────── */
+    #progress-wrap { margin-bottom: 32px; }
+    #progress-track {
+      height: 2px; background: var(--progress-bg); border-radius: 2px; overflow: hidden;
+    }
+    #progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--cyan));
+      transition: width 0.5s ease;
+    }
+    #step-dots { display: flex; justify-content: space-between; margin-top: 10px; }
+    .step-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--dot-inactive); transition: background 0.3s ease;
+    }
+    .step-dot.done { background: var(--gold); }
+    .step-dot.current { background: var(--gold-light); box-shadow: 0 0 6px var(--gold); }
+
+    /* ── Section label ───────────────────────────────────────── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--gold); font-size: 11px; letter-spacing: 0.22em;
+      text-transform: uppercase; margin-bottom: 14px;
+      font-family: 'Arial', sans-serif;
+    }
+    .section-label .dot {
+      width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 6px var(--gold);
+    }
+
+    /* ── Screens ─────────────────────────────────────────────── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── INTRO ───────────────────────────────────────────────── */
+    #intro { text-align: center; }
+    .audit-badge {
+      display: inline-block;
+      border: 1px solid var(--border-gold);
+      color: var(--gold); font-size: 11px; letter-spacing: 0.2em;
+      padding: 7px 20px; text-transform: uppercase; margin-bottom: 30px;
+      font-family: 'Arial', sans-serif;
+    }
+    .intro-title {
+      font-size: clamp(30px, 7vw, 46px);
+      font-weight: normal; line-height: 1.15;
+      color: var(--text-primary); letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+    .intro-title em { font-style: normal; color: var(--gold); }
+    .intro-sub {
+      color: var(--text-secondary); font-size: clamp(15px, 3.5vw, 17px);
+      line-height: 1.7; max-width: 520px; margin: 0 auto 14px;
+    }
+    .intro-note { color: var(--text-dim); font-size: 13px; margin-bottom: 40px; }
+    .intro-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 40px; text-align: left;
+    }
+    .pillar {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px 14px;
+    }
+    .pillar-icon { font-size: 20px; margin-bottom: 8px; }
+    .pillar-title { color: var(--gold); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 4px; }
+    .pillar-text { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
+    @media (max-width: 480px) { .intro-pillars { grid-template-columns: 1fr; } }
+
+    /* ── Question header ─────────────────────────────────────── */
+    .q-step { color: var(--gold); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; font-family: 'Arial', sans-serif; }
+    .q-title { color: var(--text-primary); font-size: clamp(19px, 4.5vw, 26px); font-weight: normal; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .q-hint { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; font-style: italic; line-height: 1.6; }
+
+    /* ── Multiple choice ─────────────────────────────────────── */
+    .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .choice {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px 18px;
+      cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease;
+      display: flex; align-items: center; gap: 14px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .choice:hover { border-color: var(--gold-dark); }
+    .choice.selected { border-color: var(--gold); background: var(--gold-faint); }
+    .choice-indicator {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid var(--text-muted); flex-shrink: 0;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .choice.selected .choice-indicator {
+      border-color: var(--gold); background: var(--gold);
+    }
+    .choice-indicator::after {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--bg); opacity: 0; transition: opacity 0.2s ease;
+    }
+    .choice.selected .choice-indicator::after { opacity: 1; }
+    .choice-text { color: var(--text-primary); font-size: clamp(14px, 3.5vw, 15px); line-height: 1.4; }
+    .choice-sub { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+
+    /* Multi-select variant */
+    .choice.multi .choice-indicator { border-radius: 3px; }
+
+    /* ── Slider input ────────────────────────────────────────── */
+    .slider-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 28px 24px 22px;
+      margin-bottom: 28px; text-align: center;
+    }
+    .slider-value-label { color: var(--text-dim); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; font-family: 'Arial', sans-serif; }
+    .slider-value-display { font-size: clamp(40px, 10vw, 56px); color: var(--gold); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+    .slider-value-suffix { color: var(--text-muted); font-size: 14px; }
+    .slider-tip { color: var(--text-very-dim); font-size: 11px; margin-top: 10px; font-style: italic; }
+    .slider-wrap { margin: 20px 0 0; }
+    .audit-slider { width: 100%; height: 4px; appearance: none; outline: none; cursor: pointer; border-radius: 2px; }
+    .audit-slider::-webkit-slider-thumb { appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--gold); cursor: pointer; }
+    .audit-slider::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); cursor: pointer; }
+    .slider-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-very-dim); font-size: 11px; font-family: 'Arial', sans-serif; }
+
+    /* ── Free text input ─────────────────────────────────────── */
+    .text-input-wrap { margin-bottom: 28px; }
+    .audit-textarea {
+      width: 100%; background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px; padding: 18px 20px;
+      color: var(--text-primary) !important; font-size: 15px;
+      line-height: 1.65; resize: vertical; min-height: 120px;
+      outline: none !important; box-shadow: none !important;
+      transition: border-color 0.2s ease;
+    }
+    .audit-textarea:focus { border-color: var(--gold-dark) !important; }
+    .audit-textarea::placeholder { color: var(--text-dim); }
+    .char-hint { color: var(--text-very-dim); font-size: 11px; margin-top: 6px; font-family: 'Arial', sans-serif; font-style: italic; }
+
+    /* ── Short text input ────────────────────────────────────── */
+    .audit-input {
+      width: 100%; background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px; padding: 16px 20px;
+      color: var(--text-primary) !important; font-size: 16px;
+      outline: none !important; box-shadow: none !important;
+      transition: border-color 0.2s ease; margin-bottom: 28px;
+    }
+    .audit-input:focus { border-color: var(--gold-dark) !important; }
+    .audit-input::placeholder { color: var(--text-dim); }
+
+    /* ── Department multi-check grid ─────────────────────────── */
+    .dept-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 28px;
+    }
+    .dept-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px 14px;
+      cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dept-card:hover { border-color: var(--gold-dark); }
+    .dept-card.selected { border-color: var(--gold); background: var(--gold-faint); }
+    .dept-emoji { font-size: 22px; margin-bottom: 8px; }
+    .dept-name { color: var(--text-primary); font-size: 14px; font-weight: bold; font-family: 'Arial', sans-serif; margin-bottom: 3px; }
+    .dept-sub { color: var(--text-muted); font-size: 11px; line-height: 1.4; }
+    @media (max-width: 400px) { .dept-grid { grid-template-columns: 1fr; } }
+
+    /* ── Buttons ─────────────────────────────────────────────── */
+    .btn-row { display: flex; gap: 12px; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+      color: #0a0a0a !important; border: none !important;
+      padding: 18px 32px; font-size: clamp(13px, 3.5vw, 15px);
+      letter-spacing: 0.07em; font-family: 'Arial', sans-serif;
+      font-weight: 700; text-transform: uppercase;
+      border-radius: 2px; flex: 1;
+      transition: opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: none !important;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary {
+      background: transparent !important; color: var(--text-muted) !important;
+      border: 1px solid var(--border) !important;
+      padding: 18px 20px; font-size: 13px;
+      letter-spacing: 0.05em; font-family: 'Arial', sans-serif;
+      border-radius: 2px; white-space: nowrap;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-secondary:hover { border-color: var(--gold) !important; color: var(--gold) !important; }
+    .btn-full { width: 100%; }
+    .skip-btn {
+      background: none !important; border: none !important;
+      color: var(--text-very-dim); font-size: 12px; font-family: 'Arial', sans-serif;
+      cursor: pointer; text-decoration: underline; margin-top: 14px; display: block;
+      transition: color 0.2s ease;
+    }
+    .skip-btn:hover { color: var(--text-muted); }
+
+    /* ── RESULTS PAGE ────────────────────────────────────────── */
+    #results { opacity: 0; transition: opacity 0.4s ease; }
+    #results.revealed { opacity: 1; }
+
+    .report-header {
+      text-align: center; margin-bottom: 32px;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    }
+    #results.revealed .report-header { opacity: 1; transform: translateY(0); }
+
+    .ai-score-ring {
+      width: 120px; height: 120px; margin: 0 auto 20px;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .ai-score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+    .ai-score-ring .score-num { font-size: 36px; color: var(--gold); letter-spacing: -0.03em; position: relative; z-index: 1; }
+    .ai-score-ring .score-label { font-size: 10px; color: var(--text-muted); font-family: 'Arial', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .report-title { font-size: clamp(24px, 5vw, 34px); color: var(--text-primary); font-weight: normal; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .report-sub { color: var(--text-secondary); font-size: 15px; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+
+    /* Readiness band */
+    .readiness-band {
+      display: inline-block; padding: 6px 18px; border-radius: 2px;
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      font-family: 'Arial', sans-serif; font-weight: 700; margin-bottom: 16px;
+    }
+    .readiness-band.low { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.25); }
+    .readiness-band.mid { background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
+    .readiness-band.high { background: var(--green-dim); color: var(--green); border: 1px solid rgba(80,200,120,0.25); }
+
+    /* Opportunities section */
+    .section-title {
+      color: var(--text-primary); font-size: 18px; font-weight: normal;
+      letter-spacing: -0.01em; margin-bottom: 14px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title .tag {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: 'Arial', sans-serif; color: var(--gold);
+      border: 1px solid var(--border-gold); padding: 3px 10px; border-radius: 2px;
+    }
+
+    .opportunity-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 4px; padding: 20px 22px; margin-bottom: 12px;
+      border-left: 3px solid var(--gold);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .opportunity-card.revealed { opacity: 1; transform: translateX(0); }
+    .opportunity-card.urgent { border-left-color: var(--red); }
+    .opportunity-card.good { border-left-color: var(--green); }
+
+    .opp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .opp-title { color: var(--text-primary); font-size: 16px; letter-spacing: -0.01em; }
+    .opp-priority {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: 'Arial', sans-serif; padding: 4px 10px; border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .opp-priority.high { background: var(--red-dim); color: var(--red); }
+    .opp-priority.medium { background: rgba(212,175,55,0.1); color: var(--gold); }
+    .opp-priority.quick { background: var(--green-dim); color: var(--green); }
+
+    .opp-problem { color: var(--text-secondary); font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
+    .opp-solution {
+      background: var(--bg-card-alt); border: 1px solid var(--border);
+      border-radius: 3px; padding: 14px 16px;
+    }
+    .opp-solution-label { color: var(--cyan); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 6px; }
+    .opp-solution-text { color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+    .opp-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tool-pill {
+      background: var(--cyan-dim); color: var(--cyan);
+      font-size: 11px; padding: 4px 10px; border-radius: 2px;
+      font-family: 'Arial', sans-serif; letter-spacing: 0.05em;
+    }
+
+    /* ROI estimate */
+    .roi-bar {
+      background: var(--bg-card); border: 1px solid var(--border-gold);
+      border-radius: 4px; padding: 24px; margin: 24px 0;
+      opacity: 0; transition: opacity 0.5s ease 0.6s;
+    }
+    #results.revealed .roi-bar { opacity: 1; }
+    .roi-label { color: var(--text-muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 8px; }
+    .roi-value { font-size: clamp(32px, 7vw, 48px); color: var(--gold); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+    .roi-desc { color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+
+    /* Next steps */
+    .next-steps {
+      background: var(--bg-card-alt); border: 1px solid var(--border);
+      border-radius: 4px; padding: 24px; margin-bottom: 24px;
+      opacity: 0; transition: opacity 0.5s ease 0.8s;
+    }
+    #results.revealed .next-steps { opacity: 1; }
+    .next-step { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .next-step:last-child { border-bottom: none; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-faint); border: 1px solid var(--border-gold); color: var(--gold); font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Arial', sans-serif; font-weight: 700; }
+    .step-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+    .step-text strong { color: var(--text-primary); font-weight: normal; }
+
+    /* CTA */
+    .cta-block {
+      text-align: center; opacity: 0; transition: opacity 0.5s ease 1s;
+    }
+    #results.revealed .cta-block { opacity: 1; }
+    .cta-note { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; }
+    .btn-cta {
+      display: block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+      color: #0a0a0a !important; padding: 18px 40px;
+      font-size: clamp(13px, 3.5vw, 15px); letter-spacing: 0.07em;
+      font-family: 'Arial', sans-serif; font-weight: 700;
+      text-transform: uppercase; border-radius: 2px;
+      transition: opacity 0.2s ease;
+      margin-bottom: 16px; text-align: center;
+      -webkit-tap-highlight-color: transparent;
+      border: none !important;
+    }
+    .btn-cta:hover { opacity: 0.88; }
+    .btn-recalc {
+      background: none !important; border: none !important;
+      color: var(--text-dim); font-size: 12px;
+      cursor: pointer; text-decoration: underline;
+      font-family: 'Georgia', serif; transition: color 0.2s ease;
+      display: block; margin: 0 auto; padding: 8px;
+    }
+    .btn-recalc:hover { color: var(--gold); }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      #audit-wrapper { padding: 64px 16px 48px; }
+      .opp-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div id="audit-wrapper" class="light">
+
+  <!-- Theme toggle -->
+  <button id="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+    <svg id="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b8962e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <span id="toggle-label">Dark</span>
+  </button>
+
+<div id="app">
+
+  <div class="logo">SilverBullet <span>SWEEP</span></div>
+
+  <!-- Progress bar -->
+  <div id="progress-wrap" style="display:none;">
+    <div id="progress-track"><div id="progress-fill"></div></div>
+    <div id="step-dots"></div>
+  </div>
+
+  <!-- ── INTRO ───────────────────────────────────────────────── -->
+  <div id="intro" class="screen active">
+    <div style="text-align:center;">
+      <div class="audit-badge">Strategic AI Audit</div>
+      <h1 class="intro-title">
+        Discover Where AI Can<br><em>Transform Your Business</em>
+      </h1>
+      <p class="intro-sub">12 targeted questions. 5 minutes. We'll identify your biggest operational bottlenecks and prescribe the exact AI solutions to fix them.</p>
+      <p class="intro-note">No jargon. No sales pitch. Just a clear picture of your AI opportunity.</p>
+    </div>
+    <div class="intro-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🔍</div>
+        <div class="pillar-title">Diagnose</div>
+        <div class="pillar-text">Uncover hidden inefficiencies draining your time and money</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-title">Prioritise</div>
+        <div class="pillar-text">Rank AI opportunities by impact and ease of implementation</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⚡</div>
+        <div class="pillar-title">Prescribe</div>
+        <div class="pillar-text">Get specific tools and actions tailored to your situation</div>
+      </div>
+    </div>
+    <button class="btn-primary btn-full" onclick="goTo(1)">Begin My AI Audit →</button>
+  </div>
+
+  <!-- ── QUESTIONS (rendered by JS) ────────────────────────── -->
+  <div id="question-screen" class="screen"></div>
+
+  <!-- ── RESULTS ─────────────────────────────────────────────── -->
+  <div id="results" class="screen">
+    <div class="report-header">
+      <div class="audit-badge">Your AI Prescription Report</div>
+      <div class="ai-score-ring">
+        <svg viewBox="0 0 120 120" width="120" height="120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#1e1e1e" stroke-width="8"/>
+          <circle id="score-arc" cx="60" cy="60" r="52" fill="none" id="score-arc-circle" stroke="#d4af37" stroke-width="8"
+            stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div style="text-align:center;">
+          <div class="score-num" id="score-num">0</div>
+          <div class="score-label">/ 100</div>
+        </div>
+      </div>
+      <div id="readiness-band" class="readiness-band mid">Assessing...</div>
+      <h2 class="report-title" id="report-title">Your AI Readiness Report</h2>
+      <p class="report-sub" id="report-sub"></p>
+    </div>
+    <div id="report-body"></div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUESTION DEFINITIONS
+// type: 'single' | 'multi' | 'slider' | 'text' | 'dept'
+// ═══════════════════════════════════════════════════════════
+const QUESTIONS = [
+  {
+    id: 'business_name',
+    section: 'About Your Business',
+    title: 'What is your business name and what do you do?',
+    hint: 'Give us a quick overview — the more specific, the better your prescription.',
+    type: 'text',
+    placeholder: 'e.g. "HomeRewire Scotland — electrical rewiring for residential properties in Glasgow"',
+    scoring: () => 5 // Always gives points for completing
+  },
+  {
+    id: 'team_size',
+    section: 'About Your Business',
+    title: 'How many people are in your team?',
+    hint: 'Include full-time, part-time, and regular contractors.',
+    type: 'single',
+    options: [
+      { value: 'solo', label: 'Just me', sub: 'Sole trader / founder only' },
+      { value: 'small', label: '2–5 people', sub: 'Small team or micro-business' },
+      { value: 'medium', label: '6–20 people', sub: 'Growing SME' },
+      { value: 'large', label: '21–50 people', sub: 'Established business' },
+      { value: 'enterprise', label: '50+ people', sub: 'Larger organisation' },
+    ],
+    scoring: (v) => v === 'solo' ? 3 : v === 'small' ? 8 : v === 'medium' ? 15 : 18
+  },
+  {
+    id: 'biggest_time_drain',
+    section: 'Operations',
+    title: 'What consumes the most time in your business right now?',
+    hint: 'Select all that apply — this is where AI typically delivers the fastest wins.',
+    type: 'multi',
+    options: [
+      { value: 'admin', label: '📋 Admin & paperwork', sub: 'Invoices, reports, data entry' },
+      { value: 'followup', label: '📞 Following up with leads', sub: 'Chasing quotes, checking in' },
+      { value: 'content', label: '✍️ Writing & content', sub: 'Emails, proposals, social posts' },
+      { value: 'scheduling', label: '📅 Scheduling & booking', sub: 'Arranging appointments, meetings' },
+      { value: 'customer_support', label: '💬 Answering customer questions', sub: 'Repetitive enquiries, FAQs' },
+      { value: 'reporting', label: '📊 Reporting & analysis', sub: 'Weekly reports, data crunching' },
+    ],
+    scoring: (v) => Math.min(v.length * 4, 20)
+  },
+  {
+    id: 'departments',
+    section: 'Operations',
+    title: 'Which departments or functions exist in your business?',
+    hint: 'Select all that apply — we\'ll audit each one for AI opportunities.',
+    type: 'dept',
+    options: [
+      { value: 'sales', emoji: '💰', name: 'Sales', sub: 'Lead gen, proposals, closing' },
+      { value: 'marketing', emoji: '📢', name: 'Marketing', sub: 'Ads, content, social media' },
+      { value: 'customer_support', emoji: '💬', name: 'Customer Support', sub: 'Enquiries, complaints, FAQs' },
+      { value: 'operations', emoji: '⚙️', name: 'Operations', sub: 'Scheduling, logistics, delivery' },
+      { value: 'finance', emoji: '📊', name: 'Finance & Admin', sub: 'Invoicing, bookkeeping, reporting' },
+      { value: 'hr', emoji: '👥', name: 'HR & Recruitment', sub: 'Hiring, onboarding, training' },
+    ],
+    scoring: (v) => Math.min(v.length * 3, 15)
+  },
+  {
+    id: 'manual_hours',
+    section: 'Operations',
+    title: 'How many hours per week does your team spend on repetitive manual tasks?',
+    hint: 'Think data entry, copy-pasting between systems, writing the same emails, filing documents.',
+    type: 'slider',
+    min: 0, max: 40, default: 10, step: 1,
+    suffix: 'hrs/week',
+    labels: ['0 hrs', '20 hrs', '40+ hrs'],
+    scoring: (v) => v >= 20 ? 18 : v >= 10 ? 12 : v >= 5 ? 7 : 3
+  },
+  {
+    id: 'current_ai',
+    section: 'AI Readiness',
+    title: 'What AI tools does your business currently use?',
+    hint: 'Be honest — there are no wrong answers here.',
+    type: 'single',
+    options: [
+      { value: 'none', label: 'None at all', sub: 'We don\'t use any AI tools yet' },
+      { value: 'chatgpt_casual', label: 'ChatGPT occasionally', sub: 'Used informally, not systematically' },
+      { value: 'some_tools', label: 'A few tools', sub: 'e.g. Grammarly, Canva AI, basic automation' },
+      { value: 'integrated', label: 'Integrated into workflows', sub: 'AI is part of how we work daily' },
+      { value: 'advanced', label: 'Advanced AI systems', sub: 'Custom automations, AI agents, APIs' },
+    ],
+    scoring: (v) => v === 'none' ? 2 : v === 'chatgpt_casual' ? 6 : v === 'some_tools' ? 10 : v === 'integrated' ? 14 : 18
+  },
+  {
+    id: 'lead_followup',
+    section: 'Sales & Marketing',
+    title: 'How does your team currently follow up with leads and old enquiries?',
+    hint: 'This is one of the highest-ROI areas for AI in most SMEs.',
+    type: 'single',
+    options: [
+      { value: 'no_system', label: 'We don\'t — leads go cold', sub: 'No formal follow-up process exists' },
+      { value: 'manual_ad_hoc', label: 'Manually, when we remember', sub: 'No system, relies on memory' },
+      { value: 'email_only', label: 'Email sequences only', sub: 'Some automation but basic' },
+      { value: 'crm_basic', label: 'CRM reminders', sub: 'Sales team manages in a CRM' },
+      { value: 'automated', label: 'Fully automated system', sub: 'AI or automation handles follow-ups' },
+    ],
+    scoring: (v) => v === 'no_system' ? 2 : v === 'manual_ad_hoc' ? 4 : v === 'email_only' ? 8 : v === 'crm_basic' ? 12 : 18
+  },
+  {
+    id: 'crm_size',
+    section: 'Sales & Marketing',
+    title: 'How many old or unconverted leads are sitting in your database right now?',
+    hint: 'Include anyone who ever enquired, requested a quote, or showed interest.',
+    type: 'slider',
+    min: 0, max: 10000, default: 500, step: 50,
+    suffix: 'contacts',
+    labels: ['0', '5,000', '10,000+'],
+    scoring: (v) => v >= 2000 ? 18 : v >= 500 ? 12 : v >= 100 ? 7 : 3
+  },
+  {
+    id: 'content_creation',
+    section: 'Sales & Marketing',
+    title: 'How much time do you spend creating content and writing communications each week?',
+    hint: 'Emails, proposals, social posts, newsletters, reports — all counts.',
+    type: 'slider',
+    min: 0, max: 20, default: 4, step: 1,
+    suffix: 'hrs/week',
+    labels: ['Almost none', '10 hrs', '20+ hrs'],
+    scoring: (v) => v >= 10 ? 16 : v >= 5 ? 10 : v >= 2 ? 6 : 3
+  },
+  {
+    id: 'customer_support_volume',
+    section: 'Customer Experience',
+    title: 'How many customer enquiries or support requests does your team handle weekly?',
+    hint: 'Include calls, emails, WhatsApp messages, live chats — all inbound contact.',
+    type: 'single',
+    options: [
+      { value: 'low', label: 'Under 20', sub: 'Relatively low volume' },
+      { value: 'moderate', label: '20–50', sub: 'Manageable but time-consuming' },
+      { value: 'high', label: '50–150', sub: 'Significant team effort required' },
+      { value: 'very_high', label: '150+', sub: 'A major operational challenge' },
+    ],
+    scoring: (v) => v === 'low' ? 4 : v === 'moderate' ? 8 : v === 'high' ? 14 : 18
+  },
+  {
+    id: 'biggest_challenge',
+    section: 'Strategic Priorities',
+    title: 'In your own words, what is the single biggest operational challenge holding your business back?',
+    hint: 'Be specific. The more detail you give, the more tailored your prescription will be.',
+    type: 'text',
+    placeholder: 'e.g. "We lose too many leads because nobody follows up after the initial enquiry. Our team is too busy on-site to call people back..."',
+    scoring: (v) => v && v.length > 30 ? 10 : 4
+  },
+  {
+    id: 'ai_openness',
+    section: 'Strategic Priorities',
+    title: 'How open is your team to adopting new technology and AI tools?',
+    hint: 'Honest answers lead to more realistic recommendations.',
+    type: 'single',
+    options: [
+      { value: 'resistant', label: '😬 Quite resistant', sub: 'Team is cautious or sceptical of change' },
+      { value: 'neutral', label: '🤔 Open but unsure', sub: 'Willing if the benefits are clear' },
+      { value: 'enthusiastic', label: '🙌 Enthusiastic', sub: 'Ready and keen to adopt AI' },
+      { value: 'already_adopting', label: '🚀 Already adopting', sub: 'Actively looking for more AI solutions' },
+    ],
+    scoring: (v) => v === 'resistant' ? 3 : v === 'neutral' ? 8 : v === 'enthusiastic' ? 14 : 18
+  },
+];
+
+const TOTAL_STEPS = QUESTIONS.length;
+let currentStep = 0; // 0 = intro
+const answers = {};
+
+// ── Utilities ──────────────────────────────────────────────
+function goTo(step) {
+  const app = document.getElementById('app');
+  app.classList.add('animating');
+  setTimeout(() => {
+    currentStep = step;
+    render();
+    app.classList.remove('animating');
+  }, 200);
+}
+
+function goNext() {
+  // Save current answer if on a question
+  if (currentStep >= 1 && currentStep <= TOTAL_STEPS) {
+    const q = QUESTIONS[currentStep - 1];
+    saveAnswer(q);
+  }
+  if (currentStep >= TOTAL_STEPS) {
+    goTo(TOTAL_STEPS + 1); // results
+  } else {
+    goTo(currentStep + 1);
+  }
+}
+
+function goBack() {
+  if (currentStep > 1) goTo(currentStep - 1);
+  else goTo(0);
+}
+
+function saveAnswer(q) {
+  if (q.type === 'text') {
+    const el = document.getElementById('q-text-' + q.id);
+    if (el) answers[q.id] = el.value;
+  } else if (q.type === 'slider') {
+    const el = document.getElementById('q-slider-' + q.id);
+    if (el) answers[q.id] = parseInt(el.value);
+  } else if (q.type === 'single') {
+    // already stored via click
+  } else if (q.type === 'multi' || q.type === 'dept') {
+    // already stored via click
+  }
+}
+
+// ── Scoring ────────────────────────────────────────────────
+function calcScore() {
+  let total = 0;
+  QUESTIONS.forEach(q => {
+    const val = answers[q.id];
+    if (val !== undefined && q.scoring) {
+      total += q.scoring(val);
+    }
+  });
+  // Normalise to 100
+  const maxPossible = 5+18+20+15+18+18+18+18+16+18+10+18;
+  return Math.min(Math.round((total / maxPossible) * 100), 100);
+}
+
+// ── Render engine ──────────────────────────────────────────
+function render() {
+  const intro = document.getElementById('intro');
+  const qScreen = document.getElementById('question-screen');
+  const results = document.getElementById('results');
+  const pw = document.getElementById('progress-wrap');
+
+  intro.classList.toggle('active', currentStep === 0);
+  qScreen.classList.toggle('active', currentStep >= 1 && currentStep <= TOTAL_STEPS);
+  results.classList.toggle('active', currentStep === TOTAL_STEPS + 1);
+  pw.style.display = currentStep === 0 ? 'none' : 'block';
+
+  // Progress
+  const pct = currentStep > TOTAL_STEPS ? 100 : currentStep === 0 ? 0 : (currentStep / TOTAL_STEPS) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  // Dots
+  const dotsEl = document.getElementById('step-dots');
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < TOTAL_STEPS; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i < currentStep - 1 ? ' done' : i === currentStep - 1 ? ' current' : '');
+    dotsEl.appendChild(d);
+  }
+
+  if (currentStep >= 1 && currentStep <= TOTAL_STEPS) renderQuestion(QUESTIONS[currentStep - 1]);
+  if (currentStep === TOTAL_STEPS + 1) renderResults();
+}
+
+function renderQuestion(q) {
+  const container = document.getElementById('question-screen');
+  let html = `
+    <div class="section-label"><span class="dot"></span>${q.section}</div>
+    <div class="q-step">Question ${currentStep} of ${TOTAL_STEPS}</div>
+    <h2 class="q-title">${q.title}</h2>
+    <p class="q-hint">${q.hint}</p>
+  `;
+
+  if (q.type === 'single') {
+    html += '<div class="choices">';
+    q.options.forEach(opt => {
+      const sel = answers[q.id] === opt.value ? ' selected' : '';
+      html += `<div class="choice${sel}" onclick="selectSingle('${q.id}','${opt.value}',this)">
+        <div class="choice-indicator"></div>
+        <div><div class="choice-text">${opt.label}</div>${opt.sub ? `<div class="choice-sub">${opt.sub}</div>` : ''}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  else if (q.type === 'multi') {
+    if (!answers[q.id]) answers[q.id] = [];
+    html += '<div class="choices">';
+    q.options.forEach(opt => {
+      const sel = (answers[q.id] || []).includes(opt.value) ? ' selected' : '';
+      html += `<div class="choice multi${sel}" onclick="toggleMulti('${q.id}','${opt.value}',this)">
+        <div class="choice-indicator"></div>
+        <div><div class="choice-text">${opt.label}</div>${opt.sub ? `<div class="choice-sub">${opt.sub}</div>` : ''}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  else if (q.type === 'dept') {
+    if (!answers[q.id]) answers[q.id] = [];
+    html += '<div class="dept-grid">';
+    q.options.forEach(opt => {
+      const sel = (answers[q.id] || []).includes(opt.value) ? ' selected' : '';
+      html += `<div class="dept-card${sel}" onclick="toggleDept('${q.id}','${opt.value}',this)">
+        <div class="dept-emoji">${opt.emoji}</div>
+        <div class="dept-name">${opt.name}</div>
+        <div class="dept-sub">${opt.sub}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  else if (q.type === 'slider') {
+    const val = answers[q.id] !== undefined ? answers[q.id] : q.default;
+    const pct = ((val - q.min) / (q.max - q.min)) * 100;
+    const emptyC = isLight ? '#ddd' : '#222'; const goldC = isLight ? '#b8962e' : '#d4af37'; const bg = `linear-gradient(to right, ${goldC} ${pct}%, ${emptyC} ${pct}%)`;
+    html += `
+      <div class="slider-card">
+        <div class="slider-value-label">${q.suffix}</div>
+        <div class="slider-value-display" id="sv-${q.id}">${val.toLocaleString()}</div>
+        <div class="slider-wrap">
+          <input class="audit-slider" id="q-slider-${q.id}" type="range"
+            min="${q.min}" max="${q.max}" step="${q.step || 1}" value="${val}"
+            style="background:${bg}"
+            oninput="updateSlider('${q.id}',this,${q.min},${q.max})"
+          />
+          <div class="slider-labels">
+            ${q.labels.map(l => `<span>${l}</span>`).join('')}
+          </div>
+        </div>
+        <div class="slider-tip">drag the slider or tap to adjust</div>
+      </div>
+    `;
+    answers[q.id] = val;
+  }
+
+  else if (q.type === 'text') {
+    const val = answers[q.id] || '';
+    html += `
+      <div class="text-input-wrap">
+        <textarea class="audit-textarea" id="q-text-${q.id}" placeholder="${q.placeholder || ''}"
+          oninput="answers['${q.id}']=this.value">${val}</textarea>
+        <div class="char-hint">The more detail, the better your prescription</div>
+      </div>
+    `;
+  }
+
+  // Nav buttons
+  html += `<div class="btn-row">
+    ${currentStep > 1 ? '<button class="btn-secondary" onclick="goBack()">← Back</button>' : ''}
+    <button class="btn-primary" onclick="goNext()">${currentStep === TOTAL_STEPS ? 'Generate My AI Report →' : 'Next →'}</button>
+  </div>`;
+
+  if (q.type !== 'text') {
+    html += `<button class="skip-btn" onclick="goNext()">Skip this question</button>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// ── Interaction handlers ───────────────────────────────────
+function selectSingle(id, value, el) {
+  answers[id] = value;
+  el.closest('.choices').querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleMulti(id, value, el) {
+  if (!answers[id]) answers[id] = [];
+  const idx = answers[id].indexOf(value);
+  if (idx === -1) answers[id].push(value);
+  else answers[id].splice(idx, 1);
+  el.classList.toggle('selected');
+}
+
+function toggleDept(id, value, el) {
+  if (!answers[id]) answers[id] = [];
+  const idx = answers[id].indexOf(value);
+  if (idx === -1) answers[id].push(value);
+  else answers[id].splice(idx, 1);
+  el.classList.toggle('selected');
+}
+
+function updateSlider(id, el, min, max) {
+  const v = parseInt(el.value);
+  answers[id] = v;
+  const display = document.getElementById('sv-' + id);
+  if (display) display.textContent = v.toLocaleString();
+  const pct = ((v - min) / (max - min)) * 100;
+  const emptyCol = isLight ? '#ddd' : '#222'; const goldCol = isLight ? '#b8962e' : '#d4af37'; el.style.background = `linear-gradient(to right, ${goldCol} ${pct}%, ${emptyCol} ${pct}%)`;
+}
+
+// ── Report generation ──────────────────────────────────────
+function renderResults() {
+  const score = calcScore();
+  const results = document.getElementById('results');
+  results.classList.remove('revealed');
+
+  // Score ring animation
+  const arc = document.getElementById('score-arc');
+  const circumference = 326.7;
+  setTimeout(() => {
+    const offset = circumference - (score / 100) * circumference;
+    arc.style.transition = 'stroke-dashoffset 1.2s ease';
+    arc.style.strokeDashoffset = offset;
+    // Animate score number
+    let n = 0;
+    const interval = setInterval(() => {
+      n = Math.min(n + 2, score);
+      document.getElementById('score-num').textContent = n;
+      if (n >= score) clearInterval(interval);
+    }, 25);
+  }, 300);
+
+  // Readiness band
+  const band = document.getElementById('readiness-band');
+  const titleEl = document.getElementById('report-title');
+  const subEl = document.getElementById('report-sub');
+
+  if (score < 35) {
+    band.className = 'readiness-band low';
+    band.textContent = 'Early Stage — High Opportunity';
+    titleEl.textContent = 'Significant AI Gains Await You';
+    subEl.textContent = 'Your business is operating almost entirely manually. The good news: this means the ROI from AI implementation is likely to be transformational. You have a long runway ahead.';
+  } else if (score < 65) {
+    band.className = 'readiness-band mid';
+    band.textContent = 'Developing — Clear Quick Wins';
+    titleEl.textContent = 'You\'re Part-Way There';
+    subEl.textContent = 'You\'ve begun adopting modern tools, but several high-value opportunities remain untapped. Targeted AI implementation in 2–3 key areas could significantly accelerate your growth.';
+  } else {
+    band.className = 'readiness-band high';
+    band.textContent = 'Advanced — Optimise & Scale';
+    titleEl.textContent = 'Strong AI Foundation';
+    subEl.textContent = 'You\'re ahead of most SMEs in AI adoption. The focus now shifts to optimising and scaling what\'s working, filling gaps, and staying ahead of the curve.';
+  }
+
+  // Build opportunities
+  const opportunities = generateOpportunities();
+  const hoursWasted = answers.manual_hours || 10;
+  const weeklyValue = Math.round(hoursWasted * 30); // £30/hr average
+  const annualValue = weeklyValue * 52;
+
+  let bodyHTML = `
+    <div class="section-title">
+      <span>Key Bottlenecks Identified</span>
+      <span class="tag">${opportunities.length} Opportunities</span>
+    </div>
+    <div id="opp-list">
+  `;
+
+  opportunities.forEach((opp, i) => {
+    bodyHTML += `
+      <div class="opportunity-card ${opp.urgency}" id="opp-${i}">
+        <div class="opp-header">
+          <div class="opp-title">${opp.title}</div>
+          <div class="opp-priority ${opp.priority}">${opp.priorityLabel}</div>
+        </div>
+        <div class="opp-problem">${opp.problem}</div>
+        <div class="opp-solution">
+          <div class="opp-solution-label">⚡ AI Prescription</div>
+          <div class="opp-solution-text">${opp.solution}</div>
+          <div class="opp-tools">${opp.tools.map(t => `<span class="tool-pill">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  bodyHTML += `</div>`;
+
+  // ROI estimate
+  bodyHTML += `
+    <div class="roi-bar">
+      <div class="roi-label">Estimated Time Value Being Lost Weekly</div>
+      <div class="roi-value">£${weeklyValue.toLocaleString()}<span style="font-size:20px;color:var(--text-muted)">/week</span></div>
+      <div class="roi-desc">Based on ${hoursWasted} hours of manual tasks at an estimated £30/hour blended cost, your business is losing approximately <strong style="color:var(--text-primary)">£${annualValue.toLocaleString()} per year</strong> to tasks that AI could handle in a fraction of the time.</div>
+    </div>
+  `;
+
+  // Next steps
+  bodyHTML += `
+    <div style="margin-bottom:16px;">
+      <div class="section-title"><span>Your Recommended Next Steps</span></div>
+    </div>
+    <div class="next-steps">
+      <div class="next-step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Book a 30-minute strategy call.</strong> Walk through this report with David at SilverBullet SWEEP — he'll show you exactly which solutions fit your business and what results to expect.</div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Start with your highest-priority bottleneck.</strong> Don't try to solve everything at once. Pick the one area with the biggest time drain and prove ROI there first.</div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Pilot before you commit.</strong> Every recommendation in this report can be tested with a small, low-risk pilot. Results in 48–72 hours — not months.</div>
+      </div>
+    </div>
+    <div class="cta-block">
+      <p class="cta-note">Ready to turn this prescription into results?</p>
+      <a class="btn-cta" href="https://calendly.com/david-sweep/sweep-david-coffee-chat" target="_blank" rel="noopener">Book My Strategy Call →</a>
+      <button class="btn-recalc" onclick="resetAudit()">Retake the audit</button>
+    </div>
+  `;
+
+  document.getElementById('report-body').innerHTML = bodyHTML;
+
+  setTimeout(() => {
+    results.classList.add('revealed');
+    // Stagger opportunity cards
+    opportunities.forEach((_, i) => {
+      setTimeout(() => {
+        const card = document.getElementById('opp-' + i);
+        if (card) card.classList.add('revealed');
+      }, 200 + i * 120);
+    });
+  }, 300);
+}
+
+function generateOpportunities() {
+  const opps = [];
+  const a = answers;
+
+  // Lead follow-up / DBR
+  const followup = a.lead_followup;
+  const crmSize = a.crm_size || 0;
+  if (followup === 'no_system' || followup === 'manual_ad_hoc' || crmSize > 200) {
+    opps.push({
+      title: 'Dead Lead Reactivation',
+      urgency: 'urgent',
+      priority: 'high',
+      priorityLabel: '🔴 High Priority',
+      problem: `You have ${crmSize > 0 ? crmSize.toLocaleString() + ' old contacts' : 'a database of unconverted leads'} with no systematic follow-up. These are people who already raised their hand — they're not cold, they're forgotten. Every week without action, this revenue evaporates permanently.`,
+      solution: 'AI-driven SMS reactivation contacts your dormant leads in a personalised, conversational way. Replies are detected instantly and hot leads are routed to your team via WhatsApp alert — or the AI qualifies and books them automatically.',
+      tools: ['SWEEP Recover', 'SWEEP Qualify', 'Twilio SMS', 'OpenAI']
+    });
+  }
+
+  // Admin / manual tasks
+  const hours = a.manual_hours || 0;
+  const drains = a.biggest_time_drain || [];
+  if (hours >= 8 || drains.includes('admin') || drains.includes('reporting')) {
+    opps.push({
+      title: 'Manual Admin & Reporting Automation',
+      urgency: '',
+      priority: 'medium',
+      priorityLabel: '🟡 Medium Priority',
+      problem: `${hours > 0 ? hours + ' hours per week' : 'Significant time'} is being consumed by repetitive admin tasks — data entry, copy-pasting between systems, generating reports manually. This is expensive, error-prone, and entirely avoidable.`,
+      solution: 'Workflow automation connects your tools so data flows automatically. AI can generate reports, draft documents, and handle data entry without human involvement. Your team focuses on the work only humans can do.',
+      tools: ['Make.com', 'Zapier', 'ChatGPT', 'Notion AI', 'Google Workspace AI']
+    });
+  }
+
+  // Content / writing
+  const contentHours = a.content_creation || 0;
+  const drains2 = a.biggest_time_drain || [];
+  if (contentHours >= 4 || drains2.includes('content')) {
+    opps.push({
+      title: 'AI Content & Communications',
+      urgency: '',
+      priority: 'medium',
+      priorityLabel: '🟡 Medium Priority',
+      problem: `Writing takes ${contentHours > 0 ? contentHours + ' hours/week' : 'significant time'} — proposals, emails, social posts, follow-up sequences. This creative-but-repetitive work is one of the clearest AI wins available today.`,
+      solution: 'AI writing assistants trained on your tone and templates can produce first drafts in seconds. Proposals, follow-up emails, social content, and client-facing documents all produced at a fraction of current time.',
+      tools: ['ChatGPT Team', 'Claude', 'Jasper', 'Copy.ai', 'Notion AI']
+    });
+  }
+
+  // Customer support
+  const support = a.customer_support_volume;
+  const depts = a.departments || [];
+  if (support === 'high' || support === 'very_high' || depts.includes('customer_support')) {
+    opps.push({
+      title: 'AI Customer Support & FAQ Handling',
+      urgency: '',
+      priority: support === 'very_high' ? 'high' : 'medium',
+      priorityLabel: support === 'very_high' ? '🔴 High Priority' : '🟡 Medium Priority',
+      problem: 'Your team is answering the same questions repeatedly — this is a direct tax on their time and focus. High support volume also means slower response times and frustrated customers.',
+      solution: 'An AI chatbot or voice agent handles repetitive enquiries instantly, 24/7. Complex issues are escalated to your team with full context. Response times drop to seconds, and your team\'s time is freed for high-value interactions.',
+      tools: ['Intercom AI', 'Tidio', 'Voiceflow', 'WhatsApp AI', 'SWEEP Qualify']
+    });
+  }
+
+  // Scheduling
+  if (drains2.includes('scheduling')) {
+    opps.push({
+      title: 'Automated Scheduling & Booking',
+      urgency: '',
+      priority: 'quick',
+      priorityLabel: '🟢 Quick Win',
+      problem: 'Back-and-forth scheduling is a silent time thief. Every appointment arranged manually costs 5–15 minutes of coordination that adds up to hours each week.',
+      solution: 'AI scheduling tools eliminate the back-and-forth completely. Leads and clients book directly into your calendar based on live availability, with automatic reminders reducing no-shows.',
+      tools: ['Calendly', 'Acuity Scheduling', 'Cal.com', 'HubSpot Meetings']
+    });
+  }
+
+  // HR / recruitment
+  if (depts.includes('hr')) {
+    opps.push({
+      title: 'AI-Assisted Recruitment & Onboarding',
+      urgency: '',
+      priority: 'quick',
+      priorityLabel: '🟢 Quick Win',
+      problem: 'Screening CVs, writing job descriptions, and onboarding documentation are time-intensive HR tasks that follow predictable patterns — ideal for AI assistance.',
+      solution: 'AI can screen applications, draft job descriptions, generate onboarding documents, and handle FAQ responses from new starters. Hiring cycles shorten significantly.',
+      tools: ['ChatGPT', 'HireVue', 'Notion AI', 'Greenhouse AI']
+    });
+  }
+
+  // If very few opportunities found, add a general one
+  if (opps.length < 2) {
+    opps.push({
+      title: 'AI Strategy & Workflow Audit',
+      urgency: '',
+      priority: 'medium',
+      priorityLabel: '🟡 Recommended',
+      problem: 'Even well-run businesses have hidden inefficiencies that only become visible when mapped systematically. A structured AI audit uncovers opportunities that aren\'t obvious from the inside.',
+      solution: 'A full strategic AI audit maps every department\'s workflow, identifies bottlenecks, and produces a prioritised roadmap of AI implementations with ROI projections for each.',
+      tools: ['Loom', 'Miro', 'ChatGPT', 'Claude', 'Custom AI Solutions']
+    });
+  }
+
+  return opps;
+}
+
+function resetAudit() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.getElementById('results').classList.remove('revealed');
+  document.getElementById('score-arc').style.strokeDashoffset = '326.7';
+  document.getElementById('score-arc').style.transition = 'none';
+  goTo(0);
+}
+
+
+// ── Theme toggle ───────────────────────────────────────────
+const SUN_SVG = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+const MOON_SVG = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+let isLight = true;
+
+function toggleTheme() {
+  const wrapper = document.getElementById('audit-wrapper');
+  const app = document.getElementById('app');
+  app.style.opacity = '0';
+  setTimeout(() => {
+    isLight = !isLight;
+    wrapper.classList.toggle('light', isLight);
+    const gold = isLight ? '#b8962e' : '#d4af37';
+    const icon = document.getElementById('toggle-icon');
+    icon.setAttribute('stroke', gold);
+    icon.innerHTML = isLight ? MOON_SVG : SUN_SVG;
+    document.getElementById('toggle-label').textContent = isLight ? 'Dark' : 'Light';
+    const arcCircle = document.getElementById('score-arc-circle'); if (arcCircle) arcCircle.setAttribute('stroke', gold);
+
+    // Update slider gradients if on a slider question
+    const slider = document.getElementById('q-slider-' + (QUESTIONS[currentStep-1] && QUESTIONS[currentStep-1].id));
+    if (slider) {
+      const q = QUESTIONS[currentStep-1];
+      updateSlider(q.id, slider, q.min, q.max);
+    }
+    app.style.opacity = '1';
+  }, 150);
+}
+
+// ── Init ───────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
