@@ -4,18 +4,46 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Strategic AI Audit — SilverBullet SWEEP</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     button { font-family: inherit; cursor: pointer; }
     a { text-decoration: none; }
     textarea, input, select { font-family: inherit; }
 
-    /* ── Wrapper theming (self-contained, immune to site CSS) ─── */
     #audit-wrapper {
+      --bg:             #f7f4ee;
+      --bg-card:        #ffffff;
+      --bg-card-alt:    #faf8f3;
+      --border:         #e8e2d6;
+      --border-gold:    #b8962e;
+      --text-primary:   #1a1a1a;
+      --text-secondary: #555555;
+      --text-muted:     #888888;
+      --text-dim:       #999999;
+      --text-very-dim:  #bbbbbb;
+      --gold:           #b8962e;
+      --gold-light:     #9a7a20;
+      --gold-dark:      #8a6a10;
+      --gold-faint:     rgba(184,150,46,0.08);
+      --cyan:           #0099cc;
+      --cyan-dim:       rgba(0,153,204,0.12);
+      --red-dim:        rgba(200,60,60,0.10);
+      --red:            #cc3333;
+      --green-dim:      rgba(40,160,80,0.10);
+      --green:          #28a050;
+      --slider-empty:   #ddd;
+      --input-border:   #d0c8b8;
+      --progress-bg:    #e8e2d6;
+      --dot-inactive:   #ddd;
+      --toggle-bg:      #ffffff;
+      --toggle-border:  #e0d9cc;
+      --shadow:         0 2px 20px rgba(0,0,0,0.08);
+    }
+    #audit-wrapper.dark {
       --bg:             #0a0a0a;
       --bg-card:        #111111;
       --bg-card-alt:    #0d0d0d;
-      --bg-pill:        #161616;
       --border:         #1e1e1e;
       --border-gold:    #d4af37;
       --text-primary:   #f5f5f0;
@@ -27,7 +55,6 @@
       --gold-light:     #f0d060;
       --gold-dark:      #b8962e;
       --gold-faint:     rgba(212,175,55,0.08);
-      --gold-faint2:    rgba(212,175,55,0.04);
       --cyan:           #00c8ff;
       --cyan-dim:       rgba(0,200,255,0.15);
       --red-dim:        rgba(255,80,80,0.12);
@@ -43,451 +70,244 @@
       --shadow:         0 2px 20px rgba(0,0,0,0.5);
     }
 
-    /* ── Light mode ──────────────────────────────────────────── */
-    #audit-wrapper.light {
-      --bg:             #f7f4ee;
-      --bg-card:        #ffffff;
-      --bg-card-alt:    #faf8f3;
-      --bg-pill:        #f0ece2;
-      --border:         #e8e2d6;
-      --border-gold:    #b8962e;
-      --text-primary:   #1a1a1a;
-      --text-secondary: #555555;
-      --text-muted:     #888888;
-      --text-dim:       #999999;
-      --text-very-dim:  #bbbbbb;
-      --gold:           #b8962e;
-      --gold-light:     #9a7a20;
-      --gold-dark:      #8a6a10;
-      --gold-faint:     rgba(184,150,46,0.08);
-      --gold-faint2:    rgba(184,150,46,0.04);
-      --cyan:           #0099cc;
-      --cyan-dim:       rgba(0,153,204,0.12);
-      --red-dim:        rgba(200,60,60,0.10);
-      --red:            #cc3333;
-      --green-dim:      rgba(40,160,80,0.10);
-      --green:          #28a050;
-      --slider-empty:   #ddd;
-      --input-border:   #d0c8b8;
-      --progress-bg:    #e8e2d6;
-      --dot-inactive:   #ddd;
-      --toggle-bg:      #ffffff;
-      --toggle-border:  #e0d9cc;
-      --shadow:         0 2px 20px rgba(0,0,0,0.08);
-    }
-
-    /* ── Theme toggle button ─────────────────────────────────── */
-    #theme-toggle {
-      position: fixed; top: 16px; right: 16px; z-index: 9999;
-      background: var(--toggle-bg) !important;
-      border: 1px solid var(--toggle-border) !important;
-      border-radius: 24px; padding: 10px 16px;
-      min-height: 44px; display: flex; align-items: center; gap: 8px;
-      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: var(--shadow);
-      -webkit-tap-highlight-color: transparent; cursor: pointer;
-    }
-    #theme-toggle svg { display: block; flex-shrink: 0; }
-    #toggle-label {
-      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--text-muted) !important; font-family: 'Arial', sans-serif; font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    @media (max-width: 480px) {
-      #theme-toggle { top: 12px; right: 12px; }
-      #audit-wrapper { padding: 64px 16px 48px; }
-    }
-
-
     #audit-wrapper {
-      min-height: 100vh;
-      width: 100%;
+      min-height: 100vh; width: 100%;
       background-color: var(--bg) !important;
       color: var(--text-primary) !important;
-      font-family: 'Georgia', 'Times New Roman', serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      font-family: 'Georgia','Times New Roman',serif;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
       padding: 72px 20px 60px;
-      position: relative;
-      overflow-x: hidden;
-      transition: background-color 0.3s ease;
+      position: relative; overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    @media (min-height: 800px) and (min-width: 700px) {
-      #audit-wrapper { justify-content: center; }
-    }
+    @media (min-height:800px) and (min-width:700px) { #audit-wrapper { justify-content: center; } }
     #audit-wrapper::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background: radial-gradient(ellipse at 15% 40%, rgba(212,175,55,0.05) 0%, transparent 55%),
-                  radial-gradient(ellipse at 85% 70%, rgba(0,200,255,0.03) 0%, transparent 50%);
+      background: radial-gradient(ellipse at 15% 40%, rgba(184,150,46,0.06) 0%, transparent 55%),
+                  radial-gradient(ellipse at 85% 70%, rgba(0,153,204,0.03) 0%, transparent 50%);
     }
     #audit-wrapper::after {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background-image: linear-gradient(rgba(212,175,55,0.025) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(212,175,55,0.025) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(184,150,46,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(184,150,46,0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
-    /* ── App shell ───────────────────────────────────────────── */
-    #app {
-      position: relative; z-index: 1;
-      width: 100%; max-width: 680px;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+    /* Toggle */
+    #theme-toggle {
+      position:fixed; top:16px; right:16px; z-index:9999;
+      background: var(--toggle-bg) !important;
+      border: 1px solid var(--toggle-border) !important;
+      border-radius:24px; padding:10px 16px; min-height:44px;
+      display:flex; align-items:center; gap:8px;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow); -webkit-tap-highlight-color:transparent;
     }
-    #app.animating { opacity: 0; transform: translateY(10px); }
+    #theme-toggle svg { display:block; flex-shrink:0; }
+    #toggle-label {
+      font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+      color: var(--text-muted) !important; font-family:'Arial',sans-serif; font-weight:600;
+    }
+    @media (max-width:480px) { #theme-toggle { top:12px; right:12px; } #audit-wrapper { padding:64px 16px 48px; } }
 
-    /* ── Logo ────────────────────────────────────────────────── */
-    .logo {
-      text-align: center; margin-bottom: 32px;
-      font-family: 'Arial Black', sans-serif;
-      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .logo span { color: var(--gold); }
+    /* App */
+    #app { position:relative; z-index:1; width:100%; max-width:680px; transition: opacity 0.2s ease, transform 0.2s ease; }
+    #app.animating { opacity:0; transform:translateY(10px); }
 
-    /* ── Progress ────────────────────────────────────────────── */
-    #progress-wrap { margin-bottom: 32px; }
-    #progress-track {
-      height: 2px; background: var(--progress-bg); border-radius: 2px; overflow: hidden;
-    }
-    #progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--gold), var(--cyan));
-      transition: width 0.5s ease;
-    }
-    #step-dots { display: flex; justify-content: space-between; margin-top: 10px; }
-    .step-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--dot-inactive); transition: background 0.3s ease;
-    }
-    .step-dot.done { background: var(--gold); }
-    .step-dot.current { background: var(--gold-light); box-shadow: 0 0 6px var(--gold); }
+    /* Logo */
+    .logo { text-align:center; margin-bottom:32px; font-family:'Arial Black',sans-serif; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); }
+    .logo span { color:var(--gold); }
 
-    /* ── Section label ───────────────────────────────────────── */
-    .section-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--gold); font-size: 11px; letter-spacing: 0.22em;
-      text-transform: uppercase; margin-bottom: 14px;
-      font-family: 'Arial', sans-serif;
-    }
-    .section-label .dot {
-      width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
-      box-shadow: 0 0 6px var(--gold);
-    }
+    /* Progress */
+    #progress-wrap { margin-bottom:32px; }
+    #progress-track { height:2px; background:var(--progress-bg); border-radius:2px; overflow:hidden; }
+    #progress-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--gold),var(--cyan)); transition:width 0.5s ease; }
+    #step-dots { display:flex; justify-content:space-between; margin-top:10px; }
+    .step-dot { width:7px; height:7px; border-radius:50%; background:var(--dot-inactive); transition:background 0.3s ease; }
+    .step-dot.done { background:var(--gold); }
+    .step-dot.current { background:var(--gold-light); box-shadow:0 0 6px var(--gold); }
 
-    /* ── Screens ─────────────────────────────────────────────── */
-    .screen { display: none; }
-    .screen.active { display: block; }
+    /* Screens */
+    .screen { display:none; }
+    .screen.active { display:block; }
 
-    /* ── INTRO ───────────────────────────────────────────────── */
-    #intro { text-align: center; }
-    .audit-badge {
-      display: inline-block;
-      border: 1px solid var(--border-gold);
-      color: var(--gold); font-size: 11px; letter-spacing: 0.2em;
-      padding: 7px 20px; text-transform: uppercase; margin-bottom: 30px;
-      font-family: 'Arial', sans-serif;
-    }
-    .intro-title {
-      font-size: clamp(30px, 7vw, 46px);
-      font-weight: normal; line-height: 1.15;
-      color: var(--text-primary); letter-spacing: -0.02em;
-      margin-bottom: 18px;
-    }
-    .intro-title em { font-style: normal; color: var(--gold); }
-    .intro-sub {
-      color: var(--text-secondary); font-size: clamp(15px, 3.5vw, 17px);
-      line-height: 1.7; max-width: 520px; margin: 0 auto 14px;
-    }
-    .intro-note { color: var(--text-dim); font-size: 13px; margin-bottom: 40px; }
-    .intro-pillars {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 10px; margin-bottom: 40px; text-align: left;
-    }
-    .pillar {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 16px 14px;
-    }
-    .pillar-icon { font-size: 20px; margin-bottom: 8px; }
-    .pillar-title { color: var(--gold); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 4px; }
-    .pillar-text { color: var(--text-secondary); font-size: 12px; line-height: 1.5; }
-    @media (max-width: 480px) { .intro-pillars { grid-template-columns: 1fr; } }
+    /* Section label */
+    .section-label { display:inline-flex; align-items:center; gap:8px; color:var(--gold); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:14px; font-family:'Arial',sans-serif; }
+    .section-label .dot { width:5px; height:5px; border-radius:50%; background:var(--gold); box-shadow:0 0 6px var(--gold); }
 
-    /* ── Question header ─────────────────────────────────────── */
-    .q-step { color: var(--gold); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; font-family: 'Arial', sans-serif; }
-    .q-title { color: var(--text-primary); font-size: clamp(19px, 4.5vw, 26px); font-weight: normal; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.01em; }
-    .q-hint { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; font-style: italic; line-height: 1.6; }
+    /* Intro */
+    #intro { text-align:center; }
+    .audit-badge { display:inline-block; border:1px solid var(--border-gold); color:var(--gold); font-size:11px; letter-spacing:0.2em; padding:7px 20px; text-transform:uppercase; margin-bottom:30px; font-family:'Arial',sans-serif; }
+    .intro-title { font-size:clamp(30px,7vw,46px); font-weight:normal; line-height:1.15; color:var(--text-primary); letter-spacing:-0.02em; margin-bottom:18px; }
+    .intro-title em { font-style:normal; color:var(--gold); }
+    .intro-sub { color:var(--text-secondary); font-size:clamp(15px,3.5vw,17px); line-height:1.7; max-width:520px; margin:0 auto 14px; }
+    .intro-note { color:var(--text-dim); font-size:13px; margin-bottom:40px; }
+    .intro-pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:40px; text-align:left; }
+    .pillar { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px 14px; transition:background 0.3s ease, border-color 0.3s ease; }
+    .pillar-icon { font-size:20px; margin-bottom:8px; }
+    .pillar-title { color:var(--gold); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; font-family:'Arial',sans-serif; margin-bottom:4px; }
+    .pillar-text { color:var(--text-secondary); font-size:12px; line-height:1.5; }
+    @media (max-width:480px) { .intro-pillars { grid-template-columns:1fr; } }
 
-    /* ── Multiple choice ─────────────────────────────────────── */
-    .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-    .choice {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 16px 18px;
-      cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease;
-      display: flex; align-items: center; gap: 14px;
-      -webkit-tap-highlight-color: transparent;
+    /* Contact capture gate */
+    #capture-screen { text-align:center; }
+    .capture-card { background:var(--bg-card); border:1px solid var(--border-gold); border-radius:4px; padding:36px 32px; margin-bottom:24px; text-align:left; transition:background 0.3s ease, border-color 0.3s ease; }
+    .capture-title { font-size:clamp(20px,4vw,26px); color:var(--text-primary); font-weight:normal; margin-bottom:10px; letter-spacing:-0.01em; }
+    .capture-sub { color:var(--text-secondary); font-size:14px; line-height:1.65; margin-bottom:28px; }
+    .field-label { color:var(--text-muted); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; font-family:'Arial',sans-serif; margin-bottom:8px; }
+    .capture-input {
+      width:100%; background:var(--bg) !important; border:1px solid var(--input-border) !important;
+      border-radius:4px; padding:14px 18px; color:var(--text-primary) !important;
+      font-size:15px; outline:none !important; box-shadow:none !important;
+      transition:border-color 0.2s ease; margin-bottom:18px; font-family:'Georgia',serif;
     }
-    .choice:hover { border-color: var(--gold-dark); }
-    .choice.selected { border-color: var(--gold); background: var(--gold-faint); }
-    .choice-indicator {
-      width: 18px; height: 18px; border-radius: 50%;
-      border: 1px solid var(--text-muted); flex-shrink: 0;
-      transition: border-color 0.2s ease, background 0.2s ease;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .choice.selected .choice-indicator {
-      border-color: var(--gold); background: var(--gold);
-    }
-    .choice-indicator::after {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--bg); opacity: 0; transition: opacity 0.2s ease;
-    }
-    .choice.selected .choice-indicator::after { opacity: 1; }
-    .choice-text { color: var(--text-primary); font-size: clamp(14px, 3.5vw, 15px); line-height: 1.4; }
-    .choice-sub { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+    .capture-input:focus { border-color:var(--gold-dark) !important; }
+    .capture-input::placeholder { color:var(--text-dim); }
+    .privacy-note { color:var(--text-very-dim); font-size:11px; text-align:center; margin-top:10px; font-family:'Arial',sans-serif; }
 
-    /* Multi-select variant */
-    .choice.multi .choice-indicator { border-radius: 3px; }
+    /* Question */
+    .q-step { color:var(--gold); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:14px; font-family:'Arial',sans-serif; }
+    .q-title { color:var(--text-primary); font-size:clamp(19px,4.5vw,26px); font-weight:normal; line-height:1.3; margin-bottom:10px; letter-spacing:-0.01em; }
+    .q-hint { color:var(--text-muted); font-size:13px; margin-bottom:28px; font-style:italic; line-height:1.6; }
 
-    /* ── Slider input ────────────────────────────────────────── */
-    .slider-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 28px 24px 22px;
-      margin-bottom: 28px; text-align: center;
-    }
-    .slider-value-label { color: var(--text-dim); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; font-family: 'Arial', sans-serif; }
-    .slider-value-display { font-size: clamp(40px, 10vw, 56px); color: var(--gold); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
-    .slider-value-suffix { color: var(--text-muted); font-size: 14px; }
-    .slider-tip { color: var(--text-very-dim); font-size: 11px; margin-top: 10px; font-style: italic; }
-    .slider-wrap { margin: 20px 0 0; }
-    .audit-slider { width: 100%; height: 4px; appearance: none; outline: none; cursor: pointer; border-radius: 2px; }
-    .audit-slider::-webkit-slider-thumb { appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--gold); cursor: pointer; }
-    .audit-slider::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); cursor: pointer; }
-    .slider-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-very-dim); font-size: 11px; font-family: 'Arial', sans-serif; }
+    /* Choices */
+    .choices { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+    .choice { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px 18px; cursor:pointer; transition:border-color 0.2s ease, background 0.2s ease; display:flex; align-items:center; gap:14px; -webkit-tap-highlight-color:transparent; }
+    .choice:hover { border-color:var(--gold-dark); }
+    .choice.selected { border-color:var(--gold); background:var(--gold-faint); }
+    .choice-indicator { width:18px; height:18px; border-radius:50%; border:1px solid var(--text-muted); flex-shrink:0; transition:border-color 0.2s ease, background 0.2s ease; display:flex; align-items:center; justify-content:center; }
+    .choice.selected .choice-indicator { border-color:var(--gold); background:var(--gold); }
+    .choice-indicator::after { content:''; width:6px; height:6px; border-radius:50%; background:var(--bg); opacity:0; transition:opacity 0.2s ease; }
+    .choice.selected .choice-indicator::after { opacity:1; }
+    .choice-text { color:var(--text-primary); font-size:clamp(14px,3.5vw,15px); line-height:1.4; }
+    .choice-sub { color:var(--text-muted); font-size:12px; margin-top:2px; }
+    .choice.multi .choice-indicator { border-radius:3px; }
 
-    /* ── Free text input ─────────────────────────────────────── */
-    .text-input-wrap { margin-bottom: 28px; }
-    .audit-textarea {
-      width: 100%; background: var(--bg-card) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 4px; padding: 18px 20px;
-      color: var(--text-primary) !important; font-size: 15px;
-      line-height: 1.65; resize: vertical; min-height: 120px;
-      outline: none !important; box-shadow: none !important;
-      transition: border-color 0.2s ease;
-    }
-    .audit-textarea:focus { border-color: var(--gold-dark) !important; }
-    .audit-textarea::placeholder { color: var(--text-dim); }
-    .char-hint { color: var(--text-very-dim); font-size: 11px; margin-top: 6px; font-family: 'Arial', sans-serif; font-style: italic; }
+    /* Dept grid */
+    .dept-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:28px; }
+    .dept-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:16px 14px; cursor:pointer; transition:border-color 0.2s ease, background 0.2s ease; -webkit-tap-highlight-color:transparent; }
+    .dept-card:hover { border-color:var(--gold-dark); }
+    .dept-card.selected { border-color:var(--gold); background:var(--gold-faint); }
+    .dept-emoji { font-size:22px; margin-bottom:8px; }
+    .dept-name { color:var(--text-primary); font-size:14px; font-weight:bold; font-family:'Arial',sans-serif; margin-bottom:3px; }
+    .dept-sub { color:var(--text-muted); font-size:11px; line-height:1.4; }
+    @media (max-width:400px) { .dept-grid { grid-template-columns:1fr; } }
 
-    /* ── Short text input ────────────────────────────────────── */
-    .audit-input {
-      width: 100%; background: var(--bg-card) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 4px; padding: 16px 20px;
-      color: var(--text-primary) !important; font-size: 16px;
-      outline: none !important; box-shadow: none !important;
-      transition: border-color 0.2s ease; margin-bottom: 28px;
-    }
-    .audit-input:focus { border-color: var(--gold-dark) !important; }
-    .audit-input::placeholder { color: var(--text-dim); }
+    /* Slider */
+    .slider-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:28px 24px 22px; margin-bottom:28px; text-align:center; transition:background 0.3s ease, border-color 0.3s ease; }
+    .slider-value-label { color:var(--text-dim); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px; font-family:'Arial',sans-serif; }
+    .slider-value-display { font-size:clamp(40px,10vw,56px); color:var(--gold); letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+    .slider-tip { color:var(--text-very-dim); font-size:11px; margin-top:10px; font-style:italic; }
+    .slider-wrap { margin:20px 0 0; }
+    .audit-slider { width:100%; height:4px; appearance:none; outline:none; cursor:pointer; border-radius:2px; }
+    .audit-slider::-webkit-slider-thumb { appearance:none; width:28px; height:28px; border-radius:50%; background:var(--gold); border:3px solid var(--bg); box-shadow:0 0 0 1px var(--gold); cursor:pointer; }
+    .audit-slider::-moz-range-thumb { width:28px; height:28px; border-radius:50%; background:var(--gold); border:3px solid var(--bg); cursor:pointer; }
+    .slider-labels { display:flex; justify-content:space-between; margin-top:8px; color:var(--text-very-dim); font-size:11px; font-family:'Arial',sans-serif; }
 
-    /* ── Department multi-check grid ─────────────────────────── */
-    .dept-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; margin-bottom: 28px;
-    }
-    .dept-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 16px 14px;
-      cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .dept-card:hover { border-color: var(--gold-dark); }
-    .dept-card.selected { border-color: var(--gold); background: var(--gold-faint); }
-    .dept-emoji { font-size: 22px; margin-bottom: 8px; }
-    .dept-name { color: var(--text-primary); font-size: 14px; font-weight: bold; font-family: 'Arial', sans-serif; margin-bottom: 3px; }
-    .dept-sub { color: var(--text-muted); font-size: 11px; line-height: 1.4; }
-    @media (max-width: 400px) { .dept-grid { grid-template-columns: 1fr; } }
+    /* Text */
+    .text-input-wrap { margin-bottom:28px; }
+    .audit-textarea { width:100%; background:var(--bg-card) !important; border:1px solid var(--border) !important; border-radius:4px; padding:18px 20px; color:var(--text-primary) !important; font-size:15px; line-height:1.65; resize:vertical; min-height:120px; outline:none !important; box-shadow:none !important; transition:border-color 0.2s ease; }
+    .audit-textarea:focus { border-color:var(--gold-dark) !important; }
+    .audit-textarea::placeholder { color:var(--text-dim); }
+    .char-hint { color:var(--text-very-dim); font-size:11px; margin-top:6px; font-family:'Arial',sans-serif; font-style:italic; }
 
-    /* ── Buttons ─────────────────────────────────────────────── */
-    .btn-row { display: flex; gap: 12px; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
-      color: #0a0a0a !important; border: none !important;
-      padding: 18px 32px; font-size: clamp(13px, 3.5vw, 15px);
-      letter-spacing: 0.07em; font-family: 'Arial', sans-serif;
-      font-weight: 700; text-transform: uppercase;
-      border-radius: 2px; flex: 1;
-      transition: opacity 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: none !important;
-    }
-    .btn-primary:hover { opacity: 0.88; }
-    .btn-secondary {
-      background: transparent !important; color: var(--text-muted) !important;
-      border: 1px solid var(--border) !important;
-      padding: 18px 20px; font-size: 13px;
-      letter-spacing: 0.05em; font-family: 'Arial', sans-serif;
-      border-radius: 2px; white-space: nowrap;
-      transition: border-color 0.2s ease, color 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-secondary:hover { border-color: var(--gold) !important; color: var(--gold) !important; }
-    .btn-full { width: 100%; }
-    .skip-btn {
-      background: none !important; border: none !important;
-      color: var(--text-very-dim); font-size: 12px; font-family: 'Arial', sans-serif;
-      cursor: pointer; text-decoration: underline; margin-top: 14px; display: block;
-      transition: color 0.2s ease;
-    }
-    .skip-btn:hover { color: var(--text-muted); }
+    /* Buttons */
+    .btn-row { display:flex; gap:12px; }
+    .btn-primary { background:linear-gradient(135deg,var(--gold),var(--gold-dark)) !important; color:#fff !important; border:none !important; padding:18px 32px; font-size:clamp(13px,3.5vw,15px); letter-spacing:0.07em; font-family:'Arial',sans-serif; font-weight:700; text-transform:uppercase; border-radius:2px; flex:1; transition:opacity 0.2s ease; -webkit-tap-highlight-color:transparent; box-shadow:none !important; }
+    .btn-primary:hover { opacity:0.88; }
+    .btn-secondary { background:transparent !important; color:var(--text-muted) !important; border:1px solid var(--border) !important; padding:18px 20px; font-size:13px; letter-spacing:0.05em; font-family:'Arial',sans-serif; border-radius:2px; white-space:nowrap; transition:border-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color:transparent; }
+    .btn-secondary:hover { border-color:var(--gold) !important; color:var(--gold) !important; }
+    .btn-full { width:100%; }
+    .skip-btn { background:none !important; border:none !important; color:var(--text-very-dim); font-size:12px; font-family:'Arial',sans-serif; cursor:pointer; text-decoration:underline; margin-top:14px; display:block; transition:color 0.2s ease; }
+    .skip-btn:hover { color:var(--text-muted); }
 
-    /* ── RESULTS PAGE ────────────────────────────────────────── */
-    #results { opacity: 0; transition: opacity 0.4s ease; }
-    #results.revealed { opacity: 1; }
+    /* Results */
+    #results { opacity:0; transition:opacity 0.4s ease; }
+    #results.revealed { opacity:1; }
 
-    .report-header {
-      text-align: center; margin-bottom: 32px;
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
-    }
-    #results.revealed .report-header { opacity: 1; transform: translateY(0); }
+    .report-header { text-align:center; margin-bottom:32px; opacity:0; transform:translateY(14px); transition:opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s; }
+    #results.revealed .report-header { opacity:1; transform:translateY(0); }
 
-    .ai-score-ring {
-      width: 120px; height: 120px; margin: 0 auto 20px;
-      position: relative; display: flex; align-items: center; justify-content: center;
-    }
-    .ai-score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-    .ai-score-ring .score-num { font-size: 36px; color: var(--gold); letter-spacing: -0.03em; position: relative; z-index: 1; }
-    .ai-score-ring .score-label { font-size: 10px; color: var(--text-muted); font-family: 'Arial', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+    .ai-score-ring { width:120px; height:120px; margin:0 auto 20px; position:relative; display:flex; align-items:center; justify-content:center; }
+    .ai-score-ring svg { position:absolute; inset:0; transform:rotate(-90deg); }
+    .score-num { font-size:36px; color:var(--gold); letter-spacing:-0.03em; position:relative; z-index:1; }
+    .score-label { font-size:10px; color:var(--text-muted); font-family:'Arial',sans-serif; letter-spacing:0.1em; text-transform:uppercase; }
 
-    .report-title { font-size: clamp(24px, 5vw, 34px); color: var(--text-primary); font-weight: normal; letter-spacing: -0.02em; margin-bottom: 10px; }
-    .report-sub { color: var(--text-secondary); font-size: 15px; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+    .report-title { font-size:clamp(22px,5vw,32px); color:var(--text-primary); font-weight:normal; letter-spacing:-0.02em; margin-bottom:10px; }
+    .report-sub { color:var(--text-secondary); font-size:15px; line-height:1.6; max-width:500px; margin:0 auto; }
 
-    /* Readiness band */
-    .readiness-band {
-      display: inline-block; padding: 6px 18px; border-radius: 2px;
-      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-      font-family: 'Arial', sans-serif; font-weight: 700; margin-bottom: 16px;
-    }
-    .readiness-band.low { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,107,107,0.25); }
-    .readiness-band.mid { background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
-    .readiness-band.high { background: var(--green-dim); color: var(--green); border: 1px solid rgba(80,200,120,0.25); }
+    .readiness-band { display:inline-block; padding:6px 18px; border-radius:2px; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; font-family:'Arial',sans-serif; font-weight:700; margin-bottom:16px; }
+    .readiness-band.low { background:var(--red-dim); color:var(--red); border:1px solid rgba(200,60,60,0.25); }
+    .readiness-band.mid { background:rgba(184,150,46,0.12); color:var(--gold); border:1px solid rgba(184,150,46,0.25); }
+    .readiness-band.high { background:var(--green-dim); color:var(--green); border:1px solid rgba(40,160,80,0.25); }
 
-    /* Opportunities section */
-    .section-title {
-      color: var(--text-primary); font-size: 18px; font-weight: normal;
-      letter-spacing: -0.01em; margin-bottom: 14px;
-      padding-bottom: 10px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-title .tag {
-      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-      font-family: 'Arial', sans-serif; color: var(--gold);
-      border: 1px solid var(--border-gold); padding: 3px 10px; border-radius: 2px;
-    }
+    .section-title { color:var(--text-primary); font-size:18px; font-weight:normal; letter-spacing:-0.01em; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+    .section-title .tag { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; font-family:'Arial',sans-serif; color:var(--gold); border:1px solid var(--border-gold); padding:3px 10px; border-radius:2px; }
 
-    .opportunity-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 20px 22px; margin-bottom: 12px;
-      border-left: 3px solid var(--gold);
-      opacity: 0; transform: translateX(-8px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .opportunity-card.revealed { opacity: 1; transform: translateX(0); }
-    .opportunity-card.urgent { border-left-color: var(--red); }
-    .opportunity-card.good { border-left-color: var(--green); }
+    .opportunity-card { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px 22px; margin-bottom:12px; border-left:3px solid var(--gold); opacity:0; transform:translateX(-8px); transition:opacity 0.4s ease, transform 0.4s ease, background 0.3s ease; }
+    .opportunity-card.revealed { opacity:1; transform:translateX(0); }
+    .opportunity-card.urgent { border-left-color:var(--red); }
+    .opportunity-card.good { border-left-color:var(--green); }
+    .opp-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; }
+    .opp-title { color:var(--text-primary); font-size:16px; letter-spacing:-0.01em; }
+    .opp-priority { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; font-family:'Arial',sans-serif; padding:4px 10px; border-radius:2px; flex-shrink:0; }
+    .opp-priority.high { background:var(--red-dim); color:var(--red); }
+    .opp-priority.medium { background:rgba(184,150,46,0.1); color:var(--gold); }
+    .opp-priority.quick { background:var(--green-dim); color:var(--green); }
+    .opp-problem { color:var(--text-secondary); font-size:14px; line-height:1.65; margin-bottom:12px; }
+    .opp-solution { background:var(--bg-card-alt,#faf8f3); border:1px solid var(--border); border-radius:3px; padding:14px 16px; }
+    .opp-solution-label { color:var(--cyan); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; font-family:'Arial',sans-serif; margin-bottom:6px; }
+    .opp-solution-text { color:var(--text-secondary); font-size:13px; line-height:1.6; }
+    .opp-tools { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .tool-pill { background:var(--cyan-dim); color:var(--cyan); font-size:11px; padding:4px 10px; border-radius:2px; font-family:'Arial',sans-serif; letter-spacing:0.05em; }
 
-    .opp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-    .opp-title { color: var(--text-primary); font-size: 16px; letter-spacing: -0.01em; }
-    .opp-priority {
-      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-      font-family: 'Arial', sans-serif; padding: 4px 10px; border-radius: 2px;
-      flex-shrink: 0;
-    }
-    .opp-priority.high { background: var(--red-dim); color: var(--red); }
-    .opp-priority.medium { background: rgba(212,175,55,0.1); color: var(--gold); }
-    .opp-priority.quick { background: var(--green-dim); color: var(--green); }
+    .roi-bar { background:var(--bg-card); border:1px solid var(--border-gold); border-radius:4px; padding:24px; margin:24px 0; opacity:0; transition:opacity 0.5s ease 0.6s, background 0.3s ease; }
+    #results.revealed .roi-bar { opacity:1; }
+    .roi-label { color:var(--text-muted); font-size:11px; letter-spacing:0.15em; text-transform:uppercase; font-family:'Arial',sans-serif; margin-bottom:8px; }
+    .roi-value { font-size:clamp(32px,7vw,48px); color:var(--gold); letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+    .roi-desc { color:var(--text-secondary); font-size:13px; line-height:1.6; }
 
-    .opp-problem { color: var(--text-secondary); font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
-    .opp-solution {
-      background: var(--bg-card-alt); border: 1px solid var(--border);
-      border-radius: 3px; padding: 14px 16px;
-    }
-    .opp-solution-label { color: var(--cyan); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 6px; }
-    .opp-solution-text { color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
-    .opp-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tool-pill {
-      background: var(--cyan-dim); color: var(--cyan);
-      font-size: 11px; padding: 4px 10px; border-radius: 2px;
-      font-family: 'Arial', sans-serif; letter-spacing: 0.05em;
-    }
+    .next-steps { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:24px; margin-bottom:24px; opacity:0; transition:opacity 0.5s ease 0.8s, background 0.3s ease; }
+    #results.revealed .next-steps { opacity:1; }
+    .next-step { display:flex; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
+    .next-step:last-child { border-bottom:none; }
+    .step-num { width:28px; height:28px; border-radius:50%; background:var(--gold-faint); border:1px solid var(--border-gold); color:var(--gold); font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Arial',sans-serif; font-weight:700; }
+    .step-text { color:var(--text-secondary); font-size:14px; line-height:1.6; }
+    .step-text strong { color:var(--text-primary); font-weight:normal; }
 
-    /* ROI estimate */
-    .roi-bar {
-      background: var(--bg-card); border: 1px solid var(--border-gold);
-      border-radius: 4px; padding: 24px; margin: 24px 0;
-      opacity: 0; transition: opacity 0.5s ease 0.6s;
-    }
-    #results.revealed .roi-bar { opacity: 1; }
-    .roi-label { color: var(--text-muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Arial', sans-serif; margin-bottom: 8px; }
-    .roi-value { font-size: clamp(32px, 7vw, 48px); color: var(--gold); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
-    .roi-desc { color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+    /* Action buttons row on results */
+    .results-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+    .btn-download { background:var(--bg-card) !important; color:var(--gold) !important; border:1px solid var(--border-gold) !important; padding:16px 24px; font-size:13px; letter-spacing:0.07em; font-family:'Arial',sans-serif; font-weight:700; text-transform:uppercase; border-radius:2px; flex:1; min-width:140px; transition:opacity 0.2s ease; -webkit-tap-highlight-color:transparent; cursor:pointer; }
+    .btn-download:hover { opacity:0.8; }
+    .btn-share { background:var(--bg-card) !important; color:var(--cyan) !important; border:1px solid var(--cyan) !important; padding:16px 24px; font-size:13px; letter-spacing:0.07em; font-family:'Arial',sans-serif; font-weight:700; text-transform:uppercase; border-radius:2px; flex:1; min-width:140px; transition:opacity 0.2s ease; -webkit-tap-highlight-color:transparent; cursor:pointer; }
+    .btn-share:hover { opacity:0.8; }
 
-    /* Next steps */
-    .next-steps {
-      background: var(--bg-card-alt); border: 1px solid var(--border);
-      border-radius: 4px; padding: 24px; margin-bottom: 24px;
-      opacity: 0; transition: opacity 0.5s ease 0.8s;
-    }
-    #results.revealed .next-steps { opacity: 1; }
-    .next-step { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-    .next-step:last-child { border-bottom: none; }
-    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-faint); border: 1px solid var(--border-gold); color: var(--gold); font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Arial', sans-serif; font-weight: 700; }
-    .step-text { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
-    .step-text strong { color: var(--text-primary); font-weight: normal; }
+    /* Share panel */
+    .share-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:20px; margin-bottom:16px; display:none; }
+    .share-panel.open { display:block; }
+    .share-title { color:var(--text-muted); font-size:11px; letter-spacing:0.15em; text-transform:uppercase; font-family:'Arial',sans-serif; margin-bottom:14px; }
+    .share-options { display:flex; flex-direction:column; gap:10px; }
+    .share-btn { background:var(--bg) !important; border:1px solid var(--border) !important; border-radius:4px; padding:14px 16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:border-color 0.2s ease; text-align:left; -webkit-tap-highlight-color:transparent; }
+    .share-btn:hover { border-color:var(--gold); }
+    .share-btn-icon { font-size:20px; flex-shrink:0; }
+    .share-btn-text { color:var(--text-primary); font-size:14px; }
+    .share-btn-sub { color:var(--text-muted); font-size:12px; margin-top:2px; }
 
-    /* CTA */
-    .cta-block {
-      text-align: center; opacity: 0; transition: opacity 0.5s ease 1s;
-    }
-    #results.revealed .cta-block { opacity: 1; }
-    .cta-note { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; }
-    .btn-cta {
-      display: block;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
-      color: #0a0a0a !important; padding: 18px 40px;
-      font-size: clamp(13px, 3.5vw, 15px); letter-spacing: 0.07em;
-      font-family: 'Arial', sans-serif; font-weight: 700;
-      text-transform: uppercase; border-radius: 2px;
-      transition: opacity 0.2s ease;
-      margin-bottom: 16px; text-align: center;
-      -webkit-tap-highlight-color: transparent;
-      border: none !important;
-    }
-    .btn-cta:hover { opacity: 0.88; }
-    .btn-recalc {
-      background: none !important; border: none !important;
-      color: var(--text-dim); font-size: 12px;
-      cursor: pointer; text-decoration: underline;
-      font-family: 'Georgia', serif; transition: color 0.2s ease;
-      display: block; margin: 0 auto; padding: 8px;
-    }
-    .btn-recalc:hover { color: var(--gold); }
+    .cta-block { text-align:center; opacity:0; transition:opacity 0.5s ease 1s; }
+    #results.revealed .cta-block { opacity:1; }
+    .cta-note { color:var(--text-dim); font-size:13px; margin-bottom:20px; }
+    .btn-cta { display:block; background:linear-gradient(135deg,var(--gold),var(--gold-dark)) !important; color:#fff !important; padding:18px 40px; font-size:clamp(13px,3.5vw,15px); letter-spacing:0.07em; font-family:'Arial',sans-serif; font-weight:700; text-transform:uppercase; border-radius:2px; transition:opacity 0.2s ease; margin-bottom:16px; text-align:center; -webkit-tap-highlight-color:transparent; border:none !important; }
+    .btn-cta:hover { opacity:0.88; }
+    .btn-recalc { background:none !important; border:none !important; color:var(--text-dim); font-size:12px; cursor:pointer; text-decoration:underline; font-family:'Georgia',serif; transition:color 0.2s ease; display:block; margin:0 auto; padding:8px; }
+    .btn-recalc:hover { color:var(--gold); }
 
-    /* Mobile */
-    @media (max-width: 480px) {
-      #audit-wrapper { padding: 64px 16px 48px; }
-      .opp-header { flex-direction: column; }
-    }
+    @media (max-width:480px) { .opp-header { flex-direction:column; } .results-actions { flex-direction:column; } }
   </style>
 </head>
 <body>
-<div id="audit-wrapper" class="light">
+<div id="audit-wrapper">
 
-  <!-- Theme toggle -->
   <button id="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
     <svg id="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b8962e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -495,243 +315,117 @@
     <span id="toggle-label">Dark</span>
   </button>
 
-<div id="app">
+  <div id="app">
+    <div class="logo">SilverBullet <span>SWEEP</span></div>
 
-  <div class="logo">SilverBullet <span>SWEEP</span></div>
+    <div id="progress-wrap" style="display:none;">
+      <div id="progress-track"><div id="progress-fill"></div></div>
+      <div id="step-dots"></div>
+    </div>
 
-  <!-- Progress bar -->
-  <div id="progress-wrap" style="display:none;">
-    <div id="progress-track"><div id="progress-fill"></div></div>
-    <div id="step-dots"></div>
-  </div>
-
-  <!-- ── INTRO ───────────────────────────────────────────────── -->
-  <div id="intro" class="screen active">
-    <div style="text-align:center;">
+    <!-- INTRO -->
+    <div id="intro" class="screen active">
       <div class="audit-badge">Strategic AI Audit</div>
-      <h1 class="intro-title">
-        Discover Where AI Can<br><em>Transform Your Business</em>
-      </h1>
+      <h1 class="intro-title">Discover Where AI Can<br><em>Transform Your Business</em></h1>
       <p class="intro-sub">12 targeted questions. 5 minutes. We'll identify your biggest operational bottlenecks and prescribe the exact AI solutions to fix them.</p>
       <p class="intro-note">No jargon. No sales pitch. Just a clear picture of your AI opportunity.</p>
+      <div class="intro-pillars">
+        <div class="pillar"><div class="pillar-icon">🔍</div><div class="pillar-title">Diagnose</div><div class="pillar-text">Uncover hidden inefficiencies draining your time and money</div></div>
+        <div class="pillar"><div class="pillar-icon">🎯</div><div class="pillar-title">Prioritise</div><div class="pillar-text">Rank AI opportunities by impact and ease of implementation</div></div>
+        <div class="pillar"><div class="pillar-icon">⚡</div><div class="pillar-title">Prescribe</div><div class="pillar-text">Get specific tools and actions tailored to your situation</div></div>
+      </div>
+      <button class="btn-primary btn-full" onclick="goTo('capture')">Begin My AI Audit →</button>
     </div>
-    <div class="intro-pillars">
-      <div class="pillar">
-        <div class="pillar-icon">🔍</div>
-        <div class="pillar-title">Diagnose</div>
-        <div class="pillar-text">Uncover hidden inefficiencies draining your time and money</div>
+
+    <!-- CONTACT CAPTURE (before questions) -->
+    <div id="capture-screen" class="screen">
+      <div class="section-label"><span class="dot"></span>Before We Start</div>
+      <div class="capture-card">
+        <h2 class="capture-title">Personalise your report</h2>
+        <p class="capture-sub">Your AI Prescription Report will be tailored to your business. We'll also send you a copy — so you can share it with your team or revisit it later.</p>
+        <div class="field-label">Your Name *</div>
+        <input class="capture-input" id="cap-name" type="text" placeholder="e.g. John Smith" autocomplete="name"/>
+        <div class="field-label">Business Name *</div>
+        <input class="capture-input" id="cap-business" type="text" placeholder="e.g. Google" autocomplete="organization"/>
+        <div class="field-label">Email Address *</div>
+        <input class="capture-input" id="cap-email" type="email" placeholder="e.g. john@businessname.com" autocomplete="email"/>
+        <div class="field-label">Mobile Number <span style="color:var(--text-very-dim);font-weight:normal">(optional)</span></div>
+        <input class="capture-input" id="cap-phone" type="tel" placeholder="e.g. 07700 999999" autocomplete="tel" style="margin-bottom:0;"/>
       </div>
-      <div class="pillar">
-        <div class="pillar-icon">🎯</div>
-        <div class="pillar-title">Prioritise</div>
-        <div class="pillar-text">Rank AI opportunities by impact and ease of implementation</div>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon">⚡</div>
-        <div class="pillar-title">Prescribe</div>
-        <div class="pillar-text">Get specific tools and actions tailored to your situation</div>
-      </div>
+      <div id="capture-error" style="color:var(--red);font-size:13px;text-align:center;margin-bottom:12px;display:none;">Please fill in your name, business name and email to continue.</div>
+      <button class="btn-primary btn-full" onclick="submitCapture()">Start My Audit →</button>
+      <p class="privacy-note" style="margin-top:14px;">🔒 Your details are used only to personalise and send your report. We don't spam.</p>
     </div>
-    <button class="btn-primary btn-full" onclick="goTo(1)">Begin My AI Audit →</button>
-  </div>
 
-  <!-- ── QUESTIONS (rendered by JS) ────────────────────────── -->
-  <div id="question-screen" class="screen"></div>
+    <!-- QUESTIONS -->
+    <div id="question-screen" class="screen"></div>
 
-  <!-- ── RESULTS ─────────────────────────────────────────────── -->
-  <div id="results" class="screen">
-    <div class="report-header">
-      <div class="audit-badge">Your AI Prescription Report</div>
-      <div class="ai-score-ring">
-        <svg viewBox="0 0 120 120" width="120" height="120">
-          <circle cx="60" cy="60" r="52" fill="none" stroke="#1e1e1e" stroke-width="8"/>
-          <circle id="score-arc" cx="60" cy="60" r="52" fill="none" id="score-arc-circle" stroke="#d4af37" stroke-width="8"
-            stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
-        </svg>
-        <div style="text-align:center;">
-          <div class="score-num" id="score-num">0</div>
-          <div class="score-label">/ 100</div>
+    <!-- RESULTS -->
+    <div id="results" class="screen">
+      <div class="report-header">
+        <div class="audit-badge">AI Prescription Report</div>
+        <div class="ai-score-ring">
+          <svg viewBox="0 0 120 120" width="120" height="120">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#e8e2d6" stroke-width="8"/>
+            <circle id="score-arc" cx="60" cy="60" r="52" fill="none" stroke="#b8962e" stroke-width="8" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+          </svg>
+          <div style="text-align:center;">
+            <div class="score-num" id="score-num">0</div>
+            <div class="score-label">/ 100</div>
+          </div>
         </div>
+        <div id="readiness-band" class="readiness-band mid">Assessing...</div>
+        <h2 class="report-title" id="report-title">Your AI Readiness Report</h2>
+        <p class="report-sub" id="report-sub"></p>
       </div>
-      <div id="readiness-band" class="readiness-band mid">Assessing...</div>
-      <h2 class="report-title" id="report-title">Your AI Readiness Report</h2>
-      <p class="report-sub" id="report-sub"></p>
+      <div id="report-body"></div>
     </div>
-    <div id="report-body"></div>
   </div>
-
-</div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// QUESTION DEFINITIONS
-// type: 'single' | 'multi' | 'slider' | 'text' | 'dept'
-// ═══════════════════════════════════════════════════════════
+// ── Contact data ───────────────────────────────────────────
+const contact = { name:'', business:'', email:'', phone:'' };
+
+function submitCapture() {
+  const name = document.getElementById('cap-name').value.trim();
+  const biz  = document.getElementById('cap-business').value.trim();
+  const email= document.getElementById('cap-email').value.trim();
+  const phone= document.getElementById('cap-phone').value.trim();
+  const err  = document.getElementById('capture-error');
+  if (!name || !biz || !email || !email.includes('@')) {
+    err.style.display = 'block'; return;
+  }
+  err.style.display = 'none';
+  contact.name = name; contact.business = biz;
+  contact.email = email; contact.phone = phone;
+  goTo(1);
+}
+
+// ── Questions ──────────────────────────────────────────────
 const QUESTIONS = [
-  {
-    id: 'business_name',
-    section: 'About Your Business',
-    title: 'What is your business name and what do you do?',
-    hint: 'Give us a quick overview — the more specific, the better your prescription.',
-    type: 'text',
-    placeholder: 'e.g. "HomeRewire Scotland — electrical rewiring for residential properties in Glasgow"',
-    scoring: () => 5 // Always gives points for completing
-  },
-  {
-    id: 'team_size',
-    section: 'About Your Business',
-    title: 'How many people are in your team?',
-    hint: 'Include full-time, part-time, and regular contractors.',
-    type: 'single',
-    options: [
-      { value: 'solo', label: 'Just me', sub: 'Sole trader / founder only' },
-      { value: 'small', label: '2–5 people', sub: 'Small team or micro-business' },
-      { value: 'medium', label: '6–20 people', sub: 'Growing SME' },
-      { value: 'large', label: '21–50 people', sub: 'Established business' },
-      { value: 'enterprise', label: '50+ people', sub: 'Larger organisation' },
-    ],
-    scoring: (v) => v === 'solo' ? 3 : v === 'small' ? 8 : v === 'medium' ? 15 : 18
-  },
-  {
-    id: 'biggest_time_drain',
-    section: 'Operations',
-    title: 'What consumes the most time in your business right now?',
-    hint: 'Select all that apply — this is where AI typically delivers the fastest wins.',
-    type: 'multi',
-    options: [
-      { value: 'admin', label: '📋 Admin & paperwork', sub: 'Invoices, reports, data entry' },
-      { value: 'followup', label: '📞 Following up with leads', sub: 'Chasing quotes, checking in' },
-      { value: 'content', label: '✍️ Writing & content', sub: 'Emails, proposals, social posts' },
-      { value: 'scheduling', label: '📅 Scheduling & booking', sub: 'Arranging appointments, meetings' },
-      { value: 'customer_support', label: '💬 Answering customer questions', sub: 'Repetitive enquiries, FAQs' },
-      { value: 'reporting', label: '📊 Reporting & analysis', sub: 'Weekly reports, data crunching' },
-    ],
-    scoring: (v) => Math.min(v.length * 4, 20)
-  },
-  {
-    id: 'departments',
-    section: 'Operations',
-    title: 'Which departments or functions exist in your business?',
-    hint: 'Select all that apply — we\'ll audit each one for AI opportunities.',
-    type: 'dept',
-    options: [
-      { value: 'sales', emoji: '💰', name: 'Sales', sub: 'Lead gen, proposals, closing' },
-      { value: 'marketing', emoji: '📢', name: 'Marketing', sub: 'Ads, content, social media' },
-      { value: 'customer_support', emoji: '💬', name: 'Customer Support', sub: 'Enquiries, complaints, FAQs' },
-      { value: 'operations', emoji: '⚙️', name: 'Operations', sub: 'Scheduling, logistics, delivery' },
-      { value: 'finance', emoji: '📊', name: 'Finance & Admin', sub: 'Invoicing, bookkeeping, reporting' },
-      { value: 'hr', emoji: '👥', name: 'HR & Recruitment', sub: 'Hiring, onboarding, training' },
-    ],
-    scoring: (v) => Math.min(v.length * 3, 15)
-  },
-  {
-    id: 'manual_hours',
-    section: 'Operations',
-    title: 'How many hours per week does your team spend on repetitive manual tasks?',
-    hint: 'Think data entry, copy-pasting between systems, writing the same emails, filing documents.',
-    type: 'slider',
-    min: 0, max: 40, default: 10, step: 1,
-    suffix: 'hrs/week',
-    labels: ['0 hrs', '20 hrs', '40+ hrs'],
-    scoring: (v) => v >= 20 ? 18 : v >= 10 ? 12 : v >= 5 ? 7 : 3
-  },
-  {
-    id: 'current_ai',
-    section: 'AI Readiness',
-    title: 'What AI tools does your business currently use?',
-    hint: 'Be honest — there are no wrong answers here.',
-    type: 'single',
-    options: [
-      { value: 'none', label: 'None at all', sub: 'We don\'t use any AI tools yet' },
-      { value: 'chatgpt_casual', label: 'ChatGPT occasionally', sub: 'Used informally, not systematically' },
-      { value: 'some_tools', label: 'A few tools', sub: 'e.g. Grammarly, Canva AI, basic automation' },
-      { value: 'integrated', label: 'Integrated into workflows', sub: 'AI is part of how we work daily' },
-      { value: 'advanced', label: 'Advanced AI systems', sub: 'Custom automations, AI agents, APIs' },
-    ],
-    scoring: (v) => v === 'none' ? 2 : v === 'chatgpt_casual' ? 6 : v === 'some_tools' ? 10 : v === 'integrated' ? 14 : 18
-  },
-  {
-    id: 'lead_followup',
-    section: 'Sales & Marketing',
-    title: 'How does your team currently follow up with leads and old enquiries?',
-    hint: 'This is one of the highest-ROI areas for AI in most SMEs.',
-    type: 'single',
-    options: [
-      { value: 'no_system', label: 'We don\'t — leads go cold', sub: 'No formal follow-up process exists' },
-      { value: 'manual_ad_hoc', label: 'Manually, when we remember', sub: 'No system, relies on memory' },
-      { value: 'email_only', label: 'Email sequences only', sub: 'Some automation but basic' },
-      { value: 'crm_basic', label: 'CRM reminders', sub: 'Sales team manages in a CRM' },
-      { value: 'automated', label: 'Fully automated system', sub: 'AI or automation handles follow-ups' },
-    ],
-    scoring: (v) => v === 'no_system' ? 2 : v === 'manual_ad_hoc' ? 4 : v === 'email_only' ? 8 : v === 'crm_basic' ? 12 : 18
-  },
-  {
-    id: 'crm_size',
-    section: 'Sales & Marketing',
-    title: 'How many old or unconverted leads are sitting in your database right now?',
-    hint: 'Include anyone who ever enquired, requested a quote, or showed interest.',
-    type: 'slider',
-    min: 0, max: 10000, default: 500, step: 50,
-    suffix: 'contacts',
-    labels: ['0', '5,000', '10,000+'],
-    scoring: (v) => v >= 2000 ? 18 : v >= 500 ? 12 : v >= 100 ? 7 : 3
-  },
-  {
-    id: 'content_creation',
-    section: 'Sales & Marketing',
-    title: 'How much time do you spend creating content and writing communications each week?',
-    hint: 'Emails, proposals, social posts, newsletters, reports — all counts.',
-    type: 'slider',
-    min: 0, max: 20, default: 4, step: 1,
-    suffix: 'hrs/week',
-    labels: ['Almost none', '10 hrs', '20+ hrs'],
-    scoring: (v) => v >= 10 ? 16 : v >= 5 ? 10 : v >= 2 ? 6 : 3
-  },
-  {
-    id: 'customer_support_volume',
-    section: 'Customer Experience',
-    title: 'How many customer enquiries or support requests does your team handle weekly?',
-    hint: 'Include calls, emails, WhatsApp messages, live chats — all inbound contact.',
-    type: 'single',
-    options: [
-      { value: 'low', label: 'Under 20', sub: 'Relatively low volume' },
-      { value: 'moderate', label: '20–50', sub: 'Manageable but time-consuming' },
-      { value: 'high', label: '50–150', sub: 'Significant team effort required' },
-      { value: 'very_high', label: '150+', sub: 'A major operational challenge' },
-    ],
-    scoring: (v) => v === 'low' ? 4 : v === 'moderate' ? 8 : v === 'high' ? 14 : 18
-  },
-  {
-    id: 'biggest_challenge',
-    section: 'Strategic Priorities',
-    title: 'In your own words, what is the single biggest operational challenge holding your business back?',
-    hint: 'Be specific. The more detail you give, the more tailored your prescription will be.',
-    type: 'text',
-    placeholder: 'e.g. "We lose too many leads because nobody follows up after the initial enquiry. Our team is too busy on-site to call people back..."',
-    scoring: (v) => v && v.length > 30 ? 10 : 4
-  },
-  {
-    id: 'ai_openness',
-    section: 'Strategic Priorities',
-    title: 'How open is your team to adopting new technology and AI tools?',
-    hint: 'Honest answers lead to more realistic recommendations.',
-    type: 'single',
-    options: [
-      { value: 'resistant', label: '😬 Quite resistant', sub: 'Team is cautious or sceptical of change' },
-      { value: 'neutral', label: '🤔 Open but unsure', sub: 'Willing if the benefits are clear' },
-      { value: 'enthusiastic', label: '🙌 Enthusiastic', sub: 'Ready and keen to adopt AI' },
-      { value: 'already_adopting', label: '🚀 Already adopting', sub: 'Actively looking for more AI solutions' },
-    ],
-    scoring: (v) => v === 'resistant' ? 3 : v === 'neutral' ? 8 : v === 'enthusiastic' ? 14 : 18
-  },
+  { id:'business_desc', section:'About Your Business', title:'What does your business do?', hint:'Give us a quick overview — the more specific, the better your prescription.', type:'text', placeholder:'e.g. "Electrical rewiring for residential properties across Glasgow and the central belt"', scoring:()=>5 },
+  { id:'team_size', section:'About Your Business', title:'How many people are in your team?', hint:'Include full-time, part-time, and regular contractors.', type:'single', options:[{value:'solo',label:'Just me',sub:'Sole trader / founder only'},{value:'small',label:'2–5 people',sub:'Small team or micro-business'},{value:'medium',label:'6–20 people',sub:'Growing SME'},{value:'large',label:'21–50 people',sub:'Established business'},{value:'enterprise',label:'50+ people',sub:'Larger organisation'}], scoring:(v)=>v==='solo'?3:v==='small'?8:v==='medium'?15:18 },
+  { id:'biggest_time_drain', section:'Operations', title:'What consumes the most time in your business right now?', hint:'Select all that apply — this is where AI typically delivers the fastest wins.', type:'multi', options:[{value:'admin',label:'📋 Admin & paperwork',sub:'Invoices, reports, data entry'},{value:'followup',label:'📞 Following up with leads',sub:'Chasing quotes, checking in'},{value:'content',label:'✍️ Writing & content',sub:'Emails, proposals, social posts'},{value:'scheduling',label:'📅 Scheduling & booking',sub:'Arranging appointments, meetings'},{value:'customer_support',label:'💬 Answering customer questions',sub:'Repetitive enquiries, FAQs'},{value:'reporting',label:'📊 Reporting & analysis',sub:'Weekly reports, data crunching'}], scoring:(v)=>Math.min(v.length*4,20) },
+  { id:'departments', section:'Operations', title:'Which departments or functions exist in your business?', hint:"Select all that apply — we'll audit each one for AI opportunities.", type:'dept', options:[{value:'sales',emoji:'💰',name:'Sales',sub:'Lead gen, proposals, closing'},{value:'marketing',emoji:'📢',name:'Marketing',sub:'Ads, content, social media'},{value:'customer_support',emoji:'💬',name:'Customer Support',sub:'Enquiries, complaints, FAQs'},{value:'operations',emoji:'⚙️',name:'Operations',sub:'Scheduling, logistics, delivery'},{value:'finance',emoji:'📊',name:'Finance & Admin',sub:'Invoicing, bookkeeping, reporting'},{value:'hr',emoji:'👥',name:'HR & Recruitment',sub:'Hiring, onboarding, training'}], scoring:(v)=>Math.min(v.length*3,15) },
+  { id:'manual_hours', section:'Operations', title:'How many hours per week does your team spend on repetitive manual tasks?', hint:'Think data entry, copy-pasting between systems, writing the same emails, filing documents.', type:'slider', min:0, max:40, default:10, step:1, suffix:'hrs/week', labels:['0 hrs','20 hrs','40+ hrs'], scoring:(v)=>v>=20?18:v>=10?12:v>=5?7:3 },
+  { id:'current_ai', section:'AI Readiness', title:'What AI tools does your business currently use?', hint:'Be honest — there are no wrong answers here.', type:'single', options:[{value:'none',label:'None at all',sub:"We don't use any AI tools yet"},{value:'chatgpt_casual',label:'ChatGPT occasionally',sub:'Used informally, not systematically'},{value:'some_tools',label:'A few tools',sub:'e.g. Grammarly, Canva AI, basic automation'},{value:'integrated',label:'Integrated into workflows',sub:'AI is part of how we work daily'},{value:'advanced',label:'Advanced AI systems',sub:'Custom automations, AI agents, APIs'}], scoring:(v)=>v==='none'?2:v==='chatgpt_casual'?6:v==='some_tools'?10:v==='integrated'?14:18 },
+  { id:'lead_followup', section:'Sales & Marketing', title:'How does your team currently follow up with leads and old enquiries?', hint:'This is one of the highest-ROI areas for AI in most SMEs.', type:'single', options:[{value:'no_system',label:"We don't — leads go cold",sub:'No formal follow-up process exists'},{value:'manual_ad_hoc',label:'Manually, when we remember',sub:'No system, relies on memory'},{value:'email_only',label:'Email sequences only',sub:'Some automation but basic'},{value:'crm_basic',label:'CRM reminders',sub:'Sales team manages in a CRM'},{value:'automated',label:'Fully automated system',sub:'AI or automation handles follow-ups'}], scoring:(v)=>v==='no_system'?2:v==='manual_ad_hoc'?4:v==='email_only'?8:v==='crm_basic'?12:18 },
+  { id:'crm_size', section:'Sales & Marketing', title:'How many old or unconverted leads are sitting in your database right now?', hint:'Include anyone who ever enquired, requested a quote, or showed interest.', type:'slider', min:0, max:10000, default:500, step:50, suffix:'contacts', labels:['0','5,000','10,000+'], scoring:(v)=>v>=2000?18:v>=500?12:v>=100?7:3 },
+  { id:'content_creation', section:'Sales & Marketing', title:'How much time do you spend creating content and writing communications each week?', hint:'Emails, proposals, social posts, newsletters, reports — all counts.', type:'slider', min:0, max:20, default:4, step:1, suffix:'hrs/week', labels:['Almost none','10 hrs','20+ hrs'], scoring:(v)=>v>=10?16:v>=5?10:v>=2?6:3 },
+  { id:'customer_support_volume', section:'Customer Experience', title:'How many customer enquiries or support requests does your team handle weekly?', hint:'Include calls, emails, WhatsApp messages, live chats — all inbound contact.', type:'single', options:[{value:'low',label:'Under 20',sub:'Relatively low volume'},{value:'moderate',label:'20–50',sub:'Manageable but time-consuming'},{value:'high',label:'50–150',sub:'Significant team effort required'},{value:'very_high',label:'150+',sub:'A major operational challenge'}], scoring:(v)=>v==='low'?4:v==='moderate'?8:v==='high'?14:18 },
+  { id:'biggest_challenge', section:'Strategic Priorities', title:'In your own words, what is the single biggest operational challenge holding your business back?', hint:'Be specific. The more detail you give, the more tailored your prescription will be.', type:'text', placeholder:'e.g. "We lose too many leads because nobody follows up after the initial enquiry..."', scoring:(v)=>v&&v.length>30?10:4 },
+  { id:'ai_openness', section:'Strategic Priorities', title:'How open is your team to adopting new technology and AI tools?', hint:'Honest answers lead to more realistic recommendations.', type:'single', options:[{value:'resistant',label:'😬 Quite resistant',sub:'Team is cautious or sceptical of change'},{value:'neutral',label:'🤔 Open but unsure',sub:'Willing if the benefits are clear'},{value:'enthusiastic',label:'🙌 Enthusiastic',sub:'Ready and keen to adopt AI'},{value:'already_adopting',label:'🚀 Already adopting',sub:'Actively looking for more AI solutions'}], scoring:(v)=>v==='resistant'?3:v==='neutral'?8:v==='enthusiastic'?14:18 },
 ];
 
 const TOTAL_STEPS = QUESTIONS.length;
-let currentStep = 0; // 0 = intro
+let currentStep = 0; // 0=intro, 'capture'=capture, 1-N=questions, N+1=results
 const answers = {};
+let isLight = true;
+let _score = 0;
+let _opportunities = [];
 
-// ── Utilities ──────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────
 function goTo(step) {
   const app = document.getElementById('app');
   app.classList.add('animating');
@@ -739,479 +433,718 @@ function goTo(step) {
     currentStep = step;
     render();
     app.classList.remove('animating');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 200);
 }
 
 function goNext() {
-  // Save current answer if on a question
-  if (currentStep >= 1 && currentStep <= TOTAL_STEPS) {
-    const q = QUESTIONS[currentStep - 1];
-    saveAnswer(q);
-  }
-  if (currentStep >= TOTAL_STEPS) {
-    goTo(TOTAL_STEPS + 1); // results
-  } else {
-    goTo(currentStep + 1);
+  if (typeof currentStep === 'number' && currentStep >= 1 && currentStep <= TOTAL_STEPS) {
+    saveAnswer(QUESTIONS[currentStep - 1]);
+    if (currentStep >= TOTAL_STEPS) goTo(TOTAL_STEPS + 1);
+    else goTo(currentStep + 1);
   }
 }
 
 function goBack() {
-  if (currentStep > 1) goTo(currentStep - 1);
-  else goTo(0);
+  if (typeof currentStep === 'number' && currentStep > 1) goTo(currentStep - 1);
+  else goTo('capture');
 }
 
 function saveAnswer(q) {
-  if (q.type === 'text') {
-    const el = document.getElementById('q-text-' + q.id);
-    if (el) answers[q.id] = el.value;
-  } else if (q.type === 'slider') {
-    const el = document.getElementById('q-slider-' + q.id);
-    if (el) answers[q.id] = parseInt(el.value);
-  } else if (q.type === 'single') {
-    // already stored via click
-  } else if (q.type === 'multi' || q.type === 'dept') {
-    // already stored via click
+  if (q.type === 'text') { const el = document.getElementById('q-text-'+q.id); if (el) answers[q.id] = el.value; }
+  else if (q.type === 'slider') { const el = document.getElementById('q-slider-'+q.id); if (el) answers[q.id] = parseInt(el.value); }
+}
+
+// ── Render ─────────────────────────────────────────────────
+function render() {
+  const isIntro    = currentStep === 0;
+  const isCapture  = currentStep === 'capture';
+  const isQuestion = typeof currentStep === 'number' && currentStep >= 1 && currentStep <= TOTAL_STEPS;
+  const isResults  = typeof currentStep === 'number' && currentStep === TOTAL_STEPS + 1;
+
+  document.getElementById('intro').classList.toggle('active', isIntro);
+  document.getElementById('capture-screen').classList.toggle('active', isCapture);
+  document.getElementById('question-screen').classList.toggle('active', isQuestion);
+  document.getElementById('results').classList.toggle('active', isResults);
+
+  const pw = document.getElementById('progress-wrap');
+  pw.style.display = (isQuestion || isResults) ? 'block' : 'none';
+
+  if (isQuestion || isResults) {
+    const pct = isResults ? 100 : (currentStep / TOTAL_STEPS) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    const dotsEl = document.getElementById('step-dots');
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+      const d = document.createElement('div');
+      d.className = 'step-dot' + (i < currentStep - 1 ? ' done' : i === currentStep - 1 ? ' current' : '');
+      dotsEl.appendChild(d);
+    }
   }
+
+  if (isQuestion) renderQuestion(QUESTIONS[currentStep - 1]);
+  if (isResults)  renderResults();
+}
+
+function renderQuestion(q) {
+  const container = document.getElementById('question-screen');
+  let html = `<div class="section-label"><span class="dot"></span>${q.section}</div>
+    <div class="q-step">Question ${currentStep} of ${TOTAL_STEPS}</div>
+    <h2 class="q-title">${q.title}</h2>
+    <p class="q-hint">${q.hint}</p>`;
+
+  if (q.type === 'single') {
+    html += '<div class="choices">';
+    q.options.forEach(o => {
+      const sel = answers[q.id] === o.value ? ' selected' : '';
+      html += `<div class="choice${sel}" onclick="selectSingle('${q.id}','${o.value}',this)"><div class="choice-indicator"></div><div><div class="choice-text">${o.label}</div>${o.sub?`<div class="choice-sub">${o.sub}</div>`:''}</div></div>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'multi') {
+    if (!answers[q.id]) answers[q.id] = [];
+    html += '<div class="choices">';
+    q.options.forEach(o => {
+      const sel = (answers[q.id]||[]).includes(o.value) ? ' selected' : '';
+      html += `<div class="choice multi${sel}" onclick="toggleMulti('${q.id}','${o.value}',this)"><div class="choice-indicator"></div><div><div class="choice-text">${o.label}</div>${o.sub?`<div class="choice-sub">${o.sub}</div>`:''}</div></div>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'dept') {
+    if (!answers[q.id]) answers[q.id] = [];
+    html += '<div class="dept-grid">';
+    q.options.forEach(o => {
+      const sel = (answers[q.id]||[]).includes(o.value) ? ' selected' : '';
+      html += `<div class="dept-card${sel}" onclick="toggleDept('${q.id}','${o.value}',this)"><div class="dept-emoji">${o.emoji}</div><div class="dept-name">${o.name}</div><div class="dept-sub">${o.sub}</div></div>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'slider') {
+    const val = answers[q.id] !== undefined ? answers[q.id] : q.default;
+    const pct = ((val - q.min) / (q.max - q.min)) * 100;
+    const gC = isLight ? '#b8962e' : '#d4af37', eC = isLight ? '#ddd' : '#222';
+    const bg = `linear-gradient(to right, ${gC} ${pct}%, ${eC} ${pct}%)`;
+    answers[q.id] = val;
+    html += `<div class="slider-card"><div class="slider-value-label">${q.suffix}</div><div class="slider-value-display" id="sv-${q.id}">${val.toLocaleString()}</div><div class="slider-wrap"><input class="audit-slider" id="q-slider-${q.id}" type="range" min="${q.min}" max="${q.max}" step="${q.step||1}" value="${val}" style="background:${bg}" oninput="updateSlider('${q.id}',this,${q.min},${q.max})"/><div class="slider-labels">${q.labels.map(l=>`<span>${l}</span>`).join('')}</div></div><div class="slider-tip">drag the slider or tap to adjust</div></div>`;
+  } else if (q.type === 'text') {
+    const val = answers[q.id] || '';
+    html += `<div class="text-input-wrap"><textarea class="audit-textarea" id="q-text-${q.id}" placeholder="${q.placeholder||''}" oninput="answers['${q.id}']=this.value">${val}</textarea><div class="char-hint">The more detail, the better your prescription</div></div>`;
+  }
+
+  html += `<div class="btn-row">${currentStep > 1 ? '<button class="btn-secondary" onclick="goBack()">← Back</button>' : ''}<button class="btn-primary" onclick="goNext()">${currentStep === TOTAL_STEPS ? 'Generate My AI Report →' : 'Next →'}</button></div>`;
+  if (q.type !== 'text') html += `<button class="skip-btn" onclick="goNext()">Skip this question</button>`;
+  container.innerHTML = html;
+}
+
+// ── Interactions ───────────────────────────────────────────
+function selectSingle(id, value, el) { answers[id]=value; el.closest('.choices').querySelectorAll('.choice').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
+function toggleMulti(id, value, el) { if(!answers[id])answers[id]=[]; const i=answers[id].indexOf(value); i===-1?answers[id].push(value):answers[id].splice(i,1); el.classList.toggle('selected'); }
+function toggleDept(id, value, el) { if(!answers[id])answers[id]=[]; const i=answers[id].indexOf(value); i===-1?answers[id].push(value):answers[id].splice(i,1); el.classList.toggle('selected'); }
+function updateSlider(id, el, min, max) {
+  const v=parseInt(el.value); answers[id]=v;
+  const d=document.getElementById('sv-'+id); if(d) d.textContent=v.toLocaleString();
+  const pct=((v-min)/(max-min))*100;
+  const gC=isLight?'#b8962e':'#d4af37', eC=isLight?'#ddd':'#222';
+  el.style.background=`linear-gradient(to right, ${gC} ${pct}%, ${eC} ${pct}%)`;
 }
 
 // ── Scoring ────────────────────────────────────────────────
 function calcScore() {
   let total = 0;
-  QUESTIONS.forEach(q => {
-    const val = answers[q.id];
-    if (val !== undefined && q.scoring) {
-      total += q.scoring(val);
-    }
-  });
-  // Normalise to 100
-  const maxPossible = 5+18+20+15+18+18+18+18+16+18+10+18;
-  return Math.min(Math.round((total / maxPossible) * 100), 100);
+  QUESTIONS.forEach(q => { const v=answers[q.id]; if(v!==undefined&&q.scoring) total+=q.scoring(v); });
+  const max = 5+18+20+15+18+18+18+18+16+18+10+18;
+  return Math.min(Math.round((total/max)*100),100);
 }
 
-// ── Render engine ──────────────────────────────────────────
-function render() {
-  const intro = document.getElementById('intro');
-  const qScreen = document.getElementById('question-screen');
-  const results = document.getElementById('results');
-  const pw = document.getElementById('progress-wrap');
-
-  intro.classList.toggle('active', currentStep === 0);
-  qScreen.classList.toggle('active', currentStep >= 1 && currentStep <= TOTAL_STEPS);
-  results.classList.toggle('active', currentStep === TOTAL_STEPS + 1);
-  pw.style.display = currentStep === 0 ? 'none' : 'block';
-
-  // Progress
-  const pct = currentStep > TOTAL_STEPS ? 100 : currentStep === 0 ? 0 : (currentStep / TOTAL_STEPS) * 100;
-  document.getElementById('progress-fill').style.width = pct + '%';
-
-  // Dots
-  const dotsEl = document.getElementById('step-dots');
-  dotsEl.innerHTML = '';
-  for (let i = 0; i < TOTAL_STEPS; i++) {
-    const d = document.createElement('div');
-    d.className = 'step-dot' + (i < currentStep - 1 ? ' done' : i === currentStep - 1 ? ' current' : '');
-    dotsEl.appendChild(d);
-  }
-
-  if (currentStep >= 1 && currentStep <= TOTAL_STEPS) renderQuestion(QUESTIONS[currentStep - 1]);
-  if (currentStep === TOTAL_STEPS + 1) renderResults();
-}
-
-function renderQuestion(q) {
-  const container = document.getElementById('question-screen');
-  let html = `
-    <div class="section-label"><span class="dot"></span>${q.section}</div>
-    <div class="q-step">Question ${currentStep} of ${TOTAL_STEPS}</div>
-    <h2 class="q-title">${q.title}</h2>
-    <p class="q-hint">${q.hint}</p>
-  `;
-
-  if (q.type === 'single') {
-    html += '<div class="choices">';
-    q.options.forEach(opt => {
-      const sel = answers[q.id] === opt.value ? ' selected' : '';
-      html += `<div class="choice${sel}" onclick="selectSingle('${q.id}','${opt.value}',this)">
-        <div class="choice-indicator"></div>
-        <div><div class="choice-text">${opt.label}</div>${opt.sub ? `<div class="choice-sub">${opt.sub}</div>` : ''}</div>
-      </div>`;
-    });
-    html += '</div>';
-  }
-
-  else if (q.type === 'multi') {
-    if (!answers[q.id]) answers[q.id] = [];
-    html += '<div class="choices">';
-    q.options.forEach(opt => {
-      const sel = (answers[q.id] || []).includes(opt.value) ? ' selected' : '';
-      html += `<div class="choice multi${sel}" onclick="toggleMulti('${q.id}','${opt.value}',this)">
-        <div class="choice-indicator"></div>
-        <div><div class="choice-text">${opt.label}</div>${opt.sub ? `<div class="choice-sub">${opt.sub}</div>` : ''}</div>
-      </div>`;
-    });
-    html += '</div>';
-  }
-
-  else if (q.type === 'dept') {
-    if (!answers[q.id]) answers[q.id] = [];
-    html += '<div class="dept-grid">';
-    q.options.forEach(opt => {
-      const sel = (answers[q.id] || []).includes(opt.value) ? ' selected' : '';
-      html += `<div class="dept-card${sel}" onclick="toggleDept('${q.id}','${opt.value}',this)">
-        <div class="dept-emoji">${opt.emoji}</div>
-        <div class="dept-name">${opt.name}</div>
-        <div class="dept-sub">${opt.sub}</div>
-      </div>`;
-    });
-    html += '</div>';
-  }
-
-  else if (q.type === 'slider') {
-    const val = answers[q.id] !== undefined ? answers[q.id] : q.default;
-    const pct = ((val - q.min) / (q.max - q.min)) * 100;
-    const emptyC = isLight ? '#ddd' : '#222'; const goldC = isLight ? '#b8962e' : '#d4af37'; const bg = `linear-gradient(to right, ${goldC} ${pct}%, ${emptyC} ${pct}%)`;
-    html += `
-      <div class="slider-card">
-        <div class="slider-value-label">${q.suffix}</div>
-        <div class="slider-value-display" id="sv-${q.id}">${val.toLocaleString()}</div>
-        <div class="slider-wrap">
-          <input class="audit-slider" id="q-slider-${q.id}" type="range"
-            min="${q.min}" max="${q.max}" step="${q.step || 1}" value="${val}"
-            style="background:${bg}"
-            oninput="updateSlider('${q.id}',this,${q.min},${q.max})"
-          />
-          <div class="slider-labels">
-            ${q.labels.map(l => `<span>${l}</span>`).join('')}
-          </div>
-        </div>
-        <div class="slider-tip">drag the slider or tap to adjust</div>
-      </div>
-    `;
-    answers[q.id] = val;
-  }
-
-  else if (q.type === 'text') {
-    const val = answers[q.id] || '';
-    html += `
-      <div class="text-input-wrap">
-        <textarea class="audit-textarea" id="q-text-${q.id}" placeholder="${q.placeholder || ''}"
-          oninput="answers['${q.id}']=this.value">${val}</textarea>
-        <div class="char-hint">The more detail, the better your prescription</div>
-      </div>
-    `;
-  }
-
-  // Nav buttons
-  html += `<div class="btn-row">
-    ${currentStep > 1 ? '<button class="btn-secondary" onclick="goBack()">← Back</button>' : ''}
-    <button class="btn-primary" onclick="goNext()">${currentStep === TOTAL_STEPS ? 'Generate My AI Report →' : 'Next →'}</button>
-  </div>`;
-
-  if (q.type !== 'text') {
-    html += `<button class="skip-btn" onclick="goNext()">Skip this question</button>`;
-  }
-
-  container.innerHTML = html;
-}
-
-// ── Interaction handlers ───────────────────────────────────
-function selectSingle(id, value, el) {
-  answers[id] = value;
-  el.closest('.choices').querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function toggleMulti(id, value, el) {
-  if (!answers[id]) answers[id] = [];
-  const idx = answers[id].indexOf(value);
-  if (idx === -1) answers[id].push(value);
-  else answers[id].splice(idx, 1);
-  el.classList.toggle('selected');
-}
-
-function toggleDept(id, value, el) {
-  if (!answers[id]) answers[id] = [];
-  const idx = answers[id].indexOf(value);
-  if (idx === -1) answers[id].push(value);
-  else answers[id].splice(idx, 1);
-  el.classList.toggle('selected');
-}
-
-function updateSlider(id, el, min, max) {
-  const v = parseInt(el.value);
-  answers[id] = v;
-  const display = document.getElementById('sv-' + id);
-  if (display) display.textContent = v.toLocaleString();
-  const pct = ((v - min) / (max - min)) * 100;
-  const emptyCol = isLight ? '#ddd' : '#222'; const goldCol = isLight ? '#b8962e' : '#d4af37'; el.style.background = `linear-gradient(to right, ${goldCol} ${pct}%, ${emptyCol} ${pct}%)`;
-}
-
-// ── Report generation ──────────────────────────────────────
-function renderResults() {
-  const score = calcScore();
-  const results = document.getElementById('results');
-  results.classList.remove('revealed');
-
-  // Score ring animation
-  const arc = document.getElementById('score-arc');
-  const circumference = 326.7;
-  setTimeout(() => {
-    const offset = circumference - (score / 100) * circumference;
-    arc.style.transition = 'stroke-dashoffset 1.2s ease';
-    arc.style.strokeDashoffset = offset;
-    // Animate score number
-    let n = 0;
-    const interval = setInterval(() => {
-      n = Math.min(n + 2, score);
-      document.getElementById('score-num').textContent = n;
-      if (n >= score) clearInterval(interval);
-    }, 25);
-  }, 300);
-
-  // Readiness band
-  const band = document.getElementById('readiness-band');
-  const titleEl = document.getElementById('report-title');
-  const subEl = document.getElementById('report-sub');
-
-  if (score < 35) {
-    band.className = 'readiness-band low';
-    band.textContent = 'Early Stage — High Opportunity';
-    titleEl.textContent = 'Significant AI Gains Await You';
-    subEl.textContent = 'Your business is operating almost entirely manually. The good news: this means the ROI from AI implementation is likely to be transformational. You have a long runway ahead.';
-  } else if (score < 65) {
-    band.className = 'readiness-band mid';
-    band.textContent = 'Developing — Clear Quick Wins';
-    titleEl.textContent = 'You\'re Part-Way There';
-    subEl.textContent = 'You\'ve begun adopting modern tools, but several high-value opportunities remain untapped. Targeted AI implementation in 2–3 key areas could significantly accelerate your growth.';
-  } else {
-    band.className = 'readiness-band high';
-    band.textContent = 'Advanced — Optimise & Scale';
-    titleEl.textContent = 'Strong AI Foundation';
-    subEl.textContent = 'You\'re ahead of most SMEs in AI adoption. The focus now shifts to optimising and scaling what\'s working, filling gaps, and staying ahead of the curve.';
-  }
-
-  // Build opportunities
-  const opportunities = generateOpportunities();
-  const hoursWasted = answers.manual_hours || 10;
-  const weeklyValue = Math.round(hoursWasted * 30); // £30/hr average
-  const annualValue = weeklyValue * 52;
-
-  let bodyHTML = `
-    <div class="section-title">
-      <span>Key Bottlenecks Identified</span>
-      <span class="tag">${opportunities.length} Opportunities</span>
-    </div>
-    <div id="opp-list">
-  `;
-
-  opportunities.forEach((opp, i) => {
-    bodyHTML += `
-      <div class="opportunity-card ${opp.urgency}" id="opp-${i}">
-        <div class="opp-header">
-          <div class="opp-title">${opp.title}</div>
-          <div class="opp-priority ${opp.priority}">${opp.priorityLabel}</div>
-        </div>
-        <div class="opp-problem">${opp.problem}</div>
-        <div class="opp-solution">
-          <div class="opp-solution-label">⚡ AI Prescription</div>
-          <div class="opp-solution-text">${opp.solution}</div>
-          <div class="opp-tools">${opp.tools.map(t => `<span class="tool-pill">${t}</span>`).join('')}</div>
-        </div>
-      </div>
-    `;
-  });
-
-  bodyHTML += `</div>`;
-
-  // ROI estimate
-  bodyHTML += `
-    <div class="roi-bar">
-      <div class="roi-label">Estimated Time Value Being Lost Weekly</div>
-      <div class="roi-value">£${weeklyValue.toLocaleString()}<span style="font-size:20px;color:var(--text-muted)">/week</span></div>
-      <div class="roi-desc">Based on ${hoursWasted} hours of manual tasks at an estimated £30/hour blended cost, your business is losing approximately <strong style="color:var(--text-primary)">£${annualValue.toLocaleString()} per year</strong> to tasks that AI could handle in a fraction of the time.</div>
-    </div>
-  `;
-
-  // Next steps
-  bodyHTML += `
-    <div style="margin-bottom:16px;">
-      <div class="section-title"><span>Your Recommended Next Steps</span></div>
-    </div>
-    <div class="next-steps">
-      <div class="next-step">
-        <div class="step-num">1</div>
-        <div class="step-text"><strong>Book a 30-minute strategy call.</strong> Walk through this report with David at SilverBullet SWEEP — he'll show you exactly which solutions fit your business and what results to expect.</div>
-      </div>
-      <div class="next-step">
-        <div class="step-num">2</div>
-        <div class="step-text"><strong>Start with your highest-priority bottleneck.</strong> Don't try to solve everything at once. Pick the one area with the biggest time drain and prove ROI there first.</div>
-      </div>
-      <div class="next-step">
-        <div class="step-num">3</div>
-        <div class="step-text"><strong>Pilot before you commit.</strong> Every recommendation in this report can be tested with a small, low-risk pilot. Results in 48–72 hours — not months.</div>
-      </div>
-    </div>
-    <div class="cta-block">
-      <p class="cta-note">Ready to turn this prescription into results?</p>
-      <a class="btn-cta" href="https://calendly.com/david-sweep/sweep-david-coffee-chat" target="_blank" rel="noopener">Book My Strategy Call →</a>
-      <button class="btn-recalc" onclick="resetAudit()">Retake the audit</button>
-    </div>
-  `;
-
-  document.getElementById('report-body').innerHTML = bodyHTML;
-
-  setTimeout(() => {
-    results.classList.add('revealed');
-    // Stagger opportunity cards
-    opportunities.forEach((_, i) => {
-      setTimeout(() => {
-        const card = document.getElementById('opp-' + i);
-        if (card) card.classList.add('revealed');
-      }, 200 + i * 120);
-    });
-  }, 300);
-}
-
+// ── Opportunities ──────────────────────────────────────────
 function generateOpportunities() {
-  const opps = [];
-  const a = answers;
-
-  // Lead follow-up / DBR
-  const followup = a.lead_followup;
-  const crmSize = a.crm_size || 0;
-  if (followup === 'no_system' || followup === 'manual_ad_hoc' || crmSize > 200) {
-    opps.push({
-      title: 'Dead Lead Reactivation',
-      urgency: 'urgent',
-      priority: 'high',
-      priorityLabel: '🔴 High Priority',
-      problem: `You have ${crmSize > 0 ? crmSize.toLocaleString() + ' old contacts' : 'a database of unconverted leads'} with no systematic follow-up. These are people who already raised their hand — they're not cold, they're forgotten. Every week without action, this revenue evaporates permanently.`,
-      solution: 'AI-driven SMS reactivation contacts your dormant leads in a personalised, conversational way. Replies are detected instantly and hot leads are routed to your team via WhatsApp alert — or the AI qualifies and books them automatically.',
-      tools: ['SWEEP Recover', 'SWEEP Qualify', 'Twilio SMS', 'OpenAI']
-    });
-  }
-
-  // Admin / manual tasks
-  const hours = a.manual_hours || 0;
-  const drains = a.biggest_time_drain || [];
-  if (hours >= 8 || drains.includes('admin') || drains.includes('reporting')) {
-    opps.push({
-      title: 'Manual Admin & Reporting Automation',
-      urgency: '',
-      priority: 'medium',
-      priorityLabel: '🟡 Medium Priority',
-      problem: `${hours > 0 ? hours + ' hours per week' : 'Significant time'} is being consumed by repetitive admin tasks — data entry, copy-pasting between systems, generating reports manually. This is expensive, error-prone, and entirely avoidable.`,
-      solution: 'Workflow automation connects your tools so data flows automatically. AI can generate reports, draft documents, and handle data entry without human involvement. Your team focuses on the work only humans can do.',
-      tools: ['Make.com', 'Zapier', 'ChatGPT', 'Notion AI', 'Google Workspace AI']
-    });
-  }
-
-  // Content / writing
-  const contentHours = a.content_creation || 0;
-  const drains2 = a.biggest_time_drain || [];
-  if (contentHours >= 4 || drains2.includes('content')) {
-    opps.push({
-      title: 'AI Content & Communications',
-      urgency: '',
-      priority: 'medium',
-      priorityLabel: '🟡 Medium Priority',
-      problem: `Writing takes ${contentHours > 0 ? contentHours + ' hours/week' : 'significant time'} — proposals, emails, social posts, follow-up sequences. This creative-but-repetitive work is one of the clearest AI wins available today.`,
-      solution: 'AI writing assistants trained on your tone and templates can produce first drafts in seconds. Proposals, follow-up emails, social content, and client-facing documents all produced at a fraction of current time.',
-      tools: ['ChatGPT Team', 'Claude', 'Jasper', 'Copy.ai', 'Notion AI']
-    });
-  }
-
-  // Customer support
-  const support = a.customer_support_volume;
-  const depts = a.departments || [];
-  if (support === 'high' || support === 'very_high' || depts.includes('customer_support')) {
-    opps.push({
-      title: 'AI Customer Support & FAQ Handling',
-      urgency: '',
-      priority: support === 'very_high' ? 'high' : 'medium',
-      priorityLabel: support === 'very_high' ? '🔴 High Priority' : '🟡 Medium Priority',
-      problem: 'Your team is answering the same questions repeatedly — this is a direct tax on their time and focus. High support volume also means slower response times and frustrated customers.',
-      solution: 'An AI chatbot or voice agent handles repetitive enquiries instantly, 24/7. Complex issues are escalated to your team with full context. Response times drop to seconds, and your team\'s time is freed for high-value interactions.',
-      tools: ['Intercom AI', 'Tidio', 'Voiceflow', 'WhatsApp AI', 'SWEEP Qualify']
-    });
-  }
-
-  // Scheduling
-  if (drains2.includes('scheduling')) {
-    opps.push({
-      title: 'Automated Scheduling & Booking',
-      urgency: '',
-      priority: 'quick',
-      priorityLabel: '🟢 Quick Win',
-      problem: 'Back-and-forth scheduling is a silent time thief. Every appointment arranged manually costs 5–15 minutes of coordination that adds up to hours each week.',
-      solution: 'AI scheduling tools eliminate the back-and-forth completely. Leads and clients book directly into your calendar based on live availability, with automatic reminders reducing no-shows.',
-      tools: ['Calendly', 'Acuity Scheduling', 'Cal.com', 'HubSpot Meetings']
-    });
-  }
-
-  // HR / recruitment
-  if (depts.includes('hr')) {
-    opps.push({
-      title: 'AI-Assisted Recruitment & Onboarding',
-      urgency: '',
-      priority: 'quick',
-      priorityLabel: '🟢 Quick Win',
-      problem: 'Screening CVs, writing job descriptions, and onboarding documentation are time-intensive HR tasks that follow predictable patterns — ideal for AI assistance.',
-      solution: 'AI can screen applications, draft job descriptions, generate onboarding documents, and handle FAQ responses from new starters. Hiring cycles shorten significantly.',
-      tools: ['ChatGPT', 'HireVue', 'Notion AI', 'Greenhouse AI']
-    });
-  }
-
-  // If very few opportunities found, add a general one
-  if (opps.length < 2) {
-    opps.push({
-      title: 'AI Strategy & Workflow Audit',
-      urgency: '',
-      priority: 'medium',
-      priorityLabel: '🟡 Recommended',
-      problem: 'Even well-run businesses have hidden inefficiencies that only become visible when mapped systematically. A structured AI audit uncovers opportunities that aren\'t obvious from the inside.',
-      solution: 'A full strategic AI audit maps every department\'s workflow, identifies bottlenecks, and produces a prioritised roadmap of AI implementations with ROI projections for each.',
-      tools: ['Loom', 'Miro', 'ChatGPT', 'Claude', 'Custom AI Solutions']
-    });
-  }
-
+  const opps=[], a=answers;
+  const followup=a.lead_followup, crmSize=a.crm_size||0;
+  if(followup==='no_system'||followup==='manual_ad_hoc'||crmSize>200) opps.push({title:'Dead Lead Reactivation',urgency:'urgent',priority:'high',priorityLabel:'🔴 High Priority',problem:`You have ${crmSize>0?crmSize.toLocaleString()+' old contacts':'a database of unconverted leads'} with no systematic follow-up. These are people who already raised their hand — they're not cold, they're forgotten. Every week without action, this revenue evaporates permanently.`,solution:'AI-driven SMS reactivation contacts your dormant leads in a personalised, conversational way. Replies are detected instantly and hot leads are routed to your team via WhatsApp alert — or the AI qualifies and books them automatically.',tools:['SWEEP Recover','SWEEP Qualify','Twilio SMS','OpenAI']});
+  const hours=a.manual_hours||0, drains=a.biggest_time_drain||[];
+  if(hours>=8||drains.includes('admin')||drains.includes('reporting')) opps.push({title:'Manual Admin & Reporting Automation',urgency:'',priority:'medium',priorityLabel:'🟡 Medium Priority',problem:`${hours>0?hours+' hours per week':'Significant time'} is being consumed by repetitive admin tasks — data entry, copy-pasting between systems, generating reports manually. This is expensive, error-prone, and entirely avoidable.`,solution:'Workflow automation connects your tools so data flows automatically. AI can generate reports, draft documents, and handle data entry without human involvement.',tools:['Make.com','Zapier','ChatGPT','Notion AI','Google Workspace AI']});
+  const contentH=a.content_creation||0;
+  if(contentH>=4||drains.includes('content')) opps.push({title:'AI Content & Communications',urgency:'',priority:'medium',priorityLabel:'🟡 Medium Priority',problem:`Writing takes ${contentH>0?contentH+' hours/week':'significant time'} — proposals, emails, social posts, follow-up sequences. This creative-but-repetitive work is one of the clearest AI wins available today.`,solution:'AI writing assistants trained on your tone and templates can produce first drafts in seconds. Proposals, follow-up emails, and client-facing documents all produced at a fraction of current time.',tools:['ChatGPT Team','Claude','Jasper','Copy.ai','Notion AI']});
+  const support=a.customer_support_volume, depts=a.departments||[];
+  if(support==='high'||support==='very_high'||depts.includes('customer_support')) opps.push({title:'AI Customer Support & FAQ Handling',urgency:'',priority:support==='very_high'?'high':'medium',priorityLabel:support==='very_high'?'🔴 High Priority':'🟡 Medium Priority',problem:'Your team is answering the same questions repeatedly — a direct tax on their time and focus. High support volume also means slower response times and frustrated customers.',solution:'An AI chatbot or voice agent handles repetitive enquiries instantly, 24/7. Complex issues are escalated with full context. Response times drop to seconds.',tools:['Intercom AI','Tidio','Voiceflow','WhatsApp AI','SWEEP Qualify']});
+  if(drains.includes('scheduling')) opps.push({title:'Automated Scheduling & Booking',urgency:'',priority:'quick',priorityLabel:'🟢 Quick Win',problem:'Back-and-forth scheduling is a silent time thief. Every appointment arranged manually costs 5–15 minutes of coordination that adds up to hours each week.',solution:'AI scheduling tools eliminate the back-and-forth completely. Leads and clients book directly into your calendar based on live availability, with automatic reminders reducing no-shows.',tools:['Calendly','Acuity Scheduling','Cal.com','HubSpot Meetings']});
+  if(depts.includes('hr')) opps.push({title:'AI-Assisted Recruitment & Onboarding',urgency:'',priority:'quick',priorityLabel:'🟢 Quick Win',problem:'Screening CVs, writing job descriptions, and onboarding documentation are time-intensive tasks that follow predictable patterns — ideal for AI assistance.',solution:'AI can screen applications, draft job descriptions, generate onboarding documents, and handle FAQ responses from new starters.',tools:['ChatGPT','HireVue','Notion AI','Greenhouse AI']});
+  if(opps.length<2) opps.push({title:'AI Strategy & Workflow Audit',urgency:'',priority:'medium',priorityLabel:'🟡 Recommended',problem:'Even well-run businesses have hidden inefficiencies that only become visible when mapped systematically. A structured AI audit uncovers opportunities that are not obvious from the inside.',solution:'A full strategic AI audit maps every department\'s workflow, identifies bottlenecks, and produces a prioritised roadmap with ROI projections for each implementation.',tools:['Loom','Miro','ChatGPT','Claude','Custom AI Solutions']});
   return opps;
 }
 
+// ── Render results ─────────────────────────────────────────
+function renderResults() {
+  _score = calcScore();
+  _opportunities = generateOpportunities();
+  const biz = contact.business || 'Your Business';
+  const results = document.getElementById('results');
+  results.classList.remove('revealed');
+
+  // Score ring
+  const arc = document.getElementById('score-arc');
+  arc.style.transition = 'none'; arc.style.strokeDashoffset = '326.7';
+  setTimeout(() => {
+    arc.style.transition = 'stroke-dashoffset 1.2s ease';
+    arc.style.strokeDashoffset = 326.7 - (_score / 100) * 326.7;
+    let n = 0;
+    const iv = setInterval(() => { n = Math.min(n+2, _score); document.getElementById('score-num').textContent = n; if(n>=_score) clearInterval(iv); }, 25);
+  }, 300);
+
+  // Readiness
+  const band = document.getElementById('readiness-band');
+  const titleEl = document.getElementById('report-title');
+  const subEl = document.getElementById('report-sub');
+  if (_score < 35) {
+    band.className='readiness-band low'; band.textContent='Early Stage — High Opportunity';
+    titleEl.textContent=`${biz}: Significant AI Gains Await`;
+    subEl.textContent='Your business is operating almost entirely manually. The good news: this means the ROI from AI implementation is likely to be transformational.';
+  } else if (_score < 65) {
+    band.className='readiness-band mid'; band.textContent='Developing — Clear Quick Wins';
+    titleEl.textContent=`${biz}: Part-Way There`;
+    subEl.textContent='You\'ve begun adopting modern tools, but several high-value opportunities remain untapped. Targeted AI implementation in 2–3 key areas could significantly accelerate growth.';
+  } else {
+    band.className='readiness-band high'; band.textContent='Advanced — Optimise & Scale';
+    titleEl.textContent=`${biz}: Strong AI Foundation`;
+    subEl.textContent='You\'re ahead of most SMEs in AI adoption. The focus now shifts to optimising and scaling what\'s working, filling gaps, and staying ahead of the curve.';
+  }
+
+  const hoursWasted = answers.manual_hours || 10;
+  const weeklyValue = Math.round(hoursWasted * 30);
+  const annualValue = weeklyValue * 52;
+
+  let bodyHTML = `<div class="section-title"><span>Key Bottlenecks Identified</span><span class="tag">${_opportunities.length} Opportunities</span></div><div id="opp-list">`;
+  _opportunities.forEach((opp, i) => {
+    bodyHTML += `<div class="opportunity-card ${opp.urgency}" id="opp-${i}"><div class="opp-header"><div class="opp-title">${opp.title}</div><div class="opp-priority ${opp.priority}">${opp.priorityLabel}</div></div><div class="opp-problem">${opp.problem}</div><div class="opp-solution"><div class="opp-solution-label">⚡ AI Prescription</div><div class="opp-solution-text">${opp.solution}</div><div class="opp-tools">${opp.tools.map(t=>`<span class="tool-pill">${t}</span>`).join('')}</div></div></div>`;
+  });
+  bodyHTML += `</div>
+  <div class="roi-bar"><div class="roi-label">Estimated Time Value Being Lost Weekly</div><div class="roi-value">£${weeklyValue.toLocaleString()}<span style="font-size:20px;color:var(--text-muted)">/week</span></div><div class="roi-desc">Based on ${hoursWasted} hours of manual tasks at an estimated £30/hour blended cost, ${biz} is losing approximately <strong style="color:var(--text-primary)">£${annualValue.toLocaleString()} per year</strong> to tasks that AI could handle in a fraction of the time.</div></div>
+  <div style="margin-bottom:16px;"><div class="section-title"><span>Your Recommended Next Steps</span></div></div>
+  <div class="next-steps">
+    <div class="next-step"><div class="step-num">1</div><div class="step-text"><strong>Book a 30-minute strategy call.</strong> Walk through this report with David at SilverBullet SWEEP — he'll show you exactly which solutions fit ${biz} and what results to expect.</div></div>
+    <div class="next-step"><div class="step-num">2</div><div class="step-text"><strong>Start with your highest-priority bottleneck.</strong> Don't try to solve everything at once. Pick the one area with the biggest time drain and prove ROI there first.</div></div>
+    <div class="next-step"><div class="step-num">3</div><div class="step-text"><strong>Pilot before you commit.</strong> Every recommendation in this report can be tested with a small, low-risk pilot. Results in 48–72 hours — not months.</div></div>
+  </div>
+  <div class="cta-block">
+    <p class="cta-note">Ready to turn this prescription into results?</p>
+    <div class="results-actions">
+      <button class="btn-download" onclick="downloadPDF()">⬇ Download PDF Report</button>
+      <button class="btn-share" onclick="toggleShare()">↗ Share With Your Team</button>
+    </div>
+    <div class="share-panel" id="share-panel">
+      <div class="share-title">Share This Report</div>
+      <div class="share-options">
+        <button class="share-btn" onclick="shareEmail()"><div class="share-btn-icon">✉️</div><div><div class="share-btn-text">Share via Email</div><div class="share-btn-sub">Opens your mail app with a pre-written message</div></div></button>
+        <button class="share-btn" onclick="shareLinkedIn()"><div class="share-btn-icon">💼</div><div><div class="share-btn-text">Share on LinkedIn</div><div class="share-btn-sub">Post your AI readiness score to your network</div></div></button>
+        <button class="share-btn" onclick="copyLink()"><div class="share-btn-icon">🔗</div><div><div class="share-btn-text">Copy Audit Link</div><div class="share-btn-sub" id="copy-label">Share the audit with colleagues to complete</div></div></button>
+      </div>
+    </div>
+    <a class="btn-cta" href="https://calendly.com/david-sweep/sweep-david-coffee-chat" target="_blank" rel="noopener">Book My Strategy Call →</a>
+    <button class="btn-recalc" onclick="resetAudit()">Retake the audit</button>
+  </div>`;
+
+  document.getElementById('report-body').innerHTML = bodyHTML;
+  setTimeout(() => {
+    results.classList.add('revealed');
+    _opportunities.forEach((_,i) => setTimeout(() => { const c=document.getElementById('opp-'+i); if(c) c.classList.add('revealed'); }, 200+i*120));
+  }, 300);
+}
+
+// ── Share functions ────────────────────────────────────────
+function toggleShare() {
+  const p = document.getElementById('share-panel');
+  p.classList.toggle('open');
+}
+
+function shareEmail() {
+  const biz = contact.business || 'our business';
+  const score = _score;
+  const opps = _opportunities.map(o => `• ${o.title}`).join('\n');
+  const subject = encodeURIComponent(`AI Audit Results — ${biz} scored ${score}/100`);
+  const body = encodeURIComponent(`Hi,\n\nI just completed a Strategic AI Audit for ${biz} and thought you'd want to see the results.\n\nOur AI Readiness Score: ${score}/100\n\nKey opportunities identified:\n${opps}\n\nI'd recommend you complete the audit yourself — it takes about 5 minutes:\n${window.location.href}\n\nCheers,\n${contact.name}`);
+  window.open(`mailto:?subject=${subject}&body=${body}`);
+}
+
+function shareLinkedIn() {
+  const biz = contact.business || 'my business';
+  const text = encodeURIComponent(`I just completed a Strategic AI Audit for ${biz} and scored ${_score}/100 on AI readiness. The report identified ${_opportunities.length} specific opportunities to save time and recover revenue using AI. If you run a business and haven't done this yet — take 5 minutes: ${window.location.href} (via @SilverBulletSWEEP)`);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&summary=${text}`, '_blank');
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const lbl = document.getElementById('copy-label');
+    lbl.textContent = '✓ Link copied to clipboard!';
+    setTimeout(() => lbl.textContent = 'Share the audit with colleagues to complete', 2500);
+  });
+}
+
+// ── PDF Generation ─────────────────────────────────────────
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, H = 297;
+  const biz = contact.business || 'Your Business';
+  const name = contact.name || '';
+  const score = _score;
+  const opps = _opportunities;
+  const hoursWasted = answers.manual_hours || 10;
+  const weeklyVal = hoursWasted * 30;
+  const annualVal = weeklyVal * 52;
+
+  // ── Colour helpers ──────────────────────────────────────
+  const GOLD   = [184, 150, 46];
+  const DARK   = [10, 10, 10];
+  const CARD   = [17, 17, 17];
+  const LIGHT  = [245, 245, 240];
+  const MUTED  = [136, 136, 136];
+  const DIM    = [68, 68, 68];
+  const BORDER = [40, 40, 40];
+  const RED    = [204, 51, 51];
+  const GREEN  = [40, 160, 80];
+  const CYAN   = [0, 153, 204];
+
+  function setFont(size, style='normal', color=LIGHT) {
+    doc.setFontSize(size); doc.setFont('helvetica', style);
+    doc.setTextColor(...color);
+  }
+  function rect(x, y, w, h, color, round=0) {
+    doc.setFillColor(...color);
+    round ? doc.roundedRect(x, y, w, h, round, round, 'F') : doc.rect(x, y, w, h, 'F');
+  }
+  function line(x1,y1,x2,y2,color=[40,40,40],lw=0.3) {
+    doc.setDrawColor(...color); doc.setLineWidth(lw); doc.line(x1,y1,x2,y2);
+  }
+  function wrap(text, x, y, maxW, lineH) {
+    const lines = doc.splitTextToSize(text, maxW);
+    doc.text(lines, x, y);
+    return y + lines.length * lineH;
+  }
+
+  // ══════════════════════════════════════════════
+  // PAGE 1 — COVER
+  // ══════════════════════════════════════════════
+  rect(0, 0, W, H, DARK);
+  // Gold accent bar top
+  rect(0, 0, W, 3, GOLD);
+  // Grid overlay lines (subtle)
+  doc.setDrawColor(40,38,30); doc.setLineWidth(0.2);
+  for (let gx = 0; gx < W; gx += 15) doc.line(gx, 0, gx, H);
+  for (let gy = 0; gy < H; gy += 15) doc.line(0, gy, W, gy);
+  // Re-draw background over grid to clean it
+  rect(0, 3, W, H-3, DARK);
+  // Subtle radial glow (approximate with a light circle)
+  doc.setFillColor(25, 22, 10); doc.circle(W*0.2, H*0.45, 80, 'F');
+
+  // Logo
+  setFont(9, 'bold', MUTED);
+  doc.setCharSpace(3);
+  doc.text('SILVERBULLET', W/2, 28, { align: 'center' });
+  doc.setCharSpace(3);
+  setFont(9, 'bold', GOLD);
+  doc.text('SWEEP', W/2, 35, { align: 'center' });
+  doc.setCharSpace(0);
+
+  // Badge
+  const badgeW = 64, badgeH = 8, badgeX = W/2 - badgeW/2, badgeY = 50;
+  rect(badgeX, badgeY, badgeW, badgeH, CARD, 1);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.3);
+  doc.roundedRect(badgeX, badgeY, badgeW, badgeH, 1, 1, 'S');
+  setFont(7, 'bold', GOLD);
+  doc.setCharSpace(2);
+  doc.text('STRATEGIC AI AUDIT', W/2, badgeY + 5.2, { align:'center' });
+  doc.setCharSpace(0);
+
+  // Main headline
+  setFont(28, 'bold', LIGHT);
+  doc.text('AI Prescription', W/2, 80, { align:'center' });
+  setFont(28, 'bold', GOLD);
+  doc.text('Report', W/2, 94, { align:'center' });
+
+  // Business name
+  setFont(14, 'normal', MUTED);
+  doc.text(biz, W/2, 110, { align:'center' });
+
+  // Divider
+  rect(W/2 - 20, 117, 40, 0.5, GOLD);
+
+  // Score ring (drawn with arcs)
+  const cx = W/2, cy = 155, r = 28;
+  // Background circle
+  doc.setDrawColor(40,38,20); doc.setLineWidth(4); doc.circle(cx, cy, r, 'S');
+  // Score arc
+  const scoreAngle = (score / 100) * 360;
+  doc.setDrawColor(...GOLD); doc.setLineWidth(4);
+  // Draw arc segments to simulate the score ring
+  const segs = Math.round(scoreAngle / 5);
+  for (let s = 0; s < segs; s++) {
+    const a1 = (-90 + s * 5) * Math.PI / 180;
+    const a2 = (-90 + (s+1) * 5) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    doc.line(x1, y1, x2, y2);
+  }
+  // Score number
+  setFont(26, 'bold', GOLD);
+  doc.text(String(score), cx, cy + 4, { align:'center' });
+  setFont(7, 'normal', MUTED);
+  doc.setCharSpace(1);
+  doc.text('/ 100', cx, cy + 10, { align:'center' });
+  doc.setCharSpace(0);
+
+  // Readiness band
+  let bandColor = GOLD, bandText = 'DEVELOPING — CLEAR QUICK WINS';
+  if (score < 35) { bandColor = RED; bandText = 'EARLY STAGE — HIGH OPPORTUNITY'; }
+  else if (score >= 65) { bandColor = GREEN; bandText = 'ADVANCED — OPTIMISE & SCALE'; }
+  const bW = 100, bH = 9, bX = W/2 - bW/2, bY = cy + 18;
+  doc.setFillColor(bandColor[0]*0.15+10, bandColor[1]*0.15+10, bandColor[2]*0.15+10);
+  doc.roundedRect(bX, bY, bW, bH, 1, 1, 'F');
+  doc.setDrawColor(...bandColor); doc.setLineWidth(0.3);
+  doc.roundedRect(bX, bY, bW, bH, 1, 1, 'S');
+  setFont(6.5, 'bold', bandColor);
+  doc.setCharSpace(1.5);
+  doc.text(bandText, W/2, bY + 5.8, { align:'center' });
+  doc.setCharSpace(0);
+
+  // Prepared for
+  setFont(8, 'normal', DIM);
+  doc.text('Prepared for', W/2, cy + 38, { align:'center' });
+  setFont(10, 'bold', LIGHT);
+  doc.text(name || biz, W/2, cy + 46, { align:'center' });
+  setFont(8, 'normal', DIM);
+  const today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  doc.text(today, W/2, cy + 53, { align:'center' });
+
+  // Bottom branding
+  rect(0, H-22, W, 22, CARD);
+  line(0, H-22, W, H-22, GOLD, 0.5);
+  setFont(7, 'normal', MUTED);
+  doc.text('silverbulletpro.com', 14, H-12);
+  doc.text('david@silverbulletpro.com', W/2, H-12, { align:'center' });
+  doc.text('calendly.com/david-sweep', W-14, H-12, { align:'right' });
+  rect(0, H-3, W, 3, GOLD);
+
+  // ══════════════════════════════════════════════
+  // PAGE 2 — EXECUTIVE SUMMARY
+  // ══════════════════════════════════════════════
+  doc.addPage();
+  rect(0, 0, W, H, DARK);
+  rect(0, 0, W, 3, GOLD);
+
+  // Header
+  rect(0, 3, W, 28, CARD);
+  line(0, 31, W, 31, BORDER, 0.3);
+  setFont(7, 'bold', GOLD); doc.setCharSpace(2);
+  doc.text('AI PRESCRIPTION REPORT', 14, 13); doc.setCharSpace(0);
+  setFont(10, 'bold', LIGHT);
+  doc.text(biz, 14, 22);
+  setFont(8, 'normal', MUTED);
+  doc.text('Executive Summary', W-14, 22, { align:'right' });
+
+  let y = 46;
+
+  // Summary intro box
+  rect(14, y, W-28, 28, CARD, 2);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.3);
+  doc.roundedRect(14, y, W-28, 28, 2, 2, 'S');
+  setFont(8, 'normal', MUTED);
+  doc.text('AUDIT SUMMARY', 22, y+8);
+  setFont(9, 'normal', LIGHT);
+  const summaryText = score < 35
+    ? `${biz} is currently operating with significant manual processes across key departments. This represents a major opportunity — targeted AI implementation could transform efficiency and free up considerable time and resource.`
+    : score < 65
+    ? `${biz} has begun its AI journey but several high-value opportunities remain untapped. With targeted implementation in 2-3 key areas, growth could accelerate significantly.`
+    : `${biz} has a strong AI foundation. The priority now is optimisation, scaling successful implementations, and staying ahead of the competition.`;
+  const sumLines = doc.splitTextToSize(summaryText, W-44);
+  doc.text(sumLines, 22, y+16);
+  y += 36;
+
+  // Key stats row
+  const stats = [
+    { label:'AI Readiness Score', value: score+'/100' },
+    { label:'Opportunities Found', value: opps.length.toString() },
+    { label:'Est. Weekly Loss', value:'£'+weeklyVal.toLocaleString() },
+    { label:'Est. Annual Impact', value:'£'+annualVal.toLocaleString() },
+  ];
+  const statW = (W-28-9) / 4, statH = 22;
+  stats.forEach((s, i) => {
+    const sx = 14 + i * (statW+3), sy = y;
+    rect(sx, sy, statW, statH, CARD, 2);
+    doc.setDrawColor(...BORDER); doc.setLineWidth(0.2);
+    doc.roundedRect(sx, sy, statW, statH, 2, 2, 'S');
+    setFont(14, 'bold', GOLD);
+    doc.text(s.value, sx + statW/2, sy+13, { align:'center' });
+    setFont(6, 'normal', MUTED);
+    doc.setCharSpace(0.5);
+    doc.text(s.label.toUpperCase(), sx + statW/2, sy+19, { align:'center' });
+    doc.setCharSpace(0);
+  });
+  y += statH + 14;
+
+  // Divider
+  line(14, y, W-14, y, BORDER);
+  y += 10;
+
+  // About section
+  setFont(11, 'bold', LIGHT); doc.text('About Your Business', 14, y); y += 8;
+  if (answers.business_desc) {
+    const desc = answers.business_desc;
+    setFont(9, 'normal', MUTED);
+    y = wrap(desc.length > 200 ? desc.substring(0,200)+'...' : desc, 14, y, W-28, 5.5) + 8;
+  }
+
+  // Biggest challenge
+  if (answers.biggest_challenge) {
+    rect(14, y, W-28, 2, GOLD);
+    y += 8;
+    setFont(8, 'bold', GOLD); doc.text('KEY CHALLENGE IDENTIFIED', 14, y); y += 7;
+    setFont(9, 'normal', LIGHT);
+    const ch = answers.biggest_challenge;
+    y = wrap('"'+(ch.length>220?ch.substring(0,220)+'...':ch)+'"', 14, y, W-28, 5.5) + 10;
+  }
+
+  // ROI highlight
+  rect(14, y, W-28, 30, CARD, 2);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.5);
+  doc.line(14, y, 14, y+30); // left gold bar
+  doc.setLineWidth(0.2);
+  doc.roundedRect(14, y, W-28, 30, 2, 2, 'S');
+  setFont(7, 'bold', MUTED); doc.setCharSpace(1);
+  doc.text('ESTIMATED COST OF MANUAL OPERATIONS', 22, y+9); doc.setCharSpace(0);
+  setFont(22, 'bold', GOLD);
+  doc.text('£'+annualVal.toLocaleString(), 22, y+22);
+  setFont(8, 'normal', MUTED);
+  doc.text('per year — in time that AI could reclaim', 22+doc.getTextWidth('£'+annualVal.toLocaleString())+3, y+22);
+  setFont(7, 'normal', DIM);
+  doc.text(`Based on ${hoursWasted}hrs/week of manual tasks at £30/hr blended cost`, 22, y+28);
+  y += 40;
+
+  // Bottom branding
+  rect(0, H-22, W, 22, CARD);
+  line(0, H-22, W, H-22, GOLD, 0.5);
+  setFont(7, 'normal', MUTED);
+  doc.text('silverbulletpro.com', 14, H-12);
+  doc.text(`${biz} — Confidential AI Audit Report`, W/2, H-12, { align:'center' });
+  doc.text('Page 2', W-14, H-12, { align:'right' });
+  rect(0, H-3, W, 3, GOLD);
+
+  // ══════════════════════════════════════════════
+  // PAGES 3+ — OPPORTUNITY CARDS
+  // ══════════════════════════════════════════════
+  const renderOppPage = (startIdx) => {
+    doc.addPage();
+    rect(0, 0, W, H, DARK);
+    rect(0, 0, W, 3, GOLD);
+    rect(0, 3, W, 28, CARD);
+    line(0, 31, W, 31, BORDER, 0.3);
+    setFont(7, 'bold', GOLD); doc.setCharSpace(2);
+    doc.text('AI PRESCRIPTION REPORT', 14, 13); doc.setCharSpace(0);
+    setFont(10, 'bold', LIGHT); doc.text(biz, 14, 22);
+    setFont(8, 'normal', MUTED);
+    doc.text('Identified Opportunities', W-14, 22, { align:'right' });
+
+    let py = 42;
+
+    for (let oi = startIdx; oi < opps.length; oi++) {
+      const opp = opps[oi];
+      const pColor = opp.priority==='high' ? RED : opp.priority==='quick' ? GREEN : GOLD;
+      const pLabel = opp.priorityLabel.replace(/[🔴🟡🟢]\s*/,'');
+
+      // Estimate card height
+      const titleH = 10;
+      const probLines = doc.splitTextToSize(opp.problem, W-48);
+      const solLines  = doc.splitTextToSize(opp.solution, W-52);
+      const toolsH = Math.ceil(opp.tools.length/4)*8;
+      const cardH = titleH + probLines.length*5 + solLines.length*5 + toolsH + 42;
+
+      if (py + cardH > H-30) {
+        // Footer first
+        rect(0, H-22, W, 22, CARD);
+        line(0, H-22, W, H-22, GOLD, 0.5);
+        setFont(7,'normal',MUTED);
+        doc.text('silverbulletpro.com', 14, H-12);
+        doc.text(`${biz} — Confidential AI Audit Report`, W/2, H-12, {align:'center'});
+        doc.text('Page '+(oi+2), W-14, H-12, {align:'right'});
+        rect(0, H-3, W, 3, GOLD);
+        renderOppPage(oi);
+        return;
+      }
+
+      // Card background
+      rect(14, py, W-28, cardH, CARD, 2);
+      // Priority accent bar (left)
+      rect(14, py, 4, cardH, pColor, 0);
+      doc.setDrawColor(...BORDER); doc.setLineWidth(0.2);
+      doc.roundedRect(14, py, W-28, cardH, 2, 2, 'S');
+
+      // Priority badge
+      doc.setFillColor(pColor[0]*0.12+12, pColor[1]*0.12+12, pColor[2]*0.12+12);
+      const badgeW2 = doc.getTextWidth(pLabel)+8;
+      doc.roundedRect(W-14-badgeW2-4, py+6, badgeW2, 7, 1, 1, 'F');
+      doc.setDrawColor(...pColor); doc.setLineWidth(0.2);
+      doc.roundedRect(W-14-badgeW2-4, py+6, badgeW2, 7, 1, 1, 'S');
+      setFont(6.5, 'bold', pColor); doc.setCharSpace(0.5);
+      doc.text(pLabel.toUpperCase(), W-14-badgeW2/2-4, py+11.2, {align:'center'});
+      doc.setCharSpace(0);
+
+      // Title
+      setFont(11, 'bold', LIGHT);
+      doc.text(opp.title, 22, py+13);
+      py += 20;
+
+      // Problem
+      setFont(7, 'bold', MUTED); doc.setCharSpace(1);
+      doc.text('THE PROBLEM', 22, py); doc.setCharSpace(0);
+      py += 6;
+      setFont(8.5, 'normal', [200,200,195]);
+      const pl = doc.splitTextToSize(opp.problem, W-48);
+      doc.text(pl, 22, py); py += pl.length*5 + 8;
+
+      // Solution box
+      rect(22, py-2, W-44, solLines.length*5+toolsH+18, [20,20,16], 1);
+      doc.setDrawColor(0,100,150); doc.setLineWidth(0.2);
+      doc.roundedRect(22, py-2, W-44, solLines.length*5+toolsH+18, 1, 1, 'S');
+      setFont(6.5, 'bold', CYAN); doc.setCharSpace(1.5);
+      doc.text('AI PRESCRIPTION', 28, py+5); doc.setCharSpace(0);
+      py += 10;
+      setFont(8.5, 'normal', MUTED);
+      const sl = doc.splitTextToSize(opp.solution, W-56);
+      doc.text(sl, 28, py); py += sl.length*5 + 6;
+
+      // Tools
+      setFont(7, 'normal', CYAN);
+      let tx = 28;
+      opp.tools.forEach(t => {
+        const tw = doc.getTextWidth(t)+6;
+        if (tx + tw > W-24) { tx=28; py+=7; }
+        doc.setFillColor(0,30,40);
+        doc.roundedRect(tx, py-4, tw, 6.5, 1, 1, 'F');
+        doc.text(t, tx+3, py+0.8);
+        tx += tw+4;
+      });
+
+      py += 16;
+    }
+
+    // Footer
+    rect(0, H-22, W, 22, CARD);
+    line(0, H-22, W, H-22, GOLD, 0.5);
+    setFont(7,'normal',MUTED);
+    doc.text('silverbulletpro.com', 14, H-12);
+    doc.text(`${biz} — Confidential AI Audit Report`, W/2, H-12, {align:'center'});
+    doc.text('Page '+(startIdx+3), W-14, H-12, {align:'right'});
+    rect(0, H-3, W, 3, GOLD);
+  };
+
+  renderOppPage(0);
+
+  // ══════════════════════════════════════════════
+  // BACK PAGE — CTA
+  // ══════════════════════════════════════════════
+  doc.addPage();
+  rect(0, 0, W, H, DARK);
+  rect(0, 0, W, 3, GOLD);
+  // Subtle top radial
+  doc.setFillColor(18,16,6); doc.ellipse(W/2, 60, 100, 60, 'F');
+  rect(0, 3, W, 1, DARK);
+
+  // Headline
+  setFont(9, 'bold', GOLD); doc.setCharSpace(2);
+  doc.text('NEXT STEPS', W/2, 55, { align:'center' }); doc.setCharSpace(0);
+  setFont(24, 'bold', LIGHT);
+  doc.text('Ready to act on', W/2, 75, { align:'center' });
+  setFont(24, 'bold', GOLD);
+  doc.text('your results?', W/2, 89, { align:'center' });
+  setFont(10, 'normal', MUTED);
+  const ctaSub = `Book a free 30-minute strategy call with David at SilverBullet SWEEP. Walk through your report, see a live demo of SWEEP in action, and leave with a clear AI roadmap tailored to ${biz}.`;
+  const ctaLines = doc.splitTextToSize(ctaSub, 140);
+  doc.text(ctaLines, W/2, 104, { align:'center' });
+
+  // Calendly box
+  const cbY = 125, cbH = 28;
+  rect(W/2-55, cbY, 110, cbH, GOLD, 2);
+  setFont(9, 'bold', DARK);
+  doc.text('Book Your Free Strategy Call', W/2, cbY+11, { align:'center' });
+  setFont(8, 'normal', [60,40,5]);
+  doc.text('calendly.com/david-sweep/sweep-david-coffee-chat', W/2, cbY+20, { align:'center' });
+
+  // Three steps
+  let sy = 168;
+  [['1','Book a call','Schedule your free 30-minute strategy session with David at SilverBullet SWEEP.'],
+   ['2','Get your roadmap','Receive a tailored AI implementation roadmap with clear priorities and ROI projections.'],
+   ['3','Pilot and prove','Start with a low-risk pilot in your highest-priority area. Results within 48-72 hours.']
+  ].forEach(([num, title, desc]) => {
+    // Number circle
+    doc.setFillColor(...GOLD); doc.circle(22, sy, 6, 'F');
+    setFont(9, 'bold', DARK); doc.text(num, 22, sy+3, { align:'center' });
+    // Text
+    setFont(10, 'bold', LIGHT); doc.text(title, 32, sy);
+    setFont(8, 'normal', MUTED);
+    const dl = doc.splitTextToSize(desc, W-50);
+    doc.text(dl, 32, sy+6);
+    sy += dl.length*5 + 16;
+  });
+
+  // Contact strip
+  const contactY = H-50;
+  rect(14, contactY, W-28, 28, CARD, 2);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.3);
+  doc.roundedRect(14, contactY, W-28, 28, 2, 2, 'S');
+  setFont(7, 'bold', MUTED); doc.setCharSpace(1.5);
+  doc.text('GET IN TOUCH', 22, contactY+9); doc.setCharSpace(0);
+  setFont(9, 'bold', LIGHT); doc.text('David Bennett', 22, contactY+17);
+  setFont(8, 'normal', MUTED);
+  doc.text('SilverBullet SWEEP', 22, contactY+24);
+  setFont(8, 'normal', GOLD);
+  doc.text('david@silverbulletpro.com', W/2, contactY+17, { align:'center' });
+  doc.text('silverbulletpro.com', W/2, contactY+24, { align:'center' });
+  setFont(8, 'bold', LIGHT);
+  doc.text('This report is confidential', W-22, contactY+17, { align:'right' });
+  setFont(7, 'normal', MUTED);
+  doc.text('Prepared by SilverBullet SWEEP', W-22, contactY+24, { align:'right' });
+
+  rect(0, H-22, W, 22, CARD);
+  line(0, H-22, W, H-22, GOLD, 0.5);
+  setFont(7,'normal',MUTED);
+  doc.text('silverbulletpro.com', 14, H-12);
+  doc.text(`${biz} — Confidential AI Audit Report`, W/2, H-12, {align:'center'});
+  doc.text('© SilverBullet SWEEP '+new Date().getFullYear(), W-14, H-12, {align:'right'});
+  rect(0, H-3, W, 3, GOLD);
+
+  doc.save(`SWEEP_AI_Audit_${biz.replace(/\s+/g,'_')}.pdf`);
+}
+
+// ── Reset ──────────────────────────────────────────────────
 function resetAudit() {
-  Object.keys(answers).forEach(k => delete answers[k]);
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  contact.name=''; contact.business=''; contact.email=''; contact.phone='';
   document.getElementById('results').classList.remove('revealed');
-  document.getElementById('score-arc').style.strokeDashoffset = '326.7';
-  document.getElementById('score-arc').style.transition = 'none';
+  const arc = document.getElementById('score-arc');
+  arc.style.transition='none'; arc.style.strokeDashoffset='326.7';
   goTo(0);
 }
 
-
-// ── Theme toggle ───────────────────────────────────────────
-const SUN_SVG = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+// ── Theme ──────────────────────────────────────────────────
+const SUN_SVG  = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
 const MOON_SVG = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-let isLight = true;
 
 function toggleTheme() {
   const wrapper = document.getElementById('audit-wrapper');
   const app = document.getElementById('app');
-  app.style.opacity = '0';
-  setTimeout(() => {
-    isLight = !isLight;
-    wrapper.classList.toggle('light', isLight);
-    const gold = isLight ? '#b8962e' : '#d4af37';
+  app.style.opacity='0';
+  setTimeout(()=>{
+    isLight=!isLight;
+    wrapper.classList.toggle('dark', !isLight);
+    const gold = isLight?'#b8962e':'#d4af37';
     const icon = document.getElementById('toggle-icon');
     icon.setAttribute('stroke', gold);
-    icon.innerHTML = isLight ? MOON_SVG : SUN_SVG;
-    document.getElementById('toggle-label').textContent = isLight ? 'Dark' : 'Light';
-    const arcCircle = document.getElementById('score-arc-circle'); if (arcCircle) arcCircle.setAttribute('stroke', gold);
-
-    // Update slider gradients if on a slider question
-    const slider = document.getElementById('q-slider-' + (QUESTIONS[currentStep-1] && QUESTIONS[currentStep-1].id));
-    if (slider) {
-      const q = QUESTIONS[currentStep-1];
-      updateSlider(q.id, slider, q.min, q.max);
+    icon.innerHTML = isLight?MOON_SVG:SUN_SVG;
+    document.getElementById('toggle-label').textContent = isLight?'Dark':'Light';
+    const arcEl = document.getElementById('score-arc');
+    if (arcEl) arcEl.setAttribute('stroke', gold);
+    // Re-render slider if visible
+    if (typeof currentStep==='number'&&currentStep>=1&&currentStep<=TOTAL_STEPS) {
+      const q=QUESTIONS[currentStep-1];
+      if(q.type==='slider'){const sl=document.getElementById('q-slider-'+q.id);if(sl)updateSlider(q.id,sl,q.min,q.max);}
     }
-    app.style.opacity = '1';
+    app.style.opacity='1';
   }, 150);
 }
 
