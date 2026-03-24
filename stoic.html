@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memento Mori | Remember Your Mortality</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #666666;
+            --lived-color: #1a1a1a;
+            --remaining-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8vh 20px 10vh;
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        /* Header Styles */
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            color: #fff;
+        }
+
+        p.tagline {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+        }
+
+        /* Inputs */
+        .input-section {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select, input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            padding: 5px 10px;
+            width: 100px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            -moz-appearance: textfield;
+        }
+
+        select { width: 130px; cursor: pointer; }
+        select option { background: var(--bg-color); color: var(--text-main); }
+        
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input:focus, select:focus {
+            border-bottom: 1px solid var(--text-main);
+        }
+
+        button {
+            background: var(--text-main);
+            color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 40px;
+            cursor: pointer;
+            border: 1px solid var(--text-main);
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* Stats & Grid */
+        .stats {
+            margin-top: 40px;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .stats.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .stats-numbers {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .stats-numbers span {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(52, 1fr);
+            gap: 4px;
+            margin-top: 40px;
+            max-width: 100%;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+
+        .cell.lived { 
+            background-color: var(--lived-color); 
+        }
+        
+        .cell.remaining { 
+            background-color: var(--remaining-color); 
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Dynamic Quote */
+        .quote {
+            margin-top: 80px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        @media (max-width: 768px) {
+            #grid { grid-template-columns: repeat(26, 1fr); gap: 3px; }
+            h1 { font-size: 2.5rem; }
+            .stats-numbers { font-size: 1.8rem; }
+            .stats-numbers span { font-size: 2.2rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Memento Mori</h1>
+    <p class="tagline">Time is the only non-renewable resource.</p>
+
+    <div class="input-section">
+        <div class="input-group">
+            <label for="gender">Sex</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="years">Years</label>
+            <input type="number" id="years" placeholder="0" min="0" max="100">
+        </div>
+        <div class="input-group">
+            <label for="months">Months</label>
+            <input type="number" id="months" placeholder="0" min="0" max="11">
+        </div>
+    </div>
+    
+    <button onclick="calculateLife()">Visualize My Time</button>
+
+    <div id="stats-display" class="stats">
+        <div class="stats-numbers" id="stats-text"></div>
+        <div id="grid"></div>
+        <div class="quote" id="stoic-quote"></div>
+    </div>
+</div>
+
+<script>
+    const quotes = [
+        "It is not that we have a short time to live, but that we waste a lot of it. — Seneca",
+        "You could leave life right now. Let that determine what you do and say and think. — Marcus Aurelius",
+        "Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. — Seneca",
+        "Death smiles at us all, but all a man can do is smile back. — Marcus Aurelius",
+        "No man can have a peaceful life who thinks too much about lengthening it. — Seneca"
+    ];
+
+    function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    function calculateLife() {
+        const gender = document.getElementById('gender').value;
+        const years = parseInt(document.getElementById('years').value) || 0;
+        const months = parseInt(document.getElementById('months').value) || 0;
+
+        // Current US Average Life Expectancy
+        const expectancy = (gender === 'male') ? 76.3 : 81.2;
+        
+        const totalWeeks = Math.floor(expectancy * 52);
+        const livedWeeks = Math.floor((years * 52) + (months * 4.33));
+        const remainingWeeks = Math.max(0, totalWeeks - livedWeeks);
+
+        // UI Updates
+        const statsDisplay = document.getElementById('stats-display');
+        const statsText = document.getElementById('stats-text');
+        const quoteElement = document.getElementById('stoic-quote');
+        const grid = document.getElementById('grid');
+
+        // Reset and show container
+        statsDisplay.classList.remove('visible');
+        grid.innerHTML = '';
+        quoteElement.style.opacity = 0;
+
+        setTimeout(() => {
+            statsDisplay.classList.add('visible');
+            
+            // Set Text Template
+            statsText.innerHTML = `You have <span id="weeks-count">0</span> weeks left.`;
+            
+            // Animate Numbers
+            const countElement = document.getElementById('weeks-count');
+            animateValue(countElement, 0, remainingWeeks, 1500);
+
+            // Generate Grid
+            for (let i = 0; i < totalWeeks; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                if (i < livedWeeks) {
+                    cell.classList.add('lived');
+                } else {
+                    cell.classList.add('remaining');
+                }
+                grid.appendChild(cell);
+            }
+
+            // Set Random Quote
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteElement.innerHTML = randomQuote;
+            
+            setTimeout(() => {
+                quoteElement.style.opacity = 1;
+            }, 1000);
+
+            // Smooth Scroll
+            window.scrollTo({ top: statsDisplay.offsetTop - 50, behavior: 'smooth' });
+
+        }, 100);
+    }
+</script>
+
+</body>
+</html>
