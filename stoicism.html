@@ -70,6 +70,7 @@
     opacity: 0.04;
     line-height: 1;
     user-select: none;
+    pointer-events: none; /* FIX: Prevents skull from blocking clicks */
     filter: blur(2px);
     animation: breathe 8s ease-in-out infinite;
   }
@@ -149,6 +150,7 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(201,74,26,0.04), transparent 50%);
+    pointer-events: none; /* FIX: Prevents the gradient overlay from swallowing clicks */
   }
 
   .form-row {
@@ -156,6 +158,8 @@
     gap: 16px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+    position: relative; /* Safety addition */
+    z-index: 1; /* Safety addition */
   }
 
   .form-group {
@@ -212,6 +216,7 @@
     transition: background 0.3s, transform 0.1s;
     position: relative;
     overflow: hidden;
+    z-index: 1; /* Safety addition */
   }
 
   .cta-btn::after {
@@ -219,6 +224,7 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.06));
+    pointer-events: none;
   }
 
   .cta-btn:hover { background: var(--ember); }
@@ -231,6 +237,8 @@
     margin-top: 10px;
     display: none;
     text-align: center;
+    position: relative;
+    z-index: 1;
   }
 
   /* ---- RESULTS ---- */
@@ -606,7 +614,6 @@
 
 <div class="vignette"></div>
 
-<!-- LANDING SCREEN -->
 <section id="landing">
   <div class="skull-bg">☠</div>
 
@@ -636,12 +643,11 @@
         </div>
       </div>
       <button class="cta-btn" onclick="calculate()">FACE YOUR MORTALITY →</button>
-      <p class="error-msg" id="error-msg">⚠ Please enter your gender and age to proceed.</p>
+      <p class="error-msg" id="error-msg"></p>
     </div>
   </div>
 </section>
 
-<!-- RESULTS SCREEN -->
 <section id="results">
   <div class="results-inner">
 
@@ -650,13 +656,11 @@
       <h2>The Clock<br>is <span id="res-running">Running</span></h2>
     </div>
 
-    <!-- Live Countdown -->
     <div class="ticker animate-in">
       <span class="ticker-label">Seconds of life remaining ≈</span>
       <span class="ticker-time" id="live-counter">—</span>
     </div>
 
-    <!-- Stats -->
     <div class="stats-row animate-in">
       <div class="stat-box gone">
         <div class="stat-num" id="years-lived">—</div>
@@ -672,7 +676,6 @@
       </div>
     </div>
 
-    <!-- Progress Bar -->
     <div class="progress-section animate-in">
       <div class="section-title">Your Life Progress</div>
       <div class="progress-track">
@@ -685,7 +688,6 @@
       </div>
     </div>
 
-    <!-- Weeks Grid -->
     <div class="grid-section animate-in">
       <div class="section-title">Every Week of Your Life — One Square</div>
       <div id="life-grid"></div>
@@ -696,7 +698,6 @@
       </p>
     </div>
 
-    <!-- Time Equivalents -->
     <div class="animate-in">
       <div class="section-title">Time Remaining — Broken Down</div>
       <div class="time-grid">
@@ -735,19 +736,16 @@
       </div>
     </div>
 
-    <!-- Quote -->
     <div class="quote-block animate-in" id="rand-quote">
       <div class="quote-text" id="quote-text">—</div>
       <div class="quote-attr" id="quote-attr">—</div>
     </div>
 
-    <!-- Message -->
     <div class="message-block animate-in">
       <p id="message-text">Stop. <em>Think.</em> Act.</p>
       <p class="message-sub" id="message-sub">The thing you keep putting off? Do it now.</p>
     </div>
 
-    <!-- Share -->
     <div class="share-row animate-in">
       <button class="share-btn" onclick="shareTwitter()">Share on X / Twitter</button>
       <button class="share-btn" onclick="copyLink()">Copy Link</button>
@@ -801,12 +799,13 @@
     const err = document.getElementById('error-msg');
 
     if (!gender || (years === 0 && months === 0)) {
+      err.textContent = '⚠ Please enter your gender and age to proceed.';
       err.style.display = 'block';
       return;
     }
     if (years > 110 || years < 0) {
-      err.style.display = 'block';
       err.textContent = '⚠ Please enter a valid age.';
+      err.style.display = 'block';
       return;
     }
     err.style.display = 'none';
