@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWEEP — Turn Dead Leads Into Live Revenue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root[data-theme="dark"] {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --dark: #0A0A0A;
+    --dark-2: #111111;
+    --dark-3: #1A1A1A;
+    --text: #F0EDE6;
+    --text-muted: rgba(240,237,230,0.55);
+    --text-soft: rgba(240,237,230,0.8);
+    --border: rgba(201,168,76,0.2);
+    --bg-phone: #1A1A1A;
+    --btn-text: #0A0A0A;
+  }
+
+  :root[data-theme="light"] {
+    --gold: #A68936;
+    --gold-light: #C9A84C;
+    --gold-dim: rgba(166,137,54,0.1);
+    --dark: #FCFAF7;
+    --dark-2: #F2F0EB;
+    --dark-3: #E8E5DF;
+    --text: #1A1A1A;
+    --text-muted: rgba(26,26,26,0.6);
+    --text-soft: rgba(26,26,26,0.8);
+    --border: rgba(166,137,54,0.25);
+    --bg-phone: #ffffff;
+    --btn-text: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.6;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.2;
+  }
+
+  /* ── HEADER & THEME TOGGLE ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s ease;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: var(--text);
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    display: block;
+    margin-top: -0.2rem;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .theme-toggle {
+    background: var(--dark-3);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    margin-right: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    background: var(--gold-dim);
+  }
+
+  .nav-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 3rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 70% 40%, var(--gold-dim) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  .hero-line {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    right: 38%;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-heading em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-soft);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: #0A0A0A; /* Fixed for contrast on gold */
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.8);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary:hover { color: #0A0A0A; }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .hero-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--dark-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 0.9rem 0;
+    transition: background 0.4s ease;
+  }
+
+  .ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 2.5rem;
+  }
+
+  .ticker-item span {
+    color: var(--gold);
+    margin-right: 1rem;
+  }
+
+  /* ── SECTIONS & GRID ── */
+  .section {
+    padding: 7rem 3rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .big-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--dark-3);
+    -webkit-text-stroke: 1px var(--border);
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+    transition: -webkit-text-stroke 0.3s, color 0.4s;
+  }
+
+  .problem-grid:hover .big-number {
+    -webkit-text-stroke: 1px rgba(201,168,76,0.6);
+  }
+
+  .problem-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .problem-text p {
+    color: var(--text-soft);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-bg {
+    background: var(--dark-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s ease;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .step:last-child { border-right: none; }
+  .step:hover { background: var(--gold-dim); }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--dark-3);
+    -webkit-text-stroke: 1px var(--border);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    display: block;
+    transition: color 0.4s;
+  }
+
+  .step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .step-arrow {
+    position: absolute;
+    right: -1px; top: 50%;
+    transform: translateY(-50%);
+    width: 28px; height: 28px;
+    background: var(--dark-2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: var(--gold);
+    z-index: 2;
+  }
+
+  .step:last-child .step-arrow { display: none; }
+
+  /* ── LIVE EXAMPLE (DYNAMIC SMS) ── */
+  .demo-bg {
+    background: var(--dark-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s ease;
+  }
+
+  .demo-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .demo-copy h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .demo-copy p {
+    color: var(--text-soft);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .industry-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .ind-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .ind-btn:hover {
+    border-color: var(--gold);
+    color: var(--text);
+  }
+
+  .ind-btn.active {
+    background: var(--gold);
+    color: #0A0A0A;
+    border-color: var(--gold);
+    font-weight: bold;
+  }
+
+  .phone-mock {
+    background: var(--bg-phone);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    transition: background 0.4s ease;
+  }
+
+  .phone-header {
+    background: var(--dark);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: background 0.4s ease;
+  }
+
+  .chat-window {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-height: 340px;
+  }
+
+  .msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 78%;
+    animation: msgIn 0.4s ease both;
+  }
+
+  .msg.outbound { align-self: flex-end; align-items: flex-end; }
+  .msg.inbound { align-self: flex-start; }
+
+  .msg-bubble {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    border-radius: 2px;
+  }
+
+  .msg.outbound .msg-bubble {
+    background: var(--gold);
+    color: #0A0A0A; /* Fixed contrast */
+    font-weight: 400;
+  }
+
+  .msg.inbound .msg-bubble {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+  }
+
+  .msg-time {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+    padding: 0 0.2rem;
+  }
+
+  .alert-badge {
+    margin-top: 2rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+  }
+
+  .alert-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* ── RESULTS ── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 4rem;
+    background: var(--border);
+  }
+
+  .result-card {
+    background: var(--dark);
+    padding: 3rem 2.5rem;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .result-card:hover { background: var(--dark-2); }
+  .result-card:hover::before { transform: scaleX(1); }
+
+  .result-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-desc {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── VERTICALS ── */
+  .verticals-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+  }
+
+  .vertical-item {
+    padding: 2rem 1.8rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.25s ease;
+    cursor: default;
+  }
+
+  .vertical-item:last-child { border-right: none; }
+  .vertical-item:hover { background: var(--gold-dim); }
+
+  .vertical-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .vertical-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── OFFER TIERS ── */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 4rem;
+    background: var(--border);
+  }
+
+  .tier {
+    background: var(--dark);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .tier:hover { background: var(--dark-2); }
+
+  .tier.featured {
+    background: var(--dark-2);
+    border: 1px solid var(--gold);
+    margin: -1px;
+    z-index: 2;
+  }
+
+  .tier-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.8rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  .tier.featured .tier-badge {
+    background: var(--gold);
+    color: #0A0A0A;
+    border-color: var(--gold);
+  }
+
+  .tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .tier-tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .tier-features {
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .tier-features li {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .tier-features li::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-section {
+    background: var(--dark-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 3rem;
+    text-align: center;
+    transition: background 0.4s ease;
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 0.5;
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 400;
+    font-style: italic;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .testimonial-text strong { color: var(--text); font-style: normal; }
+
+  .testimonial-source {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 10rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, var(--gold-dim) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-section p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 440px;
+    margin: 0 auto 3.5rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-large {
+    display: inline-block;
+    background: var(--gold);
+    color: #0A0A0A;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.3rem 4rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-large::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.8);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-large:hover::after { transform: translateX(0); }
+  .btn-large span { position: relative; z-index: 1; }
+
+  .cta-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .footer-legal {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header { padding: 1.2rem 1.5rem; }
+    .hero { padding: 8rem 1.5rem 4rem; }
+    .section { padding: 5rem 1.5rem; }
+    .problem-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-arrow { display: none; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .verticals-list { grid-template-columns: repeat(2, 1fr); }
+    .vertical-item:nth-child(2) { border-right: none; }
+    .vertical-item:nth-child(4) { border-right: none; }
+    .demo-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .tiers { grid-template-columns: 1fr; }
+    .tier.featured { margin: 0; }
+    .hero-line { display: none; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .cta-section { padding: 6rem 1.5rem; }
+    .testimonial-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    Sweep
+    <span>Revenue Recovery</span>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Mode">
+      <span id="theme-icon">☀️</span>
+    </button>
+    <a href="#cta" class="nav-cta">Get Started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">AI-Powered Database Reactivation</p>
+    <h1 class="hero-heading">Your next sale is<br>already in your <em>CRM.</em></h1>
+    <p class="hero-sub">You paid good money for those leads. They asked about your product. Then life got in the way. SWEEP finds them, texts them, and turns them into booked appointments — automatically.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary"><span>See How It Works →</span></a>
+      <p class="hero-note">No ads. No new leads. No extra staff.</p>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads straight to your WhatsApp</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads straight to your WhatsApp</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">The Problem</p>
+    <div class="problem-grid reveal">
+      <div>
+        <div class="big-number">80%</div>
+      </div>
+      <div class="problem-text">
+        <h2>of leads you paid for never buy. They don't disappear — they just go quiet.</h2>
+        <p>You spent money on Google Ads, Facebook campaigns, or referrals to get those enquiries. Your sales team called, emailed, followed up once. No reply. The lead got marked dead and forgotten.</p>
+        <p>But here's the truth: <strong>most of those people are still in-market.</strong> Life got busy. Timing was wrong. They meant to call back. SWEEP sends them a message — at the right time, in the right tone — and restarts the conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section how-bg">
+  <div class="section-inner">
+    <p class="section-label reveal">How It Works</p>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3>You Hand Us the List</h3>
+        <p>Export your old leads, past enquiries, dead quotes, and lapsed customers from your CRM. A simple CSV is all we need.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3>SWEEP Texts Them</h3>
+        <p>Our AI sends natural, personalised SMS messages that feel like a human checking in — not a marketing blast. Response rates: 20–45%.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3>You Close the Deal</h3>
+        <p>Hot leads fire straight to your WhatsApp instantly. Your team steps in only when someone is ready to buy. The AI handles everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo-bg">
+  <div class="section-inner">
+    <div class="demo-inner">
+      <div class="demo-copy reveal">
+        <p class="section-label">Live Example</p>
+        <h2>This is what a dead lead looks like when SWEEP wakes it up.</h2>
+        
+        <div class="industry-nav" id="industry-nav">
+          <button class="ind-btn active" data-industry="trades">Trades</button>
+          <button class="ind-btn" data-industry="solar">Solar</button>
+          <button class="ind-btn" data-industry="gym">Fitness</button>
+          <button class="ind-btn" data-industry="aesthetic">Medical</button>
+        </div>
+
+        <p id="demo-description">The message feels personal because it is. SWEEP uses the lead's name and original enquiry.</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem; border-left: 2px solid var(--border);">When Sweep Alerts mode is on, your team gets an instant WhatsApp notification the moment a lead responds. You step in, they close.</p>
+        
+        <div class="alert-badge" id="demo-alert" style="display: none;">
+          <div class="alert-dot"></div>
+          <span id="alert-text">🔥 HOT LEAD — Booking intent confirmed. Alert sent.</span>
+        </div>
+      </div>
+
+      <div class="phone-mock reveal">
+        <div class="phone-header">📱 SMS Conversation</div>
+        <div class="chat-window" id="chat-window">
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Typical Results</p>
+    <div class="results-grid reveal">
+      <div class="result-card">
+        <div class="result-stat">42%</div>
+        <div class="result-label">Average Reply Rate</div>
+        <div class="result-desc">On databases that were considered "dead." Most businesses expect 5–10%. SWEEP consistently delivers 3–5x that.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-stat">48h</div>
+        <div class="result-label">Time to First Revenue</div>
+        <div class="result-desc">Most clients see warm conversations and booked appointments within the first two days of going live.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-stat">£0</div>
+        <div class="result-label">Extra Ad Spend Required</div>
+        <div class="result-desc">Every lead SWEEP reactivates is one you already paid for. The ROI is built in before we even send message one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0">
+  <div class="section-inner">
+    <p class="section-label reveal">Who It Works For</p>
+    <div class="verticals-list reveal">
+      <div class="vertical-item">
+        <div class="vertical-icon">🏠</div>
+        <div class="vertical-name">Home Improvement &amp; Trades</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">🚗</div>
+        <div class="vertical-name">Car &amp; Commercial Dealerships</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">⚡</div>
+        <div class="vertical-name">Solar &amp; Energy</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">💆</div>
+        <div class="vertical-name">Medical Aesthetics &amp; Clinics</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">🏋️</div>
+        <div class="vertical-name">Gyms &amp; Fitness Studios</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">🏦</div>
+        <div class="vertical-name">Mortgage &amp; Finance Brokers</div>
+      </div>
+      <div class="vertical-item">
+        <div class="vertical-icon">🏗️</div>
+        <div class="vertical-name">Construction &amp; Surveying</div>
+      </div>
+      <div class="vertical-item" style="border-right:none">
+        <div class="vertical-icon">📦</div>
+        <div class="vertical-name">B2B Distributors &amp; Suppliers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section how-bg">
+  <div class="section-inner">
+    <p class="section-label reveal">Choose Your Model</p>
+    <div class="tiers reveal">
+      <div class="tier">
+        <div class="tier-badge">Sweep Recover</div>
+        <div class="tier-name">Human Closes</div>
+        <div class="tier-tagline">SWEEP finds the hot leads. Your team closes them. Best for high-ticket, relationship-driven sales.</div>
+        <ul class="tier-features">
+          <li>AI-powered SMS outreach</li>
+          <li>Instant WhatsApp hot-lead alerts</li>
+          <li>Stop word filtering &amp; opt-out handling</li>
+          <li>Auto booking link on first reply</li>
+          <li>Supabase lead tracking</li>
+        </ul>
+        <a href="#cta" class="btn-primary" style="width:100%; text-align:center; display:block;"><span>Book a Call →</span></a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-name">Sweep Qualify</div>
+        <div class="tier-tagline">SWEEP handles the full conversation — qualifying, objection handling, booking. Your team just shows up.</div>
+        <ul class="tier-features">
+          <li>Everything in Sweep Recover</li>
+          <li>Fully autonomous AI conversations</li>
+          <li>Personalised AI prompt per client</li>
+          <li>Calendar booking automation</li>
+          <li>Conversation history &amp; context</li>
+        </ul>
+        <a href="#cta" class="btn-primary" style="width:100%; text-align:center; display:block; background: var(--gold);"><span>Book a Call →</span></a>
+      </div>
+      <div class="tier">
+        <div class="tier-badge">Sweep Prospect</div>
+        <div class="tier-name">Cold Outreach</div>
+        <div class="tier-tagline">Target Directors of UK Ltd companies. SWEEP generates your pipeline from scratch using legitimate interests.</div>
+        <ul class="tier-features">
+          <li>B2B SMS &amp; AI outreach</li>
+          <li>UK Director targeting</li>
+          <li>Peer-to-peer tone &amp; spintax</li>
+          <li>AI qualification to call booking</li>
+          <li>Separate prospect tracking tables</li>
+        </ul>
+        <a href="#cta" class="btn-primary" style="width:100%; text-align:center; display:block;"><span>Book a Call →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section">
+  <span class="quote-mark reveal">"</span>
+  <p class="testimonial-text reveal">"We had no idea our old database was worth this much. Your system generated <strong>more appointments in two weeks</strong> than our Google Ads did in four months."</p>
+  <p class="testimonial-source reveal">Sales Director — £60M B2B Distributor</p>
+</section>
+
+<section class="cta-section" id="cta">
+  <div class="cta-bg-glow"></div>
+  <h2 class="reveal">Your leads are<br>waiting to hear<br>from you.</h2>
+  <p class="reveal">Book a 15-minute call and we'll show you exactly how many opportunities are sitting in your database right now — and what SWEEP would generate from them.</p>
+  <div class="cta-actions reveal">
+    <a href="mailto:david@silverbulletpro.com?subject=I%20want%20to%20see%20SWEEP%20in%20action" class="btn-large">
+      <span>Book Your Free Demo →</span>
+    </a>
+    <p class="cta-sub">No commitment. No pitch deck. Just a 15-minute demo on your actual data.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Sweep</div>
+  <div class="footer-legal">© 2026 SilverBullet Pro · Oakbank Innovations Ltd · Hamilton, Scotland</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">PECR Compliance</a>
+    <a href="mailto:david@silverbulletpro.com">david@silverbulletpro.com</a>
+  </div>
+</footer>
+
+<script>
+  // ── THEME TOGGLE LOGIC ──
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const html = document.documentElement;
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+  });
+
+  // ── DYNAMIC SMS LOGIC ──
+  const conversations = {
+    trades: [
+      { type: 'outbound', text: "Hi Mark — quick one. You asked about a house rewire a while back. Did you ever get that sorted?", time: "SWEEP → 6:14pm" },
+      { type: 'inbound', text: "Still thinking about it actually. Got a bit side-tracked. What kind of price?", time: "Mark → 6:19pm" },
+      { type: 'outbound', text: "Depends on the size — is it still the 4-bed in Shawlands? Happy to get someone out for a quick quote.", time: "SWEEP → 6:21pm" },
+      { type: 'inbound', text: "Yeah same place. That would be great actually — what's the earliest?", time: "Mark → 6:22pm" }
+    ],
+    solar: [
+      { type: 'outbound', text: "Hey Sarah, it's SWEEP. You checked your solar eligibility in Nov. Prices just dropped 15% — still interested?", time: "SWEEP → 10:05am" },
+      { type: 'inbound', text: "Oh really? I thought the grants had ended.", time: "Sarah → 10:40am" },
+      { type: 'outbound', text: "Grants changed, but hardware costs fell more. Want me to send the updated savings sheet for your roof?", time: "SWEEP → 10:42am" },
+      { type: 'inbound', text: "Please do. If it's under £6k total I'm in.", time: "Sarah → 11:05am" }
+    ],
+    gym: [
+      { type: 'outbound', text: "Hi James! You toured the gym in Jan but didn't sign up. Training solo or still looking for a spot?", time: "SWEEP → 4:00pm" },
+      { type: 'inbound', text: "Just haven't had time to get back in. Work's been crazy.", time: "James → 4:15pm" },
+      { type: 'outbound', text: "Totally get that. I can reactivate your trial for this week so you can come in late. Want the QR code?", time: "SWEEP → 4:16pm" },
+      { type: 'inbound', text: "That would actually be awesome. Yes please.", time: "James → 4:30pm" }
+    ],
+    aesthetic: [
+      { type: 'outbound', text: "Hi Elena, it's the clinic. You asked about the HydraFacial in Oct. We've got a last-minute opening tomorrow. Still interested?", time: "SWEEP → 9:00am" },
+      { type: 'inbound', text: "I am! Is the intro offer still valid?", time: "Elena → 9:15am" },
+      { type: 'outbound', text: "Since you've waited so long, I'll honour it. 11am or 2pm tomorrow?", time: "SWEEP → 9:16am" },
+      { type: 'inbound', text: "11am works perfectly. See you then!", time: "Elena → 9:20am" }
+    ]
+  };
+
+  let activeTimeouts = [];
+
+  function renderConversation(industry) {
+    const container = document.getElementById('chat-window');
+    const alertBadge = document.getElementById('demo-alert');
+    
+    // Clear any currently running typing animations
+    activeTimeouts.forEach(clearTimeout);
+    activeTimeouts = [];
+    
+    // Reset container and alert
+    container.innerHTML = ''; 
+    alertBadge.style.display = 'none';
+    
+    conversations[industry].forEach((msg, index) => {
+      const timeoutId = setTimeout(() => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `msg ${msg.type}`;
+        msgDiv.innerHTML = `
+          <div class="msg-bubble">${msg.text}</div>
+          <div class="msg-time">${msg.time}</div>
+        `;
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
+
+        // Show alert badge after last message
+        if (index === conversations[industry].length - 1) {
+          setTimeout(() => {
+            alertBadge.style.display = 'flex';
+          }, 600);
+        }
+      }, index * 900); // Staggered typing effect
+      
+      activeTimeouts.push(timeoutId);
+    });
+  }
+
+  // Initial render
+  renderConversation('trades');
+
+  // Button clicks for industry nav
+  document.getElementById('industry-nav').addEventListener('click', (e) => {
+    if (e.target.classList.contains('ind-btn')) {
+      document.querySelectorAll('.ind-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      renderConversation(e.target.dataset.industry);
+    }
+  });
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const children = entry.target.querySelectorAll('.reveal');
+        children.forEach((child, i) => {
+          child.style.transitionDelay = (i * 0.1) + 's';
+          child.classList.add('visible');
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── SMOOTH SCROLL ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ── BIG NUMBER COUNT UP ──
+  const bigNum = document.querySelector('.big-number');
+  if (bigNum) {
+    const numObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          let count = 0;
+          const target = 80;
+          const interval = setInterval(() => {
+            count += 2;
+            bigNum.textContent = count + '%';
+            if (count >= target) {
+              clearInterval(interval);
+              bigNum.textContent = '80%';
+            }
+          }, 25);
+          numObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    numObs.observe(bigNum);
+  }
+</script>
+</body>
+</html>
