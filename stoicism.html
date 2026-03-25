@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEMENTO MORI — You Will Die</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone: #E8E0D0;
+    --ash: #B8AFA0;
+    --deep: #0A0806;
+    --rust: #8B2E0A;
+    --ember: #C94A1A;
+    --gold: #C8943A;
+    --smoke: #1A1612;
+    --mid: #2A2420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--bone);
+    font-family: 'Courier Prime', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ---- LANDING ---- */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+  }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .skull-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(200px, 40vw, 500px);
+    opacity: 0.04;
+    line-height: 1;
+    user-select: none;
+    filter: blur(2px);
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.03; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.06; transform: translate(-50%, -50%) scale(1.03); }
+  }
+
+  .landing-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .latin-tag {
+    font-family: 'Courier Prime', monospace;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease both;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(52px, 10vw, 110px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+    animation: fadeIn 1s ease 0.2s both;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--ember);
+  }
+
+  .subtitle {
+    margin-top: 24px;
+    font-size: clamp(13px, 2vw, 16px);
+    color: var(--ash);
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+    animation: fadeIn 1s ease 0.4s both;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--rust);
+    margin: 30px auto;
+    animation: expandWidth 1s ease 0.6s both;
+  }
+
+  @keyframes expandWidth {
+    from { width: 0; opacity: 0; }
+    to { width: 60px; opacity: 1; }
+  }
+
+  /* ---- FORM ---- */
+  .form-card {
+    background: var(--smoke);
+    border: 1px solid rgba(200,148,58,0.15);
+    padding: 40px;
+    margin-top: 10px;
+    animation: fadeIn 1s ease 0.8s both;
+    position: relative;
+  }
+
+  .form-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,74,26,0.04), transparent 50%);
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 140px;
+    text-align: left;
+  }
+
+  label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  select, input[type="number"] {
+    width: 100%;
+    background: var(--mid);
+    border: 1px solid rgba(200,148,58,0.2);
+    color: var(--bone);
+    font-family: 'Courier Prime', monospace;
+    font-size: 18px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  select:focus, input[type="number"]:focus {
+    border-color: var(--ember);
+  }
+
+  select option { background: var(--mid); }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .cta-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--rust);
+    border: none;
+    color: var(--bone);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: crosshair;
+    transition: background 0.3s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.06));
+  }
+
+  .cta-btn:hover { background: var(--ember); }
+  .cta-btn:active { transform: scale(0.99); }
+
+  .error-msg {
+    color: var(--ember);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+    display: none;
+    text-align: center;
+  }
+
+  /* ---- RESULTS ---- */
+  #results {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .results-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .results-header .tag {
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--rust);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .results-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .results-header h2 span { color: var(--ember); font-style: italic; }
+
+  /* Stats Row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(200,148,58,0.1);
+    margin-bottom: 60px;
+  }
+
+  .stat-box {
+    background: var(--smoke);
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 2px solid transparent;
+    transition: border-color 0.5s;
+  }
+
+  .stat-box.gone { border-top-color: var(--rust); }
+  .stat-box.left { border-top-color: var(--gold); }
+  .stat-box.pct { border-top-color: var(--ash); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-box.gone .stat-num { color: var(--ember); }
+  .stat-box.left .stat-num { color: var(--gold); }
+  .stat-box.pct .stat-num { color: var(--ash); }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ash);
+  }
+
+  /* Life Grid */
+  .grid-section {
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(200,148,58,0.2);
+  }
+
+  #life-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .week-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.1s, transform 0.1s;
+  }
+
+  .week-dot.lived {
+    background: var(--rust);
+  }
+
+  .week-dot.remaining {
+    background: rgba(200,148,58,0.15);
+    border: 1px solid rgba(200,148,58,0.1);
+  }
+
+  .week-dot.current {
+    background: var(--ember);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+
+  /* Progress Bar */
+  .progress-section {
+    margin-bottom: 60px;
+  }
+
+  .progress-track {
+    height: 60px;
+    background: var(--mid);
+    border: 1px solid rgba(200,148,58,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rust), var(--ember));
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold);
+    box-shadow: 0 0 12px var(--gold);
+  }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ash);
+  }
+
+  /* Time Equivalents */
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(200,148,58,0.1);
+    margin-bottom: 60px;
+  }
+
+  .time-item {
+    background: var(--smoke);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .time-item-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ash);
+  }
+
+  .time-item-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bone);
+  }
+
+  .time-item-val.highlight { color: var(--ember); }
+
+  /* Quote */
+  .quote-block {
+    border-left: 3px solid var(--rust);
+    padding: 20px 30px;
+    margin-bottom: 60px;
+    background: var(--smoke);
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 3vw, 26px);
+    line-height: 1.4;
+    color: var(--bone);
+    margin-bottom: 12px;
+  }
+
+  .quote-attr {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ash);
+  }
+
+  /* Message */
+  .message-block {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .message-block p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3.5vw, 38px);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .message-block p em { color: var(--ember); font-style: italic; }
+
+  .message-sub {
+    font-size: 14px;
+    color: var(--ash);
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Share */
+  .share-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .share-btn {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid rgba(200,148,58,0.3);
+    color: var(--bone);
+    font-family: 'Courier Prime', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: crosshair;
+    transition: all 0.3s;
+  }
+
+  .share-btn:hover {
+    border-color: var(--ember);
+    background: rgba(201,74,26,0.1);
+    color: var(--ember);
+  }
+
+  .reset-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 14px 36px;
+    background: transparent;
+    border: 1px solid var(--rust);
+    color: var(--rust);
+    font-family: 'Courier Prime', monospace;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: crosshair;
+    transition: all 0.3s;
+    margin-bottom: 60px;
+  }
+
+  .reset-btn:hover {
+    background: var(--rust);
+    color: var(--bone);
+  }
+
+  .footer-text {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(184,175,160,0.3);
+    letter-spacing: 0.15em;
+    padding-bottom: 40px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-in {
+    animation: fadeIn 0.6s ease both;
+  }
+
+  /* Urgency ring around current dot */
+  .year-marker {
+    position: relative;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .time-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 24px 20px; }
+    .week-dot { width: 5px; height: 5px; }
+    h1 { font-size: 56px; }
+  }
+
+  /* Countdown ticker */
+  .ticker {
+    background: var(--mid);
+    border: 1px solid rgba(201,74,26,0.2);
+    padding: 16px 24px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ticker-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+
+  .ticker-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ember);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tick-sep { color: var(--rust); opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="vignette"></div>
+
+<!-- LANDING SCREEN -->
+<section id="landing">
+  <div class="skull-bg">☠</div>
+
+  <div class="landing-inner">
+    <div class="latin-tag">Memento Mori</div>
+    <h1>You<br><em>will</em><br>die.</h1>
+    <p class="subtitle">Every second you delay is a second you'll never recover.<br>The clock doesn't care about your plans.</p>
+    <div class="divider"></div>
+
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="gender">Biological Sex</label>
+          <select id="gender">
+            <option value="">— Select —</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="age-years">Age — Years</label>
+          <input type="number" id="age-years" placeholder="e.g. 34" min="0" max="110">
+        </div>
+        <div class="form-group">
+          <label for="age-months">Age — Months</label>
+          <input type="number" id="age-months" placeholder="0–11" min="0" max="11">
+        </div>
+      </div>
+      <button class="cta-btn" onclick="calculate()">FACE YOUR MORTALITY →</button>
+      <p class="error-msg" id="error-msg">⚠ Please enter your gender and age to proceed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SCREEN -->
+<section id="results">
+  <div class="results-inner">
+
+    <div class="results-header animate-in">
+      <div class="tag">Your Life In Numbers</div>
+      <h2>The Clock<br>is <span id="res-running">Running</span></h2>
+    </div>
+
+    <!-- Live Countdown -->
+    <div class="ticker animate-in">
+      <span class="ticker-label">Seconds of life remaining ≈</span>
+      <span class="ticker-time" id="live-counter">—</span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row animate-in">
+      <div class="stat-box gone">
+        <div class="stat-num" id="years-lived">—</div>
+        <div class="stat-label">Years Lived</div>
+      </div>
+      <div class="stat-box left">
+        <div class="stat-num" id="years-left">—</div>
+        <div class="stat-label">Years Remaining</div>
+      </div>
+      <div class="stat-box pct">
+        <div class="stat-num" id="pct-gone">—</div>
+        <div class="stat-label">% Life Used</div>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-section animate-in">
+      <div class="section-title">Your Life Progress</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-labels">
+        <span>Birth</span>
+        <span id="age-marker">You Are Here</span>
+        <span id="exp-label">Expected Death</span>
+      </div>
+    </div>
+
+    <!-- Weeks Grid -->
+    <div class="grid-section animate-in">
+      <div class="section-title">Every Week of Your Life — One Square</div>
+      <div id="life-grid"></div>
+      <p style="margin-top:14px; font-size:11px; color:var(--ash); letter-spacing:0.15em;">
+        <span style="display:inline-block;width:8px;height:8px;background:var(--rust);margin-right:6px;vertical-align:middle;"></span>Lived &nbsp;&nbsp;
+        <span style="display:inline-block;width:8px;height:8px;background:var(--ember);margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;"></span>Now &nbsp;&nbsp;
+        <span style="display:inline-block;width:8px;height:8px;background:rgba(200,148,58,0.15);border:1px solid rgba(200,148,58,0.2);margin-right:6px;vertical-align:middle;"></span>Remaining
+      </p>
+    </div>
+
+    <!-- Time Equivalents -->
+    <div class="animate-in">
+      <div class="section-title">Time Remaining — Broken Down</div>
+      <div class="time-grid">
+        <div class="time-item">
+          <span class="time-item-label">Months</span>
+          <span class="time-item-val" id="months-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Weeks</span>
+          <span class="time-item-val" id="weeks-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Days</span>
+          <span class="time-item-val highlight" id="days-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Hours</span>
+          <span class="time-item-val highlight" id="hours-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Sleeps Remaining</span>
+          <span class="time-item-val" id="sleeps-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Summers Left</span>
+          <span class="time-item-val" id="summers-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">New Years Eves</span>
+          <span class="time-item-val" id="nye-left">—</span>
+        </div>
+        <div class="time-item">
+          <span class="time-item-label">Mondays (sorry)</span>
+          <span class="time-item-val" id="mondays-left">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote-block animate-in" id="rand-quote">
+      <div class="quote-text" id="quote-text">—</div>
+      <div class="quote-attr" id="quote-attr">—</div>
+    </div>
+
+    <!-- Message -->
+    <div class="message-block animate-in">
+      <p id="message-text">Stop. <em>Think.</em> Act.</p>
+      <p class="message-sub" id="message-sub">The thing you keep putting off? Do it now.</p>
+    </div>
+
+    <!-- Share -->
+    <div class="share-row animate-in">
+      <button class="share-btn" onclick="shareTwitter()">Share on X / Twitter</button>
+      <button class="share-btn" onclick="copyLink()">Copy Link</button>
+      <button class="share-btn" onclick="shareNative()">Share</button>
+    </div>
+
+    <button class="reset-btn" onclick="reset()">← Calculate Again</button>
+
+    <p class="footer-text">Based on US CDC life expectancy data · Male: 76.4 yrs · Female: 81.3 yrs<br>Memento Mori — Remember, you will die.</p>
+  </div>
+</section>
+
+<script>
+  // Life expectancy (US CDC 2024 estimates)
+  const LIFE_EXPECTANCY = { male: 76.4, female: 81.3 };
+
+  const quotes = [
+    { text: "It is not that we have a short time to live, but that we waste a great deal of it.", attr: "— Seneca, On the Shortness of Life" },
+    { text: "The fear of death follows from the fear of life. A man who lives fully is prepared to die at any time.", attr: "— Mark Twain" },
+    { text: "Cowards die many times before their deaths; the valiant never taste of death but once.", attr: "— William Shakespeare, Julius Caesar" },
+    { text: "Remembering that you are going to die is the best way I know to avoid the trap of thinking you have something to lose.", attr: "— Steve Jobs" },
+    { text: "Death is very likely the single best invention of life. It is life's change agent.", attr: "— Steve Jobs" },
+    { text: "How long are you going to wait before you demand the best for yourself?", attr: "— Epictetus" },
+    { text: "The impediment to action advances action. What stands in the way becomes the way.", attr: "— Marcus Aurelius" },
+    { text: "I would rather die a meaningful death than to live a meaningless life.", attr: "— Corazon Aquino" },
+    { text: "It is not death that a man should fear, but he should fear never beginning to live.", attr: "— Marcus Aurelius" },
+    { text: "The trouble is, you think you have time.", attr: "— Buddha" },
+    { text: "Don't ask what the world needs. Ask what makes you come alive, and go do it.", attr: "— Howard Thurman" },
+    { text: "You only live once, but if you do it right, once is enough.", attr: "— Mae West" },
+  ];
+
+  const messages = [
+    { text: `The thing you keep putting off? <em>Do it today.</em>`, sub: "Not tomorrow. Not Monday. Today. You have been warned." },
+    { text: `You are <em>not</em> immortal.`, sub: "Act accordingly. Call the person. Start the project. Book the trip. Stop waiting for permission." },
+    { text: `Every sunrise is a gift <em>you didn't earn.</em>`, sub: "Make it count. The clock doesn't reset." },
+    { text: `What are you <em>afraid</em> of?`, sub: "You're going to die anyway. Fear is wasting the time you have left." },
+    { text: `Stop scrolling. <em>Start doing.</em>`, sub: "The version of you who acts today is the one who gets to look back with no regrets." },
+  ];
+
+  let countdownInterval = null;
+  let secondsLeft = 0;
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString();
+  }
+
+  function calculate() {
+    const gender = document.getElementById('gender').value;
+    const years = parseInt(document.getElementById('age-years').value) || 0;
+    const months = parseInt(document.getElementById('age-months').value) || 0;
+    const err = document.getElementById('error-msg');
+
+    if (!gender || (years === 0 && months === 0)) {
+      err.style.display = 'block';
+      return;
+    }
+    if (years > 110 || years < 0) {
+      err.style.display = 'block';
+      err.textContent = '⚠ Please enter a valid age.';
+      return;
+    }
+    err.style.display = 'none';
+
+    const expectancy = LIFE_EXPECTANCY[gender];
+    const ageDecimal = years + (months / 12);
+    const yearsLeft = Math.max(0, expectancy - ageDecimal);
+    const pctGone = Math.min(100, (ageDecimal / expectancy) * 100);
+
+    // Populate stats
+    document.getElementById('years-lived').textContent = ageDecimal.toFixed(1);
+    document.getElementById('years-left').textContent = yearsLeft.toFixed(1);
+    document.getElementById('pct-gone').textContent = pctGone.toFixed(1) + '%';
+    document.getElementById('exp-label').textContent = `Age ${expectancy} (avg ${gender})`;
+    document.getElementById('age-marker').textContent = `Age ${years}`;
+
+    const daysLeft = yearsLeft * 365.25;
+    const hoursLeft = daysLeft * 24;
+    const minsLeft = hoursLeft * 60;
+    secondsLeft = minsLeft * 60;
+
+    document.getElementById('months-left').textContent = fmt(yearsLeft * 12);
+    document.getElementById('weeks-left').textContent = fmt(yearsLeft * 52.18);
+    document.getElementById('days-left').textContent = fmt(daysLeft);
+    document.getElementById('hours-left').textContent = fmt(hoursLeft);
+    document.getElementById('sleeps-left').textContent = fmt(daysLeft);
+    document.getElementById('summers-left').textContent = fmt(yearsLeft);
+    document.getElementById('nye-left').textContent = fmt(yearsLeft);
+    document.getElementById('mondays-left').textContent = fmt(yearsLeft * 52);
+
+    // Progress bar
+    setTimeout(() => {
+      document.getElementById('progress-fill').style.width = pctGone + '%';
+    }, 300);
+
+    // Random quote
+    const q = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quote-text').textContent = q.text;
+    document.getElementById('quote-attr').textContent = q.attr;
+
+    // Random message
+    const m = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById('message-text').innerHTML = m.text;
+    document.getElementById('message-sub').textContent = m.sub;
+
+    // Urgency headline
+    const urgency = pctGone > 75 ? 'Accelerating' : pctGone > 50 ? 'Running' : pctGone > 25 ? 'Ticking' : 'Counting';
+    document.getElementById('res-running').textContent = urgency;
+
+    // Build week grid
+    buildGrid(ageDecimal, expectancy);
+
+    // Start countdown
+    if (countdownInterval) clearInterval(countdownInterval);
+    let s = Math.floor(secondsLeft);
+    document.getElementById('live-counter').textContent = s.toLocaleString();
+    countdownInterval = setInterval(() => {
+      s--;
+      if (s <= 0) { clearInterval(countdownInterval); return; }
+      document.getElementById('live-counter').textContent = s.toLocaleString();
+    }, 1000);
+
+    // Show results
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function buildGrid(ageDecimal, expectancy) {
+    const grid = document.getElementById('life-grid');
+    grid.innerHTML = '';
+    const totalWeeks = Math.ceil(expectancy * 52.18);
+    const livedWeeks = Math.floor(ageDecimal * 52.18);
+
+    for (let i = 0; i < totalWeeks; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'week-dot';
+      if (i < livedWeeks - 1) dot.classList.add('lived');
+      else if (i === livedWeeks - 1) dot.classList.add('current');
+      else dot.classList.add('remaining');
+      grid.appendChild(dot);
+
+      // Animate in batches
+      const delay = Math.min(i * 0.3, 800);
+      setTimeout(() => {
+        dot.style.opacity = '1';
+        dot.style.transform = 'scale(1)';
+      }, delay);
+    }
+  }
+
+  function reset() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    document.getElementById('landing').style.display = 'flex';
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('progress-fill').style.width = '0%';
+    document.getElementById('life-grid').innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function shareTwitter() {
+    const pct = document.getElementById('pct-gone').textContent;
+    const left = document.getElementById('years-left').textContent;
+    const text = encodeURIComponent(`I've used ${pct} of my life. Only ${left} years left on average. This is your sign to stop procrastinating. Memento Mori. 💀\n\nmementomori.life`);
+    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelectorAll('.share-btn')[1];
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = orig, 2000);
+    });
+  }
+
+  function shareNative() {
+    const pct = document.getElementById('pct-gone').textContent;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Memento Mori — You Will Die',
+        text: `I've used ${pct} of my life. This is your reminder to stop procrastinating.`,
+        url: window.location.href
+      });
+    } else {
+      copyLink();
+    }
+  }
+
+  // Allow Enter key to trigger calculate
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('landing').style.display !== 'none') {
+      calculate();
+    }
+  });
+</script>
+</body>
+</html>
