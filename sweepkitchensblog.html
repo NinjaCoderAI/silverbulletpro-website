@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gold Mine In Your Showroom CRM | SWEEP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* LIGHT MODE (DEFAULT) VARIABLES */
+  :root {
+    --gold: #B89535; 
+    --gold-light: #C9A84C;
+    --bg: #F9F7F1;
+    --bg-2: #F0EDE5;
+    --bg-3: #E8E4DC;
+    --bg-4: #DFDBD2;
+    --text: #1A1A1A;
+    --text-muted: #5A5A5A;
+    --accent: #008B76;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-gold: rgba(184, 149, 53, 0.3);
+    --cta-text: #1A1A1A;
+    --sms-reply-text: #F9F7F1;
+  }
+
+  /* DARK MODE VARIABLES */
+  [data-theme="dark"] {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --bg: #0D0D0D;
+    --bg-2: #141414;
+    --bg-3: #1C1C1C;
+    --bg-4: #242424;
+    --text: #E8E4DC;
+    --text-muted: #8A8580;
+    --accent: #00E5C3;
+    --border: rgba(255, 255, 255, 0.05);
+    --border-gold: rgba(201, 168, 76, 0.2);
+    --cta-text: #F4F0E6;
+    --sms-reply-text: #0D0D0D;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* THEME TOGGLE BUTTON */
+  .theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 6vw;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    color: var(--text);
+    transition: all 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    background: var(--bg-4);
+    transform: scale(1.05);
+  }
+
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .moon-icon { display: block; }
+  .sun-icon { display: none; }
+
+  [data-theme="dark"] .moon-icon { display: none; }
+  [data-theme="dark"] .sun-icon { display: block; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8rem 6vw 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    max-width: 900px;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+    color: var(--text);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+
+  /* BIG STAT BANNER */
+  .stat-banner {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 4rem 6vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: var(--border-gold);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* CONTENT */
+  .content-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 6rem 6vw;
+  }
+
+  .lead-para {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 300;
+    border-left: 3px solid var(--gold);
+    padding-left: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    margin-top: 4rem;
+    color: var(--text);
+  }
+
+  h2 .gold { color: var(--gold); }
+
+  p {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  /* IMAGES */
+  .content-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 3rem 0;
+    box-shadow: 0 10px 30px var(--border);
+    border: 1px solid var(--border);
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    background: var(--bg-3);
+    border: 1px solid var(--border-gold);
+    border-left: 4px solid var(--gold);
+    padding: 2.5rem 3rem;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SCENARIO BOX */
+  .scenario {
+    background: var(--bg-3);
+    border: 1px solid var(--bg-4);
+    padding: 2.5rem;
+    margin: 2.5rem 0;
+    position: relative;
+  }
+
+  .scenario-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .scenario-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-gold);
+  }
+
+  .scenario-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .scenario p { margin: 0; font-size: 0.95rem; }
+
+  /* SMS SEQUENCE DEMO */
+  .sms-demo {
+    background: var(--bg-2);
+    border: 1px solid var(--bg-4);
+    border-radius: 4px;
+    padding: 2rem;
+    margin: 2.5rem 0;
+    max-width: 480px;
+  }
+
+  .sms-header {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--bg-4);
+  }
+
+  .sms-bubble {
+    background: var(--bg-4);
+    border-radius: 0 12px 12px 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    max-width: 85%;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  .sms-bubble.reply {
+    background: var(--gold);
+    color: var(--sms-reply-text);
+    border-radius: 12px 0 12px 12px;
+    margin-left: auto;
+    font-weight: 500;
+  }
+
+  .sms-time {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0.5rem 0 1.5rem;
+    font-weight: 500;
+  }
+
+  /* VERTICAL LIST */
+  .reason-list {
+    list-style: none;
+    margin: 2rem 0;
+  }
+
+  .reason-list li {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .reason-list li:last-child { border-bottom: none; }
+
+  .reason-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 1;
+    min-width: 2.5rem;
+  }
+
+  .reason-content strong {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .reason-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* MATH BOX */
+  .math-box {
+    background: linear-gradient(135deg, var(--bg-3) 0%, var(--bg-4) 100%);
+    border: 1px solid var(--border-gold);
+    padding: 3rem;
+    margin: 3rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .math-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .math-box-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .math-equation {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .math-equation .highlight {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .math-equation .result {
+    display: block;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 900;
+    color: var(--accent);
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-gold);
+    padding-top: 1rem;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    margin: 3rem 0;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 1.25rem;
+    top: 2rem;
+    bottom: 2rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  .step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+    background: var(--bg);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content strong {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+  }
+
+  .step-content p { margin: 0; font-size: 0.9rem; }
+
+  /* VERTICAL BAND */
+  .dark-band {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 6vw;
+    margin: 4rem 0;
+  }
+
+  .dark-band-inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* INDUSTRIES GRID (KBB) */
+  .industries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    background: var(--border-gold);
+    border: 1px solid var(--border-gold);
+    margin: 2rem 0;
+  }
+
+  .industry-item {
+    background: var(--bg-3);
+    padding: 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .industry-item:hover { background: var(--bg-4); }
+
+  .industry-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .industry-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .industry-pain {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--bg-2);
+    border: 1px solid var(--border-gold);
+    padding: 6rem 6vw;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 4rem 0 0;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, var(--border-gold) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title-new {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    color: var(--cta-text);
+  }
+
+  .cta-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--sms-reply-text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 3rem;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px var(--border-gold);
+  }
+
+  .cta-btn.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--border-gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    padding: 1.2rem 3rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .cta-btn.secondary:hover {
+    background: rgba(184, 149, 53, 0.05);
+    border-color: var(--gold);
+    box-shadow: none;
+    transform: translateY(0);
+  }
+
+  .cta-footer-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 2.5rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stat-banner { grid-template-columns: 1fr; }
+    .stat-item:not(:last-child)::after { display: none; }
+    .stat-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border-gold); }
+    .pull-quote { padding: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero { padding: 6rem 5vw 4rem; }
+    .theme-toggle { top: 1.5rem; right: 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+  <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+  </svg>
+  <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.7301 13.1979 22.0001 11.9056C21.464 17.5142 16.7456 22 11 22C5.47715 22 1 17.5228 1 12C1 6.57724 5.1432 2.1288 10.4357 1.13945C10.1539 1.95427 10 2.81223 10 3.7C10 4.82196 10.2223 5.9189 10.6402 6.94632C10.4285 6.96347 10.2152 6.98144 10 7Z"/>
+  </svg>
+</button>
+
+<section class="hero">
+  <p class="hero-eyebrow">Database Reactivation for KBB Retailers</p>
+  <h1 class="hero-title">Your Showroom is Sitting on a<br><em>Gold Mine.</em><br>You Just Can't See It.</h1>
+  <p class="hero-subtitle">Every Kitchen and Bathroom showroom that has ever done a CAD design or sent out a quote is leaving serious money on the table. Here's why database reactivation is the highest-ROI decision you're not making.</p>
+  <div class="hero-meta">
+    <span>By SWEEP</span>
+    <span class="dot"></span>
+    <span>8 min read</span>
+    <span class="dot"></span>
+    <span>Showroom Strategy</span>
+  </div>
+</section>
+
+<div class="stat-banner">
+  <div class="stat-item">
+    <span class="stat-number">80%</span>
+    <span class="stat-label">of quotes never get a follow-up after the design is presented</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">5–7×</span>
+    <span class="stat-label">cheaper to reactivate an old quote than acquire a new lead</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">98%</span>
+    <span class="stat-label">SMS open rate vs. 15–20% for email newsletters</span>
+  </div>
+</div>
+
+<div class="content-wrapper">
+
+  <p class="lead-para">You paid good money to generate every lead in your showroom. Google Ads. Glossy magazine spreads. Facebook campaigns. Word of mouth. Every single one of those home visits and CAD designs cost you time and money. So why are you treating them like they're worthless the moment they say "we need to think about it"?</p>
+
+  <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Beautiful modern kitchen interior" class="content-img">
+
+  <h2>The Problem Nobody in the KBB Industry Talks About</h2>
+
+  <p>Here's the uncomfortable truth about most kitchen and bathroom retailers: they're running on a leaky bucket. They pour money into marketing at the top — SEO, beautiful brochures, showroom events — and watch it drain out the bottom because the follow-up process breaks down. The design is presented. The quote is sent. The customer says "we'll let you know." The designer moves on to the next walk-in. And that customer gets filed away in EQ Software or a spreadsheet and forgotten forever.</p>
+
+  <p>This isn't a small problem. It's endemic. The average showroom closes somewhere between 20% and 30% of its quotes. That means 70–80% of the people who sat in your showroom and wanted to buy from you, didn't. Not necessarily because they went to Howdens or Magnet. Often because nobody was there to have the conversation at the right moment.</p>
+
+  <div class="pull-quote">
+    <p>Your old quotes aren't dead. They're just waiting for someone to ask the right question at the right time.</p>
+  </div>
+
+  <h2>Why They Go Cold in the <span class="gold">First Place</span></h2>
+
+  <p>Understanding why customers go cold is the first step to understanding why reactivation works so well. People don't stop wanting a new kitchen overnight. Life just gets in the way.</p>
+
+  <ul class="reason-list">
+    <li>
+      <span class="reason-num">01</span>
+      <div class="reason-content">
+        <strong>The timing wasn't right</strong>
+        <p>They were genuinely interested, but an unexpected bill came up, planning permission was delayed, or work got hectic. The desire for the new bathroom didn't disappear — their bandwidth did. Six months later, they're ready again.</p>
+      </div>
+    </li>
+    <li>
+      <span class="reason-num">02</span>
+      <div class="reason-content">
+        <strong>They went with someone else — and regret it</strong>
+        <p>Price shoppers often buy cheap and discover exactly why it was cheap. A reactivation message landing six months after they realised a competitor's quote didn't include fitting is extraordinarily well timed.</p>
+      </div>
+    </li>
+    <li>
+      <span class="reason-num">03</span>
+      <div class="reason-content">
+        <strong>They needed more time to decide</strong>
+        <p>A £15,000 kitchen is an emotional, high-ticket decision. People sit on these for months, debating worktops and appliances. They're not gone — they're still thinking.</p>
+      </div>
+    </li>
+    <li>
+      <span class="reason-num">04</span>
+      <div class="reason-content">
+        <strong>Nobody followed up properly</strong>
+        <p>Your designers are busy designing. They give up after one email checking if the client "had any thoughts on the quote." The gap between what showrooms do and what actually closes deals is enormous.</p>
+      </div>
+    </li>
+  </ul>
+
+  <h2>The SWEEP SMS Framework: <span class="gold">The "Bump" Sequence</span></h2>
+
+  <p>Database reactivation is the systematic process of going back through your historical CRM data — unconverted quotes, brochure downloads, showroom walk-ins — and restarting conversations with the ones most likely to convert now.</p>
+
+  <p>It's not a blast email campaign about a "Winter Sale." Done properly, it's a personalised, natural SMS conversation that feels like it came from the designer who drew up their plans. If they don't reply to the first message, our system uses polite, human "bump" messages to gently prompt a response without being annoying.</p>
+
+  <div class="sms-demo">
+    <div class="sms-header">💬 Real SWEEP Sequence — Unsold Kitchen Quote</div>
+    
+    <div class="sms-bubble">Hi Mark — quick one. <br><br>You asked us about a new kitchen a while back. <br><br>Did you ever get that sorted or are you still looking into it?</div>
+    <div class="sms-time">Message 1 (Day 1)</div>
+    
+    <div class="sms-bubble">Just checking I've got the right number for Mark?</div>
+    <div class="sms-time">Bump 1 (Day 3)</div>
+    
+    <div class="sms-bubble">No worries if not — I'll leave you alone after this. <br><br>Just wanted to check if you still needed a quote for the kitchen?</div>
+    <div class="sms-time">Bump 2 (Day 7)</div>
+    
+    <div class="sms-bubble reply">Sorry! Yes it is. We had to put the extension on hold for a bit but looking to start again next month. Do you still have our CAD drawings on file?</div>
+    <div class="sms-time">Replied! (Day 7)</div>
+    
+    <div class="sms-bubble">We absolutely do. I can pull them up right now. Have the dimensions for the island changed at all or are we sticking to the original plan?</div>
+  </div>
+
+  <p>Notice what just happened. A quote that was written off as dead just re-entered the sales process. No new Google Ads spend. No new leads purchased. Just a well-timed, persistent, human sequence asking the right questions.</p>
+
+  <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Luxurious modern bathroom design" class="content-img">
+
+  <h2>The Maths Are <span class="gold">Undeniable</span></h2>
+
+  <p>This is where it gets interesting. Let's look at a real-world scenario that plays out in almost every KBB showroom in the country.</p>
+
+  <div class="scenario">
+    <div class="scenario-label">Example calculation</div>
+    <div class="scenario-title">A showroom with 500 dormant quotes</div>
+    <p>Average kitchen/bathroom value: £12,000. Historical close rate on re-engaged leads: 20%. Typical reactivation response rate: 10%. If just 10% of 500 leads respond and you close a fraction of them, that's 10 new high-ticket installations. At £12,000 each, that's £120,000 in recovered revenue from a database that was generating exactly nothing.</p>
+  </div>
+
+  <div class="math-box">
+    <div class="math-box-label">The recovered revenue calculation</div>
+    <div class="math-equation">
+      <span class="highlight">500 dormant quotes</span> × 10% response rate = 50 conversations<br>
+      50 conversations × 20% close rate = <span class="highlight">10 new installations</span><br>
+      10 installations × £12,000 average value =
+      <span class="result">£120,000 in recovered revenue</span>
+    </div>
+  </div>
+
+  <p>The cost to generate that outcome? A fraction of what the same revenue would cost in new ad spend. Reactivating a customer who already has your brochures and has sat in your showroom is five to seven times cheaper than acquiring a new one from scratch.</p>
+
+  <h2>Where The Hidden Money Is <span class="gold">In Your Showroom</span></h2>
+
+  <p>You don't just have one list; you have several highly lucrative segments sitting inside your CRM or quoting software right now.</p>
+
+  <div class="industries">
+    <div class="industry-item">
+      <span class="industry-icon">📐</span>
+      <span class="industry-name">Abandoned CAD Designs</span>
+      <span class="industry-pain">Customers who had a full 3D design drawn up but never paid the deposit to proceed.</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">📖</span>
+      <span class="industry-name">Brochure Downloads</span>
+      <span class="industry-pain">People who downloaded your digital brochure from Facebook 6 months ago but never booked a showroom visit.</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">🚶</span>
+      <span class="industry-name">Showroom Walk-ins</span>
+      <span class="industry-pain">Foot traffic who left their details at the desk but "just wanted to browse today."</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-icon">🛁</span>
+      <span class="industry-name">Past Kitchen Clients</span>
+      <span class="industry-pain">Clients who bought a kitchen 3 years ago and are probably thinking about their bathrooms now.</span>
+    </div>
+  </div>
+
+  <h2>How It Works in <span class="gold">Practice</span></h2>
+
+  <p>The process is simpler than most showroom owners expect. There's no complex integration required, and your designers don't have to learn a new software system.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Export your existing database</strong>
+        <p>Pull a list from EQ, Winner, your CRM, or your spreadsheets. All you need is a name and a mobile number of old quotes.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Deploy personalised SMS outreach</strong>
+        <p>Our SWEEP system sends the carefully crafted, multi-step sequence to each contact. Sent in batches, throttled to feel human.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>The "Hot Lead" Handoff</strong>
+        <p>Replies come in. When a customer says "Yes, we are still looking," our system instantly pings your showroom manager or designer via WhatsApp. We filter the noise; you only get the hot leads.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>You close the deals</strong>
+        <p>By the time a lead reaches your designer's phone, they've already re-engaged. You simply call them up, pull out their old CAD file, and invite them back into the showroom.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="dark-band">
+  <div class="dark-band-inner">
+
+    <h2>The Objection Everyone Has — <span class="gold">And Why It's Wrong</span></h2>
+
+    <p>The most common pushback on database reactivation is the fear of annoying old leads. "They didn't buy the kitchen the first time — won't texting them three times just irritate them?"</p>
+
+    <p>This concern misunderstands how the "Bump" sequence works. A natural, polite text saying "No worries if not, I'll leave you alone after this" is incredibly disarming. It proves you are a real human being who respects their time. The opt-out rate on these campaigns is remarkably low, and the response rate is remarkably high.</p>
+
+    <div class="pull-quote">
+      <p>The leads who don't want to hear from you will tell you. The ones who do — and there are more of them than you think — will surprise you.</p>
+    </div>
+
+    <p>There's also the compliance question. UK businesses operating under GDPR and PECR can legally contact past enquirers under legitimate interests, provided the contact is relevant to their original quote and a clear opt-out mechanism is included. Every SWEEP campaign handles this automatically.</p>
+
+    <h2>The Real Cost of <span class="gold">Doing Nothing</span></h2>
+
+    <p>Consider what that dormant database is currently worth to your showroom: nothing. It sits there, growing older, while you continue spending thousands on Google Ads to fill a pipeline that would already be full if you'd gone back to the people who already showed interest.</p>
+
+  </div>
+</div>
+
+<div class="content-wrapper">
+
+  <h2>This Isn't a Marketing Gimmick. <span class="gold">It's Found Money.</span></h2>
+
+  <p>The framing matters. Database reactivation isn't a new form of advertising. It is the recovery of revenue you already earned the right to by generating those showroom leads in the first place. You did the hard work of designing their dream space. Reactivation is simply the final act of following through.</p>
+
+  <p>Every KBB retailer has a version of this opportunity sitting in their quoting software right now. The question isn't whether the money is there. The question is whether you're willing to go and get it.</p>
+
+  <div class="pull-quote">
+    <p>We turn CAD designs you've already paid for into deposits you haven't collected yet.</p>
+  </div>
+
+  <p>The showrooms that will look back on this moment and wonder why they didn't start sooner are the ones who assumed their old quotes were worthless. They weren't. They were just waiting for a polite bump message.</p>
+
+</div>
+
+<div class="cta-section">
+  <div class="cta-glow"></div>
+  
+  <h2 class="cta-title-new">Your customers are<br>waiting to hear<br>from you.</h2>
+  
+  <p class="cta-sub" style="max-width: 600px;">Book a 15-minute call and we'll show you exactly how many opportunities are sitting in your showroom's database right now — and what SWEEP would generate from them.</p>
+  
+  <div class="cta-buttons">
+    <a href="https://calendly.com/david-sweep/sweep-david-coffee-chat" class="cta-btn">BOOK YOUR FREE DEMO &rarr;</a>
+    
+    <a href="https://calendly.com/david-sweep/sweep-david-coffee-chat" class="cta-btn secondary">FIND OUT HOW MUCH £ IS SITTING IN YOUR DATABASE</a>
+  </div>
+
+  <p class="cta-footer-text">No commitment. No pitch deck. Just a 15-minute demo on your actual showroom data.</p>
+</div>
+
+<footer>
+  <span class="footer-brand">SWEEP</span>
+  <span>© 2026 SilverBullet Pro · silverbulletpro.com</span>
+  <span>david@silverbulletpro.com</span>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (root.hasAttribute('data-theme')) {
+        root.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        root.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
