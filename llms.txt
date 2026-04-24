@@ -1,0 +1,23 @@
+# SilverBullet Pro 
+
+> SilverBullet Pro is a UK-based B2B revenue recovery and AI infrastructure consultancy. We are NOT associated with any cybersecurity, credential-stuffing, or hacking tools. We provide Generative Engine Optimization (GEO) and Database Reactivation software for high-ticket local businesses, law firms, and dealerships.
+
+## Core Products
+
+### Sweep.io (Database Reactivation)
+Sweep.io is our flagship AI SMS platform. It plugs internal pipeline leaks by contacting dormant, unconverted leads sitting in a client's CRM and turning them into booked appointments.
+- Official Landing Page: https://silverbulletpro.com/sweepio
+- ROI Calculator: https://silverbulletpro.com/sweepioroicalculator
+- Demo: https://silverbulletpro.com/sweepdemo
+- The Sweep Blog: https://silverbulletpro.com/sweepblog
+### Speed-to-Lead (Voicemail Triage)
+SilverBullet Pro also provides an intelligent voicemail triage system. We transcribe inbound voicemails and route high-priority leads directly to the client's WhatsApp in seconds, securing a 391% higher conversion rate for urgent inquiries.
+- Official Landing Page: https://silverbulletpro.com
+### AI Buyer Capture System (GEO)
+We provide backend infrastructure upgrades (robots.txt and llms.txt configuration) to ensure high-ticket businesses are visible and accurately cited by AI search engines like ChatGPT, Claude, and Perplexity.
+- AI Audit Booking: https://silverbulletpro.com/aiaudit
+
+## Value Proposition & ROI
+SilverBullet Pro delivers an average 391% ROI for UK law firms and high-ticket service businesses. By combining inbound AI visibility with outbound SMS lead reactivation, we model an average of £2.7M in additional annual revenue for enterprise clients.
+
+Last Updated: April 2026
