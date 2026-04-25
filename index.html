@@ -1,1184 +1,1818 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y72NK9S6TS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-Y72NK9S6TS');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SilverBullet Pro — AI Revenue Rescue Audit</title>
-    <link rel="icon" type="image/png" href="images/SilverBulletLogo.png">
-    <meta name="description" content="In 15 minutes, we'll calculate the exact amount of commission your firm is losing to missed voicemails each month. Guaranteed. Book your free audit.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-    <style>
-        :root {
-            --bg-color: #000000;
-            --primary-yellow: #FFD133;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A0A0A0;
-            --border-color: #222222;
-            --card-bg: #111111;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Buyer Capture | SilverBullet Pro</title>
+  <meta name="description" content="Free GEO audit and AI visibility fixes for businesses that want to be recommended by ChatGPT, Claude, and Perplexity." />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
-        html {
-            scroll-behavior: smooth;
-        }
+  <style>
+    :root{
+      --bg: #f6f4ef;
+      --bg-2: #fbfaf7;
+      --surface: rgba(255,255,255,0.74);
+      --surface-strong: #ffffff;
+      --surface-dark: #0e1116;
+      --surface-dark-2: #151a22;
+      --text: #0d1117;
+      --muted: #5d6472;
+      --muted-2: #7c8596;
+      --border: rgba(12,18,28,0.10);
+      --border-strong: rgba(12,18,28,0.16);
+      --shadow: 0 20px 60px rgba(7, 12, 20, 0.08);
+      --shadow-2: 0 24px 80px rgba(12, 18, 28, 0.14);
+      --shadow-soft: 0 10px 30px rgba(12,18,28,0.06);
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+      --accent: #ff5a4f;
+      --accent-2: #8f66ff;
+      --accent-3: #26c281;
+      --accent-4: #f7b733;
+      --accent-5: #3aa6ff;
 
-        section {
-            padding: 120px 0;
-        }
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
 
-        h1, h2, h3 {
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-        }
+      --container: 1180px;
+    }
 
-        h1 { font-size: 4.5rem; letter-spacing: -0.03em; }
-        h2 { font-size: 3.5rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 1.5rem; }
-        h3 { font-size: 1.25rem; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(143,102,255,0.10), transparent 30%),
+        radial-gradient(circle at 85% 18%, rgba(255,90,79,0.10), transparent 28%),
+        radial-gradient(circle at 50% 70%, rgba(58,166,255,0.06), transparent 26%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+      overflow-x: hidden;
+    }
 
-        p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: -1rem auto 4rem auto;
-        }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input, textarea, select { font: inherit; }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary-yellow);
-            color: #000000;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 2px solid var(--primary-yellow);
-        }
+    .container{
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(255, 209, 51, 0.2);
-        }
-        
-        .secondary-button {
-            background-color: transparent;
-            color: var(--primary-yellow);
-            border: 2px solid var(--border-color);
-        }
-        
-        .secondary-button:hover {
-            background-color: var(--card-bg);
-            border-color: var(--primary-yellow);
-            box-shadow: none;
-        }
-        
-        /* Header */
-        header {
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-        .logo span { color: var(--primary-yellow); }
+    .eyebrow{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.58);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
+    .eyebrow::before{
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 4px rgba(255,90,79,0.10);
+      flex: 0 0 auto;
+    }
 
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
+    .section{
+      padding: 104px 0;
+      position: relative;
+    }
 
-        nav a:hover, nav a.active {
-            color: var(--primary-yellow);
-        }
-        
-        .header-ctas a {
-            margin-left: 10px;
-        }
+    .section.compact{ padding: 84px 0; }
 
-        /* Hero Section */
-        .hero {
-            padding: 120px 0;
-            text-align: left;
-        }
-        
-        .hero .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem;
-        }
+    .section-title{
+      margin: 0;
+      font-size: clamp(2rem, 4.2vw, 3.7rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 12ch;
+    }
 
-        .hero-text {
-             max-width: 600px;
-             margin: 0;
-        }
-        
-        .hero-text h1 {
-            color: var(--text-primary);
-            text-align: left;
-        }
-        .hero-text h1 span {
-            color: var(--primary-yellow);
-        }
-        
-        .hero-text p {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 0 2.5rem 0;
-            color: var(--text-secondary);
-            text-align: left;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-start;
-        }
+    .section-title em{
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent-2);
+      letter-spacing: -0.02em;
+    }
 
-        .hero-media {
-            flex-shrink: 0;
-            max-width: 500px;
-            width: 100%;
-        }
+    .section-copy{
+      margin: 22px 0 0;
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
 
-        .hero-media video {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-        }
-        
-        /* Why Us Section */
-        .why-us {
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            text-align: left;
-        }
-        
-        .feature-card {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-yellow);
-        }
-        
-        .feature-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
+    .section-head{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
 
-        .feature-card p {
-            flex-grow: 1;
-        }
-        
-        .stat-highlight {
-            border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem;
-            margin-top: 1.5rem;
-        }
+    /* NAV */
+    .nav-wrap{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 14px 0;
+    }
 
-        .stat-highlight .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary-yellow);
-            line-height: 1;
-        }
-        
-        .stat-highlight .stat-description {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
+    .nav{
+      width: min(var(--container), calc(100% - 28px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.70);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow-soft);
+    }
 
-        /* Testimonials Section */
-        .testimonials-section {
-            border-top: 1px solid var(--border-color);
-        }
+    .brand{
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
 
-        .testimonial-scroller {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            height: 600px;
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-        }
-        
-        .scroller-column .scroller-inner {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            animation: scroll linear infinite;
-        }
+    .brand-mark{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(255,90,79,1), rgba(143,102,255,1));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(143,102,255,0.22);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
 
-        .testimonial-scroller:hover .scroller-inner {
-            animation-play-state: paused;
-        }
+    .brand-text{
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
 
-        .scroller-column:nth-child(1) .scroller-inner { animation-duration: 40s; }
-        .scroller-column:nth-child(2) .scroller-inner { animation-duration: 60s; animation-direction: reverse; }
-        .scroller-column:nth-child(3) .scroller-inner { animation-duration: 45s; }
+    .brand-text small{
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
 
-        @keyframes scroll {
-            from { transform: translateY(0); }
-            to { transform: translateY(-50%); }
-        }
+    .nav-links{
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
 
-        .testimonial-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
+    .nav-links a{
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-        .star-rating {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 1rem;
-        }
+    .nav-links a:hover{ color: var(--text); }
 
-        .star-rating svg {
-            width: 16px;
-            height: 16px;
-            color: var(--primary-yellow);
-        }
+    .nav-cta{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 0.94rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--accent), #ff7268);
+      box-shadow: 0 16px 30px rgba(255,90,79,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
 
-        .testimonial-card p {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-        
-        .testimonial-card .client-type {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            margin-bottom: 0;
-        }
-        .testimonial-card .client-type span {
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
+    .nav-cta:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(255,90,79,0.30);
+    }
 
-        /* Revenue Rescue AI Audit Section */
-        .revenue-rescue-section {
-            border-top: 1px solid var(--border-color);
-            background-color: var(--card-bg);
-        }
-        .audit-content-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-        .audit-description h2 {
-            text-align: left;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-        .audit-description .audit-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-bottom: 3rem;
-            line-height: 1.6;
-        }
-        .audit-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .audit-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-        }
-        .step-icon {
-            flex-shrink: 0;
-            background-color: var(--border-color);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--primary-yellow);
-        }
-        .step-text h3 {
-            margin-bottom: 0.25rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .step-text p {
-            margin-bottom: 0;
-            font-size: 1rem;
-        }
-        .audit-cta-card {
-            background-color: var(--bg-color);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            text-align: left;
-        }
-        .audit-cta-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .audit-cta-card ul {
-            list-style: none;
-            margin-bottom: 2.5rem;
-            padding-left: 0;
-        }
-        .audit-cta-card ul li {
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .audit-cta-card ul li svg {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            color: var(--primary-yellow);
-            margin-top: 2px;
-        }
-        .audit-cta-card .cta-button {
-            width: 100%;
-            text-align: center;
-            padding: 16px 28px;
-            font-size: 1.1rem;
-        }
-        
-        /* ROI Calculator, Pricing, etc. */
-        .roi-calculator, .pricing, .compliance, .faq-section, footer {
-             border-top: 1px solid var(--border-color);
-        }
-        
-        /* ROI Calculator Section */
-        .roi-content {
-             background-color: var(--card-bg);
-             border-radius: 16px;
-             padding: 3rem;
-             border: 1px solid var(--border-color);
-        }
+    /* HERO */
+    .hero{
+      padding: 48px 0 40px;
+      position: relative;
+    }
 
-        .roi-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-        }
-        
-        .roi-results {
-            background-color: var(--bg-color);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border: 1px solid var(--border-color);
-        }
-        
-        .result-item {
-            margin-bottom: 2rem;
-        }
-        .result-item:last-child {
-            margin-bottom: 0;
-        }
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 36px;
+      align-items: center;
+      min-height: calc(100vh - 122px);
+    }
 
-        .result-label {
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            font-size: 1rem;
-        }
-        
-        .result-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-yellow);
-        }
-        
-        .roi-summary {
-            margin-top: 2rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .roi-summary h4 {
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-        
-        .roi-summary p {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0;
-        }
+    .hero-copy{
+      position: relative;
+      z-index: 2;
+    }
 
-         .roi-summary span {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        
-        .roi-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+    .hero-kicker{
+      margin-bottom: 22px;
+    }
 
-        .slider-group .label-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .label-container .label-text {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .hero-title{
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 6.35rem);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      max-width: 10ch;
+    }
 
-        .tooltip-icon {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background-color: var(--border-color);
-            color: var(--text-secondary);
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 18px;
-            cursor: pointer;
-            position: relative;
-        }
+    .hero-title .accent{
+      color: var(--accent-2);
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
 
-        .tooltip-icon .tooltip-text {
-            visibility: hidden;
-            width: 250px;
-            background-color: var(--card-bg);
-            color: var(--text-secondary);
-            text-align: left;
-            border-radius: 6px;
-            padding: 1rem;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -125px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            font-weight: 400;
-            line-height: 1.5;
-        }
+    .hero-sub{
+      margin: 24px 0 0;
+      max-width: 62ch;
+      font-size: clamp(1.02rem, 1.9vw, 1.16rem);
+      line-height: 1.8;
+      color: var(--muted);
+    }
 
-        .tooltip-icon:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
+    .hero-sub strong{
+      color: var(--text);
+      font-weight: 800;
+    }
 
-        .slider-group .slider-value {
-            font-weight: 600;
-            color: var(--bg-color);
-            background-color: var(--primary-yellow);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
+    .hero-actions{
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 5px;
-            outline: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-yellow);
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: var(--primary-yellow);
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        
-        /* Pricing Section */
-        .pricing-tiers {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            align-items: stretch;
-        }
-        
-        .tier {
-            background-color: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-        
-        .tier.highlight {
-            border: 2px solid var(--primary-yellow);
-            transform: scale(1.05);
-            background-color: var(--bg-color);
-        }
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: 1px solid transparent;
+    }
 
-        .tier h3 { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); }
-        .tier .price { font-size: 2.8rem; font-weight: 700; margin: 1rem 0 0.5rem 0; }
-        .tier .price span { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
-        .setup-fee { font-size: 1rem; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 1.5rem; }
-        .tier > p { margin-bottom: 2rem; flex-grow: 1; }
-        .tier ul { list-style: none; margin-bottom: 2.5rem; flex-grow: 1; }
-        .tier ul li { margin-bottom: 1rem; display: flex; align-items: center; }
-        .tier ul li::before {
-            content: '✓';
-            color: var(--primary-yellow);
-            font-weight: 700;
-            margin-right: 10px;
-        }
-        
-        /* FAQ Section */
-        .faq-grid {
-            max-width: 900px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        .faq-item {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-        }
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1rem;
-            user-select: none;
-            transition: color 0.2s ease;
-        }
-        .faq-question:hover { color: var(--primary-yellow); }
-        .faq-question .icon {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-            transition: transform 0.2s ease;
-        }
-        .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-        }
-        .faq-item.active .faq-answer {
-            padding: 0 2rem 1.5rem 2rem;
-        }
-        .faq-answer p { color: var(--text-secondary); margin-bottom: 0; line-height: 1.7; }
+    .btn-primary{
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #ff7368);
+      box-shadow: 0 18px 36px rgba(255,90,79,0.26);
+    }
 
-        /* Pre-CTA Section */
-        .pre-cta {
-            padding: 120px 0;
-            text-align: center;
-            background-color: var(--primary-yellow);
-        }
-        .pre-cta h2 { color: var(--bg-color); }
-        .pre-cta .section-subtitle { color: #333; }
-        .pre-cta .cta-button {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            border-color: var(--bg-color);
-        }
-        .pre-cta .cta-button:hover {
-            background-color: #222;
-            box-shadow: 0 4px 15px rgba(0,0,0, 0.2);
-        }
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 22px 44px rgba(255,90,79,0.32);
+    }
 
-        /* Footer */
-        footer { padding: 80px 0 40px 0; text-align: center; }
-        .footer-content p { margin: 0; color: var(--text-secondary); }
-        .footer-legal { font-size: 0.9rem; margin-bottom: 1rem !important; }
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.2s ease;
-        }
-        .footer-links a:hover { color: var(--primary-yellow); }
+    .btn-secondary{
+      color: var(--text);
+      background: rgba(255,255,255,0.68);
+      border-color: rgba(12,18,28,0.08);
+      backdrop-filter: blur(12px);
+    }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .pricing-tiers { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 992px) {
-            .features-grid, .audit-content-wrapper { grid-template-columns: 1fr; }
-            .audit-description h2 { text-align: center; }
-            .audit-cta-card { margin-top: 3rem; }
-            .hero .container { flex-direction: column; text-align: center; }
-            .hero-text { max-width: 100%; }
-            .hero-text h1, .hero-text p { text-align: center; }
-            .hero-buttons { justify-content: center; }
-            .hero-media { order: -1; margin-bottom: 40px; }
-            .testimonial-scroller { grid-template-columns: repeat(2, 1fr); }
-            .roi-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2.2rem; }
-            section { padding: 80px 0; }
-            nav { display: none; }
-            .pricing-tiers, .faq-grid { grid-template-columns: 1fr; }
-            .tier.highlight { transform: scale(1); }
-            .roi-summary { grid-template-columns: 1fr; gap: 1.5rem; }
-            .testimonial-scroller { grid-template-columns: 1fr; }
-            .pricing-tiers { grid-template-columns: 1fr; } /* Force 1 column on mobile */
-        }
-    </style>
+    .btn-secondary:hover{
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .trust-row{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .trust-chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      font-weight: 700;
+      color: #2d3440;
+    }
+
+    .trust-chip i{
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent-3);
+      display: inline-block;
+    }
+
+    .hero-card{
+      position: relative;
+      padding: 22px;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.66));
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: var(--shadow-2);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .hero-card::before{
+      content: "";
+      position: absolute;
+      inset: -20% -20% auto auto;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(143,102,255,0.18), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-card-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .mini-stat{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(12,18,28,0.08);
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .mini-stat strong{
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .score-panel{
+      border-radius: 24px;
+      padding: 22px;
+      background: linear-gradient(180deg, #111722 0%, #0b1018 100%);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .score-panel-label{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.74);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .score-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .score-box{
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .score-box h4{
+      margin: 0 0 10px;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .score-big{
+      margin: 0;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+    }
+
+    .score-big.bad{ color: #fff; }
+    .score-big.good{ color: #87f0b0; }
+
+    .score-sub{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.55;
+      font-size: 0.93rem;
+    }
+
+    .hero-note{
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .hero-note-item{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(12,18,28,0.08);
+    }
+
+    .hero-note-item .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      flex: 0 0 auto;
+    }
+
+    .hero-note-item strong{
+      display: block;
+      font-size: 0.94rem;
+      margin-bottom: 2px;
+    }
+
+    .hero-note-item span{
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .hero-decor{
+      position: absolute;
+      inset: auto 0 -20px 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
+    }
+
+    .blob{
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: 0.55;
+    }
+
+    .blob.one{
+      width: 340px;
+      height: 340px;
+      left: -120px;
+      top: 120px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,90,79,0.28), transparent 60%);
+    }
+
+    .blob.two{
+      width: 420px;
+      height: 420px;
+      right: -160px;
+      top: 20px;
+      background: radial-gradient(circle at 30% 30%, rgba(143,102,255,0.22), transparent 62%);
+    }
+
+    /* MARQUEE */
+    .marquee{
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(12px);
+    }
+
+    .marquee::before,
+    .marquee::after{
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee::before{
+      left: 0;
+      background: linear-gradient(90deg, rgba(246,244,239,1), rgba(246,244,239,0));
+    }
+
+    .marquee::after{
+      right: 0;
+      background: linear-gradient(270deg, rgba(246,244,239,1), rgba(246,244,239,0));
+    }
+
+    .marquee-track{
+      display: flex;
+      width: max-content;
+      gap: 14px;
+      padding: 16px 0;
+      animation: scroll 30s linear infinite;
+    }
+
+    .marquee-item{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(12,18,28,0.08);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #394150;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(12,18,28,0.04);
+    }
+
+    .marquee-item .pill{
+      color: var(--accent-2);
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* CONTENT GRID */
+    .split{
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .panel{
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel.dark{
+      background: linear-gradient(180deg, #111722 0%, #0b1018 100%);
+      color: #fff;
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .panel-title{
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .body{
+      color: var(--muted);
+      line-height: 1.82;
+      font-size: 1.02rem;
+      margin: 0;
+    }
+
+    .body strong{ color: var(--text); }
+
+    .problem-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .problem-card{
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .problem-card h3{
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+      letter-spacing: -0.03em;
+    }
+
+    .problem-card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .comparison{
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .compare-box{
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(12,18,28,0.08);
+      background: rgba(255,255,255,0.8);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .compare-label{
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .compare-value{
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 0.95;
+    }
+
+    .compare-value.bad{ color: #10151d; }
+    .compare-value.good{ color: var(--accent-3); }
+
+    .compare-foot{
+      margin: 10px 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* FIXES */
+    .cards-3{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .feature-card{
+      border-radius: 28px;
+      padding: 26px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.72));
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card::before{
+      content: "";
+      position: absolute;
+      inset: auto -20% -25% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(143,102,255,0.12), transparent 62%);
+      pointer-events: none;
+    }
+
+    .icon{
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 18px;
+      box-shadow: 0 18px 25px rgba(0,0,0,0.08);
+    }
+
+    .icon.one{ background: linear-gradient(135deg, #3aa6ff, #69c0ff); }
+    .icon.two{ background: linear-gradient(135deg, #8f66ff, #b08cff); }
+    .icon.three{ background: linear-gradient(135deg, #f7b733, #ffd56d); color: #1d1d1d; }
+
+    .feature-card h3{
+      margin: 0 0 10px;
+      font-size: 1.22rem;
+      letter-spacing: -0.04em;
+    }
+
+    .feature-meta{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(12,18,28,0.04);
+      color: var(--muted);
+      font-size: 0.79rem;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .feature-card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.95rem;
+    }
+
+    .deliverables{
+      margin-top: 26px;
+      display: grid;
+      gap: 12px;
+      max-width: 720px;
+    }
+
+    .deliverable{
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .deliverable .check{
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(38,194,129,0.12);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: var(--accent-3);
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .deliverable strong{
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.98rem;
+    }
+
+    .deliverable span{
+      display: block;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    /* STATS */
+    .stats{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .stat{
+      padding: 24px 18px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .stat-num{
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 0.95;
+      color: var(--accent-2);
+    }
+
+    .stat:nth-child(2) .stat-num{ color: var(--accent-3); }
+    .stat:nth-child(3) .stat-num{ color: var(--accent); }
+    .stat:nth-child(4) .stat-num{ color: var(--accent-5); }
+
+    .stat p:last-child{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* PROCESS */
+    .timeline{
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      position: relative;
+    }
+
+    .step{
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .step-index{
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent-2), #b08cff);
+      box-shadow: 0 14px 24px rgba(143,102,255,0.22);
+    }
+
+    .step h3{
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+      letter-spacing: -0.03em;
+    }
+
+    .step p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.94rem;
+    }
+
+    /* PRICING */
+    .pricing-grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .price-card{
+      border-radius: 30px;
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card.featured{
+      background:
+        linear-gradient(180deg, #171d28 0%, #10151d 100%);
+      border-color: rgba(255,255,255,0.08);
+      color: #fff;
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2);
+    }
+
+    .price-card.featured::before{
+      content: "MOST POPULAR";
+      position: absolute;
+      top: 18px;
+      right: -34px;
+      transform: rotate(25deg);
+      background: linear-gradient(135deg, var(--accent), #ff756d);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      padding: 8px 44px;
+      box-shadow: 0 14px 24px rgba(255,90,79,0.24);
+    }
+
+    .price-tier{
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .price-amount{
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 4.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.08em;
+      font-weight: 900;
+    }
+
+    .price-note{
+      margin: 10px 0 22px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .price-card.featured .price-note,
+    .price-card.featured .price-tier{
+      color: rgba(255,255,255,0.82);
+    }
+
+    .price-list{
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: grid;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .price-list li{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .price-list li::before{
+      content: "✓";
+      color: var(--accent-3);
+      font-weight: 900;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    .price-card.featured .price-list li,
+    .price-card.featured .price-list li::before{
+      color: rgba(255,255,255,0.84);
+    }
+
+    .price-btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      background: rgba(12,18,28,0.06);
+      color: var(--text);
+    }
+
+    .price-btn:hover{ transform: translateY(-1px); }
+
+    .price-card.featured .price-btn{
+      background: linear-gradient(135deg, var(--accent), #ff7368);
+      color: #fff;
+      box-shadow: 0 18px 32px rgba(255,90,79,0.24);
+    }
+
+    .price-card.featured .price-btn:hover{
+      box-shadow: 0 22px 42px rgba(255,90,79,0.30);
+    }
+
+    /* FAQ */
+    .faq{
+      display: grid;
+      gap: 14px;
+      margin-top: 30px;
+      max-width: 820px;
+    }
+
+    details{
+      border-radius: 22px;
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    summary{
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    summary::-webkit-details-marker{ display:none; }
+
+    summary span{
+      color: var(--muted);
+      font-size: 1.3rem;
+      line-height: 1;
+      flex: 0 0 auto;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary span{
+      transform: rotate(45deg);
+    }
+
+    .faq-body{
+      padding: 0 22px 20px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.96rem;
+    }
+
+    /* CTA */
+    .cta{
+      padding: 92px 0 110px;
+    }
+
+    .cta-box{
+      border-radius: 36px;
+      padding: 40px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,90,79,0.12), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(143,102,255,0.13), transparent 28%),
+        linear-gradient(180deg, rgba(18,24,34,1), rgba(10,14,20,1));
+      color: #fff;
+      box-shadow: var(--shadow-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::after{
+      content: "";
+      position: absolute;
+      inset: auto -120px -140px auto;
+      width: 380px;
+      height: 380px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(143,102,255,0.22), transparent 64%);
+      pointer-events: none;
+    }
+
+    .cta-copy{
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title{
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+
+    .cta-title em{
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: #c7b6ff;
+    }
+
+    .cta-text{
+      margin: 18px 0 0;
+      color: rgba(255,255,255,0.74);
+      line-height: 1.8;
+      max-width: 62ch;
+      font-size: 1.03rem;
+    }
+
+    .cta-actions{
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-light{
+      background: #fff;
+      color: #111722;
+    }
+
+    .btn-dark{
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .cta-foot{
+      margin-top: 18px;
+      color: rgba(255,255,255,0.62);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* FOOTER */
+    footer{
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-grid{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 22px;
+      border-top: 1px solid rgba(12,18,28,0.08);
+    }
+
+    .footer-brand{
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .footer-brand span{
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    /* REVEAL */
+    .reveal{
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px){
+      .hero-grid,
+      .split{
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid{
+        min-height: auto;
+        padding-top: 32px;
+      }
+
+      .hero-card{
+        max-width: 720px;
+      }
+
+      .cards-3,
+      .pricing-grid,
+      .stats,
+      .timeline{
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .problem-grid{
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links{
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px){
+      .section{ padding: 76px 0; }
+      .section.compact{ padding: 68px 0; }
+      .nav{
+        border-radius: 24px;
+        padding: 12px 14px;
+      }
+      .nav-cta{
+        padding: 11px 14px;
+        font-size: 0.88rem;
+      }
+      .hero-title{
+        max-width: 9.5ch;
+      }
+      .score-grid,
+      .comparison,
+      .cards-3,
+      .stats,
+      .timeline,
+      .pricing-grid{
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .cta-actions{
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn{
+        width: 100%;
+      }
+
+      .cta-box{
+        padding: 26px;
+        border-radius: 28px;
+      }
+
+      .footer-grid{
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .marquee::before,
+      .marquee::after{
+        width: 56px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+      .marquee-track{ animation: none; }
+      .reveal{
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .btn, .feature-card, .nav-cta, .price-btn, summary span{
+        transition: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-
-    <header>
-        <div class="container header-content">
-            <a href="/" class="logo">SilverBullet<span>.</span>Pro</a>
-            <nav>
-                <a href="#why-us">How It Works</a>
-                <a href="revenue-audit.html">Calculator</a>
-                <a href="#revenue-rescue-audit">AI Audit</a>
-                <a href="#pricing">Pricing</a>
-                <a href="blog.html">Blog</a>
-                <a href="#faq">FAQ</a>
-            </nav>
-            <div class="header-ctas">
-                <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
-            </div>
+  <header class="nav-wrap">
+    <div class="nav">
+      <a href="#" class="brand" aria-label="SilverBullet Pro home">
+        <div class="brand-mark">SB</div>
+        <div class="brand-text">
+          SilverBullet Pro
+          <small>AI Buyer Capture</small>
         </div>
-    </header>
+      </a>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-text">
-                    <h1>Never Miss A <span>Hot Lead</span> Again.</h1>
-                    <p>SilverBullet Pro is your 24/7 speed-to-lead unfair advantage. Our system finds the urgent opportunities buried in your voicemail <em>instantly</em>, ensuring you're the first to respond to every high-value inquiry.</p>
-                    <div class="hero-buttons">
-                         <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
-                         <a href="https://youtu.be/QuWs6ncvnUA" class="cta-button secondary-button g-lightbox">Watch Demo</a>
-                    </div>
-                </div>
-                <div class="hero-media">
-                    <video autoplay loop muted playsinline poster="images/hero-image.png">
-                        <source src="images/SilverBullet-HeroImage.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-        </section>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#problem">Problem</a>
+        <a href="#fix">Fix</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
 
-        <section id="why-us" class="why-us">
-            <div class="container">
-                <h2>Why Our Triage Wins More Business</h2>
-                <p class="section-subtitle">We go beyond simple transcription to deliver an intelligent lead routing service that gives you an immediate, measurable competitive advantage.</p>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h3>From Voicemail to Action in Seconds</h3>
-                        <p>High-priority leads are routed directly to the right professional's WhatsApp for immediate action. The speed of response wins clients.</p>
-                        <div class="stat-highlight">
-                            <div class="stat-number">391%</div>
-                            <p class="stat-description">Higher conversion rate for leads contacted within the first minute.</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <h3>Be The First and Only Response</h3>
-                        <p>Capture the majority of the market by simply being the fastest. Our system ensures you're always first in line for every opportunity.</p>
-                        <div class="stat-highlight">
-                            <div class="stat-number">78%</div>
-                            <p class="stat-description">Of buyers choose the first company that responds, regardless of price.</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <h3>A Bespoke System, Not a DIY App</h3>
-                        <p>We handle all setup, integrations, and ongoing support. This is a fully managed, white-glove service for serious firms who value their time.</p>
-                         <div class="stat-highlight">
-                            <div class="stat-number">24/7</div>
-                            <p class="stat-description">Lead capture and qualification, turning your voicemail into your hardest-working employee.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <a href="mailto:david@silverbulletpro.com?subject=Free GEO Audit Request" class="nav-cta">
+        Get My Free Audit
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
 
-        <section id="testimonials" class="testimonials-section">
-            <div class="container">
-                <h2>Trusted By Elite Firms</h2>
-                <p class="section-subtitle">Professionals who can't afford to miss a call rely on SilverBullet Pro to secure every opportunity.</p>
-                <div class="testimonial-scroller">
-                    <div class="scroller-column">
-                        <div class="scroller-inner">
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The speed-to-lead is unmatched. We secured a major instruction within minutes of a voicemail being left after hours. That deal alone paid for the service for the next five years."</p><p class="client-type"><span>Client Review:</span> Personal Injury Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"This has been a game-changer for our sales floor. We're now booking test drive appointments from voicemails left overnight before the showroom even opens. We're consistently getting the first shot at hot leads."</p><p class="client-type"><span>Client Review:</span> Car Dealership</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"I was skeptical about AI, but this is different. It correctly identifies the high-value calls and filters out the noise. It's like having a trained paralegal on duty 24/7."</p><p class="client-type"><span>Client Review:</span> Commercial Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The setup was genuinely white-glove. The team handled everything and integrated it seamlessly with our existing phone system. We were live in two days."</p><p class="client-type"><span>Client Review:</span> Family Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The speed-to-lead is unmatched. We secured a major instruction within minutes of a voicemail being left after hours. That deal alone paid for the service for the next five years."</p><p class="client-type"><span>Client Review:</span> Personal Injury Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"This has been a game-changer for our sales floor. We're now booking test drive appointments from voicemails left overnight before the showroom even opens. We're consistently getting the first shot at hot leads."</p><p class="client-type"><span>Client Review:</span> Car Dealership</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"I was skeptical about AI, but this is different. It correctly identifies the high-value calls and filters out the noise. It's like having a trained paralegal on duty 24/7."</p><p class="client-type"><span>Client Review:</span> Commercial Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The setup was genuinely white-glove. The team handled everything and integrated it seamlessly with our existing phone system. We were live in two days."</p><p class="client-type"><span>Client Review:</span> Family Law Firm</p></div>
-                        </div>
-                    </div>
-                    <div class="scroller-column">
-                        <div class="scroller-inner">
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"Voicemails used to be a black hole, especially for the service department. Now, urgent service requests and hot sales enquiries are instantly flagged and sent to the right team. Our response time has dramatically improved."</p><p class="client-type"><span>Client Review:</span> Multi-Site Car Dealership</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The instant WhatsApp notification is a game-changer. I can be in court and get an alert about a new high-value case, and delegate it to my team immediately."</p><p class="client-type"><span>Client Review:</span> Barristers' Chambers</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"We thought our reception was catching everything. The Revenue Rescue Audit proved us wrong. The data was undeniable, and the solution has been flawless."</p><p class="client-type"><span>Client Review:</span> Conveyancing Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"Simple, effective, and professional. It does exactly what it promises and has become an indispensable part of our client intake process. Highly recommended."</p><p class="client-type"><span>Client Review:</span> Personal Injury Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"Voicemails used to be a black hole, especially for the service department. Now, urgent service requests and hot sales enquiries are instantly flagged and sent to the right team. Our response time has dramatically improved."</p><p class="client-type"><span>Client Review:</span> Multi-Site Car Dealership</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The instant WhatsApp notification is a game-changer. I can be in court and get an alert about a new high-value case, and delegate it to my team immediately."</p><p class="client-type"><span>Client Review:</span> Barristers' Chambers</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"We thought our reception was catching everything. The Revenue Rescue Audit proved us wrong. The data was undeniable, and the solution has been flawless."</p><p class="client-type"><span>Client Review:</span> Conveyancing Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"Simple, effective, and professional. It does exactly what it promises and has become an indispensable part of our client intake process. Highly recommended."</p><p class="client-type"><span>Client Review:</span> Personal Injury Law Firm</p></div>
-                        </div>
-                    </div>
-                    <div class="scroller-column">
-                        <div class="scroller-inner">
-                             <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The ability to triage calls based on specific keywords for our practice areas means the right leads go to the right partner, every single time. It has streamlined our workflow."</p><p class="client-type"><span>Client Review:</span> Family Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"I no longer have voicemail anxiety. I know that if a call is important, SilverBullet will find it and alert me. It's given me peace of mind when I'm out of the office."</p><p class="client-type"><span>Client Review:</span> Independent Estate Agent</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"This is the competitive edge we were looking for. Responding to a hot lead in under a minute makes an incredible first impression and wins business."</p><p class="client-type"><span>Client Review:</span> Litigation Practice</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The system captured a voicemail about a specific high-margin vehicle on our lot. We called back in minutes and closed the deal that afternoon. That single sale more than paid for a year's subscription."</p><p class="client-type"><span>Client Review:</span> Premium Car Dealership</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The ability to triage calls based on specific keywords for our practice areas means the right leads go to the right partner, every single time. It has streamlined our workflow."</p><p class="client-type"><span>Client Review:</span> Family Law Firm</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"I no longer have voicemail anxiety. I know that if a call is important, SilverBullet will find it and alert me. It's given me peace of mind when I'm out of the office."</p><p class="client-type"><span>Client Review:</span> Independent Estate Agent</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"This is the competitive edge we were looking for. Responding to a hot lead in under a minute makes an incredible first impression and wins business."</p><p class="client-type"><span>Client Review:</span> Litigation Practice</p></div>
-                            <div class="testimonial-card"><div class="star-rating"><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"></path></svg></div><p>"The system captured a voicemail about a specific high-margin vehicle on our lot. We called back in minutes and closed the deal that afternoon. That single sale more than paid for a year's subscription."</p><p class="client-type"><span>Client Review:</span> Premium Car Dealership</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow hero-kicker">AI Buyer Capture System · GEO Optimisation</div>
+          <h1 class="hero-title">
+            Your Business Is
+            <span class="accent">Invisible</span>
+            to AI.
+          </h1>
 
-        <section id="revenue-rescue-audit" class="revenue-rescue-section">
-            <div class="container">
-                <div class="audit-content-wrapper">
-                    <div class="audit-description">
-                        <h2>Your Complimentary Revenue Rescue Audit</h2>
-                        <p class="audit-subtitle">In a 15-minute strategy call, we'll build the business case for you by calculating the exact cost of your missed leads—at no cost for qualifying firms.</p>
-                        <div class="audit-steps">
-                            <div class="audit-step">
-                                <div class="step-icon">1</div>
-                                <div class="step-text">
-                                    <h3>Diagnose the Problem</h3>
-                                    <p>We'll quickly map your current lead handling process to identify the exact points of revenue leakage.</p>
-                                </div>
-                            </div>
-                            <div class="audit-step">
-                                <div class="step-icon">2</div>
-                                <div class="step-text">
-                                    <h3>Calculate the Impact</h3>
-                                    <p>Using your own metrics, we'll do the maths with you, live on the call, to calculate your precise monthly revenue leakage.</p>
-                                </div>
-                            </div>
-                            <div class="audit-step">
-                                <div class="step-icon">3</div>
-                                <div class="step-text">
-                                    <h3>Prescribe the Solution</h3>
-                                    <p>You'll leave with a clear, actionable plan to fix the leaks and capture more revenue. No cost, no obligation.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="audit-cta-card">
-                        <h3>Your Complimentary Diagnostic Delivers:</h3>
-                        <ul>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>A Data-Backed Figure of Your Leaked Revenue</li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>Clarity on Your #1 Sales Bottleneck</li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>A Proven Plan to Increase Conversions</li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>15 Minutes of Pure Value. No Cost.</li>
-                        </ul>
-                        <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Audit</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="roi-calculator" class="roi-calculator">
-            <div class="container">
-                <h2>Calculate Your Potential ROI</h2>
-                <p class="section-subtitle">Even a few missed high-value calls a week can have a huge impact. Slide the numbers below to model your firm's potential leaked revenue.</p>
-                <div class="roi-content">
-                    <div class="roi-grid">
-                        <div class="roi-inputs">
-                            <div class="slider-group">
-                                <div class="label-container">
-                                    <div class="label-text">
-                                        <label for="missedCalls">Your Estimated Missed Calls / Week</label>
-                                        <div class="tooltip-icon">i<span class="tooltip-text">Consider all calls you might miss in a typical week (after-hours, weekends, or when busy). A good starting estimate might be 5-10.</span></div>
-                                    </div>
-                                    <span id="missedCallsValue" class="slider-value">5</span>
-                                </div>
-                                <input type="range" id="missedCalls" min="1" max="100" value="5">
-                            </div>
-                            <div class="slider-group">
-                                <div class="label-container">
-                                    <div class="label-text">
-                                        <label for="conversionRate">Your Team's Typical Conversion Rate (%)</label>
-                                        <div class="tooltip-icon">i<span class="tooltip-text">What percentage of qualified inbound leads does your sales team typically close? For warm calls, industry averages often range from 10% to 25%.</span></div>
-                                    </div>
-                                    <span id="conversionRateValue" class="slider-value">15%</span>
-                                </div>
-                                <input type="range" id="conversionRate" min="5" max="75" value="15">
-                            </div>
-                            <div class="slider-group">
-                                <div class="label-container">
-                                    <label for="avgClientValue">Average Value of a New Client (£)</label>
-                                    <span id="avgClientValueValue" class="slider-value">£70,000</span>
-                                </div>
-                                <input type="range" id="avgClientValue" min="500" max="250000" step="500" value="70000">
-                            </div>
-                        </div>
-                        <div class="roi-results">
-                            <div class="result-item">
-                                <div class="result-label">Additional Monthly Revenue</div>
-                                <div class="result-value" id="monthlyRevenueOutput">£227,500</div>
-                            </div>
-                             <div class="result-item">
-                                <div class="result-label">Captured Monthly Clients</div>
-                                <div class="result-value" id="capturedLeadsOutput">3.2</div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="roi-summary">
-                        <div>
-                            <h4>Annual Cost of SilverBullet Pro</h4>
-                            <p>£6,987</p>
-                            <span>(Solo Plan + Setup)</span>
-                        </div>
-                        <div>
-                            <h4>Additional Annual Revenue</h4>
-                            <p id="annualRevenueOutput">£2,730,000</p>
-                        </div>
-                         <div>
-                            <h4>Annual ROI Multiple</h4>
-                            <p id="roiMultipleOutput">390.4x</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <p class="hero-sub">
+            <strong>ChatGPT, Claude, and Perplexity cannot recommend you</strong> if your website is blocking crawlers or giving them nothing useful to cite.
+            We fix that with a precise 48-hour visibility system built for businesses that want to be discovered, trusted, and recommended.
+          </p>
 
-        <section id="pricing" class="pricing">
-            <div class="container">
-                <h2>Simple, High-Value Pricing</h2>
-                <p class="section-subtitle">Our solutions are tailored to your firm's specific needs. The process begins with a complimentary Revenue Rescue Audit to diagnose your current system and prescribe the perfect plan to eliminate revenue leakage.</p>
-                <div class="pricing-tiers">
-                    <div class="tier">
-                        <h3>👤 SOLO</h3>
-                        <p class="price">From £499<span>/month</span></p>
-                        <p class="setup-fee">+White-Glove Onboarding & AI Tuning</p>
-                        <p>White-glove setup for one main business line. We provision you a dedicated number for 100% reliability.</p>
-                        <ul>
-                            <li>1 Dedicated, Managed Line</li>
-                            <li>AI-Powered Triage</li>
-                            <li>Up to 1,000 WhatsApp lead alerts / month</li>
-                            <li>Standard Support</li>
-                        </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button secondary-button">Book Audit</a>
-                    </div>
-                    <div class="tier highlight">
-                         <h3>🏢 TEAM</h3>
-                        <p class="price">From £2499 <span>/month</span></p>
-                        <p class="setup-fee">+ Full Firm Implementation & AI Engineering</p>
-                        <p>For firms needing custom routing for each team member to prevent internal lead-stealing and ensure full accountability.</p>
-                         <ul>
-                            <li>Up to 10 Dedicated Lines</li>
-                            <li>Custom AI Triage Logic</li>
-                            <li>Up to 6,000 WhatsApp lead alerts / month</li>
-                            <li>Priority Support & SLAs</li>
-                        </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button">Book Audit</a>
-                    </div>
-                    <div class="tier">
-                        <h3>🏛️ ENTERPRISE</h3>
-                        <p class="price">Custom <span></span></p>
-                        <p class="setup-fee">+ Custom setup & onboarding</p>
-                        <p>Bespoke solutions for large firms with complex security, compliance, and technical requirements.</p>
-                         <ul>
-                            <li>Unlimited Lines & Users</li>
-                            <li>Bespoke AI Models</li>
-                            <li>Bespoke alert volume</li>
-                            <li>Dedicated Account Management</li>
-                            <li>Full Audit Logs</li>
-                        </ul>
-                        <a href="#revenue-rescue-audit" class="cta-button secondary-button">Contact Sales</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:david@silverbulletpro.com?subject=I want my free GEO audit">
+              Get Your Free Score
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="btn btn-secondary" href="#fix">See what we fix</a>
+          </div>
 
-        <section id="faq" class="faq-section">
-            <div class="container">
-                <div class="faq-header">
-                    <h2>Frequently Asked Questions</h2>
-                </div>
-                <div class="faq-grid">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Is the Revenue Rescue AI Audit really free?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes, 100%. The 15-minute diagnostic call where we calculate your revenue leakage is completely free and comes with zero obligation. It's our way of proving the value of our system and making an undeniable business case before you ever consider moving forward.</p>
-                        </div>
-                    </div>
-                     <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>How quickly can we get started after the audit?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>If the audit proves a compelling business case, full onboarding, configuring and set up can be completed within 3-5 business days</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Do you integrate with our existing VoIP/phone system?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes. Our "white-glove" setup is built around integrating with your existing systems, whether you use a modern VoIP service or standard mobile phones. This is a core part of our premium "Pro" service.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Is SilverBullet Pro GDPR compliant?</h3>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Absolutely. We prioritize data privacy and security, offering full GDPR compliance, data residency options, and comprehensive audit logs for transparent oversight.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="pre-cta">
-            <div class="container">
-                 <h2>Ready to Stop Leaking Revenue?</h2>
-                 <p class="section-subtitle">Start the process today with a complimentary 15-minute audit to diagnose your revenue leaks and prescribe a solution.</p>
-                 <a href="https://calendly.com/david-oakbankinnovations/30min" target="_blank" class="cta-button">Book Your Audit</a>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <div class="container footer-content">
-            <p class="footer-legal">Silver Bullet Pro is a trading name of Oakbank AI Ltd.</p>
-            <p>© 2025 SilverBullet Pro. All Rights Reserved.</p>
-            <div class="footer-links">
-                <a href="terms.html">Terms of Service</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="mailto:hello@silverbulletpro.com">hello@silverbulletpro.com</a>
+          <div class="trust-row">
+            <span class="trust-chip"><i></i> Built for AI citation visibility</span>
+            <span class="trust-chip"><i style="background: var(--accent-2)"></i> No retainers</span>
+            <span class="trust-chip"><i style="background: var(--accent-3)"></i> 48-hour delivery</span>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
-    <script>
-        // Initialize GLightbox
-        const lightbox = GLightbox({ selector: '.g-lightbox' });
+        <aside class="hero-card reveal" aria-label="Visibility preview">
+          <div class="hero-card-top">
+            <div class="mini-stat"><strong>427</strong> five-star reviews</div>
+            <div class="mini-stat"><strong>6</strong> visibility dimensions</div>
+          </div>
 
-        // ROI Calculator Script
-        const missedCallsSlider = document.getElementById('missedCalls');
-        const conversionRateSlider = document.getElementById('conversionRate');
-        const avgClientValueSlider = document.getElementById('avgClientValue');
-        
-        const missedCallsValue = document.getElementById('missedCallsValue');
-        const conversionRateValue = document.getElementById('conversionRateValue');
-        const avgClientValueValue = document.getElementById('avgClientValueValue');
-        
-        const monthlyRevenueOutput = document.getElementById('monthlyRevenueOutput');
-        const capturedLeadsOutput = document.getElementById('capturedLeadsOutput');
-        const annualRevenueOutput = document.getElementById('annualRevenueOutput');
-        const roiMultipleOutput = document.getElementById('roiMultipleOutput');
-        
-        const ANNUAL_COST = 6987; // NEW: Based on SOLO Plan (£499 * 12 + £999 setup)
+          <div class="score-panel">
+            <div class="score-panel-label">
+              <span>AI Visibility Snapshot</span>
+              <span>Audit preview</span>
+            </div>
 
-        function calculateROI() {
-            if (!missedCallsSlider) return; // Safeguard if element doesn't exist
-            
-            // 1. Get weekly calls from the slider
-            const missedCallsPerWeek = parseInt(missedCallsSlider.value);
-            
-            // 2. Convert weekly calls to monthly (using 52 weeks / 12 months)
-            const monthlyMissedCalls = missedCallsPerWeek * (52 / 12); 
-            
-            const conversionRate = parseInt(conversionRateSlider.value);
-            const avgClientValue = parseInt(avgClientValueSlider.value);
+            <div class="score-grid">
+              <div class="score-box">
+                <h4>Before</h4>
+                <p class="score-big bad">32</p>
+                <p class="score-sub">Grade F · blocked, vague, uncitable</p>
+              </div>
+              <div class="score-box">
+                <h4>After</h4>
+                <p class="score-big good">71</p>
+                <p class="score-sub">Grade B · structured, visible, cite-ready</p>
+              </div>
+            </div>
 
-            const capturedLeads = monthlyMissedCalls * (conversionRate / 100);
-            const monthlyRevenue = capturedLeads * avgClientValue;
-            const annualRevenue = monthlyRevenue * 12;
-            
-            // 3. Correct ROI Formula: (Net Gain / Cost)
-            const netProfit = annualRevenue - ANNUAL_COST;
-            const roiMultiple = (ANNUAL_COST > 0) ? netProfit / ANNUAL_COST : 0;
-            
-            const currencyFormatter = (value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }).format(value);
-            
-            // 4. Update slider display value to show the weekly number
-            missedCallsValue.textContent = missedCallsPerWeek; 
-            conversionRateValue.textContent = `${conversionRate}%`;
-            avgClientValueValue.textContent = currencyFormatter(avgClientValue);
-            
-            // Update main results
-            monthlyRevenueOutput.textContent = currencyFormatter(monthlyRevenue);
-            capturedLeadsOutput.textContent = capturedLeads.toFixed(1);
-            
-            // Update summary results
-            annualRevenueOutput.textContent = currencyFormatter(annualRevenue);
-            roiMultipleOutput.textContent = `${roiMultiple.toFixed(1)}x`; // Now shows correct ROI
+            <div class="hero-note">
+              <div class="hero-note-item">
+                <span class="dot"></span>
+                <div>
+                  <strong>robots.txt reviewed</strong>
+                  <span>AI crawlers can access the pages that matter.</span>
+                </div>
+              </div>
+              <div class="hero-note-item">
+                <span class="dot"></span>
+                <div>
+                  <strong>llms.txt rewritten</strong>
+                  <span>AI gets a clean map of your business and services.</span>
+                </div>
+              </div>
+              <div class="hero-note-item">
+                <span class="dot"></span>
+                <div>
+                  <strong>150-word entity paragraph</strong>
+                  <span>A concise, citable summary built for AI answers.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-decor" aria-hidden="true">
+        <div class="blob one"></div>
+        <div class="blob two"></div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Proof points">
+      <div class="marquee-track" aria-hidden="true">
+        <div class="marquee-item">AI-referred traffic up <span class="pill">527%</span> YoY</div>
+        <div class="marquee-item">AI traffic converts <span class="pill">4.4×</span> higher than organic</div>
+        <div class="marquee-item">Traditional search projected to drop <span class="pill">50%</span> by 2028</div>
+        <div class="marquee-item">Only <span class="pill">23%</span> of marketers are acting on this</div>
+        <div class="marquee-item">Most sites score below <span class="pill">40/100</span></div>
+        <div class="marquee-item">48 hours to a cleaner AI footprint</div>
+
+        <div class="marquee-item">AI-referred traffic up <span class="pill">527%</span> YoY</div>
+        <div class="marquee-item">AI traffic converts <span class="pill">4.4×</span> higher than organic</div>
+        <div class="marquee-item">Traditional search projected to drop <span class="pill">50%</span> by 2028</div>
+        <div class="marquee-item">Only <span class="pill">23%</span> of marketers are acting on this</div>
+        <div class="marquee-item">Most sites score below <span class="pill">40/100</span></div>
+        <div class="marquee-item">48 hours to a cleaner AI footprint</div>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="container split">
+        <div class="reveal">
+          <div class="eyebrow">The Problem</div>
+          <h2 class="section-title" style="margin-top:18px;">
+            You are spending on ads.
+            <br><em>AI is sending customers elsewhere.</em>
+          </h2>
+          <p class="section-copy">
+            When someone asks an AI engine for “the best kitchen fitter in Glasgow” or “a tree surgeon near me,” it scans the web for businesses it can cite with confidence.
+            If your site blocks AI crawlers or gives them thin, unstructured information, you are out of the answer before the conversation even starts.
+          </p>
+          <p class="section-copy">
+            <strong>This is not primarily a content problem.</strong> It is a visibility and configuration problem. Your robots.txt and llms.txt files determine whether AI can see you, understand you, and recommend you.
+          </p>
+
+          <div class="comparison">
+            <div class="compare-box">
+              <p class="compare-label">Typical score before</p>
+              <p class="compare-value bad">32</p>
+              <p class="compare-foot">Grade F · AI visibility is effectively shut down.</p>
+            </div>
+            <div class="compare-box">
+              <p class="compare-label">After SilverBullet Pro</p>
+              <p class="compare-value good">71</p>
+              <p class="compare-foot">Grade B · AI can access, understand, and cite you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel dark reveal">
+          <p class="eyebrow" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.72);">Why this matters</p>
+          <h3 class="panel-title" style="margin-top:16px;">The fastest growing channel in marketing is already changing demand.</h3>
+          <p class="body" style="color: rgba(255,255,255,0.72);">
+            We audited a Glasgow kitchen company with 427 five-star reviews. AI engines saw none of them. That is not a reputation failure — it is a discoverability failure.
+            The good news is that the fix is precise, fast, and measurable.
+          </p>
+
+          <div class="deliverables" style="margin-top:22px;">
+            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
+              <div class="check">✓</div>
+              <div>
+                <strong style="color:#fff;">Access first</strong>
+                <span style="color: rgba(255,255,255,0.70);">If crawlers cannot read your site, nothing else matters.</span>
+              </div>
+            </div>
+            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
+              <div class="check">✓</div>
+              <div>
+                <strong style="color:#fff;">Structure second</strong>
+                <span style="color: rgba(255,255,255,0.70);">AI needs a structured map, not just a homepage.</span>
+              </div>
+            </div>
+            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
+              <div class="check">✓</div>
+              <div>
+                <strong style="color:#fff;">Entity clarity last</strong>
+                <span style="color: rgba(255,255,255,0.70);">One concise paragraph can dramatically improve citation quality.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="fix">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">The System</div>
+          <h2 class="section-title" style="margin-top:18px;">Three precise fixes. <br><em>One complete solution.</em></h2>
+          <p class="section-copy">
+            We do not rebuild your website. We do not waste time on unnecessary SEO theatrics.
+            We make three targeted changes that tell AI engines exactly who you are, what you do, and why you deserve to be recommended.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="feature-card reveal">
+            <div class="icon one">1</div>
+            <div class="feature-meta">robots.txt</div>
+            <h3>The Access Clear</h3>
+            <p>
+              We open your site to all major AI crawlers, including GPTBot, ClaudeBot, PerplexityBot, and Google-Extended.
+              If this file is blocking access, nothing else can work. This is the door unlock.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon two">2</div>
+            <div class="feature-meta">llms.txt</div>
+            <h3>The AI Roadmap</h3>
+            <p>
+              We build or rewrite your llms.txt so AI engines can quickly understand your business, service areas, and the pages that matter most.
+              Think of it as the map you hand directly to the model.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="icon three">3</div>
+            <div class="feature-meta">150-word fix</div>
+            <h3>The Entity Paragraph</h3>
+            <p>
+              We write a carefully structured paragraph containing your value proposition, service area, review signals, and trust markers.
+              It is designed to be cited, paraphrased, and surfaced in AI answers.
+            </p>
+          </article>
+        </div>
+
+        <div class="deliverables reveal">
+          <div class="deliverable">
+            <div class="check">✓</div>
+            <div>
+              <strong>Full GEO Audit Report</strong>
+              <span>Your composite AI visibility score across six dimensions.</span>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="check">✓</div>
+            <div>
+              <strong>robots.txt Review and Fix</strong>
+              <span>Every major AI crawler unblocked and verified.</span>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="check">✓</div>
+            <div>
+              <strong>llms.txt Built or Rewritten</strong>
+              <span>Structured, factual, and built for AI interpretation.</span>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="check">✓</div>
+            <div>
+              <strong>150-word Entity Paragraph</strong>
+              <span>A high-signal asset designed for AI citations.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" aria-label="Proof">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Why This Matters Now</div>
+          <h2 class="section-title" style="margin-top:18px;">
+            The next growth channel is already here.
+            <br><em>Most businesses are not in it.</em>
+          </h2>
+        </div>
+
+        <div class="stats">
+          <div class="stat reveal">
+            <p class="stat-num">527%</p>
+            <p>AI-referred traffic growth year over year.</p>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">4.4×</p>
+            <p>Higher conversion rate versus organic search.</p>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">50%</p>
+            <p>Projected drop in traditional search by 2028.</p>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">77%</p>
+            <p>Of marketers are not yet optimising for AI search.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">The Process</div>
+          <h2 class="section-title" style="margin-top:18px;">Free audit to live fixes<br><em>in 48 hours.</em></h2>
+        </div>
+
+        <div class="timeline">
+          <div class="step reveal">
+            <div class="step-index">1</div>
+            <h3>Free Audit</h3>
+            <p>Send your URL. We run a six-dimension visibility audit and map the main blockers.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step-index">2</div>
+            <h3>Review Findings</h3>
+            <p>We show you exactly what is preventing AI from understanding and citing your business.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step-index">3</div>
+            <h3>We Deliver</h3>
+            <p>All fixes are built and delivered within 48 hours, ready to upload.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step-index">4</div>
+            <h3>Score Confirmed</h3>
+            <p>We re-audit after recrawl so you can see what improved and where to go next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="pricing">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Pricing</div>
+          <h2 class="section-title" style="margin-top:18px;">Simple. <em>Transparent.</em> No retainer.</h2>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card reveal">
+            <p class="price-tier">Audit Only</p>
+            <p class="price-amount">£297</p>
+            <p class="price-note">One-off · Delivered in 24 hours</p>
+            <ul class="price-list">
+              <li>Full GEO Audit Report</li>
+              <li>Composite AI visibility score</li>
+              <li>Top 3 critical findings</li>
+              <li>Prioritised action list</li>
+              <li>robots.txt fix not included</li>
+              <li>llms.txt build not included</li>
+              <li>Entity paragraph not included</li>
+              <li>30-day re-audit not included</li>
+            </ul>
+            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=GEO Audit Only - £297">Get Your Score</a>
+          </article>
+
+          <article class="price-card featured reveal">
+            <p class="price-tier">Full Fix</p>
+            <p class="price-amount">£797</p>
+            <p class="price-note">One-off · Delivered in 48 hours</p>
+            <ul class="price-list">
+              <li>Full GEO Audit Report</li>
+              <li>Composite AI visibility score</li>
+              <li>Top 3 critical findings</li>
+              <li>Prioritised action list</li>
+              <li>robots.txt reviewed and fixed</li>
+              <li>llms.txt built or fully rewritten</li>
+              <li>150-word entity paragraph</li>
+              <li>30-day re-audit included</li>
+            </ul>
+            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=GEO Full Fix - £797">Fix My Visibility</a>
+          </article>
+
+          <article class="price-card reveal">
+            <p class="price-tier">Enterprise</p>
+            <p class="price-amount">£1,500+</p>
+            <p class="price-note">Multi-site or more complex builds</p>
+            <ul class="price-list">
+              <li>Everything in Full Fix</li>
+              <li>Schema markup deployment</li>
+              <li>Platform-specific optimisation</li>
+              <li>Multi-location entity work</li>
+              <li>Priority delivery</li>
+              <li>Monthly monitoring option</li>
+              <li>Custom scope</li>
+              <li>Volume pricing available</li>
+            </ul>
+            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=GEO Enterprise Enquiry">Let’s Talk</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Questions</div>
+          <h2 class="section-title" style="margin-top:18px;">The honest answers.</h2>
+        </div>
+
+        <div class="faq">
+          <details class="reveal">
+            <summary>Will this actually make ChatGPT recommend my business?<span>+</span></summary>
+            <div class="faq-body">
+              It removes the barriers that stop recommendation in the first place. Once AI crawlers can access your site and find clear, citable content, you become eligible for citations and inclusion in answers.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>How do you access my website to make the changes?<span>+</span></summary>
+            <div class="faq-body">
+              You or your web team upload the files we provide. It usually takes only a few minutes. We can also walk you through the process on a screen share if needed.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>Is this related to traditional SEO?<span>+</span></summary>
+            <div class="faq-body">
+              It is complementary, but not the same thing. Traditional SEO optimises for blue links. GEO optimises for AI-generated answers, citations, and recommendation surfaces.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div class="cta-copy">
+            <div class="eyebrow" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.78);">Get Started</div>
+            <h2 class="cta-title" style="margin-top:18px;">
+              Find out your <em>AI visibility score</em> — free.
+            </h2>
+            <p class="cta-text">
+              Send your website URL and we will run a full audit within 24 hours. No cost, no commitment.
+              Just your score and the exact issues stopping AI from recommending you.
+            </p>
+
+            <div class="cta-actions">
+              <a class="btn btn-light" href="mailto:david@silverbulletpro.com?subject=Free GEO Audit Request">
+                Request Your Free Audit
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn btn-dark" href="mailto:david@silverbulletpro.com?subject=GEO Enterprise Enquiry">Enterprise enquiry</a>
+            </div>
+
+            <div class="cta-foot">
+              silverbulletpro.com · david@silverbulletpro.com · AI Buyer Capture · GEO
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">SilverBullet <span>PRO</span></div>
+      <div>GEO · AI Buyer Capture · silverbulletpro.com</div>
+      <div>david@silverbulletpro.com</div>
+    </div>
+  </footer>
+
+  <script>
+    // Subtle reveal system for a more premium feel.
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.12 });
 
-        if (missedCallsSlider) {
-            [missedCallsSlider, conversionRateSlider, avgClientValueSlider].forEach(slider => {
-                slider.addEventListener('input', calculateROI);
-            });
-            calculateROI(); // Initial calculation on page load
-        }
+    revealEls.forEach(el => io.observe(el));
 
-        // FAQ Accordion Script
-        document.querySelectorAll('.faq-item').forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const answer = item.querySelector('.faq-answer');
-                const currentlyActive = item.classList.contains('active');
-
-                document.querySelectorAll('.faq-item').forEach(el => {
-                    el.classList.remove('active');
-                    el.querySelector('.faq-answer').style.maxHeight = 0;
-                    el.querySelector('.icon').textContent = '+';
-                });
-
-                if (!currentlyActive) {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + "px";
-                    item.querySelector('.icon').textContent = '×';
-                }
-            });
-        });
-    </script>
-    
+    // Add a slight nav shadow on scroll.
+    const navWrap = document.querySelector('.nav-wrap');
+    const setNavState = () => {
+      if (window.scrollY > 8) {
+        navWrap.style.filter = 'drop-shadow(0 10px 28px rgba(12,18,28,0.08))';
+      } else {
+        navWrap.style.filter = 'none';
+      }
+    };
+    window.addEventListener('scroll', setNavState, { passive: true });
+    setNavState();
+  </script>
 </body>
 </html>
-```
