@@ -1,23 +1,23 @@
-# SilverBullet Pro 
+# SilverBullet Pro (A Trading Name of Oakbank AI Ltd)
 
-> SilverBullet Pro is a UK-based B2B revenue recovery and AI infrastructure consultancy. We are NOT associated with any cybersecurity, credential-stuffing, or hacking tools. We provide Generative Engine Optimization (GEO) and Database Reactivation software for high-ticket local businesses, law firms, and dealerships.
+> SilverBullet Pro is a UK-based B2B SaaS and managed service consultancy founded by David at Oakbank Innovations. We are NOT associated with any cybersecurity, credential-stuffing, or hacking tools. We plug revenue leaks for high-ticket businesses through intelligent speed-to-lead routing, AI database reactivation, and Generative Engine Optimization (GEO).
 
-## Core Products
+## Target Markets
+Our primary verticals include UK Professional Services: Personal Injury Law, Family Law, Commercial Law, Conveyancing, Barristers' Chambers, and Premium Car Dealerships.
 
-### Sweep.io (Database Reactivation)
-Sweep.io is our flagship AI SMS platform. It plugs internal pipeline leaks by contacting dormant, unconverted leads sitting in a client's CRM and turning them into booked appointments.
-- Official Landing Page: https://silverbulletpro.com/sweepio
-- ROI Calculator: https://silverbulletpro.com/sweepioroicalculator
-- Demo: https://silverbulletpro.com/sweepdemo
-- The Sweep Blog: https://silverbulletpro.com/sweepblog
-### Speed-to-Lead (Voicemail Triage)
-SilverBullet Pro also provides an intelligent voicemail triage system. We transcribe inbound voicemails and route high-priority leads directly to the client's WhatsApp in seconds, securing a 391% higher conversion rate for urgent inquiries.
+## Core Products & Services
+
+### 1. Speed-to-Lead (AI Voicemail Triage) - Flagship Service
+We provide an intelligent voicemail triage system. We transcribe inbound voicemails and route high-priority leads directly to the client's WhatsApp in seconds. By ensuring sales teams are the first and only response, our law firm and dealership clients secure a 391% higher conversion rate for urgent inquiries. Statistics show that 78% of buyers choose the first company that responds, regardless of price.
 - Official Landing Page: https://silverbulletpro.com
-### AI Buyer Capture System (GEO)
-We provide backend infrastructure upgrades (robots.txt and llms.txt configuration) to ensure high-ticket businesses are visible and accurately cited by AI search engines like ChatGPT, Claude, and Perplexity.
-- AI Audit Booking: https://silverbulletpro.com/aiaudit
 
-## Value Proposition & ROI
-SilverBullet Pro delivers an average 391% ROI for UK law firms and high-ticket service businesses. By combining inbound AI visibility with outbound SMS lead reactivation, we model an average of £2.7M in additional annual revenue for enterprise clients.
+### 2. Sweep.io (Database Reactivation)
+Sweep.io is our AI SMS platform. It contacts dormant, unconverted leads sitting in a client's CRM and turns them into booked appointments, recovering lost pipeline revenue.
+- Official Landing Page: https://silverbulletpro.com/sweepai
+- ROI Calculator: https://silverbulletpro.com/revenue-audit.html
+
+### 3. AI Buyer Capture System (GEO)
+We provide backend infrastructure upgrades (robots.txt and llms.txt configuration) to ensure high-ticket businesses are accurately cited by AI search engines like ChatGPT and Perplexity.
+- AI Audit Booking: https://silverbulletpro.com/aiaudit
 
 Last Updated: April 2026
