@@ -29,6 +29,7 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
         header {
             padding: 20px 0;
@@ -44,6 +45,7 @@
         .logo {
             font-weight: 800; font-size: 1.8rem;
             color: var(--text-primary); text-decoration: none;
+            letter-spacing: -0.03em;
         }
         .logo span { color: var(--primary-yellow); }
         .container {
@@ -57,7 +59,7 @@
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.5rem;
         }
-        h1 { font-size: 2.8rem; }
+        h1 { font-size: 2.8rem; letter-spacing: -0.03em; }
         h2 { font-size: 1.5rem; margin-top: 2rem; }
         p, li {
             color: var(--text-secondary);
@@ -65,7 +67,8 @@
             margin-bottom: 1rem;
         }
         ul { padding-left: 20px; }
-        a { color: var(--primary-yellow); }
+        a { color: var(--primary-yellow); text-decoration: none; }
+        a:hover { text-decoration: underline; }
         strong { color: var(--text-primary); }
         footer {
             padding: 80px 0 40px 0;
@@ -84,44 +87,50 @@
     <main>
         <div class="container">
             <h1>Terms and Conditions</h1>
-            <p><strong>Last Updated:</strong> 26 August 2025</p>
+            <p><strong>Last Updated:</strong> 28 April 2026</p>
 
             <h2>1. Acceptance of Terms</h2>
-            <p>By accessing or using the SilverBullet Pro service (the "Service") operated by Oakbank Innovations Ltd ("us," "we," or "our"), you agree to be bound by these Terms and Conditions ("Terms"). If you disagree with any part of the terms, you may not access the Service.</p>
+            <p>By accessing or using the services operated by Oakbank Innovations Ltd trading as SilverBullet Pro ("us," "we," or "our"), you agree to be bound by these Terms and Conditions ("Terms"). If you disagree with any part of the terms, you may not access the Service.</p>
 
             <h2>2. The Service</h2>
-            <p>SilverBullet Pro provides an AI-powered service that captures, transcribes, and summarizes voicemails from designated phone numbers and routes them as alerts to the client via WhatsApp and email. The Service includes all setup, integration, and ongoing support as described in your selected plan.</p>
+            <p>SilverBullet Pro provides a suite of revenue recovery and lead generation tools, including AI-powered voicemail triage, database reactivation via SMS (Sweep.io), and Generative Engine Optimization (GEO) web infrastructure services. The specific features, deliverables, and scope of work provided depend on your selected plan or individual statement of work.</p>
 
             <h2>3. User Responsibilities</h2>
-            <p>You are responsible for: maintaining the confidentiality of your account information; all activities that occur under your account; ensuring that your use of the Service complies with all applicable laws and regulations, including those related to data protection, privacy, and recording communications; and providing all necessary notices and obtaining all necessary consents from individuals who may leave voicemails on your numbers.</p>
+            <p>You are responsible for:</p>
+            <ul>
+                <li>Maintaining the confidentiality of your account and API information.</li>
+                <li>Ensuring your use of the Service complies with all applicable laws, including UK GDPR and the Privacy and Electronic Communications Regulations (PECR).</li>
+                <li><strong>For SMS & Voicemail Services:</strong> Providing all necessary privacy notices, ensuring legitimate opt-in consent for any contact data supplied for SMS campaigns, and obtaining lawful consent for recording communications. You represent and warrant that any databases provided to us have been collected legally.</li>
+                <li><strong>For GEO Services:</strong> Granting us the necessary authorization and temporary administrative access to configure your website's server files (e.g., robots.txt, llms.txt) and CMS platforms to complete the required infrastructure updates.</li>
+            </ul>
 
             <h2>4. Fees and Payment</h2>
-            <p>The Service is billed on a subscription basis ("Subscription"). You will be billed in advance on a recurring monthly or annual basis. A one-time setup fee is required as specified in your chosen plan. All payments are handled by a third-party payment processor. Failure to make timely payment may result in the suspension or termination of your Service.</p>
+            <p>Depending on the agreed service scope, you may be billed on a recurring subscription basis, a one-off project fee (e.g., GEO setup), or a performance-based pay-per-result model. Setup fees may apply as specified in your chosen plan. All payments are handled by a third-party payment processor. Failure to make timely payments may result in the suspension of campaigns or termination of your Service.</p>
 
             <h2>5. Intellectual Property</h2>
-            <p><strong>Our IP:</strong> The Service and its original content, features, and functionality are and will remain the exclusive property of Oakbank Innovations Ltd.</p>
-            <p><strong>Your Data:</strong> You retain all ownership rights to the content you process through the Service (your "Voicemail Data"). You grant us a worldwide, non-exclusive, royalty-free license to use, process, and transmit your Voicemail Data as necessary to provide the Service to you.</p>
+            <p><strong>Our IP:</strong> The Service, code, workflows, and original content provided by SilverBullet Pro remain the exclusive property of Oakbank Innovations Ltd.</p>
+            <p><strong>Your Data:</strong> You retain all ownership rights to the content, customer lists, and web copy you process through the Service ("Client Data"). You grant us a worldwide, non-exclusive, royalty-free license to use, process, and transmit your Client Data solely as necessary to provide the Service to you.</p>
 
-            <h2>6. Third-Party Services</h2>
-            <p>Our Service relies on third-party services (e.g., Twilio, OpenAI). We are not responsible for any issues, downtime, or failures originating from these third-party services. Your use of these integrated services may be subject to their respective terms and conditions.</p>
+            <h2>6. Third-Party Services & Platforms</h2>
+            <p>Our Service relies on third-party integrations (e.g., Twilio, OpenAI) and may interact directly with third-party CMS platforms (e.g., WordPress, Wix, Shopify). We are not responsible for any downtime, bugs, or failures originating from these third-party platforms. Your use of these integrated services is subject to their respective terms and conditions.</p>
 
             <h2>7. Termination</h2>
-            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason, including a breach of these Terms. Upon termination, your right to use the Service will cease immediately.</p>
+            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason, including a breach of these Terms. Upon termination, your right to use the Service will cease, and any active campaigns will be halted.</p>
 
             <h2>8. Disclaimer of Warranties & Limitation of Liability</h2>
-            <p>The Service is provided on an "AS IS" and "AS AVAILABLE" basis. We do not warrant that the service will be uninterrupted, error-free, or completely secure.</p>
+            <p>The Service is provided on an "AS IS" and "AS AVAILABLE" basis. We do not warrant that the service will be uninterrupted, error-free, or completely secure. We do not guarantee specific search rankings or AI recommendation outcomes, as these are controlled by third-party algorithms.</p>
             <p>In no event shall Oakbank Innovations Ltd, nor its directors or employees, be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the Service. Our total liability to you for any and all claims shall not exceed the amount of fees paid by you to us in the twelve (12) months preceding the claim.</p>
 
             <h2>9. Governing Law</h2>
             <p>These Terms shall be governed and construed in accordance with the laws of Scotland, United Kingdom, without regard to its conflict of law provisions.</p>
 
             <h2>10. Contact Us</h2>
-            <p>If you have any questions about these Terms, please contact us at terms@silverbulletpro.com.</p>
+            <p>If you have any questions about these Terms, please contact us at <a href="mailto:terms@silverbulletpro.com">terms@silverbulletpro.com</a>.</p>
         </div>
     </main>
     <footer>
         <div class="container footer-content">
-            <p>© 2025 SilverBullet Pro - Oakbank Innovations Ltd. All Rights Reserved.</p>
+            <p>© 2026 SilverBullet Pro - OBI Ltd. All Rights Reserved.</p>
         </div>
     </footer>
 </body>
