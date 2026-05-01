@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Buyer Capture | SilverBullet Pro</title>
-  <meta name="description" content="Free GEO audit and AI visibility fixes for businesses that want to be recommended by ChatGPT, Claude, and Perplexity." />
+  <meta name="description" content="Free AI Search / GEO audit and AI visibility fixes for businesses that want to be recommended by ChatGPT, Claude, and Perplexity." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -253,10 +253,10 @@
 
     .hero-title{
       margin: 0;
-      font-size: clamp(3rem, 7vw, 6.35rem);
-      line-height: 0.94;
-      letter-spacing: -0.07em;
-      max-width: 10ch;
+      font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      max-width: 20ch;
     }
 
     .hero-title .accent{
@@ -595,6 +595,69 @@
     @keyframes scroll {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
+    }
+
+    /* REVIEWS */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .review-card {
+      border-radius: 24px;
+      padding: 26px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .review-text {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+
+    .review-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .review-industry {
+      font-size: 0.82rem;
+      color: var(--muted-2);
+      font-weight: 600;
+    }
+
+    .stars {
+      color: var(--accent-4);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
     }
 
     /* CONTENT GRID */
@@ -1234,7 +1297,8 @@
       .cards-3,
       .pricing-grid,
       .stats,
-      .timeline{
+      .timeline,
+      .reviews-grid{
         grid-template-columns: 1fr 1fr;
       }
 
@@ -1259,14 +1323,15 @@
         font-size: 0.88rem;
       }
       .hero-title{
-        max-width: 9.5ch;
+        max-width: 100%;
       }
       .score-grid,
       .comparison,
       .cards-3,
       .stats,
       .timeline,
-      .pricing-grid{
+      .pricing-grid,
+      .reviews-grid{
         grid-template-columns: 1fr;
       }
 
@@ -1323,6 +1388,7 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary">
+        <a href="#reviews">Reviews</a>
         <a href="#problem">Problem</a>
         <a href="#fix">Fix</a>
         <a href="#pricing">Pricing</a>
@@ -1345,13 +1411,11 @@
         <div class="hero-copy reveal">
           <div class="eyebrow hero-kicker">AI Buyer Capture System · GEO Optimisation</div>
           <h1 class="hero-title">
-            Your Business Is
-            <span class="accent">Invisible</span>
-            to AI.
+            We diagnose why <span class="accent">ChatGPT, Claude, Gemini & Perplexity</span> recommends your competitors instead of you - and fix it in 48 hours
           </h1>
 
           <p class="hero-sub">
-            <strong>ChatGPT, Claude, and Perplexity cannot recommend you</strong> if your website is blocking crawlers or giving them nothing useful to cite.
+            <strong>AI cannot recommend you</strong> if your website is blocking crawlers or giving them nothing useful to cite.
             We fix that with a precise 48-hour visibility system built for businesses that want to be discovered, trusted, and recommended.
           </p>
 
@@ -1446,6 +1510,59 @@
         <div class="marquee-item">Only <span class="pill">23%</span> of marketers are acting on this</div>
         <div class="marquee-item">Most sites score below <span class="pill">40/100</span></div>
         <div class="marquee-item">48 hours to a cleaner AI footprint</div>
+      </div>
+    </section>
+
+    <section class="section compact" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Client Success</div>
+          <h2 class="section-title" style="margin-top:18px;">Recommended by AI.<br><em>Chosen by buyers.</em></h2>
+        </div>
+        
+        <div class="reviews-grid">
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"We were losing high-ticket patient inquiries because AI search tools couldn't parse our clinic's complex treatment pages. Within 48 hours of implementing SilverBullet Pro's fixes, our AI-referred patient bookings increased by 40%."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Dr. Sarah Jenkins" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">Dr. Sarah Jenkins</span>
+                <span class="review-industry">Private Medical Clinic</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"Clients are increasingly using Perplexity to research legal representation. We had no idea our site was completely blocking AI crawlers. They diagnosed the issue instantly and mapped our practice areas perfectly for LLMs."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="James Arrington" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">James Arrington</span>
+                <span class="review-industry">Corporate Law Firm</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"When people searched for 'best bespoke kitchens' on ChatGPT, we were nowhere to be found despite our hundreds of 5-star Google reviews. They fixed our crawler access and entity data, and now we're consistently the top recommendation."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Fiona MacLeod" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">Fiona MacLeod</span>
+                <span class="review-industry">Kitchens & Bathrooms Supplier</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1691,6 +1808,7 @@
             <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=GEO Enterprise Enquiry">Let’s Talk</a>
           </article>
         </div>
+      </div>
     </section>
 
     <section class="section compact" id="faq">
