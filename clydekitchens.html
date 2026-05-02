@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clyde Kitchens — Design Consultation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162032;
+    --navy-light: #1e2f45;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9c8;
+    --cream: #faf7f2;
+    --text-main: #f0ece4;
+    --text-muted: #8a9ab0;
+    --text-dim: #4a5c72;
+    --border: rgba(201,168,76,0.18);
+    --border-hover: rgba(201,168,76,0.45);
+    --shadow: 0 24px 80px rgba(0,0,0,0.55);
+    --radius: 12px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--navy);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── Background ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(13,27,42,0.9) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 0v60M0 30h60' stroke='rgba(201,168,76,0.03)' stroke-width='0.5'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Layout ─── */
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 20px 60px;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-main);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  .logo-tagline {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .header-phone {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .header-phone a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ─── Chat container ─── */
+  .chat-wrap {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+  }
+
+  /* ─── Progress bar ─── */
+  .progress-bar {
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    height: 3px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ─── Messages ─── */
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 28px;
+    min-height: 200px;
+  }
+
+  .msg {
+    display: flex;
+    gap: 14px;
+    animation: msgIn 0.35s cubic-bezier(0.4,0,0.2,1) both;
+  }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user { flex-direction: row-reverse; }
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .avatar.ai {
+    background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+    color: var(--navy);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  .avatar.user {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .bubble {
+    max-width: 82%;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  .msg.ai .bubble {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-top-left-radius: 4px;
+  }
+
+  .msg.user .bubble {
+    background: linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.08) 100%);
+    border: 1px solid var(--border-hover);
+    color: var(--text-main);
+    border-top-right-radius: 4px;
+  }
+
+  /* Typing indicator */
+  .typing-dots {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 4px 2px;
+  }
+
+  .typing-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: dot 1.2s infinite ease-in-out;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes dot {
+    0%,80%,100% { opacity: 0.25; transform: scale(0.8); }
+    40%         { opacity: 1;    transform: scale(1); }
+  }
+
+  /* ─── Quick reply chips ─── */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+    animation: msgIn 0.4s 0.1s both;
+  }
+
+  .chip {
+    padding: 9px 18px;
+    border-radius: 40px;
+    border: 1px solid var(--border-hover);
+    background: rgba(201,168,76,0.06);
+    color: var(--gold-light);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    color: var(--gold-pale);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Input area ─── */
+  .input-area {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 14px 16px;
+    transition: border-color 0.2s;
+  }
+
+  .input-area:focus-within {
+    border-color: var(--gold);
+  }
+
+  .input-area textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    resize: none;
+    min-height: 24px;
+    max-height: 120px;
+    padding: 0;
+  }
+
+  .input-area textarea::placeholder {
+    color: var(--text-dim);
+  }
+
+  .send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .send-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(201,168,76,0.4);
+  }
+
+  .send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .send-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--navy);
+  }
+
+  /* ─── Booking card ─── */
+  .booking-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 8px;
+    animation: msgIn 0.4s both;
+  }
+
+  .booking-card h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--gold-light);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .booking-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .booking-field.full { grid-column: 1 / -1; }
+
+  .booking-field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .booking-field input,
+  .booking-field select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .booking-field input:focus,
+  .booking-field select:focus {
+    border-color: var(--gold);
+  }
+
+  .booking-field select option {
+    background: var(--navy-mid);
+    color: var(--text-main);
+  }
+
+  .booking-submit {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+    border: none;
+    border-radius: var(--radius);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .booking-submit:hover {
+    box-shadow: 0 6px 24px rgba(201,168,76,0.45);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Lead summary badge ─── */
+  .lead-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .lead-badge.hot {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+  }
+
+  .lead-badge.warm {
+    background: rgba(14,100,180,0.15);
+    border: 1px solid rgba(14,100,180,0.35);
+    color: #7ab8e8;
+  }
+
+  .lead-badge.cool {
+    background: rgba(100,100,120,0.2);
+    border: 1px solid rgba(100,100,120,0.35);
+    color: #a0aabc;
+  }
+
+  /* ─── Confirmation state ─── */
+  .confirm-wrap {
+    text-align: center;
+    padding: 40px 20px;
+    animation: msgIn 0.5s both;
+  }
+
+  .confirm-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05));
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 30px;
+  }
+
+  .confirm-wrap h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .confirm-wrap p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .confirm-details {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 24px auto;
+    max-width: 400px;
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+
+  .confirm-details strong {
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    width: 100%;
+    max-width: 780px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .footer a { color: var(--text-dim); text-decoration: none; }
+  .footer a:hover { color: var(--gold); }
+
+  /* ─── API key modal ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal {
+    background: var(--navy-mid);
+    border: 1px solid var(--border-hover);
+    border-radius: 16px;
+    padding: 36px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    animation: msgIn 0.3s both;
+  }
+
+  .modal h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+
+  .modal p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .modal input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .modal input:focus { border-color: var(--gold); }
+
+  .modal-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--gold), #a07830);
+    border: none;
+    border-radius: 10px;
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .modal-btn:hover {
+    box-shadow: 0 6px 24px rgba(201,168,76,0.4);
+    transform: translateY(-1px);
+  }
+
+  .hint {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 580px) {
+    .booking-grid { grid-template-columns: 1fr; }
+    .booking-field.full { grid-column: 1; }
+    .footer { flex-direction: column; text-align: center; }
+    .bubble { max-width: 92%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- API Key Modal -->
+<div class="modal-overlay" id="apiModal">
+  <div class="modal">
+    <h2>Connect OpenAI</h2>
+    <p>Enter your OpenAI API key to power the Clyde Kitchens design consultation assistant. Your key is stored only in this browser session.</p>
+    <input type="password" id="apiKeyInput" placeholder="sk-proj-..." autocomplete="off">
+    <button class="modal-btn" onclick="startWithKey()">Start Consultation</button>
+    <div class="hint">Key used for GPT-4o · stored in session only · never transmitted to third parties</div>
+  </div>
+</div>
+
+<!-- Main Page -->
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-lockup">
+      <svg class="logo-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" rx="10" fill="#162032"/>
+        <rect x="1" y="1" width="50" height="50" rx="9" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+        <!-- Kitchen cabinet silhouette -->
+        <rect x="8" y="18" width="16" height="18" rx="1.5" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+        <rect x="28" y="18" width="16" height="18" rx="1.5" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+        <line x1="8" y1="27" x2="24" y2="27" stroke="#c9a84c" stroke-width="1"/>
+        <line x1="28" y1="27" x2="44" y2="27" stroke="#c9a84c" stroke-width="1"/>
+        <circle cx="20" cy="22.5" r="1.2" fill="#c9a84c"/>
+        <circle cx="32" cy="22.5" r="1.2" fill="#c9a84c"/>
+        <!-- Worktop line -->
+        <rect x="6" y="36" width="40" height="2.5" rx="1" fill="#c9a84c" opacity="0.7"/>
+        <!-- Upper cabinets -->
+        <rect x="9" y="10" width="13" height="6" rx="1" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+        <rect x="30" y="10" width="13" height="6" rx="1" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">Clyde Kitchens</span>
+        <span class="logo-tagline">Glasgow's Kitchen Specialists</span>
+      </div>
+    </div>
+    <div class="header-phone">
+      Showroom open Mon–Sat 10am–5pm, Sun 12–5pm &nbsp;·&nbsp;
+      <a href="tel:01415382000">0141 538 2000</a>
+    </div>
+  </header>
+
+  <!-- Chat area -->
+  <div class="chat-wrap">
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 5%"></div>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <div id="chipsArea" class="chips" style="display:none"></div>
+
+    <div id="inputSection">
+      <div class="input-area">
+        <textarea
+          id="userInput"
+          placeholder="Type your message here…"
+          rows="1"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Booking form (hidden until triggered) -->
+    <div id="bookingSection" style="display:none"></div>
+
+    <!-- Confirmation (hidden until submitted) -->
+    <div id="confirmSection" style="display:none"></div>
+
+  </div>
+
+  <footer class="footer">
+    <span>1 Chapelhall Industrial Estate, Chapelhall, Airdrie ML6 8QH</span>
+    <span>
+      <a href="https://clydekitchens.co.uk" target="_blank">clydekitchens.co.uk</a>
+      &nbsp;·&nbsp;
+      <a href="https://clydekitchens.co.uk/privacy-policy" target="_blank">Privacy Policy</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────
+let OPENAI_KEY = '';
+let conversationHistory = [];
+let leadData = {};
+let stage = 'qualifying'; // qualifying → booking → done
+let isTyping = false;
+
+// ─── System prompt ─────────────────────────────────────────────────
+const SYSTEM_PROMPT = `You are a friendly, knowledgeable design consultant for Clyde Kitchens, a premium kitchen and bathroom supplier based in Glasgow, Scotland. You've been helping customers transform their homes for over 50 years.
+
+Your role is to warmly qualify potential customers and guide them towards booking a free design consultation at the Clyde Kitchens showroom in Chapelhall, Airdrie.
+
+QUALIFICATION FLOW (gather these in natural conversation, don't interrogate):
+1. What room(s) they're looking to transform (kitchen, bathroom, bedroom)
+2. Their style preference (e.g. modern/handleless, traditional, painted, gloss, contemporary)
+3. Rough budget range (under £5k / £5k–£10k / £10k–£20k / £20k+)
+4. Their timeline (just browsing / 1–3 months / 3–6 months / ready now)
+5. Their rough location (for travel context to showroom)
+
+LEAD SCORING (internal — use this to decide how urgently to push for a booking):
+- HOT: budget £10k+, timeline under 6 months → push firmly for booking
+- WARM: budget £5k–£10k or timeline 3–6 months → encourage booking
+- COOL: budget under £5k or just browsing → still warm and invite in, but softer tone
+
+CLYDE KITCHENS KEY FACTS TO WEAVE IN NATURALLY:
+- Free design visits with full CAD planning
+- They beat any like-for-like quote, or give the customer £100 (the "Quotebuster" guarantee)
+- 25% discount on kitchens + free fitting included
+- Finance available through Ideal4Finance
+- Full project management: they handle electrics, plumbing, tiling, flooring — everything
+- Showroom at Chapelhall Industrial Estate, Airdrie (near Glasgow), open Mon–Sat 10am–5pm, Sun 12–5pm
+- Phone: 0141 538 2000 | Email: sales@clydekitchens.co.uk
+- Excellent Trustpilot reviews
+
+TONE: Warm, personal, knowledgeable. Not pushy or salesy. You're a trusted advisor. Use light Scottish warmth where appropriate. Short paragraphs, conversational.
+
+BOOKING TRIGGER: Once you have gathered at least 3 of the 5 data points above, offer to book a free design consultation. When the user agrees to book, respond ONLY with this exact JSON tag (nothing else in that response):
+[SHOW_BOOKING_FORM]
+
+LEAD DATA: Throughout the conversation, when you learn key facts, include a JSON block at the END of your response (hidden from user) in this format — this is used by the system:
+[LEAD:{"room":"kitchen","style":"modern","budget":"10k-20k","timeline":"3-6 months","location":"Glasgow","score":"HOT"}]
+
+Only include the [LEAD:...] block when you have at least one data point to report. Update it cumulatively.
+
+Start by warmly greeting the user and asking which room they're looking to transform.`;
+
+// ─── Init ──────────────────────────────────────────────────────────
+function startWithKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key.startsWith('sk-')) {
+    document.getElementById('apiKeyInput').style.borderColor = '#e05050';
+    return;
+  }
+  OPENAI_KEY = key;
+  document.getElementById('apiModal').style.display = 'none';
+  initChat();
+}
+
+async function initChat() {
+  await sendAI(null); // trigger opening message
+}
+
+// ─── Message rendering ─────────────────────────────────────────────
+function addMessage(role, content) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+
+  const avatar = document.createElement('div');
+  avatar.className = `avatar ${role}`;
+  avatar.textContent = role === 'ai' ? 'CK' : '👤';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = content.replace(/\n/g, '<br>');
+
+  div.appendChild(avatar);
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg ai';
+  div.id = 'typingMsg';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar ai';
+  avatar.textContent = 'CK';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+
+  div.appendChild(avatar);
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typingMsg');
+  if (el) el.remove();
+}
+
+function showChips(options) {
+  const area = document.getElementById('chipsArea');
+  area.innerHTML = '';
+  area.style.display = 'flex';
+  options.forEach(opt => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = opt;
+    chip.onclick = () => {
+      hideChips();
+      document.getElementById('userInput').value = opt;
+      sendMessage();
+    };
+    area.appendChild(chip);
+  });
+}
+
+function hideChips() {
+  const area = document.getElementById('chipsArea');
+  area.style.display = 'none';
+  area.innerHTML = '';
+}
+
+// ─── Progress ──────────────────────────────────────────────────────
+function updateProgress() {
+  const fields = ['room','style','budget','timeline','location'];
+  const filled = fields.filter(f => leadData[f]).length;
+  const pct = Math.max(5, Math.round((filled / 5) * 70) + (stage === 'booking' ? 25 : 0) + (stage === 'done' ? 30 : 0));
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ─── AI call ───────────────────────────────────────────────────────
+async function sendAI(userMessage) {
+  if (userMessage) {
+    conversationHistory.push({ role: 'user', content: userMessage });
+  }
+
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  showTyping();
+
+  try {
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...conversationHistory
+    ];
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages,
+        max_tokens: 500,
+        temperature: 0.75
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.error) {
+      removeTyping();
+      addMessage('ai', `Sorry, I encountered an issue: ${data.error.message}. Please check your API key.`);
+      isTyping = false;
+      document.getElementById('sendBtn').disabled = false;
+      return;
+    }
+
+    let rawContent = data.choices[0].message.content;
+
+    // Extract lead data if present
+    const leadMatch = rawContent.match(/\[LEAD:(\{.*?\})\]/s);
+    if (leadMatch) {
+      try {
+        const ld = JSON.parse(leadMatch[1]);
+        Object.assign(leadData, ld);
+        updateProgress();
+      } catch(e) {}
+      rawContent = rawContent.replace(/\[LEAD:.*?\]/s, '').trim();
+    }
+
+    // Check for booking form trigger
+    if (rawContent.includes('[SHOW_BOOKING_FORM]')) {
+      removeTyping();
+      conversationHistory.push({ role: 'assistant', content: rawContent });
+      stage = 'booking';
+      updateProgress();
+      showBookingForm();
+      isTyping = false;
+      document.getElementById('sendBtn').disabled = false;
+      return;
+    }
+
+    // Clean up any other tags
+    const cleanContent = rawContent.replace(/\[.*?\]/g, '').trim();
+
+    removeTyping();
+    conversationHistory.push({ role: 'assistant', content: rawContent });
+    addMessage('ai', cleanContent);
+
+    // Suggest chips based on conversation stage
+    suggestChips(cleanContent);
+
+    isTyping = false;
+    document.getElementById('sendBtn').disabled = false;
+
+  } catch(err) {
+    removeTyping();
+    addMessage('ai', 'Sorry, something went wrong connecting to the AI. Please check your connection and API key.');
+    isTyping = false;
+    document.getElementById('sendBtn').disabled = false;
+  }
+}
+
+// ─── Smart chip suggestions ────────────────────────────────────────
+function suggestChips(aiText) {
+  const t = aiText.toLowerCase();
+  if (!leadData.room && (t.includes('room') || t.includes('transform') || t.includes('project'))) {
+    showChips(['Kitchen', 'Bathroom', 'Bedroom', 'Kitchen & Bathroom']);
+  } else if (!leadData.style && (t.includes('style') || t.includes('look') || t.includes('design'))) {
+    showChips(['Modern / Handleless', 'Traditional', 'Gloss / Contemporary', 'Painted / Shaker']);
+  } else if (!leadData.budget && (t.includes('budget') || t.includes('invest') || t.includes('spend'))) {
+    showChips(['Under £5,000', '£5,000–£10,000', '£10,000–£20,000', '£20,000+']);
+  } else if (!leadData.timeline && (t.includes('timeline') || t.includes('timescale') || t.includes('when') || t.includes('soon'))) {
+    showChips(['Just browsing', '3–6 months', '1–3 months', 'Ready now!']);
+  } else if (leadData.budget && leadData.room && !leadData.timeline) {
+    showChips(['Just browsing', '1–3 months', '3–6 months', 'Ready to go now']);
+  } else {
+    hideChips();
+  }
+}
+
+// ─── Send user message ─────────────────────────────────────────────
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+
+  hideChips();
+  addMessage('user', text);
+  input.value = '';
+  input.style.height = 'auto';
+
+  await sendAI(text);
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+// ─── Booking form ──────────────────────────────────────────────────
+function showBookingForm() {
+  // Add a transition message
+  addMessage('ai', `Excellent! Let me get that booked in for you. Please fill in your details below and I'll confirm your free design visit to our Glasgow showroom.`);
+
+  document.getElementById('inputSection').style.display = 'none';
+  document.getElementById('chipsArea').style.display = 'none';
+
+  const scoreClass = leadData.score === 'HOT' ? 'hot' : leadData.score === 'WARM' ? 'warm' : 'cool';
+  const scoreLabel = leadData.score || 'Enquiry';
+
+  const section = document.getElementById('bookingSection');
+  section.style.display = 'block';
+  section.innerHTML = `
+    <div class="booking-card">
+      <h3>Book Your Free Design Consultation</h3>
+      <div class="booking-grid">
+        <div class="booking-field">
+          <label>First Name</label>
+          <input type="text" id="b_fname" placeholder="e.g. Sarah" required>
+        </div>
+        <div class="booking-field">
+          <label>Last Name</label>
+          <input type="text" id="b_lname" placeholder="e.g. MacLeod" required>
+        </div>
+        <div class="booking-field">
+          <label>Phone Number</label>
+          <input type="tel" id="b_phone" placeholder="07xxx xxxxxx" required>
+        </div>
+        <div class="booking-field">
+          <label>Email Address</label>
+          <input type="email" id="b_email" placeholder="you@email.com" required>
+        </div>
+        <div class="booking-field">
+          <label>Preferred Visit Date</label>
+          <input type="date" id="b_date" min="${getTomorrow()}" required>
+        </div>
+        <div class="booking-field">
+          <label>Preferred Time</label>
+          <select id="b_time">
+            <option value="">Select a time</option>
+            <option>Morning (10am–12pm)</option>
+            <option>Afternoon (12pm–3pm)</option>
+            <option>Late afternoon (3pm–5pm)</option>
+          </select>
+        </div>
+        <div class="booking-field full">
+          <label>Additional Notes (optional)</label>
+          <input type="text" id="b_notes" placeholder="e.g. any specific products you'd like to see…">
+        </div>
+      </div>
+      <button class="booking-submit" onclick="submitBooking()">Confirm My Design Visit →</button>
+    </div>
+  `;
+  section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function getTomorrow() {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
+}
+
+// ─── Submit booking ────────────────────────────────────────────────
+function submitBooking() {
+  const fname = document.getElementById('b_fname').value.trim();
+  const lname = document.getElementById('b_lname').value.trim();
+  const phone = document.getElementById('b_phone').value.trim();
+  const email = document.getElementById('b_email').value.trim();
+  const date  = document.getElementById('b_date').value;
+  const time  = document.getElementById('b_time').value;
+
+  if (!fname || !lname || !phone || !email || !date || !time) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  // Compile full lead data for CRM/notification
+  const booking = {
+    customer: { firstName: fname, lastName: lname, phone, email },
+    appointment: { date, time },
+    project: {
+      room: leadData.room || 'Not specified',
+      style: leadData.style || 'Not specified',
+      budget: leadData.budget || 'Not specified',
+      timeline: leadData.timeline || 'Not specified',
+      location: leadData.location || 'Not specified'
+    },
+    leadScore: leadData.score || 'Unscored',
+    notes: document.getElementById('b_notes').value.trim(),
+    submittedAt: new Date().toISOString(),
+    source: 'AI Consultation Widget — silverbulletpro.com/clydekitchens'
+  };
+
+  console.log('LEAD SUBMISSION:', JSON.stringify(booking, null, 2));
+
+  stage = 'done';
+  updateProgress();
+  showConfirmation(fname, date, time, booking);
+}
+
+// ─── Confirmation ──────────────────────────────────────────────────
+function showConfirmation(fname, date, time, booking) {
+  document.getElementById('bookingSection').style.display = 'none';
+
+  const formattedDate = new Date(date + 'T12:00:00').toLocaleDateString('en-GB', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  const scoreClass = booking.leadScore === 'HOT' ? 'hot' : booking.leadScore === 'WARM' ? 'warm' : 'cool';
+  const scoreEmoji = booking.leadScore === 'HOT' ? '🔥' : booking.leadScore === 'WARM' ? '✨' : '💬';
+
+  const section = document.getElementById('confirmSection');
+  section.style.display = 'block';
+  section.innerHTML = `
+    <div class="confirm-wrap">
+      <div class="confirm-icon">✓</div>
+      <h2>You're booked in, ${fname}!</h2>
+      <p>We'll be in touch shortly to confirm your design visit. We look forward to meeting you at our Glasgow showroom.</p>
+
+      <div class="confirm-details">
+        <strong>📅 ${formattedDate}</strong><br>
+        <strong>🕐 ${time}</strong><br>
+        <strong>📍 1 Chapelhall Industrial Estate, Airdrie ML6 8QH</strong><br>
+        <br>
+        <strong>Your project:</strong> ${booking.project.room} · ${booking.project.style}<br>
+        <strong>Budget:</strong> ${booking.project.budget}<br>
+        <strong>Timeline:</strong> ${booking.project.timeline}
+      </div>
+
+      <div style="margin-top:8px">
+        <span class="lead-badge ${scoreClass}">${scoreEmoji} ${booking.leadScore} lead</span>
+      </div>
+
+      <p style="margin-top:24px;font-size:13px;color:var(--text-dim)">
+        Questions before your visit? Call us on
+        <a href="tel:01415382000" style="color:var(--gold);text-decoration:none">0141 538 2000</a>
+        or email <a href="mailto:sales@clydekitchens.co.uk" style="color:var(--gold);text-decoration:none">sales@clydekitchens.co.uk</a>
+      </p>
+    </div>
+  `;
+  section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+// ─── Allow Enter in API modal ──────────────────────────────────────
+document.getElementById('apiKeyInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startWithKey();
+});
+</script>
+</body>
+</html>
