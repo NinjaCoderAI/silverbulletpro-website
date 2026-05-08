@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>SilverBullet Pro | Get Found, Trusted & Recommended by Google and AI</title>
-  <meta name="description" content="A focused AI Visibility Sprint for businesses that want to be easier for Google, ChatGPT, Perplexity and AI search tools to find, understand, trust and recommend." />
+  <title>AI Buyer Capture | SilverBullet Pro</title>
+  <meta name="description" content="Free AI Search / GEO audit and AI visibility fixes for businesses that want to be recommended by ChatGPT, Claude, and Perplexity." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,7 +103,7 @@
       font-size: clamp(2rem, 4.2vw, 3.7rem);
       line-height: 0.98;
       letter-spacing: -0.05em;
-      max-width: 13ch;
+      max-width: 12ch;
     }
 
     .section-title em{
@@ -117,15 +116,10 @@
 
     .section-copy{
       margin: 22px 0 0;
-      max-width: 72ch;
+      max-width: 70ch;
       color: var(--muted);
       font-size: 1.06rem;
       line-height: 1.75;
-    }
-
-    .section-copy strong{
-      color: var(--text);
-      font-weight: 800;
     }
 
     .section-head{
@@ -262,7 +256,7 @@
       font-size: clamp(2.4rem, 4.5vw, 4.2rem);
       line-height: 1.05;
       letter-spacing: -0.05em;
-      max-width: 21ch;
+      max-width: 20ch;
     }
 
     .hero-title .accent{
@@ -275,7 +269,7 @@
 
     .hero-sub{
       margin: 24px 0 0;
-      max-width: 64ch;
+      max-width: 62ch;
       font-size: clamp(1.02rem, 1.9vw, 1.16rem);
       line-height: 1.8;
       color: var(--muted);
@@ -390,8 +384,6 @@
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
     }
 
     .mini-stat{
@@ -418,8 +410,6 @@
       background: linear-gradient(180deg, #111722 0%, #0b1018 100%);
       color: #fff;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      position: relative;
-      z-index: 1;
     }
 
     .score-panel-label{
@@ -580,7 +570,7 @@
       width: max-content;
       gap: 14px;
       padding: 16px 0;
-      animation: scroll 34s linear infinite;
+      animation: scroll 30s linear infinite;
     }
 
     .marquee-item{
@@ -607,7 +597,7 @@
       to { transform: translateX(-50%); }
     }
 
-    /* USE CASES */
+    /* REVIEWS */
     .reviews-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -643,12 +633,7 @@
       width: 48px;
       height: 48px;
       border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      flex: 0 0 auto;
+      object-fit: cover;
     }
 
     .review-meta {
@@ -713,6 +698,34 @@
 
     .body strong{ color: var(--text); }
 
+    .problem-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .problem-card{
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(12,18,28,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .problem-card h3{
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+      letter-spacing: -0.03em;
+    }
+
+    .problem-card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
     .comparison{
       margin-top: 24px;
       display: grid;
@@ -755,17 +768,10 @@
       line-height: 1.5;
     }
 
-    /* CARDS */
+    /* FIXES */
     .cards-3{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .cards-4{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
       margin-top: 30px;
     }
@@ -813,7 +819,6 @@
     .icon.one{ background: linear-gradient(135deg, #3aa6ff, #69c0ff); }
     .icon.two{ background: linear-gradient(135deg, #8f66ff, #b08cff); }
     .icon.three{ background: linear-gradient(135deg, #f7b733, #ffd56d); color: #1d1d1d; }
-    .icon.four{ background: linear-gradient(135deg, #26c281, #80e1b2); }
 
     .feature-card h3{
       margin: 0 0 10px;
@@ -847,7 +852,7 @@
       margin-top: 26px;
       display: grid;
       gap: 12px;
-      max-width: 780px;
+      max-width: 720px;
     }
 
     .deliverable{
@@ -970,15 +975,9 @@
     /* PRICING */
     .pricing-grid{
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 18px;
       margin-top: 30px;
-      max-width: 920px;
-    }
-
-    .pricing-grid.single{
-      grid-template-columns: 1fr;
-      max-width: 520px;
     }
 
     .price-card{
@@ -1003,14 +1002,14 @@
     }
 
     .price-card.featured::before{
-      content: "FLAGSHIP SPRINT";
+      content: "MOST POPULAR";
       position: absolute;
       top: 18px;
-      right: -38px;
+      right: -34px;
       transform: rotate(25deg);
       background: linear-gradient(135deg, var(--accent), #ff756d);
       color: #fff;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-weight: 900;
       letter-spacing: 0.12em;
       padding: 8px 44px;
@@ -1107,7 +1106,7 @@
       display: grid;
       gap: 14px;
       margin-top: 30px;
-      max-width: 860px;
+      max-width: 820px;
     }
 
     details{
@@ -1182,7 +1181,7 @@
     }
 
     .cta-copy{
-      max-width: 760px;
+      max-width: 720px;
       position: relative;
       z-index: 1;
     }
@@ -1205,7 +1204,7 @@
       margin: 18px 0 0;
       color: rgba(255,255,255,0.74);
       line-height: 1.8;
-      max-width: 64ch;
+      max-width: 62ch;
       font-size: 1.03rem;
     }
 
@@ -1296,12 +1295,15 @@
       }
 
       .cards-3,
-      .cards-4,
       .pricing-grid,
       .stats,
       .timeline,
       .reviews-grid{
         grid-template-columns: 1fr 1fr;
+      }
+
+      .problem-grid{
+        grid-template-columns: 1fr;
       }
 
       .nav-links{
@@ -1320,16 +1322,12 @@
         padding: 11px 14px;
         font-size: 0.88rem;
       }
-      .brand-text small{
-        display: none;
-      }
       .hero-title{
         max-width: 100%;
       }
       .score-grid,
       .comparison,
       .cards-3,
-      .cards-4,
       .stats,
       .timeline,
       .pricing-grid,
@@ -1385,20 +1383,19 @@
         <div class="brand-mark">SB</div>
         <div class="brand-text">
           SilverBullet Pro
-          <small>AI Visibility Sprint</small>
+          <small>AI Buyer Capture</small>
         </div>
       </a>
 
       <nav class="nav-links" aria-label="Primary">
+        <a href="#reviews">Reviews</a>
         <a href="#problem">Problem</a>
-        <a href="#framework">Framework</a>
-        <a href="#sprint">Sprint</a>
+        <a href="#fix">Fix</a>
         <a href="#pricing">Pricing</a>
-        <a href="#maintenance">Monthly</a>
         <a href="#faq">FAQ</a>
       </nav>
 
-      <a href="mailto:david@silverbulletpro.com?subject=AI Visibility Audit Request" class="nav-cta">
+      <a href="mailto:david@silverbulletpro.com?subject=Free GEO Audit Request" class="nav-cta">
         Get My Free Audit
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1412,44 +1409,38 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <div class="eyebrow hero-kicker">Google + AI Visibility · 80/20 Fixes</div>
-
+          <div class="eyebrow hero-kicker">AI Buyer Capture System · GEO Optimisation</div>
           <h1 class="hero-title">
-            Get found, trusted and <span class="accent">recommended</span> by Google and AI search.
+            We diagnose why <span class="accent">ChatGPT, Claude, Gemini & Perplexity</span> recommends your competitors instead of you - and fix it in 48 hours
           </h1>
 
           <p class="hero-sub">
-            We fix the hidden visibility gaps that make your business harder for
-            <strong>Google, ChatGPT, Perplexity, Gemini and AI search tools</strong>
-            to access, understand, trust and recommend.
-          </p>
-
-          <p class="hero-sub">
-            No bloated SEO retainer. No endless content plan. Just the high-impact AI visibility foundations most businesses are missing.
+            <strong>AI cannot recommend you</strong> if your website is blocking crawlers or giving them nothing useful to cite.
+            We fix that with a precise 48-hour visibility system built for businesses that want to be discovered, trusted, and recommended.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:david@silverbulletpro.com?subject=I want my AI Visibility Audit">
-              Get Your Free AI Visibility Audit
+            <a class="btn btn-primary" href="mailto:david@silverbulletpro.com?subject=I want my free GEO audit">
+              Get Your Free Score
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
-            <a class="btn btn-secondary" href="#sprint">See the sprint</a>
+            <a class="btn btn-secondary" href="#fix">See what we fix</a>
           </div>
 
           <div class="trust-row">
-            <span class="trust-chip"><i></i> 7-day visibility sprint</span>
-            <span class="trust-chip"><i style="background: var(--accent-2)"></i> High-impact fixes only</span>
-            <span class="trust-chip"><i style="background: var(--accent-3)"></i> No monthly contract required</span>
+            <span class="trust-chip"><i></i> Built for AI citation visibility</span>
+            <span class="trust-chip"><i style="background: var(--accent-2)"></i> No retainers</span>
+            <span class="trust-chip"><i style="background: var(--accent-3)"></i> 48-hour delivery</span>
           </div>
         </div>
 
         <aside class="hero-card reveal" aria-label="Visibility preview">
           <div class="hero-card-top">
-            <div class="mini-stat"><strong>4</strong> visibility pillars</div>
-            <div class="mini-stat"><strong>10%</strong> that moves the needle</div>
+            <div class="mini-stat"><strong>427</strong> five-star reviews</div>
+            <div class="mini-stat"><strong>6</strong> visibility dimensions</div>
           </div>
 
           <div class="score-panel">
@@ -1462,12 +1453,12 @@
               <div class="score-box">
                 <h4>Before</h4>
                 <p class="score-big bad">32</p>
-                <p class="score-sub">Unclear, inconsistent or hard for AI to verify.</p>
+                <p class="score-sub">Grade F · blocked, vague, uncitable</p>
               </div>
               <div class="score-box">
                 <h4>After</h4>
                 <p class="score-big good">71</p>
-                <p class="score-sub">Clearer, better structured and easier to trust.</p>
+                <p class="score-sub">Grade B · structured, visible, cite-ready</p>
               </div>
             </div>
 
@@ -1475,22 +1466,22 @@
               <div class="hero-note-item">
                 <span class="dot"></span>
                 <div>
-                  <strong>Access improved</strong>
-                  <span>Your important pages are easier for search and AI systems to reach.</span>
+                  <strong>robots.txt reviewed</strong>
+                  <span>AI crawlers can access the pages that matter.</span>
                 </div>
               </div>
               <div class="hero-note-item">
                 <span class="dot"></span>
                 <div>
-                  <strong>Clarity upgraded</strong>
-                  <span>Your services, locations and buyer answers become easier to extract.</span>
+                  <strong>llms.txt rewritten</strong>
+                  <span>AI gets a clean map of your business and services.</span>
                 </div>
               </div>
               <div class="hero-note-item">
                 <span class="dot"></span>
                 <div>
-                  <strong>Trust signals strengthened</strong>
-                  <span>Your reviews, proof, credentials and business facts are made more obvious.</span>
+                  <strong>150-word entity paragraph</strong>
+                  <span>A concise, citable summary built for AI answers.</span>
                 </div>
               </div>
             </div>
@@ -1504,21 +1495,74 @@
       </div>
     </section>
 
-    <section class="marquee" aria-label="Positioning points">
+    <section class="marquee" aria-label="Proof points">
       <div class="marquee-track" aria-hidden="true">
-        <div class="marquee-item">Google shows options. <span class="pill">AI makes recommendations.</span></div>
-        <div class="marquee-item">Most websites were built for humans, <span class="pill">not AI systems.</span></div>
-        <div class="marquee-item">Get found, trusted and <span class="pill">recommended.</span></div>
-        <div class="marquee-item">Fix the visibility gaps <span class="pill">that actually matter.</span></div>
-        <div class="marquee-item">No bloated SEO retainer. <span class="pill">Just the foundation.</span></div>
-        <div class="marquee-item">Become the answer, <span class="pill">not just another result.</span></div>
+        <div class="marquee-item">AI-referred traffic up <span class="pill">527%</span> YoY</div>
+        <div class="marquee-item">AI traffic converts <span class="pill">4.4×</span> higher than organic</div>
+        <div class="marquee-item">Traditional search projected to drop <span class="pill">50%</span> by 2028</div>
+        <div class="marquee-item">Only <span class="pill">23%</span> of marketers are acting on this</div>
+        <div class="marquee-item">Most sites score below <span class="pill">40/100</span></div>
+        <div class="marquee-item">48 hours to a cleaner AI footprint</div>
 
-        <div class="marquee-item">Google shows options. <span class="pill">AI makes recommendations.</span></div>
-        <div class="marquee-item">Most websites were built for humans, <span class="pill">not AI systems.</span></div>
-        <div class="marquee-item">Get found, trusted and <span class="pill">recommended.</span></div>
-        <div class="marquee-item">Fix the visibility gaps <span class="pill">that actually matter.</span></div>
-        <div class="marquee-item">No bloated SEO retainer. <span class="pill">Just the foundation.</span></div>
-        <div class="marquee-item">Become the answer, <span class="pill">not just another result.</span></div>
+        <div class="marquee-item">AI-referred traffic up <span class="pill">527%</span> YoY</div>
+        <div class="marquee-item">AI traffic converts <span class="pill">4.4×</span> higher than organic</div>
+        <div class="marquee-item">Traditional search projected to drop <span class="pill">50%</span> by 2028</div>
+        <div class="marquee-item">Only <span class="pill">23%</span> of marketers are acting on this</div>
+        <div class="marquee-item">Most sites score below <span class="pill">40/100</span></div>
+        <div class="marquee-item">48 hours to a cleaner AI footprint</div>
+      </div>
+    </section>
+
+    <section class="section compact" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Client Success</div>
+          <h2 class="section-title" style="margin-top:18px;">Recommended by AI.<br><em>Chosen by buyers.</em></h2>
+        </div>
+        
+        <div class="reviews-grid">
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"We were losing high-ticket patient inquiries because AI search tools couldn't parse our clinic's complex treatment pages. Within 48 hours of implementing SilverBullet Pro's fixes, our AI-referred patient bookings increased by 40%."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Dr. Sarah Jenkins" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">Dr. Sarah Jenkins</span>
+                <span class="review-industry">Private Medical Clinic</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"Clients are increasingly using Perplexity to research legal representation. We had no idea our site was completely blocking AI crawlers. They diagnosed the issue instantly and mapped our practice areas perfectly for LLMs."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="James Arrington" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">James Arrington</span>
+                <span class="review-industry">Corporate Law Firm</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card reveal">
+            <div>
+              <div class="stars">★★★★★</div>
+              <p class="review-text">"When people searched for 'best bespoke kitchens' on ChatGPT, we were nowhere to be found despite our hundreds of 5-star Google reviews. They fixed our crawler access and entity data, and now we're consistently the top recommendation."</p>
+            </div>
+            <div class="review-author">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Fiona MacLeod" class="review-avatar">
+              <div class="review-meta">
+                <span class="review-name">Fiona MacLeod</span>
+                <span class="review-industry">Kitchens & Bathrooms Supplier</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1527,63 +1571,59 @@
         <div class="reveal">
           <div class="eyebrow">The Problem</div>
           <h2 class="section-title" style="margin-top:18px;">
-            Your website may be online.
-            <br><em>But is it AI-ready?</em>
+            You are spending on ads.
+            <br><em>AI is sending customers elsewhere.</em>
           </h2>
-
           <p class="section-copy">
-            Buyers are no longer only clicking through search results. They are asking Google, ChatGPT, Perplexity and AI assistants who to trust, who to compare and who to contact.
+            When someone asks an AI engine for “the best kitchen fitter in Glasgow” or “a tree surgeon near me,” it scans the web for businesses it can cite with confidence.
+            If your site blocks AI crawlers or gives them thin, unstructured information, you are out of the answer before the conversation even starts.
           </p>
-
           <p class="section-copy">
-            If your business information is vague, buried, inconsistent, outdated or hard to verify, AI systems may struggle to understand why you deserve to be included in the answer.
-          </p>
-
-          <p class="section-copy">
-            <strong>This is where most businesses are exposed:</strong> their website looks fine to humans, but the underlying visibility, clarity and trust signals are not strong enough for the AI search era.
+            <strong>This is not primarily a content problem.</strong> It is a visibility and configuration problem. Your robots.txt and llms.txt files determine whether AI can see you, understand you, and recommend you.
           </p>
 
           <div class="comparison">
             <div class="compare-box">
-              <p class="compare-label">Typical issue</p>
-              <p class="compare-value bad">?</p>
-              <p class="compare-foot">The business exists online, but AI cannot confidently explain why it should be recommended.</p>
+              <p class="compare-label">Typical score before</p>
+              <p class="compare-value bad">32</p>
+              <p class="compare-foot">Grade F · AI visibility is effectively shut down.</p>
             </div>
             <div class="compare-box">
-              <p class="compare-label">After the sprint</p>
-              <p class="compare-value good">✓</p>
-              <p class="compare-foot">The business is clearer, more structured and easier for search and AI systems to trust.</p>
+              <p class="compare-label">After SilverBullet Pro</p>
+              <p class="compare-value good">71</p>
+              <p class="compare-foot">Grade B · AI can access, understand, and cite you.</p>
             </div>
           </div>
         </div>
 
         <div class="panel dark reveal">
           <p class="eyebrow" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.72);">Why this matters</p>
-          <h3 class="panel-title" style="margin-top:16px;">Google and AI search are becoming the new referral layer.</h3>
+          <h3 class="panel-title" style="margin-top:16px;">The fastest growing channel in marketing is already changing demand.</h3>
           <p class="body" style="color: rgba(255,255,255,0.72);">
-            The businesses that win will not simply be the ones with the nicest websites. They will be the ones with the clearest public evidence: what they do, where they operate, who they help, why they are credible and how buyers can take action.
+            We audited a Glasgow kitchen company with 427 five-star reviews. AI engines saw none of them. That is not a reputation failure — it is a discoverability failure.
+            The good news is that the fix is precise, fast, and measurable.
           </p>
 
           <div class="deliverables" style="margin-top:22px;">
             <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
               <div class="check">✓</div>
               <div>
-                <strong style="color:#fff;">Not another SEO retainer</strong>
-                <span style="color: rgba(255,255,255,0.70);">We focus on the practical foundations that make your business easier to interpret.</span>
+                <strong style="color:#fff;">Access first</strong>
+                <span style="color: rgba(255,255,255,0.70);">If crawlers cannot read your site, nothing else matters.</span>
               </div>
             </div>
             <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
               <div class="check">✓</div>
               <div>
-                <strong style="color:#fff;">Not a website rebuild</strong>
-                <span style="color: rgba(255,255,255,0.70);">Most businesses do not need a rebuild. They need the right visibility gaps fixed.</span>
+                <strong style="color:#fff;">Structure second</strong>
+                <span style="color: rgba(255,255,255,0.70);">AI needs a structured map, not just a homepage.</span>
               </div>
             </div>
             <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
               <div class="check">✓</div>
               <div>
-                <strong style="color:#fff;">Expert diagnosis first</strong>
-                <span style="color: rgba(255,255,255,0.70);">The value is not doing hundreds of tasks. It is knowing which few actually matter.</span>
+                <strong style="color:#fff;">Entity clarity last</strong>
+                <span style="color: rgba(255,255,255,0.70);">One concise paragraph can dramatically improve citation quality.</span>
               </div>
             </div>
           </div>
@@ -1591,154 +1631,45 @@
       </div>
     </section>
 
-    <section class="section compact" id="framework">
+    <section class="section compact" id="fix">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">The Framework</div>
-          <h2 class="section-title" style="margin-top:18px;">Access. Clarity. Trust. <br><em>Recommendation.</em></h2>
+          <div class="eyebrow">The System</div>
+          <h2 class="section-title" style="margin-top:18px;">Three precise fixes. <br><em>One complete solution.</em></h2>
           <p class="section-copy">
-            Our AI Visibility Framework focuses on the four areas that determine whether your business is easy for search engines, AI tools and buyers to understand.
-          </p>
-        </div>
-
-        <div class="cards-4">
-          <article class="feature-card reveal">
-            <div class="icon one">1</div>
-            <div class="feature-meta">Access</div>
-            <h3>Can AI and search systems reach the right information?</h3>
-            <p>
-              We identify hidden access and indexability issues that may stop important pages, services and business facts from being properly discovered.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon two">2</div>
-            <div class="feature-meta">Clarity</div>
-            <h3>Can they understand what you do and where?</h3>
-            <p>
-              We make your services, locations, buyer questions and business summaries clearer, more structured and easier to extract.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon three">3</div>
-            <div class="feature-meta">Trust</div>
-            <h3>Can they verify why buyers should trust you?</h3>
-            <p>
-              We strengthen the proof layer around your business: reviews, accreditations, case studies, photos, FAQs, credentials and consistency.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon four">4</div>
-            <div class="feature-meta">Recommendation</div>
-            <h3>Are you structured to become the answer?</h3>
-            <p>
-              We organise your public information so AI search tools have stronger, cleaner signals when answering buyer questions in your market.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="use-cases">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Who This Helps</div>
-          <h2 class="section-title" style="margin-top:18px;">Ideal for businesses where <em>trust drives the enquiry.</em></h2>
-        </div>
-
-        <div class="reviews-grid">
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Local service businesses need to be clearly understood for high-intent searches like “best tree surgeon near me”, “kitchen company in Glasgow” or “emergency plumber in my area”.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">LS</div>
-              <div class="review-meta">
-                <span class="review-name">Local Services</span>
-                <span class="review-industry">Trades, home improvement, contractors</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Professional firms need clear expertise signals, strong service pages, consistent business information and proof that they are credible enough to recommend.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">PF</div>
-              <div class="review-meta">
-                <span class="review-name">Professional Firms</span>
-                <span class="review-industry">Legal, finance, consultants, B2B services</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Clinics and specialist providers need accurate, structured and trustworthy content so buyers can understand treatments, locations, credentials and next steps.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">HC</div>
-              <div class="review-meta">
-                <span class="review-name">Healthcare & Clinics</span>
-                <span class="review-industry">Private clinics, dentists, aesthetics</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="sprint">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">The Sprint</div>
-          <h2 class="section-title" style="margin-top:18px;">The 80/20 AI Visibility Sprint.</h2>
-          <p class="section-copy">
-            We do not try to do everything. We focus on the high-impact visibility, clarity and trust fixes that make your business easier for Google and AI search tools to interpret.
-          </p>
-          <p class="section-copy">
-            Behind the scenes, this may include technical access checks, AI-readable summaries, structured data, FAQ improvements, service clarity, Google profile alignment and trust signal recommendations. But the outcome is simple:
-            <strong>your business becomes easier to find, understand, trust and recommend.</strong>
+            We do not rebuild your website. We do not waste time on unnecessary SEO theatrics.
+            We make three targeted changes that tell AI engines exactly who you are, what you do, and why you deserve to be recommended.
           </p>
         </div>
 
         <div class="cards-3">
           <article class="feature-card reveal">
             <div class="icon one">1</div>
-            <div class="feature-meta">Diagnose</div>
-            <h3>Find the hidden visibility gaps</h3>
+            <div class="feature-meta">robots.txt</div>
+            <h3>The Access Clear</h3>
             <p>
-              We audit how clearly your business can be accessed, understood and verified by search engines, AI tools and buyers.
+              We open your site to all major AI crawlers, including GPTBot, ClaudeBot, PerplexityBot, and Google-Extended.
+              If this file is blocking access, nothing else can work. This is the door unlock.
             </p>
           </article>
 
           <article class="feature-card reveal">
             <div class="icon two">2</div>
-            <div class="feature-meta">Prioritise</div>
-            <h3>Identify what actually matters</h3>
+            <div class="feature-meta">llms.txt</div>
+            <h3>The AI Roadmap</h3>
             <p>
-              We separate the high-impact fixes from the noise, so you are not paying for a bloated SEO checklist that barely moves the needle.
+              We build or rewrite your llms.txt so AI engines can quickly understand your business, service areas, and the pages that matter most.
+              Think of it as the map you hand directly to the model.
             </p>
           </article>
 
           <article class="feature-card reveal">
             <div class="icon three">3</div>
-            <div class="feature-meta">Implement</div>
-            <h3>Fix the foundations fast</h3>
+            <div class="feature-meta">150-word fix</div>
+            <h3>The Entity Paragraph</h3>
             <p>
-              We create and deliver the practical assets, recommendations and implementation guidance needed to strengthen your AI/search visibility foundation.
+              We write a carefully structured paragraph containing your value proposition, service area, review signals, and trust markers.
+              It is designed to be cited, paraphrased, and surfaced in AI answers.
             </p>
           </article>
         </div>
@@ -1747,74 +1678,61 @@
           <div class="deliverable">
             <div class="check">✓</div>
             <div>
-              <strong>AI Visibility Diagnostic</strong>
-              <span>A clear review of where your business is strong, weak, unclear or hard to verify.</span>
+              <strong>Full GEO Audit Report</strong>
+              <span>Your composite AI visibility score across six dimensions.</span>
             </div>
           </div>
-
           <div class="deliverable">
             <div class="check">✓</div>
             <div>
-              <strong>High-Impact Visibility Fixes</strong>
-              <span>The priority technical, content and trust improvements that matter most for AI/search understanding.</span>
+              <strong>robots.txt Review and Fix</strong>
+              <span>Every major AI crawler unblocked and verified.</span>
             </div>
           </div>
-
           <div class="deliverable">
             <div class="check">✓</div>
             <div>
-              <strong>AI-Ready Business Profile</strong>
-              <span>A clean, structured summary of who you are, what you do, where you operate and why buyers should trust you.</span>
+              <strong>llms.txt Built or Rewritten</strong>
+              <span>Structured, factual, and built for AI interpretation.</span>
             </div>
           </div>
-
           <div class="deliverable">
             <div class="check">✓</div>
             <div>
-              <strong>Search & Trust Alignment</strong>
-              <span>Recommendations to align your website, Google Business Profile, services, reviews, FAQs and public proof.</span>
-            </div>
-          </div>
-
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>Before/After Walkthrough</strong>
-              <span>A simple report showing what was found, what was fixed and what should be improved next.</span>
+              <strong>150-word Entity Paragraph</strong>
+              <span>A high-signal asset designed for AI citations.</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section compact" aria-label="Why now">
+    <section class="section compact" aria-label="Proof">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">Why Now</div>
+          <div class="eyebrow">Why This Matters Now</div>
           <h2 class="section-title" style="margin-top:18px;">
-            Early movers can become <em>the obvious answer.</em>
+            The next growth channel is already here.
+            <br><em>Most businesses are not in it.</em>
           </h2>
-          <p class="section-copy">
-            AI search is still early enough that most businesses have not prepared for it. That creates a short window where practical visibility improvements can create an advantage before this becomes standard.
-          </p>
         </div>
 
         <div class="stats">
           <div class="stat reveal">
-            <p class="stat-num">1</p>
-            <p>Website that clearly explains what you do, where you do it and why buyers should trust you.</p>
+            <p class="stat-num">527%</p>
+            <p>AI-referred traffic growth year over year.</p>
           </div>
           <div class="stat reveal">
-            <p class="stat-num">4</p>
-            <p>Core visibility pillars: access, clarity, trust and recommendation readiness.</p>
+            <p class="stat-num">4.4×</p>
+            <p>Higher conversion rate versus organic search.</p>
           </div>
           <div class="stat reveal">
-            <p class="stat-num">7</p>
-            <p>Days to complete the focused sprint and deliver your priority fixes.</p>
+            <p class="stat-num">50%</p>
+            <p>Projected drop in traditional search by 2028.</p>
           </div>
           <div class="stat reveal">
-            <p class="stat-num">0</p>
-            <p>No forced monthly retainer. Start with the foundations and decide what comes next.</p>
+            <p class="stat-num">77%</p>
+            <p>Of marketers are not yet optimising for AI search.</p>
           </div>
         </div>
       </div>
@@ -1824,32 +1742,29 @@
       <div class="container">
         <div class="section-head reveal">
           <div class="eyebrow">The Process</div>
-          <h2 class="section-title" style="margin-top:18px;">From audit to action<br><em>in one focused sprint.</em></h2>
+          <h2 class="section-title" style="margin-top:18px;">Free audit to live fixes<br><em>in 48 hours.</em></h2>
         </div>
 
         <div class="timeline">
           <div class="step reveal">
             <div class="step-index">1</div>
             <h3>Free Audit</h3>
-            <p>Send your website URL. We run a practical AI visibility check and identify the obvious gaps.</p>
+            <p>Send your URL. We run a six-dimension visibility audit and map the main blockers.</p>
           </div>
-
           <div class="step reveal">
             <div class="step-index">2</div>
-            <h3>Findings Review</h3>
-            <p>We show you where your business is unclear, inconsistent, hidden or hard for AI/search to trust.</p>
+            <h3>Review Findings</h3>
+            <p>We show you exactly what is preventing AI from understanding and citing your business.</p>
           </div>
-
           <div class="step reveal">
             <div class="step-index">3</div>
-            <h3>Sprint Delivery</h3>
-            <p>We create the high-impact fixes, assets and implementation guidance needed to improve your foundation.</p>
+            <h3>We Deliver</h3>
+            <p>All fixes are built and delivered within 48 hours, ready to upload.</p>
           </div>
-
           <div class="step reveal">
             <div class="step-index">4</div>
-            <h3>Next-Step Plan</h3>
-            <p>You receive a clear walkthrough of what changed and what to improve next for stronger visibility.</p>
+            <h3>Score Confirmed</h3>
+            <p>We re-audit after recrawl so you can see what improved and where to go next.</p>
           </div>
         </div>
       </div>
@@ -1859,86 +1774,38 @@
       <div class="container">
         <div class="section-head reveal">
           <div class="eyebrow">Pricing</div>
-          <h2 class="section-title" style="margin-top:18px;">Simple. <em>Focused.</em> No bloated retainer.</h2>
-          <p class="section-copy">
-            You are not paying for a list of tiny technical tasks. You are paying for the expertise to identify and fix the visibility gaps that matter most.
-          </p>
+          <h2 class="section-title" style="margin-top:18px;">Simple. <em>Transparent.</em> No retainer.</h2>
         </div>
 
         <div class="pricing-grid">
           <article class="price-card featured reveal">
-            <p class="price-tier">Found, Trusted & Recommended Sprint</p>
+            <p class="price-tier">The AI Buyer Capture System</p>
             <p class="price-amount">£797</p>
-            <p class="price-note">One-off AI Visibility Sprint · Delivered within 7 days</p>
+            <p class="price-note">One-off Setup · Delivered in 48 hours</p>
             <ul class="price-list">
-              <li>AI Visibility Diagnostic</li>
-              <li>Access, clarity and trust review</li>
-              <li>High-impact visibility fixes prepared</li>
-              <li>AI-ready business summary</li>
-              <li>Website and Google profile alignment recommendations</li>
-              <li>Before/after walkthrough and 30-day action plan</li>
-              <li>No forced ongoing retainer</li>
+              <li>Full GEO Diagnostic Report</li>
+              <li>robots.txt clearance and configuration</li>
+              <li>llms.txt roadmap built and deployed</li>
+              <li>150-word citable entity paragraph</li>
+              <li>AI recrawl verification</li>
+              <li>No ongoing retainers</li>
             </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Book Found, Trusted & Recommended Sprint">Book My Sprint</a>
+            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Secure AI Buyer Capture - £1000">Fix My Visibility</a>
           </article>
 
           <article class="price-card reveal">
-            <p class="price-tier">Advanced Visibility Buildout</p>
-            <p class="price-amount">£1,500+</p>
-            <p class="price-note">For larger, multi-service or multi-location businesses</p>
+            <p class="price-tier">Enterprise Scale</p>
+            <p class="price-amount">£2,500+</p>
+            <p class="price-note">Multi-location or Complex CMS</p>
             <ul class="price-list">
-              <li>Everything in the core sprint</li>
-              <li>More detailed service and location mapping</li>
-              <li>Expanded FAQ and answer-ready content structure</li>
-              <li>Schema and structured data recommendations</li>
-              <li>Competitor visibility comparison</li>
-              <li>Optional monthly monitoring plan</li>
+              <li>Everything in the Core System</li>
+              <li>Multi-location entity formatting</li>
+              <li>Complex CMS integration (Enterprise Shopify/Wix)</li>
+              <li>Schema markup deployment</li>
+              <li>Quarterly AI monitoring</li>
+              <li>Dedicated Slack support</li>
             </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Advanced AI Visibility Buildout Enquiry">Let’s Talk</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="maintenance">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Optional Monthly Support</div>
-          <h2 class="section-title" style="margin-top:18px;">The sprint fixes the foundation. <em>Maintenance keeps it moving.</em></h2>
-          <p class="section-copy">
-            AI and Google visibility is not static. Competitors update their sites, reviews change, Google profiles go stale and buyer questions evolve. For businesses that want to keep improving, we offer simple monthly visibility maintenance after the sprint.
-          </p>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card reveal">
-            <p class="price-tier">Visibility Maintenance</p>
-            <p class="price-amount">£397</p>
-            <p class="price-note">Per month · Optional after the sprint</p>
-            <ul class="price-list">
-              <li>Monthly AI visibility check</li>
-              <li>Monthly competitor snapshot</li>
-              <li>2 Google Business Profile post drafts</li>
-              <li>Review reply templates</li>
-              <li>1 FAQ or service improvement per month</li>
-              <li>Short monthly Loom update</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Visibility Maintenance Enquiry">Ask About Maintenance</a>
-          </article>
-
-          <article class="price-card reveal">
-            <p class="price-tier">Visibility Growth</p>
-            <p class="price-amount">£697</p>
-            <p class="price-note">Per month · For businesses that want faster compounding</p>
-            <ul class="price-list">
-              <li>Everything in Maintenance</li>
-              <li>Weekly Google Business Profile post drafts</li>
-              <li>2 website content improvements per month</li>
-              <li>Expanded AI prompt testing</li>
-              <li>Review and trust signal support</li>
-              <li>Quarterly visibility refresh</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Visibility Growth Enquiry">Ask About Growth</a>
+            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=GEO Enterprise Enquiry">Let’s Talk</a>
           </article>
         </div>
       </div>
@@ -1953,51 +1820,23 @@
 
         <div class="faq">
           <details class="reveal">
-            <summary>Will this guarantee that ChatGPT recommends my business?<span>+</span></summary>
+            <summary>Will this actually make ChatGPT recommend my business?<span>+</span></summary>
             <div class="faq-body">
-              No responsible provider can guarantee that. What we do is improve the signals that make your business easier for Google and AI search tools to access, understand, verify and potentially recommend.
+              It removes the barriers that stop recommendation in the first place. Once AI crawlers can access your site and find clear, citable content, you become eligible for citations and inclusion in answers.
             </div>
           </details>
 
           <details class="reveal">
-            <summary>Is this just SEO with a new name?<span>+</span></summary>
+            <summary>How do you access my website to make the changes?<span>+</span></summary>
             <div class="faq-body">
-              It overlaps with SEO, but the focus is different. Traditional SEO is mostly about rankings and traffic. AI visibility is about whether machines can clearly understand your business, trust the information and use it when answering buyer questions.
+              You or your web team upload the files we provide. It usually takes only a few minutes. We can also walk you through the process on a screen share if needed.
             </div>
           </details>
 
           <details class="reveal">
-            <summary>Why not just ask ChatGPT to create the files and fixes?<span>+</span></summary>
+            <summary>Is this related to traditional SEO?<span>+</span></summary>
             <div class="faq-body">
-              The value is not simply creating files or copy. The value is knowing what to check, what matters, what to ignore, how to prioritise the issues and how to connect the technical, content and trust signals into one clear visibility foundation.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Do I need a full website rebuild?<span>+</span></summary>
-            <div class="faq-body">
-              Usually not. Most businesses need their existing website and public information made clearer, more structured and easier to verify before they consider a rebuild.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Do I need to pay monthly for this to work?<span>+</span></summary>
-            <div class="faq-body">
-              No. The sprint is designed as a standalone foundation fix. Monthly support is optional for businesses that want ongoing Google Business Profile activity, AI visibility checks, review support, content improvements and competitor monitoring.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Who is this best for?<span>+</span></summary>
-            <div class="faq-body">
-              It is best for service businesses, local businesses, clinics, professional firms, trades, home improvement companies and B2B providers where trust, expertise and location matter before a buyer makes an enquiry.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>What happens after the sprint?<span>+</span></summary>
-            <div class="faq-body">
-              You receive a clear action plan. Some businesses stop there. Others continue with monthly Google and AI visibility monitoring, Google Business Profile support, content improvements or lead reactivation campaigns.
+              It is complementary, but not the same thing. Traditional SEO optimises for blue links. GEO optimises for AI-generated answers, citations, and recommendation surfaces.
             </div>
           </details>
         </div>
@@ -2009,28 +1848,27 @@
         <div class="cta-box reveal">
           <div class="cta-copy">
             <div class="eyebrow" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.78);">Get Started</div>
-
             <h2 class="cta-title" style="margin-top:18px;">
-              Find out if your business is <em>AI-search ready.</em>
+              Find out your <em>AI visibility score</em> — free.
             </h2>
-
             <p class="cta-text">
-              Send your website URL and we will run a free AI Visibility Audit. You will see where your business is clear, where it is weak, and what may be making it harder for Google and AI search tools to recommend you.
+              Send your website URL and we will run a full audit within 24 hours. No cost, no commitment.
+              Just your score and the exact issues stopping AI from recommending you.
             </p>
 
             <div class="cta-actions">
-              <a class="btn btn-light" href="mailto:david@silverbulletpro.com?subject=Free AI Visibility Audit Request">
+              <a class="btn btn-light" href="mailto:david@silverbulletpro.com?subject=Free GEO Audit Request">
                 Request Your Free Audit
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
-              <a class="btn btn-dark" href="mailto:david@silverbulletpro.com?subject=Advanced AI Visibility Enquiry">Advanced enquiry</a>
+              <a class="btn btn-dark" href="mailto:david@silverbulletpro.com?subject=GEO Enterprise Enquiry">Enterprise enquiry</a>
             </div>
 
             <div class="cta-foot">
-              silverbulletpro.com · david@silverbulletpro.com · AI Visibility · GEO · Google + AI Search
+              silverbulletpro.com · david@silverbulletpro.com · AI Buyer Capture · GEO
             </div>
           </div>
         </div>
@@ -2041,7 +1879,7 @@
   <footer>
     <div class="container footer-grid">
       <div class="footer-brand">SilverBullet <span>PRO</span></div>
-      <div>AI Visibility · GEO · Google + AI Search</div>
+      <div>GEO · AI Buyer Capture · silverbulletpro.com</div>
       <div>david@silverbulletpro.com</div>
     </div>
   </footer>
