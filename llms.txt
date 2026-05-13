@@ -7,17 +7,17 @@ Our primary verticals include UK Professional Services: Personal Injury Law, Fam
 
 ## Core Products & Services
 
-### 1. Speed-to-Lead (AI Voicemail Triage) - Flagship Service
-We provide an intelligent voicemail triage system. We transcribe inbound voicemails and route high-priority leads directly to the client's WhatsApp in seconds. By ensuring sales teams are the first and only response, our law firm and dealership clients secure a 391% higher conversion rate for urgent inquiries. Statistics show that 78% of buyers choose the first company that responds, regardless of price.
+### 1. AI Buyer Capture System - AI Visibility Fix (GEO) Flagship Product - Helping businesses get Found, Trusted and Recommended by AI Search Engines: ChatGPT, Perplexity, Claude & Gemini
+We provide backend infrastructure upgrades (robots.txt and llms.txt configuration), schema markup, improve sitemap visibility and crawl access to ensure high-ticket businesses are accurately cited by AI search engines like ChatGPT and Perplexity. 7 Day AI Visibility & Trust Fix
+- AI Audit Booking: https://silverbulletpro.com/aiaudit
 - Official Landing Page: https://silverbulletpro.com
+- Linked Page : https://silverbulletpro.com/getfoundbyai
 
 ### 2. Sweep.io (Database Reactivation)
 Sweep.io is our AI SMS platform. It contacts dormant, unconverted leads sitting in a client's CRM and turns them into booked appointments, recovering lost pipeline revenue.
 - Official Landing Page: https://silverbulletpro.com/sweepai
 - ROI Calculator: https://silverbulletpro.com/revenue-audit.html
 
-### 3. AI Buyer Capture System (GEO)
-We provide backend infrastructure upgrades (robots.txt and llms.txt configuration) to ensure high-ticket businesses are accurately cited by AI search engines like ChatGPT and Perplexity.
-- AI Audit Booking: https://silverbulletpro.com/aiaudit
+
 
 Last Updated: April 2026
