@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweep — Turn Dead Leads Into Live Revenue</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════
+   TOKENS — extracted from SilverBulletPro screenshot
+   White bg, navy ink, coral CTA, violet italic accents,
+   lavender section fills, rounded soft cards
+═══════════════════════════════════ */
+:root {
+  --white:    #ffffff;
+  --bg:       #f9f9fc;
+  --lavender: #f3f0ff;
+  --ink:      #1a1a2e;
+  --ink-soft: #4a4a6a;
+  --ink-mid:  #7a7a9a;
+  --rule:     #e8e8f0;
+  --coral:    #f97066;
+  --coral-h:  #f75a4e;
+  --violet:   #7c3aed;
+  --violet-d: #6d28d9;
+  --violet-bg:#ede9fe;
+  --green:    #10b981;
+  --amber:    #f59e0b;
+  --r:        14px;
+  --r-pill:   999px;
+  --shadow:   0 2px 16px rgba(26,26,46,0.08);
+  --shadow-md:0 8px 32px rgba(26,26,46,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 2.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--coral); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta {
+  background: var(--coral) !important;
+  color: #fff !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--r-pill);
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: var(--coral-h) !important; transform: translateY(-1px) !important; }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);
+  padding: 5rem 2.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+}
+
+.hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--violet-bg);
+  color: var(--violet);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--r-pill);
+  width: fit-content;
+  animation: fadeUp 0.5s ease both 0.05s;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  animation: fadeUp 0.6s ease both 0.15s;
+}
+
+/* Italic violet emphasis — signature move from SBP site */
+.hero h1 em,
+h2 em,
+.italic-accent {
+  font-style: italic;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 44ch;
+  animation: fadeUp 0.6s ease both 0.25s;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s ease both 0.35s;
+}
+
+.btn-coral {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(249,112,102,0.35);
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-coral:hover { background: var(--coral-h); transform: translateY(-2px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--rule);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+.hero-note {
+  font-size: 0.75rem;
+  color: var(--ink-mid);
+  animation: fadeUp 0.6s ease both 0.42s;
+}
+
+/* Hero right: dashboard mockup */
+.hero-right {
+  position: relative;
+  animation: fadeUp 0.7s ease both 0.3s;
+}
+
+.dash-mock {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.dash-topbar {
+  background: var(--ink);
+  padding: 0.75rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tb-dot { width: 10px; height: 10px; border-radius: 50%; }
+.tb-r { background: #ff5f57; }
+.tb-y { background: #febc2e; }
+.tb-g { background: #28c840; }
+
+.tb-url {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  height: 22px;
+  margin-left: 0.6rem;
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.5);
+  font-family: monospace;
+}
+
+.dash-body { padding: 1.2rem; }
+
+.dash-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.9rem;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.stat-box {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 0.8rem;
+  border: 1px solid var(--rule);
+}
+
+.stat-label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mid);
+  margin-bottom: 0.25rem;
+}
+
+.stat-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.stat-val.v-coral  { color: var(--coral); }
+.stat-val.v-violet { color: var(--violet); }
+.stat-val.v-green  { color: var(--green); }
+
+.stat-delta {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--green);
+  margin-top: 0.1rem;
+}
+
+.chart-wrap {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 0.8rem;
+  border: 1px solid var(--rule);
+  margin-bottom: 0.6rem;
+}
+
+.chart-label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mid);
+  margin-bottom: 0.6rem;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 40px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: var(--violet-bg);
+}
+.bar.active { background: var(--violet); }
+
+.lead-list { display: flex; flex-direction: column; gap: 0.45rem; }
+
+.lead-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  background: var(--bg);
+  border-radius: 9px;
+  border: 1px solid var(--rule);
+}
+
+.avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lead-info { flex: 1; }
+.lead-name { font-size: 0.67rem; font-weight: 700; color: var(--ink); }
+.lead-sub  { font-size: 0.58rem; color: var(--ink-mid); }
+
+.lead-badge {
+  font-size: 0.52rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--r-pill);
+}
+.b-hot  { background: #fee2e2; color: #dc2626; }
+.b-warm { background: #fef3c7; color: #d97706; }
+.b-new  { background: #d1fae5; color: #059669; }
+
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker-wrap {
+  background: var(--ink);
+  overflow: hidden;
+  padding: 0.8rem 0;
+}
+
+.ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+
+.ticker-item {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  padding: 0 2rem;
+}
+
+.ticker-item span { color: var(--coral); margin-right: 0.5rem; }
+
+/* ═══════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════ */
+.section {
+  padding: 6rem 2.5rem;
+}
+
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet);
+  background: var(--violet-bg);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--r-pill);
+  margin-bottom: 1.2rem;
+}
+
+.section-h {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 52ch;
+}
+
+.bg-lavender { background: var(--lavender); }
+.bg-white    { background: var(--white); }
+.bg-ink      { background: var(--ink); }
+
+/* ═══════════════════════════════════
+   PROBLEM
+═══════════════════════════════════ */
+.problem-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.big-stat {
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--violet);
+  opacity: 0.25;
+  transition: opacity 0.4s;
+}
+
+.problem-split:hover .big-stat { opacity: 0.5; }
+
+.problem-copy p {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2rem;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.step-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--violet-bg);
+  line-height: 1;
+  margin-bottom: 1rem;
+  -webkit-text-stroke: 1.5px var(--violet);
+  color: transparent;
+}
+
+.step-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.step-card p {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════
+   LIVE SMS DEMO
+═══════════════════════════════════ */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.demo-copy h2 { margin-bottom: 1rem; }
+.demo-copy p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.industry-nav {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.ind-btn {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  padding: 0.38rem 0.85rem;
+  font-size: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.ind-btn:hover { border-color: var(--violet); color: var(--violet); }
+.ind-btn.active { background: var(--violet); color: #fff; border-color: var(--violet); }
+
+.phone-mock {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.phone-header {
+  background: var(--lavender);
+  padding: 0.9rem 1.3rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.chat-window {
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 340px;
+}
+
+.msg { display: flex; flex-direction: column; max-width: 78%; }
+.msg.outbound { align-self: flex-end; align-items: flex-end; }
+.msg.inbound  { align-self: flex-start; }
+
+.msg-bubble {
+  padding: 0.8rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  border-radius: 14px;
+  animation: msgIn 0.35s ease both;
+}
+.msg.outbound .msg-bubble {
+  background: var(--violet);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.msg.inbound .msg-bubble {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  border-bottom-left-radius: 4px;
+}
+
+.msg-time {
+  font-size: 0.58rem;
+  color: var(--ink-mid);
+  margin-top: 0.2rem;
+  padding: 0 0.2rem;
+}
+
+.alert-badge {
+  margin-top: 1.2rem;
+  padding: 0.8rem 1rem;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.alert-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════
+   RESULTS
+═══════════════════════════════════ */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.result-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coral), var(--violet));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.result-card:hover::before { transform: scaleX(1); }
+
+.result-stat {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--coral);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.result-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mid);
+  margin-bottom: 1rem;
+}
+
+.result-desc {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════
+   VERTICALS
+═══════════════════════════════════ */
+.verticals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.vertical-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.vertical-card:hover { background: var(--lavender); border-color: rgba(124,58,237,0.2); }
+
+.v-icon { font-size: 1.3rem; flex-shrink: 0; }
+.v-name { font-size: 0.82rem; font-weight: 500; color: var(--ink-soft); line-height: 1.3; }
+
+/* ═══════════════════════════════════
+   PRICING TIERS
+═══════════════════════════════════ */
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.tier-card {
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2.2rem;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.tier-card:hover { box-shadow: var(--shadow-md); }
+
+.tier-card.featured {
+  border-color: var(--violet);
+  background: var(--lavender);
+}
+
+.tier-pill {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.28rem 0.7rem;
+  border-radius: var(--r-pill);
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  background: var(--violet-bg);
+  color: var(--violet);
+  border: 1px solid rgba(124,58,237,0.2);
+}
+.tier-card.featured .tier-pill {
+  background: var(--violet);
+  color: #fff;
+  border-color: var(--violet);
+}
+
+.tier-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.tier-desc {
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  line-height: 1.55;
+  margin-bottom: 1.8rem;
+}
+
+.tier-features {
+  list-style: none;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tier-features li {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.45;
+}
+
+.tier-features li::before {
+  content: '✓';
+  color: var(--violet);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* ═══════════════════════════════════
+   TESTIMONIAL
+═══════════════════════════════════ */
+.testimonial-section {
+  background: var(--ink);
+  padding: 6rem 2.5rem;
+  text-align: center;
+}
+
+.quote-mark {
+  font-size: 5rem;
+  color: var(--coral);
+  opacity: 0.4;
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 2rem;
+  font-style: normal;
+}
+
+.testimonial-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+.testimonial-text strong { color: #fff; font-style: normal; font-weight: 700; }
+
+.testimonial-source {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
+/* ═══════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════ */
+.cta-section {
+  background: linear-gradient(135deg, var(--ink) 0%, #2d1b69 100%);
+  padding: 7rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: 20%;
+  width: 60%; height: 160%;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.cta-inner { position: relative; z-index: 1; }
+
+.cta-section h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.cta-section h2 em {
+  font-style: italic;
+  color: var(--coral);
+}
+
+.cta-section p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 44ch;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+.cta-btns {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.btn-coral-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.95rem 2.2rem;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(249,112,102,0.4);
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-coral-lg:hover { background: var(--coral-h); transform: translateY(-2px); }
+
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.95rem 1.8rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost-light:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+.cta-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.5rem;
+}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  background: var(--white);
+  border-top: 1px solid var(--rule);
+  padding: 1.8rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.footer-logo span { color: var(--coral); }
+
+footer p { font-size: 0.7rem; color: var(--ink-mid); }
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer-links a {
+  font-size: 0.7rem;
+  color: var(--ink-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--ink); }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%  { opacity: 0.4; transform: scale(0.8); }
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+    min-height: auto;
+  }
+
+  .section { padding: 4rem 1.5rem; }
+  .problem-split { grid-template-columns: 1fr; gap: 2rem; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .demo-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+  .tiers-grid { grid-template-columns: 1fr; }
+  .testimonial-section { padding: 4rem 1.5rem; }
+  .cta-section { padding: 5rem 1.5rem; }
+  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Sweep<span>.</span></a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#demo">Live demo</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F" class="nav-cta">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);">
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">AI-Powered Lead Reactivation</div>
+    <h1>Your next three clients are already in your <em>database.</em></h1>
+    <p class="hero-sub">Sweep finds them, texts them, qualifies them, and sends the hot ones straight to your phone. No ads. No SEO. No cold calling. Results in 14 days.</p>
+    <div class="hero-actions">
+      <a class="btn-coral" href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F">
+        See if you qualify →
+      </a>
+      <a class="btn-ghost" href="#how">How it works</a>
+    </div>
+    <p class="hero-note">No commitment. 15-minute demo on your actual data.</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="dash-mock">
+      <div class="dash-topbar">
+        <div class="tb-dot tb-r"></div>
+        <div class="tb-dot tb-y"></div>
+        <div class="tb-dot tb-g"></div>
+        <div class="tb-url">sweep.io — Revenue Dashboard</div>
+      </div>
+      <div class="dash-body">
+        <p class="dash-heading">Revenue Growth Dashboard</p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <p class="stat-label">Leads Reactivated</p>
+            <p class="stat-val v-violet">82</p>
+            <p class="stat-delta">↑ This month</p>
+          </div>
+          <div class="stat-box">
+            <p class="stat-label">Jobs Booked</p>
+            <p class="stat-val v-green">20</p>
+            <p class="stat-delta">↑ +40%</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <p class="chart-label">Pipeline activity</p>
+          <div class="bars">
+            <div class="bar" style="height:28%"></div>
+            <div class="bar" style="height:42%"></div>
+            <div class="bar" style="height:36%"></div>
+            <div class="bar" style="height:58%"></div>
+            <div class="bar active" style="height:74%"></div>
+            <div class="bar active" style="height:88%"></div>
+            <div class="bar active" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="lead-list">
+          <div class="lead-row">
+            <div class="avatar" style="background:#7c3aed">JM</div>
+            <div class="lead-info">
+              <p class="lead-name">James MacPherson</p>
+              <p class="lead-sub">Replied · 2 mins ago</p>
+            </div>
+            <span class="lead-badge b-hot">Hot</span>
+          </div>
+          <div class="lead-row">
+            <div class="avatar" style="background:#f97066">SR</div>
+            <div class="lead-info">
+              <p class="lead-name">Sarah Robertson</p>
+              <p class="lead-sub">Wants quote</p>
+            </div>
+            <span class="lead-badge b-warm">Warm</span>
+          </div>
+          <div class="lead-row">
+            <div class="avatar" style="background:#10b981">DK</div>
+            <div class="lead-info">
+              <p class="lead-name">Derek Kane</p>
+              <p class="lead-sub">Ready to book</p>
+            </div>
+            <span class="lead-badge b-new">New</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads to your WhatsApp instantly</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads to your WhatsApp instantly</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-tag">The Problem</div>
+    <div class="problem-split reveal">
+      <div class="big-stat" id="bigNum">80%</div>
+      <div class="problem-copy">
+        <h2 class="section-h">of leads you paid for never buy. They don't disappear — they just go <em>quiet.</em></h2>
+        <p>You spent real money on Google Ads, referrals, and campaigns to get those enquiries. Your team followed up. No reply. The lead got marked dead and forgotten.</p>
+        <p>But here's the truth: <strong>most of those people are still in-market.</strong> Life got busy. Timing was off. They meant to call back. Sweep sends them a message at the right moment — and restarts the conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-lavender" id="how">
+  <div class="section-inner">
+    <div class="section-tag reveal">How It Works</div>
+    <h2 class="section-h reveal">Three steps. <em>Zero effort</em> on your end.</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <h3>You hand us the list</h3>
+        <p>Export your old leads, dead quotes, and lapsed customers from your CRM. A simple CSV is all we need. Any format works.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">02</div>
+        <h3>Sweep texts them</h3>
+        <p>Our AI sends natural, personalised SMS that feels like a human checking in — not a marketing blast. Response rates: 20–45%.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">03</div>
+        <h3>You close the deal</h3>
+        <p>Hot leads fire straight to your WhatsApp. You step in only when someone is ready to buy. The AI handles everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE SMS DEMO -->
+<section class="section bg-white" id="demo">
+  <div class="section-inner">
+    <div class="demo-grid">
+      <div class="demo-copy reveal">
+        <div class="section-tag">Live Example</div>
+        <h2 class="section-h">This is what a dead lead looks like when Sweep <em>wakes it up.</em></h2>
+        <div class="industry-nav" id="industry-nav">
+          <button class="ind-btn active" data-industry="trades">Trades</button>
+          <button class="ind-btn" data-industry="solar">Solar</button>
+          <button class="ind-btn" data-industry="gym">Fitness</button>
+          <button class="ind-btn" data-industry="aesthetic">Medical</button>
+          <button class="ind-btn" data-industry="legal">Legal</button>
+          <button class="ind-btn" data-industry="realestate">Real Estate</button>
+          <button class="ind-btn" data-industry="kitchens">Kitchens</button>
+          <button class="ind-btn" data-industry="automotive">Automotive</button>
+          <button class="ind-btn" data-industry="dental">Dental</button>
+        </div>
+        <p>The message feels personal because it is. Sweep uses the lead's name and their original enquiry.</p>
+        <div class="alert-badge" id="demo-alert" style="display:none;">
+          <div class="alert-dot"></div>
+          <span>🔥 HOT LEAD — Booking intent confirmed. Alert sent to WhatsApp.</span>
+        </div>
+      </div>
+      <div class="phone-mock reveal">
+        <div class="phone-header">📱 SMS Conversation</div>
+        <div class="chat-window" id="chat-window"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section bg-lavender">
+  <div class="section-inner">
+    <div class="section-tag reveal">Typical Results</div>
+    <h2 class="section-h reveal">Numbers that make the <em>decision easy.</em></h2>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-stat">42%</div>
+        <div class="result-label">Average Reply Rate</div>
+        <div class="result-desc">On databases considered dead. Most businesses expect 5–10%. Sweep consistently delivers 3–5× that.</div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-stat">48h</div>
+        <div class="result-label">Time to First Revenue</div>
+        <div class="result-desc">Most clients see warm conversations and booked appointments within the first two days of going live.</div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-stat">£0</div>
+        <div class="result-label">Extra Ad Spend Required</div>
+        <div class="result-desc">Every lead Sweep reactivates is one you already paid for. The ROI is built in before we send message one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-tag reveal">Who It Works For</div>
+    <h2 class="section-h reveal">If you have a database, <em>you have revenue waiting.</em></h2>
+    <div class="verticals-grid reveal">
+      <div class="vertical-card"><div class="v-icon">🏠</div><div class="v-name">Home Improvement &amp; Trades</div></div>
+      <div class="vertical-card"><div class="v-icon">🚗</div><div class="v-name">Car &amp; Commercial Dealerships</div></div>
+      <div class="vertical-card"><div class="v-icon">⚡</div><div class="v-name">Solar &amp; Energy</div></div>
+      <div class="vertical-card"><div class="v-icon">💆</div><div class="v-name">Medical Aesthetics &amp; Clinics</div></div>
+      <div class="vertical-card"><div class="v-icon">🏋️</div><div class="v-name">Gyms &amp; Fitness Studios</div></div>
+      <div class="vertical-card"><div class="v-icon">🏦</div><div class="v-name">Mortgage &amp; Finance Brokers</div></div>
+      <div class="vertical-card"><div class="v-icon">🏗️</div><div class="v-name">Construction &amp; Surveying</div></div>
+      <div class="vertical-card"><div class="v-icon">📦</div><div class="v-name">B2B Distributors &amp; Suppliers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section bg-lavender" id="pricing">
+  <div class="section-inner">
+    <div class="section-tag reveal">Choose Your Model</div>
+    <h2 class="section-h reveal">Simple pricing. <em>Performance aligned.</em></h2>
+    <div class="tiers-grid">
+      <div class="tier-card reveal">
+        <div class="tier-pill">Sweep Recover</div>
+        <div class="tier-name">Human Closes</div>
+        <div class="tier-desc">Sweep finds the hot leads. Your team closes them. Best for high-ticket, relationship-driven sales.</div>
+        <ul class="tier-features">
+          <li>AI-powered SMS outreach</li>
+          <li>Instant WhatsApp hot-lead alerts</li>
+          <li>Stop word &amp; opt-out handling</li>
+          <li>Optional auto booking link</li>
+          <li>Lead tracking dashboard</li>
+        </ul>
+        <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-ghost" style="width:100%;justify-content:center;">Book a call →</a>
+      </div>
+      <div class="tier-card featured reveal">
+        <div class="tier-pill">Most Popular</div>
+        <div class="tier-name">Sweep Qualify</div>
+        <div class="tier-desc">Sweep handles the full conversation — qualifying, objection handling, booking. Your team just shows up.</div>
+        <ul class="tier-features">
+          <li>Everything in Sweep Recover</li>
+          <li>Fully autonomous AI conversations</li>
+          <li>Personalised AI prompt per client</li>
+          <li>Calendar booking automation</li>
+          <li>Conversation history &amp; context</li>
+        </ul>
+        <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-coral" style="width:100%;justify-content:center;">Book a call →</a>
+      </div>
+      <div class="tier-card reveal">
+        <div class="tier-pill">Sweep Prospect</div>
+        <div class="tier-name">Cold Outreach</div>
+        <div class="tier-desc">Target Directors of UK Ltd companies. Sweep generates your pipeline from scratch using legitimate interests.</div>
+        <ul class="tier-features">
+          <li>B2B SMS &amp; AI outreach</li>
+          <li>UK Director targeting</li>
+          <li>Peer-to-peer tone &amp; spintax</li>
+          <li>AI qualification to call booking</li>
+          <li>Separate prospect tracking</li>
+        </ul>
+        <a href="#" class="btn-ghost" style="width:100%;justify-content:center;opacity:0.5;pointer-events:none;">Coming soon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <span class="quote-mark reveal">&ldquo;</span>
+  <p class="testimonial-text reveal">"We had no idea our old database was worth this much. Your system generated <strong>more appointments in two weeks</strong> than our Google Ads did in four months."</p>
+  <p class="testimonial-source reveal">Sales Director — £60M B2B Distributor</p>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <div class="section-tag reveal" style="justify-content:center;margin:0 auto 1.2rem;">Free 15-Minute Demo</div>
+    <h2 class="reveal">Your leads are waiting<br>to hear from <em>you.</em></h2>
+    <p class="reveal">Book a 15-minute call and we'll show you exactly how many opportunities are sitting in your database — and what Sweep would generate from them.</p>
+    <div class="cta-btns reveal">
+      <a href="mailto:david@silverbulletpro.com?subject=I%20want%20to%20see%20SWEEP%20in%20action&body=Hi%20David%2C%20I%27d%20like%20to%20book%20a%20free%20demo%20of%20Sweep." class="btn-coral-lg">Book your free demo →</a>
+      <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-ghost-light">See if you qualify</a>
+    </div>
+    <p class="cta-note reveal">No commitment. No pitch deck. Just 15 minutes on your actual data.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Sweep<span>.</span></a>
+  <p>© 2026 Oakbank Innovations Ltd · Hamilton, Scotland</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">PECR Compliance</a>
+    <a href="mailto:david@silverbulletpro.com">david@silverbulletpro.com</a>
+  </div>
+</footer>
+
+<script>
+/* ── SMS CONVERSATIONS ── */
+const conversations = {
+  trades: [
+    { type:'outbound', text:"Hi Mark — quick one. You asked about a house rewire a while back. Did you ever get that sorted?", time:"Sweep → 6:14pm" },
+    { type:'inbound',  text:"Still thinking about it actually. Got a bit side-tracked. What kind of price?", time:"Mark → 6:19pm" },
+    { type:'outbound', text:"Depends on the size — is it still the 4-bed in Shawlands? Happy to get someone out for a quick quote.", time:"Sweep → 6:21pm" },
+    { type:'inbound',  text:"Yeah same place. That would be great actually — what's the earliest?", time:"Mark → 6:22pm" }
+  ],
+  solar: [
+    { type:'outbound', text:"Hey Sarah, you checked your solar eligibility in Nov. Prices just dropped 15% — still interested?", time:"Sweep → 10:05am" },
+    { type:'inbound',  text:"Oh really? I thought the grants had ended.", time:"Sarah → 10:40am" },
+    { type:'outbound', text:"Grants changed, but hardware costs fell more. Want me to send the updated savings sheet for your roof?", time:"Sweep → 10:42am" },
+    { type:'inbound',  text:"Please do. If it's under £6k total I'm in.", time:"Sarah → 11:05am" }
+  ],
+  gym: [
+    { type:'outbound', text:"Hi James! You toured the gym in Jan but didn't sign up. Still looking for a spot to train?", time:"Sweep → 4:00pm" },
+    { type:'inbound',  text:"Just haven't had time to get back in. Work's been crazy.", time:"James → 4:15pm" },
+    { type:'outbound', text:"Totally get that. I can reactivate your trial for this week so you can come in late. Want the QR code?", time:"Sweep → 4:16pm" },
+    { type:'inbound',  text:"That would actually be awesome. Yes please.", time:"James → 4:30pm" }
+  ],
+  aesthetic: [
+    { type:'outbound', text:"Hi Elena, you asked about the HydraFacial in Oct. We've got a last-minute opening tomorrow. Still interested?", time:"Sweep → 9:00am" },
+    { type:'inbound',  text:"I am! Is the intro offer still valid?", time:"Elena → 9:15am" },
+    { type:'outbound', text:"Since you've waited so long, I'll honour it. 11am or 2pm tomorrow?", time:"Sweep → 9:16am" },
+    { type:'inbound',  text:"11am works perfectly. See you then!", time:"Elena → 9:20am" }
+  ],
+  legal: [
+    { type:'outbound', text:"Hi David — you reached out a while ago about a personal injury claim. Did you ever get that resolved?", time:"Sweep → 11:30am" },
+    { type:'inbound',  text:"No, actually I haven't. Just been putting it off.", time:"David → 11:45am" },
+    { type:'outbound', text:"The statutory time limit is approaching. Want a brief 10-min call with one of our solicitors this week?", time:"Sweep → 11:47am" },
+    { type:'inbound',  text:"Yes, Thursday morning would be good.", time:"David → 12:05pm" }
+  ],
+  realestate: [
+    { type:'outbound', text:"Hi Sarah, you enquired about the 3-bed on Elm Street last month. Still looking to buy in that area?", time:"Sweep → 2:10pm" },
+    { type:'inbound',  text:"Yes, but that one sold before we could view it.", time:"Sarah → 2:15pm" },
+    { type:'outbound', text:"We just listed a similar property two streets over — not on the market yet. Want the details?", time:"Sweep → 2:17pm" },
+    { type:'inbound',  text:"Oh wow, yes please!", time:"Sarah → 2:20pm" }
+  ],
+  kitchens: [
+    { type:'outbound', text:"Hi John, you downloaded our kitchen brochure in January. Still planning a renovation this year?", time:"Sweep → 5:00pm" },
+    { type:'inbound',  text:"We are, but we're still figuring out the budget.", time:"John → 5:15pm" },
+    { type:'outbound', text:"We offer a free home visit with a 3D mock-up to nail down exact costs. Want to check availability?", time:"Sweep → 5:17pm" },
+    { type:'inbound',  text:"Sure, let's do Tuesday if possible.", time:"John → 5:30pm" }
+  ],
+  automotive: [
+    { type:'outbound', text:"Hi Mike, you looked at Audi Q5 finance options a few months back. Still in the market for an SUV?", time:"Sweep → 10:15am" },
+    { type:'inbound',  text:"Yes, but rates were a bit high at the time.", time:"Mike → 10:30am" },
+    { type:'outbound', text:"We just launched 0% APR on approved used Q5s this weekend. Want to come in for a test drive?", time:"Sweep → 10:32am" },
+    { type:'inbound',  text:"0%? Yeah, I can come by Saturday morning.", time:"Mike → 10:45am" }
+  ],
+  dental: [
+    { type:'outbound', text:"Hi Emma, you requested info on Invisalign last autumn. Still considering it?", time:"Sweep → 1:00pm" },
+    { type:'inbound',  text:"Yes — just wasn't sure if I was a candidate.", time:"Emma → 1:20pm" },
+    { type:'outbound', text:"We offer a free digital scan that shows exactly what your results would look like. Takes 15 mins — want Wednesday?", time:"Sweep → 1:22pm" },
+    { type:'inbound',  text:"That sounds perfect. Wednesday afternoon works.", time:"Emma → 1:45pm" }
+  ]
+};
+
+let activeTimeouts = [];
+
+function renderConvo(industry) {
+  const win = document.getElementById('chat-window');
+  const alert = document.getElementById('demo-alert');
+  activeTimeouts.forEach(clearTimeout);
+  activeTimeouts = [];
+  win.innerHTML = '';
+  alert.style.display = 'none';
+
+  conversations[industry].forEach((msg, i) => {
+    const id = setTimeout(() => {
+      const d = document.createElement('div');
+      d.className = `msg ${msg.type}`;
+      d.innerHTML = `<div class="msg-bubble">${msg.text}</div><div class="msg-time">${msg.time}</div>`;
+      win.appendChild(d);
+      win.scrollTop = win.scrollHeight;
+      if (i === conversations[industry].length - 1) {
+        setTimeout(() => { alert.style.display = 'flex'; }, 600);
+      }
+    }, i * 900);
+    activeTimeouts.push(id);
+  });
+}
+
+renderConvo('trades');
+
+document.getElementById('industry-nav').addEventListener('click', e => {
+  if (e.target.classList.contains('ind-btn')) {
+    document.querySelectorAll('.ind-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderConvo(e.target.dataset.industry);
+  }
+});
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.reveal').forEach((c, i) => {
+        c.style.transitionDelay = (i * 0.08) + 's';
+        c.classList.add('visible');
+      });
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── COUNT UP ── */
+const bigNum = document.getElementById('bigNum');
+if (bigNum) {
+  const no = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        let c = 0;
+        const t = setInterval(() => {
+          c += 2;
+          bigNum.textContent = c + '%';
+          if (c >= 80) { clearInterval(t); bigNum.textContent = '80%'; }
+        }, 25);
+        no.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  no.observe(bigNum);
+}
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+</body>
+</html>
