@@ -1,2076 +1,1127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>SilverBullet Pro | Get Found, Trusted & Recommended by Google and AI</title>
-  <meta name="description" content="A focused AI Visibility Sprint for businesses that want to be easier for Google, ChatGPT, Perplexity and AI search tools to find, understand, trust and recommend." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg: #f6f4ef;
-      --bg-2: #fbfaf7;
-      --surface: rgba(255,255,255,0.74);
-      --surface-strong: #ffffff;
-      --surface-dark: #0e1116;
-      --surface-dark-2: #151a22;
-      --text: #0d1117;
-      --muted: #5d6472;
-      --muted-2: #7c8596;
-      --border: rgba(12,18,28,0.10);
-      --border-strong: rgba(12,18,28,0.16);
-      --shadow: 0 20px 60px rgba(7, 12, 20, 0.08);
-      --shadow-2: 0 24px 80px rgba(12, 18, 28, 0.14);
-      --shadow-soft: 0 10px 30px rgba(12,18,28,0.06);
-
-      --accent: #ff5a4f;
-      --accent-2: #8f66ff;
-      --accent-3: #26c281;
-      --accent-4: #f7b733;
-      --accent-5: #3aa6ff;
-
-      --radius-xl: 32px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --radius-sm: 14px;
-
-      --container: 1180px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body{
-      margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 10%, rgba(143,102,255,0.10), transparent 30%),
-        radial-gradient(circle at 85% 18%, rgba(255,90,79,0.10), transparent 28%),
-        radial-gradient(circle at 50% 70%, rgba(58,166,255,0.06), transparent 26%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; }
-    img { max-width: 100%; display: block; }
-    button, input, textarea, select { font: inherit; }
-
-    .container{
-      width: min(var(--container), calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .eyebrow{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.58);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-soft);
-      color: var(--muted);
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before{
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 0 4px rgba(255,90,79,0.10);
-      flex: 0 0 auto;
-    }
-
-    .section{
-      padding: 104px 0;
-      position: relative;
-    }
-
-    .section.compact{ padding: 84px 0; }
-
-    .section-title{
-      margin: 0;
-      font-size: clamp(2rem, 4.2vw, 3.7rem);
-      line-height: 0.98;
-      letter-spacing: -0.05em;
-      max-width: 13ch;
-    }
-
-    .section-title em{
-      font-family: "Instrument Serif", serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent-2);
-      letter-spacing: -0.02em;
-    }
-
-    .section-copy{
-      margin: 22px 0 0;
-      max-width: 72ch;
-      color: var(--muted);
-      font-size: 1.06rem;
-      line-height: 1.75;
-    }
-
-    .section-copy strong{
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .section-head{
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    /* NAV */
-    .nav-wrap{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 14px 0;
-    }
-
-    .nav{
-      width: min(var(--container), calc(100% - 28px));
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 18px;
-      border: 1px solid rgba(255,255,255,0.8);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.70);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .brand{
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-    }
-
-    .brand-mark{
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background:
-        linear-gradient(135deg, rgba(255,90,79,1), rgba(143,102,255,1));
-      display: grid;
-      place-items: center;
-      color: #fff;
-      box-shadow: 0 10px 20px rgba(143,102,255,0.22);
-      font-size: 0.92rem;
-      font-weight: 900;
-    }
-
-    .brand-text{
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
-    }
-
-    .brand-text small{
-      font-size: 0.72rem;
-      color: var(--muted);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    .nav-links{
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.94rem;
-    }
-
-    .nav-links a{
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover{ color: var(--text); }
-
-    .nav-cta{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #fff;
-      font-size: 0.94rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      background: linear-gradient(135deg, var(--accent), #ff7268);
-      box-shadow: 0 16px 30px rgba(255,90,79,0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .nav-cta:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 20px 40px rgba(255,90,79,0.30);
-    }
-
-    /* HERO */
-    .hero{
-      padding: 48px 0 40px;
-      position: relative;
-    }
-
-    .hero-grid{
-      display: grid;
-      grid-template-columns: 1.12fr 0.88fr;
-      gap: 36px;
-      align-items: center;
-      min-height: calc(100vh - 122px);
-    }
-
-    .hero-copy{
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-kicker{
-      margin-bottom: 22px;
-    }
-
-    .hero-title{
-      margin: 0;
-      font-size: clamp(2.4rem, 4.5vw, 4.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.05em;
-      max-width: 21ch;
-    }
-
-    .hero-title .accent{
-      color: var(--accent-2);
-      font-family: "Instrument Serif", serif;
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-sub{
-      margin: 24px 0 0;
-      max-width: 64ch;
-      font-size: clamp(1.02rem, 1.9vw, 1.16rem);
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .hero-sub strong{
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .hero-actions{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 32px;
-    }
-
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn-primary{
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), #ff7368);
-      box-shadow: 0 18px 36px rgba(255,90,79,0.26);
-    }
-
-    .btn-primary:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 22px 44px rgba(255,90,79,0.32);
-    }
-
-    .btn-secondary{
-      color: var(--text);
-      background: rgba(255,255,255,0.68);
-      border-color: rgba(12,18,28,0.08);
-      backdrop-filter: blur(12px);
-    }
-
-    .btn-secondary:hover{
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .trust-row{
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .trust-chip{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.66);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      font-weight: 700;
-      color: #2d3440;
-    }
-
-    .trust-chip i{
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--accent-3);
-      display: inline-block;
-    }
-
-    .hero-card{
-      position: relative;
-      padding: 22px;
-      border-radius: 30px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.66));
-      border: 1px solid rgba(255,255,255,0.9);
-      box-shadow: var(--shadow-2);
-      backdrop-filter: blur(16px);
-      overflow: hidden;
-    }
-
-    .hero-card::before{
-      content: "";
-      position: absolute;
-      inset: -20% -20% auto auto;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(143,102,255,0.18), transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-card-top{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .mini-stat{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(12,18,28,0.08);
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--muted);
-    }
-
-    .mini-stat strong{
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    .score-panel{
-      border-radius: 24px;
-      padding: 22px;
-      background: linear-gradient(180deg, #111722 0%, #0b1018 100%);
-      color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      position: relative;
-      z-index: 1;
-    }
-
-    .score-panel-label{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255,255,255,0.74);
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .score-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .score-box{
-      border-radius: 22px;
-      padding: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .score-box h4{
-      margin: 0 0 10px;
-      color: rgba(255,255,255,0.72);
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .score-big{
-      margin: 0;
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      font-weight: 900;
-    }
-
-    .score-big.bad{ color: #fff; }
-    .score-big.good{ color: #87f0b0; }
-
-    .score-sub{
-      margin: 10px 0 0;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.55;
-      font-size: 0.93rem;
-    }
-
-    .hero-note{
-      margin-top: 16px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .hero-note-item{
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 13px 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.66);
-      border: 1px solid rgba(12,18,28,0.08);
-    }
-
-    .hero-note-item .dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      margin-top: 6px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      flex: 0 0 auto;
-    }
-
-    .hero-note-item strong{
-      display: block;
-      font-size: 0.94rem;
-      margin-bottom: 2px;
-    }
-
-    .hero-note-item span{
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .hero-decor{
-      position: absolute;
-      inset: auto 0 -20px 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.85;
-    }
-
-    .blob{
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(12px);
-      opacity: 0.55;
-    }
-
-    .blob.one{
-      width: 340px;
-      height: 340px;
-      left: -120px;
-      top: 120px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,90,79,0.28), transparent 60%);
-    }
-
-    .blob.two{
-      width: 420px;
-      height: 420px;
-      right: -160px;
-      top: 20px;
-      background: radial-gradient(circle at 30% 30%, rgba(143,102,255,0.22), transparent 62%);
-    }
-
-    /* MARQUEE */
-    .marquee{
-      position: relative;
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(12px);
-    }
-
-    .marquee::before,
-    .marquee::after{
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 120px;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .marquee::before{
-      left: 0;
-      background: linear-gradient(90deg, rgba(246,244,239,1), rgba(246,244,239,0));
-    }
-
-    .marquee::after{
-      right: 0;
-      background: linear-gradient(270deg, rgba(246,244,239,1), rgba(246,244,239,0));
-    }
-
-    .marquee-track{
-      display: flex;
-      width: max-content;
-      gap: 14px;
-      padding: 16px 0;
-      animation: scroll 34s linear infinite;
-    }
-
-    .marquee-item{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(12,18,28,0.08);
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #394150;
-      white-space: nowrap;
-      box-shadow: 0 10px 24px rgba(12,18,28,0.04);
-    }
-
-    .marquee-item .pill{
-      color: var(--accent-2);
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* USE CASES */
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .review-card {
-      border-radius: 24px;
-      padding: 26px;
-      background: rgba(255,255,255,0.84);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .review-text {
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .review-author {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .review-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      flex: 0 0 auto;
-    }
-
-    .review-meta {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .review-name {
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .review-industry {
-      font-size: 0.82rem;
-      color: var(--muted-2);
-      font-weight: 600;
-    }
-
-    .stars {
-      color: var(--accent-4);
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-    }
-
-    /* CONTENT GRID */
-    .split{
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 36px;
-      align-items: start;
-    }
-
-    .panel{
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(255,255,255,0.85);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-    }
-
-    .panel.dark{
-      background: linear-gradient(180deg, #111722 0%, #0b1018 100%);
-      color: #fff;
-      border-color: rgba(255,255,255,0.06);
-    }
-
-    .panel-title{
-      margin: 0 0 12px;
-      font-size: 1.35rem;
-      letter-spacing: -0.04em;
-    }
-
-    .body{
-      color: var(--muted);
-      line-height: 1.82;
-      font-size: 1.02rem;
-      margin: 0;
-    }
-
-    .body strong{ color: var(--text); }
-
-    .comparison{
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .compare-box{
-      padding: 22px;
-      border-radius: 24px;
-      border: 1px solid rgba(12,18,28,0.08);
-      background: rgba(255,255,255,0.8);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .compare-label{
-      margin: 0 0 8px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--muted-2);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .compare-value{
-      margin: 0;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 900;
-      letter-spacing: -0.07em;
-      line-height: 0.95;
-    }
-
-    .compare-value.bad{ color: #10151d; }
-    .compare-value.good{ color: var(--accent-3); }
-
-    .compare-foot{
-      margin: 10px 0 0;
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* CARDS */
-    .cards-3{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .cards-4{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .feature-card{
-      border-radius: 28px;
-      padding: 26px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.72));
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .feature-card:hover{
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-    }
-
-    .feature-card::before{
-      content: "";
-      position: absolute;
-      inset: auto -20% -25% auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(143,102,255,0.12), transparent 62%);
-      pointer-events: none;
-    }
-
-    .icon{
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 18px;
-      box-shadow: 0 18px 25px rgba(0,0,0,0.08);
-    }
-
-    .icon.one{ background: linear-gradient(135deg, #3aa6ff, #69c0ff); }
-    .icon.two{ background: linear-gradient(135deg, #8f66ff, #b08cff); }
-    .icon.three{ background: linear-gradient(135deg, #f7b733, #ffd56d); color: #1d1d1d; }
-    .icon.four{ background: linear-gradient(135deg, #26c281, #80e1b2); }
-
-    .feature-card h3{
-      margin: 0 0 10px;
-      font-size: 1.22rem;
-      letter-spacing: -0.04em;
-    }
-
-    .feature-meta{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(12,18,28,0.04);
-      color: var(--muted);
-      font-size: 0.79rem;
-      font-weight: 800;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .feature-card p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.72;
-      font-size: 0.95rem;
-    }
-
-    .deliverables{
-      margin-top: 26px;
-      display: grid;
-      gap: 12px;
-      max-width: 780px;
-    }
-
-    .deliverable{
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .deliverable .check{
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: rgba(38,194,129,0.12);
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      color: var(--accent-3);
-      font-weight: 900;
-      margin-top: 1px;
-    }
-
-    .deliverable strong{
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.98rem;
-    }
-
-    .deliverable span{
-      display: block;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.92rem;
-    }
-
-    /* STATS */
-    .stats{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .stat{
-      padding: 24px 18px;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .stat-num{
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 900;
-      letter-spacing: -0.07em;
-      line-height: 0.95;
-      color: var(--accent-2);
-    }
-
-    .stat:nth-child(2) .stat-num{ color: var(--accent-3); }
-    .stat:nth-child(3) .stat-num{ color: var(--accent); }
-    .stat:nth-child(4) .stat-num{ color: var(--accent-5); }
-
-    .stat p:last-child{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    /* PROCESS */
-    .timeline{
-      margin-top: 30px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      position: relative;
-    }
-
-    .step{
-      padding: 24px;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-    }
-
-    .step-index{
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      font-weight: 900;
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent-2), #b08cff);
-      box-shadow: 0 14px 24px rgba(143,102,255,0.22);
-    }
-
-    .step h3{
-      margin: 0 0 8px;
-      font-size: 1.08rem;
-      letter-spacing: -0.03em;
-    }
-
-    .step p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.94rem;
-    }
-
-    /* PRICING */
-    .pricing-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 30px;
-      max-width: 920px;
-    }
-
-    .pricing-grid.single{
-      grid-template-columns: 1fr;
-      max-width: 520px;
-    }
-
-    .price-card{
-      border-radius: 30px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .price-card.featured{
-      background:
-        linear-gradient(180deg, #171d28 0%, #10151d 100%);
-      border-color: rgba(255,255,255,0.08);
-      color: #fff;
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-2);
-    }
-
-    .price-card.featured::before{
-      content: "FLAGSHIP SPRINT";
-      position: absolute;
-      top: 18px;
-      right: -38px;
-      transform: rotate(25deg);
-      background: linear-gradient(135deg, var(--accent), #ff756d);
-      color: #fff;
-      font-size: 0.68rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      padding: 8px 44px;
-      box-shadow: 0 14px 24px rgba(255,90,79,0.24);
-    }
-
-    .price-tier{
-      margin: 0 0 8px;
-      font-size: 1.02rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .price-amount{
-      margin: 0;
-      font-size: clamp(2.8rem, 5vw, 4.1rem);
-      line-height: 0.95;
-      letter-spacing: -0.08em;
-      font-weight: 900;
-    }
-
-    .price-note{
-      margin: 10px 0 22px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .price-card.featured .price-note,
-    .price-card.featured .price-tier{
-      color: rgba(255,255,255,0.82);
-    }
-
-    .price-list{
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px;
-      display: grid;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .price-list li{
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.94rem;
-    }
-
-    .price-list li::before{
-      content: "✓";
-      color: var(--accent-3);
-      font-weight: 900;
-      flex: 0 0 auto;
-      margin-top: 1px;
-    }
-
-    .price-card.featured .price-list li,
-    .price-card.featured .price-list li::before{
-      color: rgba(255,255,255,0.84);
-    }
-
-    .price-btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      background: rgba(12,18,28,0.06);
-      color: var(--text);
-    }
-
-    .price-btn:hover{ transform: translateY(-1px); }
-
-    .price-card.featured .price-btn{
-      background: linear-gradient(135deg, var(--accent), #ff7368);
-      color: #fff;
-      box-shadow: 0 18px 32px rgba(255,90,79,0.24);
-    }
-
-    .price-card.featured .price-btn:hover{
-      box-shadow: 0 22px 42px rgba(255,90,79,0.30);
-    }
-
-    /* FAQ */
-    .faq{
-      display: grid;
-      gap: 14px;
-      margin-top: 30px;
-      max-width: 860px;
-    }
-
-    details{
-      border-radius: 22px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(12,18,28,0.08);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
-
-    summary{
-      list-style: none;
-      cursor: pointer;
-      padding: 20px 22px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    summary::-webkit-details-marker{ display:none; }
-
-    summary span{
-      color: var(--muted);
-      font-size: 1.3rem;
-      line-height: 1;
-      flex: 0 0 auto;
-      transition: transform 0.2s ease;
-    }
-
-    details[open] summary span{
-      transform: rotate(45deg);
-    }
-
-    .faq-body{
-      padding: 0 22px 20px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.96rem;
-    }
-
-    /* CTA */
-    .cta{
-      padding: 92px 0 110px;
-    }
-
-    .cta-box{
-      border-radius: 36px;
-      padding: 40px;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(255,90,79,0.12), transparent 30%),
-        radial-gradient(circle at 90% 10%, rgba(143,102,255,0.13), transparent 28%),
-        linear-gradient(180deg, rgba(18,24,34,1), rgba(10,14,20,1));
-      color: #fff;
-      box-shadow: var(--shadow-2);
-      border: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-box::after{
-      content: "";
-      position: absolute;
-      inset: auto -120px -140px auto;
-      width: 380px;
-      height: 380px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(143,102,255,0.22), transparent 64%);
-      pointer-events: none;
-    }
-
-    .cta-copy{
-      max-width: 760px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-title{
-      margin: 0;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      line-height: 0.96;
-      letter-spacing: -0.06em;
-    }
-
-    .cta-title em{
-      font-family: "Instrument Serif", serif;
-      font-style: italic;
-      font-weight: 400;
-      color: #c7b6ff;
-    }
-
-    .cta-text{
-      margin: 18px 0 0;
-      color: rgba(255,255,255,0.74);
-      line-height: 1.8;
-      max-width: 64ch;
-      font-size: 1.03rem;
-    }
-
-    .cta-actions{
-      margin-top: 28px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-light{
-      background: #fff;
-      color: #111722;
-    }
-
-    .btn-dark{
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      border-color: rgba(255,255,255,0.10);
-    }
-
-    .cta-foot{
-      margin-top: 18px;
-      color: rgba(255,255,255,0.62);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* FOOTER */
-    footer{
-      padding: 28px 0 40px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .footer-grid{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding-top: 22px;
-      border-top: 1px solid rgba(12,18,28,0.08);
-    }
-
-    .footer-brand{
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: var(--text);
-    }
-
-    .footer-brand span{
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    /* REVEAL */
-    .reveal{
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.in{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 1100px){
-      .hero-grid,
-      .split{
-        grid-template-columns: 1fr;
-      }
-
-      .hero-grid{
-        min-height: auto;
-        padding-top: 32px;
-      }
-
-      .hero-card{
-        max-width: 720px;
-      }
-
-      .cards-3,
-      .cards-4,
-      .pricing-grid,
-      .stats,
-      .timeline,
-      .reviews-grid{
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .nav-links{
-        display: none;
-      }
-    }
-
-    @media (max-width: 760px){
-      .section{ padding: 76px 0; }
-      .section.compact{ padding: 68px 0; }
-      .nav{
-        border-radius: 24px;
-        padding: 12px 14px;
-      }
-      .nav-cta{
-        padding: 11px 14px;
-        font-size: 0.88rem;
-      }
-      .brand-text small{
-        display: none;
-      }
-      .hero-title{
-        max-width: 100%;
-      }
-      .score-grid,
-      .comparison,
-      .cards-3,
-      .cards-4,
-      .stats,
-      .timeline,
-      .pricing-grid,
-      .reviews-grid{
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions,
-      .cta-actions{
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .btn{
-        width: 100%;
-      }
-
-      .cta-box{
-        padding: 26px;
-        border-radius: 28px;
-      }
-
-      .footer-grid{
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .marquee::before,
-      .marquee::after{
-        width: 56px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      .marquee-track{ animation: none; }
-      .reveal{
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
-      .btn, .feature-card, .nav-cta, .price-btn, summary span{
-        transition: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SweepDBM — Find the Gold hidden in Your Database</title>
+</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════
+   TOKENS — extracted from SilverBulletPro screenshot
+   White bg, navy ink, coral CTA, violet italic accents,
+   lavender section fills, rounded soft cards
+═══════════════════════════════════ */
+:root {
+  --white:    #ffffff;
+  --bg:        #f9f9fc;
+  --lavender: #f3f0ff;
+  --ink:      #1a1a2e;
+  --ink-soft: #4a4a6a;
+  --ink-mid:  #7a7a9a;
+  --rule:     #e8e8f0;
+  --coral:    #f97066;
+  --coral-h:  #f75a4e;
+  --violet:   #7c3aed;
+  --violet-d: #6d28d9;
+  --violet-bg:#ede9fe;
+  --green:    #10b981;
+  --amber:    #f59e0b;
+  --r:        14px;
+  --r-pill:   999px;
+  --shadow:   0 2px 16px rgba(26,26,46,0.08);
+  --shadow-md:0 8px 32px rgba(26,26,46,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 2.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--coral); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.nav-cta {
+  background: var(--coral) !important;
+  color: #fff !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--r-pill);
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: var(--coral-h) !important; transform: translateY(-1px) !important; }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);
+  padding: 5rem 2.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+}
+
+.hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--violet-bg);
+  color: var(--violet);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--r-pill);
+  width: fit-content;
+  animation: fadeUp 0.5s ease both 0.05s;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  animation: fadeUp 0.6s ease both 0.15s;
+}
+
+/* Italic violet emphasis — signature move from SBP site */
+.hero h1 em,
+h2 em,
+.italic-accent {
+  font-style: italic;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 44ch;
+  animation: fadeUp 0.6s ease both 0.25s;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s ease both 0.35s;
+}
+
+.btn-coral {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(249,112,102,0.35);
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-coral:hover { background: var(--coral-h); transform: translateY(-2px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--rule);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+.hero-note {
+  font-size: 0.75rem;
+  color: var(--ink-mid);
+  animation: fadeUp 0.6s ease both 0.42s;
+}
+
+/* Hero right */
+.hero-right {
+  position: relative;
+  animation: fadeUp 0.7s ease both 0.3s;
+}
+
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker-wrap {
+  background: var(--ink);
+  overflow: hidden;
+  padding: 0.8rem 0;
+}
+
+.ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+
+.ticker-item {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  padding: 0 2rem;
+}
+
+.ticker-item span { color: var(--coral); margin-right: 0.5rem; }
+
+/* ═══════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════ */
+.section {
+  padding: 6rem 2.5rem;
+}
+
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet);
+  background: var(--violet-bg);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--r-pill);
+  margin-bottom: 1.2rem;
+}
+
+.section-h {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 52ch;
+}
+
+.bg-lavender { background: var(--lavender); }
+.bg-white    { background: var(--white); }
+.bg-ink      { background: var(--ink); }
+
+/* ═══════════════════════════════════
+   PROBLEM
+═══════════════════════════════════ */
+.problem-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.big-stat {
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--violet);
+  opacity: 0.25;
+  transition: opacity 0.4s;
+}
+
+.problem-split:hover .big-stat { opacity: 0.5; }
+
+.problem-copy p {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2rem;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.step-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--violet-bg);
+  line-height: 1;
+  margin-bottom: 1rem;
+  -webkit-text-stroke: 1.5px var(--violet);
+  color: transparent;
+}
+
+.step-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.step-card p {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════
+   LIVE SMS DEMO
+═══════════════════════════════════ */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.demo-copy h2 { margin-bottom: 1rem; }
+.demo-copy p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.industry-nav {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.ind-btn {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  padding: 0.38rem 0.85rem;
+  font-size: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.ind-btn:hover { border-color: var(--violet); color: var(--violet); }
+.ind-btn.active { background: var(--violet); color: #fff; border-color: var(--violet); }
+
+.phone-mock {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.phone-header {
+  background: var(--lavender);
+  padding: 0.9rem 1.3rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.chat-window {
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 340px;
+}
+
+.msg { display: flex; flex-direction: column; max-width: 78%; }
+.msg.outbound { align-self: flex-end; align-items: flex-end; }
+.msg.inbound  { align-self: flex-start; }
+
+.msg-bubble {
+  padding: 0.8rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  border-radius: 14px;
+  animation: msgIn 0.35s ease both;
+}
+.msg.outbound .msg-bubble {
+  background: var(--violet);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.msg.inbound .msg-bubble {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  border-bottom-left-radius: 4px;
+}
+
+.msg-time {
+  font-size: 0.58rem;
+  color: var(--ink-mid);
+  margin-top: 0.2rem;
+  padding: 0 0.2rem;
+}
+
+.alert-badge {
+  margin-top: 1.2rem;
+  padding: 0.8rem 1rem;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.alert-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════
+   RESULTS
+═══════════════════════════════════ */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.result-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coral), var(--violet));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.result-card:hover::before { transform: scaleX(1); }
+
+.result-stat {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--coral);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.result-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mid);
+  margin-bottom: 1rem;
+}
+
+.result-desc {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════
+   VERTICALS
+═══════════════════════════════════ */
+.verticals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.vertical-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.vertical-card:hover { background: var(--lavender); border-color: rgba(124,58,237,0.2); }
+
+.v-icon { font-size: 1.3rem; flex-shrink: 0; }
+.v-name { font-size: 0.82rem; font-weight: 500; color: var(--ink-soft); line-height: 1.3; }
+
+/* ═══════════════════════════════════
+   PRICING TIERS
+═══════════════════════════════════ */
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.tier-card {
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r);
+  padding: 2.2rem;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.tier-card:hover { box-shadow: var(--shadow-md); }
+
+.tier-card.featured {
+  border-color: var(--violet);
+  background: var(--lavender);
+}
+
+.tier-pill {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.28rem 0.7rem;
+  border-radius: var(--r-pill);
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  background: var(--violet-bg);
+  color: var(--violet);
+  border: 1px solid rgba(124,58,237,0.2);
+}
+.tier-card.featured .tier-pill {
+  background: var(--violet);
+  color: #fff;
+  border-color: var(--violet);
+}
+
+.tier-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.tier-desc {
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  line-height: 1.55;
+  margin-bottom: 1.8rem;
+}
+
+.tier-features {
+  list-style: none;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tier-features li {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.45;
+}
+
+.tier-features li::before {
+  content: '✓';
+  color: var(--violet);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* ═══════════════════════════════════
+   TESTIMONIAL
+═══════════════════════════════════ */
+.testimonial-section {
+  background: var(--ink);
+  padding: 6rem 2.5rem;
+  text-align: center;
+}
+
+.quote-mark {
+  font-size: 5rem;
+  color: var(--coral);
+  opacity: 0.4;
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 2rem;
+  font-style: normal;
+}
+
+.testimonial-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+.testimonial-text strong { color: #fff; font-style: normal; font-weight: 700; }
+
+.testimonial-source {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
+/* ═══════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════ */
+.cta-section {
+  background: linear-gradient(135deg, var(--ink) 0%, #2d1b69 100%);
+  padding: 7rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: 20%;
+  width: 60%; height: 160%;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.cta-inner { position: relative; z-index: 1; }
+
+.cta-section h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.cta-section h2 em {
+  font-style: italic;
+  color: var(--coral);
+}
+
+.cta-section p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 44ch;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+.cta-btns {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.btn-coral-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.95rem 2.2rem;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(249,112,102,0.4);
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-coral-lg:hover { background: var(--coral-h); transform: translateY(-2px); }
+
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.95rem 1.8rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost-light:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+.cta-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.5rem;
+}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  background: var(--white);
+  border-top: 1px solid var(--rule);
+  padding: 1.8rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.footer-logo span { color: var(--coral); }
+
+footer p { font-size: 0.7rem; color: var(--ink-mid); }
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer-links a {
+  font-size: 0.7rem;
+  color: var(--ink-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--ink); }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%  { opacity: 0.4; transform: scale(0.8); }
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+    min-height: auto;
+  }
+
+  .section { padding: 4rem 1.5rem; }
+  .problem-split { grid-template-columns: 1fr; gap: 2rem; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .demo-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+  .tiers-grid { grid-template-columns: 1fr; }
+  .testimonial-section { padding: 4rem 1.5rem; }
+  .cta-section { padding: 5rem 1.5rem; }
+  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>
 </head>
-
 <body>
-  <header class="nav-wrap">
-    <div class="nav">
-      <a href="#" class="brand" aria-label="SilverBullet Pro home">
-        <div class="brand-mark">SB</div>
-        <div class="brand-text">
-          SilverBullet Pro
-          <small>AI Visibility Sprint</small>
-        </div>
+
+<nav>
+  <a href="#" class="nav-logo">SweepDBM<span>.</span></a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F" class="nav-cta">Get started</a>
+  </div>
+</nav>
+
+<div style="background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);">
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">AI-Powered Revenue Recovery + Capture System</div>
+    <h1>Find your next three clients in just <em>10 days.</em> </h1>
+    <p class="hero-sub">No Ad Spend. No SEO. No Cold Outreach.</p>
+    <div class="hero-actions">
+      <a class="btn-coral" href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F">
+        See if you qualify →
       </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#problem">Problem</a>
-        <a href="#framework">Framework</a>
-        <a href="#sprint">Sprint</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#maintenance">Monthly</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <a href="mailto:david@silverbulletpro.com?subject=AI Visibility Audit Request" class="nav-cta">
-        Get My Free Audit
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <a class="btn-ghost" href="#how">How it works</a>
     </div>
-  </header>
+    <p class="hero-note">No commitment. 15-minute demo on your actual data.</p>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <div class="eyebrow hero-kicker">Google + AI Visibility · 80/20 Fixes</div>
+  <div class="hero-right">
+    <img src="sweep-revenue.png" alt="The 10 ways SWEEP turns your database into revenue" style="width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--rule);">
+  </div>
+</div>
+</div>
 
-          <h1 class="hero-title">
-            Get found, trusted and <span class="accent">recommended</span> by Google and AI search.
-          </h1>
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads to your WhatsApp instantly</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+    <span class="ticker-item"><span>★</span>20–45% reply rate on dormant leads</span>
+    <span class="ticker-item"><span>★</span>Revenue in 48–72 hours</span>
+    <span class="ticker-item"><span>★</span>AI handles every conversation</span>
+    <span class="ticker-item"><span>★</span>Hot leads to your WhatsApp instantly</span>
+    <span class="ticker-item"><span>★</span>Human-sounding. Legally compliant.</span>
+    <span class="ticker-item"><span>★</span>Works while you sleep</span>
+  </div>
+</div>
 
-          <p class="hero-sub">
-            We fix the hidden visibility gaps that make your business harder for
-            <strong>Google, ChatGPT, Perplexity, Gemini and AI search tools</strong>
-            to access, understand, trust and recommend.
-          </p>
-
-          <p class="hero-sub">
-            No bloated SEO retainer. No endless content plan. Just the high-impact AI visibility foundations most businesses are missing.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="mailto:david@silverbulletpro.com?subject=I want my AI Visibility Audit">
-              Get Your Free AI Visibility Audit
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-            <a class="btn btn-secondary" href="#sprint">See the sprint</a>
-          </div>
-
-          <div class="trust-row">
-            <span class="trust-chip"><i></i> 7-day visibility sprint</span>
-            <span class="trust-chip"><i style="background: var(--accent-2)"></i> High-impact fixes only</span>
-            <span class="trust-chip"><i style="background: var(--accent-3)"></i> No monthly contract required</span>
-          </div>
-        </div>
-
-        <aside class="hero-card reveal" aria-label="Visibility preview">
-          <div class="hero-card-top">
-            <div class="mini-stat"><strong>4</strong> visibility pillars</div>
-            <div class="mini-stat"><strong>10%</strong> that moves the needle</div>
-          </div>
-
-          <div class="score-panel">
-            <div class="score-panel-label">
-              <span>AI Visibility Snapshot</span>
-              <span>Audit preview</span>
-            </div>
-
-            <div class="score-grid">
-              <div class="score-box">
-                <h4>Before</h4>
-                <p class="score-big bad">32</p>
-                <p class="score-sub">Unclear, inconsistent or hard for AI to verify.</p>
-              </div>
-              <div class="score-box">
-                <h4>After</h4>
-                <p class="score-big good">71</p>
-                <p class="score-sub">Clearer, better structured and easier to trust.</p>
-              </div>
-            </div>
-
-            <div class="hero-note">
-              <div class="hero-note-item">
-                <span class="dot"></span>
-                <div>
-                  <strong>Access improved</strong>
-                  <span>Your important pages are easier for search and AI systems to reach.</span>
-                </div>
-              </div>
-              <div class="hero-note-item">
-                <span class="dot"></span>
-                <div>
-                  <strong>Clarity upgraded</strong>
-                  <span>Your services, locations and buyer answers become easier to extract.</span>
-                </div>
-              </div>
-              <div class="hero-note-item">
-                <span class="dot"></span>
-                <div>
-                  <strong>Trust signals strengthened</strong>
-                  <span>Your reviews, proof, credentials and business facts are made more obvious.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-tag">The Problem</div>
+    <div class="problem-split reveal">
+      <div class="big-stat" id="bigNum">80%</div>
+      <div class="problem-copy">
+        <h2 class="section-h">of leads you paid for never buy. They don't disappear — they just go <em>quiet.</em></h2>
+        <p>You spent real money on Google Ads, referrals, and campaigns to get those enquiries. Your team followed up. No reply. The lead got marked dead and forgotten.</p>
+        <p>But here's the truth: <strong>most of those people are still in-market.</strong> Life got busy. Timing was off. They meant to call back. Sweep sends them a message at the right moment — and restarts the conversation.</p>
       </div>
-
-      <div class="hero-decor" aria-hidden="true">
-        <div class="blob one"></div>
-        <div class="blob two"></div>
-      </div>
-    </section>
-
-    <section class="marquee" aria-label="Positioning points">
-      <div class="marquee-track" aria-hidden="true">
-        <div class="marquee-item">Google shows options. <span class="pill">AI makes recommendations.</span></div>
-        <div class="marquee-item">Most websites were built for humans, <span class="pill">not AI systems.</span></div>
-        <div class="marquee-item">Get found, trusted and <span class="pill">recommended.</span></div>
-        <div class="marquee-item">Fix the visibility gaps <span class="pill">that actually matter.</span></div>
-        <div class="marquee-item">No bloated SEO retainer. <span class="pill">Just the foundation.</span></div>
-        <div class="marquee-item">Become the answer, <span class="pill">not just another result.</span></div>
-
-        <div class="marquee-item">Google shows options. <span class="pill">AI makes recommendations.</span></div>
-        <div class="marquee-item">Most websites were built for humans, <span class="pill">not AI systems.</span></div>
-        <div class="marquee-item">Get found, trusted and <span class="pill">recommended.</span></div>
-        <div class="marquee-item">Fix the visibility gaps <span class="pill">that actually matter.</span></div>
-        <div class="marquee-item">No bloated SEO retainer. <span class="pill">Just the foundation.</span></div>
-        <div class="marquee-item">Become the answer, <span class="pill">not just another result.</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="problem">
-      <div class="container split">
-        <div class="reveal">
-          <div class="eyebrow">The Problem</div>
-          <h2 class="section-title" style="margin-top:18px;">
-            Your website may be online.
-            <br><em>But is it AI-ready?</em>
-          </h2>
-
-          <p class="section-copy">
-            Buyers are no longer only clicking through search results. They are asking Google, ChatGPT, Perplexity and AI assistants who to trust, who to compare and who to contact.
-          </p>
-
-          <p class="section-copy">
-            If your business information is vague, buried, inconsistent, outdated or hard to verify, AI systems may struggle to understand why you deserve to be included in the answer.
-          </p>
-
-          <p class="section-copy">
-            <strong>This is where most businesses are exposed:</strong> their website looks fine to humans, but the underlying visibility, clarity and trust signals are not strong enough for the AI search era.
-          </p>
-
-          <div class="comparison">
-            <div class="compare-box">
-              <p class="compare-label">Typical issue</p>
-              <p class="compare-value bad">?</p>
-              <p class="compare-foot">The business exists online, but AI cannot confidently explain why it should be recommended.</p>
-            </div>
-            <div class="compare-box">
-              <p class="compare-label">After the sprint</p>
-              <p class="compare-value good">✓</p>
-              <p class="compare-foot">The business is clearer, more structured and easier for search and AI systems to trust.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel dark reveal">
-          <p class="eyebrow" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.72);">Why this matters</p>
-          <h3 class="panel-title" style="margin-top:16px;">Google and AI search are becoming the new referral layer.</h3>
-          <p class="body" style="color: rgba(255,255,255,0.72);">
-            The businesses that win will not simply be the ones with the nicest websites. They will be the ones with the clearest public evidence: what they do, where they operate, who they help, why they are credible and how buyers can take action.
-          </p>
-
-          <div class="deliverables" style="margin-top:22px;">
-            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
-              <div class="check">✓</div>
-              <div>
-                <strong style="color:#fff;">Not another SEO retainer</strong>
-                <span style="color: rgba(255,255,255,0.70);">We focus on the practical foundations that make your business easier to interpret.</span>
-              </div>
-            </div>
-            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
-              <div class="check">✓</div>
-              <div>
-                <strong style="color:#fff;">Not a website rebuild</strong>
-                <span style="color: rgba(255,255,255,0.70);">Most businesses do not need a rebuild. They need the right visibility gaps fixed.</span>
-              </div>
-            </div>
-            <div class="deliverable" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08);">
-              <div class="check">✓</div>
-              <div>
-                <strong style="color:#fff;">Expert diagnosis first</strong>
-                <span style="color: rgba(255,255,255,0.70);">The value is not doing hundreds of tasks. It is knowing which few actually matter.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="framework">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">The Framework</div>
-          <h2 class="section-title" style="margin-top:18px;">Access. Clarity. Trust. <br><em>Recommendation.</em></h2>
-          <p class="section-copy">
-            Our AI Visibility Framework focuses on the four areas that determine whether your business is easy for search engines, AI tools and buyers to understand.
-          </p>
-        </div>
-
-        <div class="cards-4">
-          <article class="feature-card reveal">
-            <div class="icon one">1</div>
-            <div class="feature-meta">Access</div>
-            <h3>Can AI and search systems reach the right information?</h3>
-            <p>
-              We identify hidden access and indexability issues that may stop important pages, services and business facts from being properly discovered.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon two">2</div>
-            <div class="feature-meta">Clarity</div>
-            <h3>Can they understand what you do and where?</h3>
-            <p>
-              We make your services, locations, buyer questions and business summaries clearer, more structured and easier to extract.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon three">3</div>
-            <div class="feature-meta">Trust</div>
-            <h3>Can they verify why buyers should trust you?</h3>
-            <p>
-              We strengthen the proof layer around your business: reviews, accreditations, case studies, photos, FAQs, credentials and consistency.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon four">4</div>
-            <div class="feature-meta">Recommendation</div>
-            <h3>Are you structured to become the answer?</h3>
-            <p>
-              We organise your public information so AI search tools have stronger, cleaner signals when answering buyer questions in your market.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="use-cases">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Who This Helps</div>
-          <h2 class="section-title" style="margin-top:18px;">Ideal for businesses where <em>trust drives the enquiry.</em></h2>
-        </div>
-
-        <div class="reviews-grid">
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Local service businesses need to be clearly understood for high-intent searches like “best tree surgeon near me”, “kitchen company in Glasgow” or “emergency plumber in my area”.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">LS</div>
-              <div class="review-meta">
-                <span class="review-name">Local Services</span>
-                <span class="review-industry">Trades, home improvement, contractors</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Professional firms need clear expertise signals, strong service pages, consistent business information and proof that they are credible enough to recommend.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">PF</div>
-              <div class="review-meta">
-                <span class="review-name">Professional Firms</span>
-                <span class="review-industry">Legal, finance, consultants, B2B services</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="review-card reveal">
-            <div>
-              <div class="stars">★★★★★</div>
-              <p class="review-text">
-                Clinics and specialist providers need accurate, structured and trustworthy content so buyers can understand treatments, locations, credentials and next steps.
-              </p>
-            </div>
-            <div class="review-author">
-              <div class="review-avatar">HC</div>
-              <div class="review-meta">
-                <span class="review-name">Healthcare & Clinics</span>
-                <span class="review-industry">Private clinics, dentists, aesthetics</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="sprint">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">The Sprint</div>
-          <h2 class="section-title" style="margin-top:18px;">The 80/20 AI Visibility Sprint.</h2>
-          <p class="section-copy">
-            We do not try to do everything. We focus on the high-impact visibility, clarity and trust fixes that make your business easier for Google and AI search tools to interpret.
-          </p>
-          <p class="section-copy">
-            Behind the scenes, this may include technical access checks, AI-readable summaries, structured data, FAQ improvements, service clarity, Google profile alignment and trust signal recommendations. But the outcome is simple:
-            <strong>your business becomes easier to find, understand, trust and recommend.</strong>
-          </p>
-        </div>
-
-        <div class="cards-3">
-          <article class="feature-card reveal">
-            <div class="icon one">1</div>
-            <div class="feature-meta">Diagnose</div>
-            <h3>Find the hidden visibility gaps</h3>
-            <p>
-              We audit how clearly your business can be accessed, understood and verified by search engines, AI tools and buyers.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon two">2</div>
-            <div class="feature-meta">Prioritise</div>
-            <h3>Identify what actually matters</h3>
-            <p>
-              We separate the high-impact fixes from the noise, so you are not paying for a bloated SEO checklist that barely moves the needle.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <div class="icon three">3</div>
-            <div class="feature-meta">Implement</div>
-            <h3>Fix the foundations fast</h3>
-            <p>
-              We create and deliver the practical assets, recommendations and implementation guidance needed to strengthen your AI/search visibility foundation.
-            </p>
-          </article>
-        </div>
-
-        <div class="deliverables reveal">
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>AI Visibility Diagnostic</strong>
-              <span>A clear review of where your business is strong, weak, unclear or hard to verify.</span>
-            </div>
-          </div>
-
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>High-Impact Visibility Fixes</strong>
-              <span>The priority technical, content and trust improvements that matter most for AI/search understanding.</span>
-            </div>
-          </div>
-
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>AI-Ready Business Profile</strong>
-              <span>A clean, structured summary of who you are, what you do, where you operate and why buyers should trust you.</span>
-            </div>
-          </div>
-
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>Search & Trust Alignment</strong>
-              <span>Recommendations to align your website, Google Business Profile, services, reviews, FAQs and public proof.</span>
-            </div>
-          </div>
-
-          <div class="deliverable">
-            <div class="check">✓</div>
-            <div>
-              <strong>Before/After Walkthrough</strong>
-              <span>A simple report showing what was found, what was fixed and what should be improved next.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" aria-label="Why now">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Why Now</div>
-          <h2 class="section-title" style="margin-top:18px;">
-            Early movers can become <em>the obvious answer.</em>
-          </h2>
-          <p class="section-copy">
-            AI search is still early enough that most businesses have not prepared for it. That creates a short window where practical visibility improvements can create an advantage before this becomes standard.
-          </p>
-        </div>
-
-        <div class="stats">
-          <div class="stat reveal">
-            <p class="stat-num">1</p>
-            <p>Website that clearly explains what you do, where you do it and why buyers should trust you.</p>
-          </div>
-          <div class="stat reveal">
-            <p class="stat-num">4</p>
-            <p>Core visibility pillars: access, clarity, trust and recommendation readiness.</p>
-          </div>
-          <div class="stat reveal">
-            <p class="stat-num">7</p>
-            <p>Days to complete the focused sprint and deliver your priority fixes.</p>
-          </div>
-          <div class="stat reveal">
-            <p class="stat-num">0</p>
-            <p>No forced monthly retainer. Start with the foundations and decide what comes next.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">The Process</div>
-          <h2 class="section-title" style="margin-top:18px;">From audit to action<br><em>in one focused sprint.</em></h2>
-        </div>
-
-        <div class="timeline">
-          <div class="step reveal">
-            <div class="step-index">1</div>
-            <h3>Free Audit</h3>
-            <p>Send your website URL. We run a practical AI visibility check and identify the obvious gaps.</p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-index">2</div>
-            <h3>Findings Review</h3>
-            <p>We show you where your business is unclear, inconsistent, hidden or hard for AI/search to trust.</p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-index">3</div>
-            <h3>Sprint Delivery</h3>
-            <p>We create the high-impact fixes, assets and implementation guidance needed to improve your foundation.</p>
-          </div>
-
-          <div class="step reveal">
-            <div class="step-index">4</div>
-            <h3>Next-Step Plan</h3>
-            <p>You receive a clear walkthrough of what changed and what to improve next for stronger visibility.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="pricing">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Pricing</div>
-          <h2 class="section-title" style="margin-top:18px;">Simple. <em>Focused.</em> No bloated retainer.</h2>
-          <p class="section-copy">
-            You are not paying for a list of tiny technical tasks. You are paying for the expertise to identify and fix the visibility gaps that matter most.
-          </p>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card featured reveal">
-            <p class="price-tier">Found, Trusted & Recommended Sprint</p>
-            <p class="price-amount">£797</p>
-            <p class="price-note">One-off AI Visibility Sprint · Delivered within 7 days</p>
-            <ul class="price-list">
-              <li>AI Visibility Diagnostic</li>
-              <li>Access, clarity and trust review</li>
-              <li>High-impact visibility fixes prepared</li>
-              <li>AI-ready business summary</li>
-              <li>Website and Google profile alignment recommendations</li>
-              <li>Before/after walkthrough and 30-day action plan</li>
-              <li>No forced ongoing retainer</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Book Found, Trusted & Recommended Sprint">Book My Sprint</a>
-          </article>
-
-          <article class="price-card reveal">
-            <p class="price-tier">Advanced Visibility Buildout</p>
-            <p class="price-amount">£1,500+</p>
-            <p class="price-note">For larger, multi-service or multi-location businesses</p>
-            <ul class="price-list">
-              <li>Everything in the core sprint</li>
-              <li>More detailed service and location mapping</li>
-              <li>Expanded FAQ and answer-ready content structure</li>
-              <li>Schema and structured data recommendations</li>
-              <li>Competitor visibility comparison</li>
-              <li>Optional monthly monitoring plan</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Advanced AI Visibility Buildout Enquiry">Let’s Talk</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="maintenance">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Optional Monthly Support</div>
-          <h2 class="section-title" style="margin-top:18px;">The sprint fixes the foundation. <em>Maintenance keeps it moving.</em></h2>
-          <p class="section-copy">
-            AI and Google visibility is not static. Competitors update their sites, reviews change, Google profiles go stale and buyer questions evolve. For businesses that want to keep improving, we offer simple monthly visibility maintenance after the sprint.
-          </p>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card reveal">
-            <p class="price-tier">Visibility Maintenance</p>
-            <p class="price-amount">£397</p>
-            <p class="price-note">Per month · Optional after the sprint</p>
-            <ul class="price-list">
-              <li>Monthly AI visibility check</li>
-              <li>Monthly competitor snapshot</li>
-              <li>2 Google Business Profile post drafts</li>
-              <li>Review reply templates</li>
-              <li>1 FAQ or service improvement per month</li>
-              <li>Short monthly Loom update</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Visibility Maintenance Enquiry">Ask About Maintenance</a>
-          </article>
-
-          <article class="price-card reveal">
-            <p class="price-tier">Visibility Growth</p>
-            <p class="price-amount">£697</p>
-            <p class="price-note">Per month · For businesses that want faster compounding</p>
-            <ul class="price-list">
-              <li>Everything in Maintenance</li>
-              <li>Weekly Google Business Profile post drafts</li>
-              <li>2 website content improvements per month</li>
-              <li>Expanded AI prompt testing</li>
-              <li>Review and trust signal support</li>
-              <li>Quarterly visibility refresh</li>
-            </ul>
-            <a class="price-btn" href="mailto:david@silverbulletpro.com?subject=Visibility Growth Enquiry">Ask About Growth</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compact" id="faq">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Questions</div>
-          <h2 class="section-title" style="margin-top:18px;">The honest answers.</h2>
-        </div>
-
-        <div class="faq">
-          <details class="reveal">
-            <summary>Will this guarantee that ChatGPT recommends my business?<span>+</span></summary>
-            <div class="faq-body">
-              No responsible provider can guarantee that. What we do is improve the signals that make your business easier for Google and AI search tools to access, understand, verify and potentially recommend.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Is this just SEO with a new name?<span>+</span></summary>
-            <div class="faq-body">
-              It overlaps with SEO, but the focus is different. Traditional SEO is mostly about rankings and traffic. AI visibility is about whether machines can clearly understand your business, trust the information and use it when answering buyer questions.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Why not just ask ChatGPT to create the files and fixes?<span>+</span></summary>
-            <div class="faq-body">
-              The value is not simply creating files or copy. The value is knowing what to check, what matters, what to ignore, how to prioritise the issues and how to connect the technical, content and trust signals into one clear visibility foundation.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Do I need a full website rebuild?<span>+</span></summary>
-            <div class="faq-body">
-              Usually not. Most businesses need their existing website and public information made clearer, more structured and easier to verify before they consider a rebuild.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Do I need to pay monthly for this to work?<span>+</span></summary>
-            <div class="faq-body">
-              No. The sprint is designed as a standalone foundation fix. Monthly support is optional for businesses that want ongoing Google Business Profile activity, AI visibility checks, review support, content improvements and competitor monitoring.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>Who is this best for?<span>+</span></summary>
-            <div class="faq-body">
-              It is best for service businesses, local businesses, clinics, professional firms, trades, home improvement companies and B2B providers where trust, expertise and location matter before a buyer makes an enquiry.
-            </div>
-          </details>
-
-          <details class="reveal">
-            <summary>What happens after the sprint?<span>+</span></summary>
-            <div class="faq-body">
-              You receive a clear action plan. Some businesses stop there. Others continue with monthly Google and AI visibility monitoring, Google Business Profile support, content improvements or lead reactivation campaigns.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container">
-        <div class="cta-box reveal">
-          <div class="cta-copy">
-            <div class="eyebrow" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.78);">Get Started</div>
-
-            <h2 class="cta-title" style="margin-top:18px;">
-              Find out if your business is <em>AI-search ready.</em>
-            </h2>
-
-            <p class="cta-text">
-              Send your website URL and we will run a free AI Visibility Audit. You will see where your business is clear, where it is weak, and what may be making it harder for Google and AI search tools to recommend you.
-            </p>
-
-            <div class="cta-actions">
-              <a class="btn btn-light" href="mailto:david@silverbulletpro.com?subject=Free AI Visibility Audit Request">
-                Request Your Free Audit
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-              <a class="btn btn-dark" href="mailto:david@silverbulletpro.com?subject=Advanced AI Visibility Enquiry">Advanced enquiry</a>
-            </div>
-
-            <div class="cta-foot">
-              silverbulletpro.com · david@silverbulletpro.com · AI Visibility · GEO · Google + AI Search
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-grid">
-      <div class="footer-brand">SilverBullet <span>PRO</span></div>
-      <div>AI Visibility · GEO · Google + AI Search</div>
-      <div>david@silverbulletpro.com</div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // Subtle reveal system for a more premium feel.
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
+<section class="section bg-lavender" id="how">
+  <div class="section-inner">
+    <div class="section-tag reveal">How It Works</div>
+    <h2 class="section-h reveal">Three steps. <em>Zero effort</em> on your end.</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <h3>You hand us the list</h3>
+        <p>Export your old leads, dead quotes, and lapsed customers from your CRM. A simple CSV is all we need. Any format works.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">02</div>
+        <h3>Sweep texts them</h3>
+        <p>Our AI sends natural, personalised SMS that feels like a human checking in — not a marketing blast. Response rates: 20–45%.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">03</div>
+        <h3>You close the deal</h3>
+        <p>Hot leads fire straight to your WhatsApp. You step in only when someone is ready to buy. The AI handles everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-lavender">
+  <div class="section-inner">
+    <div class="section-tag reveal">Typical Results</div>
+    <h2 class="section-h reveal">Numbers that make the <em>decision easy.</em></h2>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-stat">42%</div>
+        <div class="result-label">Average Reply Rate</div>
+        <div class="result-desc">On databases considered dead. Most businesses expect 5–10%. Sweep consistently delivers 3–5× that.</div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-stat">48h</div>
+        <div class="result-label">Time to First Revenue</div>
+        <div class="result-desc">Most clients see warm conversations and booked appointments within the first two days of going live.</div>
+      </div>
+      <div class="result-card reveal">
+        <div class="result-stat">£0</div>
+        <div class="result-label">Extra Ad Spend Required</div>
+        <div class="result-desc">Every lead Sweep reactivates is one you already paid for. The ROI is built in before we send message one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-tag reveal">Who It Works For</div>
+    <h2 class="section-h reveal">If you have a database, <em>you have revenue waiting.</em></h2>
+    <div class="verticals-grid reveal">
+      <div class="vertical-card"><div class="v-icon">🏠</div><div class="v-name">Home Improvement &amp; Trades</div></div>
+      <div class="vertical-card"><div class="v-icon">🚗</div><div class="v-name">Car &amp; Commercial Dealerships</div></div>
+      <div class="vertical-card"><div class="v-icon">⚡</div><div class="v-name">Solar &amp; Energy</div></div>
+      <div class="vertical-card"><div class="v-icon">💆</div><div class="v-name">Medical Aesthetics &amp; Clinics</div></div>
+      <div class="vertical-card"><div class="v-icon">🏋️</div><div class="v-name">Gyms &amp; Fitness Studios</div></div>
+      <div class="vertical-card"><div class="v-icon">🏦</div><div class="v-name">Mortgage &amp; Finance Brokers</div></div>
+      <div class="vertical-card"><div class="v-icon">🏗️</div><div class="v-name">Construction &amp; Surveying</div></div>
+      <div class="vertical-card"><div class="v-icon">📦</div><div class="v-name">B2B Distributors &amp; Suppliers</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-lavender" id="pricing">
+  <div class="section-inner">
+    <div class="section-tag reveal">Choose Your Model</div>
+    <h2 class="section-h reveal">Simple pricing. <em>Performance aligned.</em></h2>
+    <div class="tiers-grid">
+      <div class="tier-card reveal">
+        <div class="tier-pill">Sweep Qualify</div>
+        <div class="tier-name">AI Closes</div>
+        <div class="tier-desc">Sweep handles the full conversation — qualifying, objection handling, booking. Your team just shows up.</div>
+        <ul class="tier-features">
+          <li>Everything in Sweep Recover</li>
+          <li>Fully autonomous AI conversations</li>
+          <li>Personalised AI prompt per client</li>
+          <li>Calendar booking automation</li>
+          <li>Conversation history &amp; context</li>
+        </ul>
+        <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-ghost" style="width:100%;justify-content:center;">Book a call →</a>
+      </div>
+      <div class="tier-card featured reveal">
+        <div class="tier-pill">Most Popular</div>
+        <div class="tier-name">Sweep Recover</div>
+        <div class="tier-desc">Sweep finds the hot leads. Your team closes them. Best for high-ticket, relationship-driven sales.</div>
+        <ul class="tier-features">
+          <li>AI-powered SMS outreach</li>
+          <li>Instant WhatsApp hot-lead alerts</li>
+          <li>Stop word &amp; opt-out handling</li>
+          <li>Optional auto booking link</li>
+          <li>Lead tracking dashboard</li>
+        </ul>
+        <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-coral" style="width:100%;justify-content:center;">Book a call →</a>
+      </div>
+      <div class="tier-card reveal">
+        <div class="tier-pill">Sweep Prospect</div>
+        <div class="tier-name">Cold Outreach</div>
+        <div class="tier-desc">Target Directors of UK Ltd companies. Sweep generates your pipeline from scratch using legitimate interests.</div>
+        <ul class="tier-features">
+          <li>B2B SMS &amp; AI outreach</li>
+          <li>UK Director targeting</li>
+          <li>Peer-to-peer tone &amp; spintax</li>
+          <li>AI qualification to call booking</li>
+          <li>Separate prospect tracking</li>
+        </ul>
+        <a href="#" class="btn-ghost" style="width:100%;justify-content:center;opacity:0.5;pointer-events:none;">Coming soon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section">
+  <span class="quote-mark reveal">&ldquo;</span>
+  <p class="testimonial-text reveal">"We had no idea our old database was worth this much. Your system generated <strong>more appointments in two weeks</strong> than our Google Ads did in four months."</p>
+  <p class="testimonial-source reveal">Sales Director — £60M B2B Distributor</p>
+</section>
+
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <div class="section-tag reveal" style="justify-content:center;margin:0 auto 1.2rem;">Free 15-Minute Demo</div>
+    <h2 class="reveal">Your leads are waiting<br>to hear from <em>you.</em></h2>
+    <p class="reveal">Book a 15-minute call and we'll show you exactly how many opportunities are sitting in your database — and what Sweep would generate from them.</p>
+    <div class="cta-btns reveal">
+      <a href="mailto:david@silverbulletpro.com?subject=I%20want%20to%20see%20SWEEP%20in%20action&body=Hi%20David%2C%20I%27d%20like%20to%20book%20a%20free%20demo%20of%20Sweep." class="btn-coral-lg">Book your free demo →</a>
+      <a href="mailto:david@silverbulletpro.com?subject=Do%20I%20qualify%20for%20SWEEP%3F&body=Do%20I%20qualify%20for%20SWEEP%3F" class="btn-ghost-light">See if you qualify</a>
+    </div>
+    <p class="cta-note reveal">No commitment. No pitch deck. Just 15 minutes on your actual data.</p>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Sweep<span>.</span></a>
+  <p>© 2026 Oakbank Innovations Ltd · Hamilton, Scotland</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">PECR Compliance</a>
+    <a href="mailto:david@silverbulletpro.com">david@silverbulletpro.com</a>
+  </div>
+</footer>
+
+<script>
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.reveal').forEach((c, i) => {
+        c.style.transitionDelay = (i * 0.08) + 's';
+        c.classList.add('visible');
       });
-    }, { threshold: 0.12 });
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    revealEls.forEach(el => io.observe(el));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Add a slight nav shadow on scroll.
-    const navWrap = document.querySelector('.nav-wrap');
-    const setNavState = () => {
-      if (window.scrollY > 8) {
-        navWrap.style.filter = 'drop-shadow(0 10px 28px rgba(12,18,28,0.08))';
-      } else {
-        navWrap.style.filter = 'none';
+/* ── COUNT UP ── */
+const bigNum = document.getElementById('bigNum');
+if (bigNum) {
+  const no = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        let c = 0;
+        const t = setInterval(() => {
+          c += 2;
+          bigNum.textContent = c + '%';
+          if (c >= 80) { clearInterval(t); bigNum.textContent = '80%'; }
+        }, 25);
+        no.unobserve(entry.target);
       }
-    };
-    window.addEventListener('scroll', setNavState, { passive: true });
-    setNavState();
-  </script>
+    });
+  }, { threshold: 0.5 });
+  no.observe(bigNum);
+}
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
 </body>
 </html>
