@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWEEP Recover — Editable Hot Lead Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaff;
+    --panel:#ffffff;
+    --panel-border:#e9e6f4;
+    --violet:#6e3bff;
+    --violet-soft:#f1ecff;
+    --violet-text:#5b2fe0;
+    --coral:#ff6b47;
+    --whatsapp:#25d366;
+    --whatsapp-soft:#e6f9ee;
+    --whatsapp-text:#1a9e50;
+    --amber:#e8930c;
+    --amber-soft:#fdf1dc;
+    --text:#15131f;
+    --text-dim:#6b6a7c;
+    --text-faint:#a3a1b3;
+    --shadow:0 1px 2px rgba(20,15,50,.04), 0 8px 24px rgba(20,15,50,.05);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; min-height:100vh;}
+  body{
+    padding:40px 24px 80px;
+    background-image:
+      radial-gradient(ellipse 900px 460px at 10% -10%, rgba(110,59,255,.07), transparent 60%),
+      radial-gradient(ellipse 700px 420px at 100% 5%, rgba(255,107,71,.05), transparent 60%);
+  }
+  .wrap{max-width:1180px; margin:0 auto;}
+
+  header{display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:26px; padding-bottom:26px; border-bottom:1px solid var(--panel-border);}
+  .brand{display:flex; align-items:center; gap:2px;}
+  .brand-name{font-family:'Syne',sans-serif; font-weight:800; font-size:22px; color:var(--text);}
+  .brand-dot{color:var(--coral);}
+  .eyebrow-pill{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--violet-text); background:var(--violet-soft); padding:7px 15px; border-radius:20px; font-weight:600; margin-top:16px;}
+  .headline{font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(24px,3.2vw,32px); line-height:1.16; max-width:640px; margin-top:14px; color:var(--text);}
+  .headline em{font-style:italic; color:var(--violet);}
+  .sub{font-size:14px; color:var(--text-dim); max-width:480px; margin-top:12px; line-height:1.55;}
+
+  /* editable inputs panel */
+  .editor{background:var(--panel); border:1px solid var(--panel-border); border-radius:18px; box-shadow:var(--shadow); padding:20px 22px; margin-bottom:24px;}
+  .editor-title{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; margin-bottom:14px;}
+  .editor-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  @media (max-width:800px){ .editor-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .editor-grid{grid-template-columns:1fr;} }
+  .field label{display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); margin-bottom:6px;}
+  .field input{width:100%; border:1px solid var(--panel-border); border-radius:9px; padding:9px 11px; font-family:'Inter',sans-serif; font-size:13px; color:var(--text); background:#fcfbff; outline:none; transition:border-color .2s;}
+  .field input:focus{border-color:var(--violet);}
+  .editor-actions{margin-top:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+
+  /* flow diagram */
+  .flow{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:28px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-dim);}
+  .flow-step{background:var(--panel); border:1px solid var(--panel-border); border-radius:20px; padding:8px 15px; white-space:nowrap; box-shadow:var(--shadow);}
+  .flow-step.active{border-color:var(--violet); color:var(--violet-text); background:var(--violet-soft);}
+  .flow-step.hot{border-color:var(--amber); color:var(--amber); background:var(--amber-soft);}
+  .flow-arrow{color:var(--text-faint);}
+
+  .grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:24px; align-items:start;}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+
+  .panel{background:var(--panel); border:1px solid var(--panel-border); border-radius:18px; overflow:hidden; box-shadow:var(--shadow);}
+  .panel-head{padding:18px 22px; border-bottom:1px solid var(--panel-border);}
+  .panel-title{font-family:'Syne',sans-serif; font-weight:700; font-size:14.5px;}
+  .panel-title-sub{font-size:12px; color:var(--text-dim); margin-top:2px;}
+
+  /* lead phone */
+  .phone-outer{display:flex; flex-direction:column; align-items:center; padding:24px;}
+  .phone{width:100%; max-width:280px; background:#15131f; border-radius:32px; padding:9px;}
+  .phone-screen{background:#ffffff; border-radius:24px; overflow:hidden; min-height:340px; display:flex; flex-direction:column; border:1px solid #eeecf6;}
+  .phone-bar{padding:13px 15px 9px; border-bottom:1px solid #f0eef8; display:flex; align-items:center; gap:9px;}
+  .phone-avatar{width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--violet),#a785ff); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:11.5px; color:#fff; flex-shrink:0;}
+  .phone-contact-name{font-size:13px; font-weight:600; color:var(--text);}
+  .phone-contact-sub{font-size:10.5px; color:var(--text-faint);}
+  .thread{flex:1; padding:14px 11px; display:flex; flex-direction:column; gap:7px; background:#fcfbff;}
+  .bubble{max-width:82%; padding:8px 12px; border-radius:15px; font-size:12.5px; line-height:1.42; opacity:0; transform:translateY(6px); transition:all .35s ease;}
+  .bubble.show{opacity:1; transform:translateY(0);}
+  .bubble.out{align-self:flex-end; background:var(--violet); color:#fff; border-bottom-right-radius:4px;}
+  .bubble.in{align-self:flex-start; background:#f0eef6; color:var(--text); border-bottom-left-radius:4px;}
+  .typing{align-self:flex-start; display:none; gap:4px; padding:9px 12px; background:#f0eef6; border-radius:15px; border-bottom-left-radius:4px;}
+  .typing.show{display:flex;}
+  .typing span{width:5px; height:5px; border-radius:50%; background:var(--text-faint); animation:blink 1.2s infinite ease-in-out;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes blink{0%,80%,100%{opacity:.3;} 40%{opacity:1;}}
+  .tag-line{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); text-align:center; margin-top:14px;}
+  .detect-badge{margin:0 11px 12px; padding:8px 10px; background:var(--amber-soft); border:1px solid #f3ddad; border-radius:9px; font-size:10.5px; color:var(--amber); font-weight:600; text-align:center; opacity:0; transform:translateY(6px); transition:all .4s ease;}
+  .detect-badge.show{opacity:1; transform:translateY(0);}
+
+  /* alert side */
+  .alert-body{padding:20px 22px 24px;}
+  .alert-card{background:#fff; border:1px solid var(--panel-border); border-radius:13px; margin-bottom:12px; overflow:hidden; opacity:0; transform:translateY(10px); transition:all .45s ease; box-shadow:var(--shadow);}
+  .alert-card.show{opacity:1; transform:translateY(0);}
+  .alert-card.whatsapp{border-color:#cdf0da;}
+  .alert-card-head{display:flex; align-items:center; gap:10px; padding:12px 15px; border-bottom:1px solid var(--panel-border);}
+  .alert-card.whatsapp .alert-card-head{border-bottom-color:#e6f9ee; background:var(--whatsapp-soft);}
+  .channel-icon{width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .channel-icon svg{width:15px; height:15px;}
+  .icon-sms{background:var(--violet-soft);}
+  .icon-whatsapp{background:#d3f4de;}
+  .icon-email{background:#f1f0f6;}
+  .channel-name{font-size:12.5px; font-weight:700; color:var(--text);}
+  .channel-target{font-size:10.5px; color:var(--text-faint); font-family:'JetBrains Mono',monospace;}
+  .delivered-tick{margin-left:auto; font-size:10px; font-family:'JetBrains Mono',monospace; color:var(--text-faint); opacity:0; transition:opacity .3s ease;}
+  .delivered-tick.wa{color:var(--whatsapp-text);}
+  .delivered-tick.show{opacity:1;}
+  .alert-card-body{padding:13px 15px; font-size:12px; line-height:1.55; color:var(--text-dim);}
+  .alert-card-body strong{color:var(--text);}
+  .alert-subject{font-size:12px; font-weight:600; color:var(--text); margin-bottom:5px;}
+
+  .replay-btn{background:var(--violet); color:#fff; border:none; border-radius:10px; padding:11px 22px; font-family:'Inter',sans-serif; font-weight:600; font-size:13px; cursor:pointer; transition:opacity .2s; box-shadow:var(--shadow);}
+  .replay-btn:hover{opacity:.88;}
+  .replay-btn:disabled{opacity:.4; cursor:default;}
+  .replay-btn.secondary{background:#fff; color:var(--violet-text); border:1px solid var(--panel-border);}
+
+  footer{text-align:center; margin-top:40px; color:var(--text-faint); font-size:12px; font-family:'JetBrains Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="brand">
+        <span class="brand-name">SweepDBM<span class="brand-dot">.</span></span>
+      </div>
+      <div class="eyebrow-pill">Live demo · high-ticket client handoff</div>
+      <h1 class="headline">SWEEP doesn't close the job. It puts the <em>hot lead</em> straight in your hand.</h1>
+      <p class="sub">Edit the details below and re-run the demo with your own prospect's info — perfect for showing a specific client exactly what their first message would look like.</p>
+    </div>
+  </header>
+
+  <div class="editor">
+    <div class="editor-title">✏️ Edit demo details</div>
+    <div class="editor-grid">
+      <div class="field">
+        <label for="inContact">Contact name</label>
+        <input type="text" id="inContact" value="Craig">
+      </div>
+      <div class="field">
+        <label for="inCompany">Client company</label>
+        <input type="text" id="inCompany" value="Clyde Kitchens">
+      </div>
+      <div class="field">
+        <label for="inProduct">Enquired about</label>
+        <input type="text" id="inProduct" value="a kitchen refit">
+      </div>
+      <div class="field">
+        <label for="inDeal">Average deal size (£)</label>
+        <input type="text" id="inDeal" value="8,400">
+      </div>
+    </div>
+    <div class="editor-actions">
+      <button class="replay-btn" id="updateBtn" onclick="runDemo()">↻ Update &amp; replay demo</button>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step" id="fStep1">1 · Dormant lead texted</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" id="fStep2">2 · Positive reply detected</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" id="fStep3">3 · Hot Lead Alert fired to client</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">SWEEP → Lead</div>
+        <div class="panel-title-sub" id="panelSub">Craig · 45 days dormant · £8,400 quote</div>
+      </div>
+      <div class="phone-outer">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-bar">
+              <div class="phone-avatar" id="phoneAvatar">CK</div>
+              <div>
+                <div class="phone-contact-name" id="phoneContactName">Craig</div>
+                <div class="phone-contact-sub">+44 7•••• ••812</div>
+              </div>
+            </div>
+            <div class="thread" id="thread">
+              <div class="typing" id="typing1"><span></span><span></span><span></span></div>
+            </div>
+            <div class="detect-badge" id="detectBadge">⚡ Positive reply detected — handing off</div>
+          </div>
+        </div>
+        <div class="tag-line">Max 2 messages. SWEEP never negotiates or books.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title" id="alertHeadTitle">🔥 Hot Lead Alert → Clyde Kitchens Team</div>
+        <div class="panel-title-sub">Fired simultaneously across 3 channels</div>
+      </div>
+      <div class="alert-body" id="alertBody">
+
+        <div class="alert-card" id="cardSms">
+          <div class="alert-card-head">
+            <div class="channel-icon icon-sms">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 5h18v11H7l-4 4V5z" stroke="#6e3bff" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="channel-name">SMS</div>
+              <div class="channel-target">to +44 7•••• ••204</div>
+            </div>
+            <div class="delivered-tick" id="tickSms">✓ Delivered 0:01</div>
+          </div>
+          <div class="alert-card-body" id="bodySms">
+            🔥 <strong>HOT LEAD:</strong> Craig, £8,400 kitchen refit (dormant 45d). Replied: "still interested, budget's sorted now." Reply direct: 07•••812
+          </div>
+        </div>
+
+        <div class="alert-card whatsapp" id="cardWa">
+          <div class="alert-card-head">
+            <div class="channel-icon icon-whatsapp">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z" stroke="#1a9e50" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="channel-name">WhatsApp</div>
+              <div class="channel-target" id="waTarget">Clyde Kitchens business line</div>
+            </div>
+            <div class="delivered-tick wa" id="tickWa">✓✓ Read 0:03</div>
+          </div>
+          <div class="alert-card-body" id="bodyWa">
+            🔥 <strong>Hot Lead Alert</strong> — Craig just came back warm on the £8,400 refit quote. Full thread attached. Call while it's hot.
+          </div>
+        </div>
+
+        <div class="alert-card" id="cardEmail">
+          <div class="alert-card-head">
+            <div class="channel-icon icon-email">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3V6z" stroke="#6b6a7c" stroke-width="2" stroke-linejoin="round"/><path d="M3 6l9 7 9-7" stroke="#6b6a7c" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="channel-name">Email</div>
+              <div class="channel-target" id="emailTarget">kenny@clydekitchens.co.uk</div>
+            </div>
+            <div class="delivered-tick" id="tickEmail">✓ Delivered 0:04</div>
+          </div>
+          <div class="alert-card-body">
+            <div class="alert-subject" id="subjectEmail">🔥 Hot Lead: Craig — £8,400 refit, ready to talk</div>
+            <span id="bodyEmail">Full SMS thread + lead history attached. Recommended: call today.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px; text-align:center;">
+    <button class="replay-btn secondary" onclick="runDemo()">▶ Replay demo</button>
+  </div>
+
+  <footer>SWEEP Recover — automated SMS reactivation for trades &amp; SME leads</footer>
+</div>
+
+<script>
+const thread = document.getElementById('thread');
+const typing1 = document.getElementById('typing1');
+const updateBtn = document.getElementById('updateBtn');
+const detectBadge = document.getElementById('detectBadge');
+const fStep1 = document.getElementById('fStep1');
+const fStep2 = document.getElementById('fStep2');
+const fStep3 = document.getElementById('fStep3');
+
+function initials(name){
+  return name.trim().split(/\s+/).map(w => w[0] || '').join('').slice(0,2).toUpperCase() || '??';
+}
+
+function addBubble(side, text){
+  const b = document.createElement('div');
+  b.className = 'bubble ' + side;
+  b.textContent = text;
+  thread.insertBefore(b, typing1);
+  requestAnimationFrame(()=> b.classList.add('show'));
+  thread.scrollTop = thread.scrollHeight;
+}
+
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+function setStep(el, cls){
+  ['active','hot'].forEach(c => el.classList.remove(c));
+  if(cls) el.classList.add(cls);
+}
+
+function getFields(){
+  const contact = document.getElementById('inContact').value.trim() || 'the customer';
+  const company = document.getElementById('inCompany').value.trim() || 'the client';
+  const product = document.getElementById('inProduct').value.trim() || 'a recent enquiry';
+  const deal = document.getElementById('inDeal').value.trim() || '0';
+  return {contact, company, product, deal};
+}
+
+function buildMessages(f){
+  return [
+    {side:'out', text:`Hi, is this ${f.contact}? You enquired about ${f.product} with ${f.company} recently — just checking if that's still something you're looking at?`, delay:900, typingBefore:false},
+    {side:'in', text:"Oh hi! Yeah tbh forgot all about it. Still interested actually, budget's sorted now too", delay:1900, typingBefore:true},
+  ];
+}
+
+async function runDemo(){
+  const f = getFields();
+  updateBtn.disabled = true;
+  updateBtn.textContent = '● Running…';
+
+  // populate static text fields from inputs
+  document.getElementById('panelSub').textContent = `${f.contact} · 45 days dormant · £${f.deal} quote`;
+  document.getElementById('phoneAvatar').textContent = initials(f.company);
+  document.getElementById('phoneContactName').textContent = f.contact;
+  document.getElementById('alertHeadTitle').textContent = `🔥 Hot Lead Alert → ${f.company} Team`;
+  document.getElementById('bodySms').innerHTML = `🔥 <strong>HOT LEAD:</strong> ${f.contact}, £${f.deal} ${f.product} (dormant 45d). Replied: "still interested, budget's sorted now." Reply direct: 07•••812`;
+  document.getElementById('waTarget').textContent = `${f.company} business line`;
+  document.getElementById('bodyWa').innerHTML = `🔥 <strong>Hot Lead Alert</strong> — ${f.contact} just came back warm on the £${f.deal} ${f.product} enquiry. Full thread attached. Call while it's hot.`;
+  document.getElementById('emailTarget').textContent = `team@${f.company.toLowerCase().replace(/[^a-z0-9]+/g,'')}.co.uk`;
+  document.getElementById('subjectEmail').textContent = `🔥 Hot Lead: ${f.contact} — £${f.deal} ${f.product}, ready to talk`;
+  document.getElementById('bodyEmail').textContent = 'Full SMS thread + lead history attached. Recommended: call today.';
+
+  // reset animation state
+  document.querySelectorAll('.bubble').forEach(b => b.remove());
+  typing1.classList.remove('show');
+  detectBadge.classList.remove('show');
+  ['cardSms','cardWa','cardEmail'].forEach(id => document.getElementById(id).classList.remove('show'));
+  ['tickSms','tickWa','tickEmail'].forEach(id => document.getElementById(id).classList.remove('show'));
+  setStep(fStep1,null); setStep(fStep2,null); setStep(fStep3,null);
+
+  await sleep(400);
+  setStep(fStep1,'active');
+
+  const leadMessages = buildMessages(f);
+  for(const m of leadMessages){
+    if(m.typingBefore){
+      typing1.classList.add('show');
+      thread.scrollTop = thread.scrollHeight;
+      await sleep(1100);
+      typing1.classList.remove('show');
+    }
+    await sleep(m.delay);
+    addBubble(m.side, m.text);
+  }
+
+  await sleep(500);
+  setStep(fStep1,null);
+  setStep(fStep2,'active');
+  detectBadge.classList.add('show');
+
+  await sleep(1000);
+  setStep(fStep2,null);
+  setStep(fStep3,'hot');
+
+  const cards = [['cardSms','tickSms'], ['cardWa','tickWa'], ['cardEmail','tickEmail']];
+  for(const [cardId, tickId] of cards){
+    document.getElementById(cardId).classList.add('show');
+    await sleep(500);
+    document.getElementById(tickId).classList.add('show');
+    await sleep(350);
+  }
+
+  updateBtn.disabled = false;
+  updateBtn.textContent = '↻ Update & replay demo';
+}
+
+window.addEventListener('load', () => setTimeout(runDemo, 700));
+</script>
+</body>
+</html>
