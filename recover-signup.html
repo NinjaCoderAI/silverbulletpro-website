@@ -133,6 +133,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <h1>Get started with Recover</h1>
   <p class="sub">Tell us about your business, then set up billing. Your dedicated number and account get created automatically the moment payment goes through.</p>
+  <p class="sub" style="margin-top:-22px;">Recover is £497/mo - a real person (you) closes the leads, we just get them warm and hand you the hot ones by SMS. Want the AI to run the whole follow-up conversation itself? Tick Qualify below - £997/mo.</p>
 
   <form id="signup-form">
     <label for="business_name">Business name</label>
@@ -165,6 +166,37 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <label for="business_description">A line about your business</label>
     <textarea id="business_description" name="business_description"></textarea>
 
+    <div class="divider">Upgrade - £997/mo</div>
+    <label style="display:flex; align-items:center; gap:10px; font-weight:600; margin-top:16px;">
+      <input type="checkbox" id="enable_qualify" name="enable_qualify" style="width:auto;">
+      Let the AI run the whole qualifying conversation (Qualify)
+    </label>
+    <span class="hint" style="display:block; margin-top:4px;">Instead of just alerting you, the AI asks your qualifying questions itself and books a callback time before handing the lead over.</span>
+
+    <div id="qualify-fields" style="display:none;">
+      <label for="niche">What industry is this for?</label>
+      <select id="niche" name="niche">
+        <option value="solar">Solar panels</option>
+        <option value="life_insurance">Life insurance</option>
+        <option value="roofing">Roofing</option>
+        <option value="personal_injury">Personal injury claims</option>
+        <option value="mortgage">Mortgages</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="qualification_question_1">First qualifying question <span class="hint" style="display:inline">edit if you like</span></label>
+      <input type="text" id="qualification_question_1" name="qualification_question_1">
+
+      <label for="qualification_question_2">Second qualifying question</label>
+      <input type="text" id="qualification_question_2" name="qualification_question_2">
+
+      <label for="ai_persona_name">AI's name <span class="hint" style="display:inline">who it says it is on the text</span></label>
+      <input type="text" id="ai_persona_name" name="ai_persona_name" value="Sarah">
+
+      <label for="callback_number">Number the AI tells leads it'll call from <span class="hint" style="display:inline">defaults to your alert number above</span></label>
+      <input type="tel" id="callback_number" name="callback_number" placeholder="+447700900000">
+    </div>
+
     <button type="submit" id="submit-btn">Continue to payment</button>
     <div id="msg"></div>
   </form>
@@ -173,6 +205,39 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 </div>
 
 <script>
+// Mirrors NICHE_PRESETS in silver-bullet-ai/src/services/promptTemplates.js -
+// just enough to pre-fill the two qualifying questions client-side. The
+// server rebuilds the full prompt itself from these same defaults, so this
+// only needs to match well enough to give a sensible starting point.
+const NICHE_QUESTION_PRESETS = {
+  solar: ['How much are your monthly electricity bills, roughly?', 'Do you have a flat or pitched roof?'],
+  life_insurance: ['Are you currently employed?', "Is there anything specific you'd like your policy to cover?"],
+  roofing: ['How old is your current roof?', 'Are you looking to repair it or replace it?'],
+  personal_injury: ['What type of injury was it?', 'How long ago did it happen?'],
+  mortgage: ['Are you currently employed?', 'Are you a first-time buyer or looking to remortgage?'],
+  other: ['', '']
+};
+
+const qualifyCheckbox = document.getElementById('enable_qualify');
+const qualifyFields = document.getElementById('qualify-fields');
+const nicheSelect = document.getElementById('niche');
+const q1Input = document.getElementById('qualification_question_1');
+const q2Input = document.getElementById('qualification_question_2');
+
+function applyNichePreset() {
+  const preset = NICHE_QUESTION_PRESETS[nicheSelect.value] || NICHE_QUESTION_PRESETS.other;
+  q1Input.value = preset[0];
+  q2Input.value = preset[1];
+}
+
+qualifyCheckbox.addEventListener('change', () => {
+  qualifyFields.style.display = qualifyCheckbox.checked ? 'block' : 'none';
+  if (qualifyCheckbox.checked && !q1Input.value && !q2Input.value) {
+    applyNichePreset();
+  }
+});
+nicheSelect.addEventListener('change', applyNichePreset);
+
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submit-btn');
@@ -189,8 +254,17 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     whatsapp_recipient: document.getElementById('whatsapp_recipient').value.trim(),
     alert_email: document.getElementById('alert_email').value.trim(),
     service_name: document.getElementById('service_name').value.trim(),
-    business_description: document.getElementById('business_description').value.trim()
+    business_description: document.getElementById('business_description').value.trim(),
+    enable_qualify: qualifyCheckbox.checked
   };
+
+  if (qualifyCheckbox.checked) {
+    payload.niche = nicheSelect.value;
+    payload.qualification_question_1 = q1Input.value.trim();
+    payload.qualification_question_2 = q2Input.value.trim();
+    payload.ai_persona_name = document.getElementById('ai_persona_name').value.trim();
+    payload.callback_number = document.getElementById('callback_number').value.trim();
+  }
 
   try {
     const res = await fetch('https://silver-bullet-ai-production.up.railway.app/api/onboarding/start-recover', {
