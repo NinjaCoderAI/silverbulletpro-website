@@ -8,14 +8,17 @@
 <style>
 :root {
   --white: #ffffff;
-  --bg: #f9f9fc;
-  --ink: #1a1a2e;
-  --ink-soft: #4a4a6a;
-  --rule: #e8e8f0;
-  --coral: #f97066;
-  --green: #10b981;
-  --r: 14px;
-  --shadow-md: 0 8px 32px rgba(26,26,46,0.12);
+  --bg: #f7f7fb;
+  --ink: #12121a;
+  --ink-soft: #55556b;
+  --rule: #ebebf3;
+  --violet: #7c5cfc;
+  --violet-bg: #f1eeff;
+  --coral: #e96a4d;
+  --green: #1db27a;
+  --black: #12121a;
+  --r: 16px;
+  --shadow-md: 0 12px 32px rgba(18,18,26,0.10);
 }
 * { box-sizing: border-box; }
 body {
@@ -25,42 +28,60 @@ body {
   font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-.wrap { max-width: 560px; margin: 0 auto; padding: 60px 20px 80px; text-align: center; }
-.logo { font-weight: 800; font-size: 1.4rem; text-decoration: none; color: var(--ink); }
+.nav {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 10px 18px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+}
+.logo { font-weight: 800; font-size: 1.15rem; text-decoration: none; color: var(--ink); }
 .logo span { color: var(--coral); }
+
+.wrap { max-width: 560px; margin: 0 auto; padding: 44px 20px 80px; text-align: center; }
 .card {
   background: var(--white);
   border: 1px solid var(--rule);
   border-radius: var(--r);
-  padding: 36px 28px;
+  padding: 40px 30px;
   box-shadow: var(--shadow-md);
   margin-top: 28px;
 }
 .badge {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--green); color: white;
+  width: 52px; height: 52px; border-radius: 16px;
+  background: var(--violet-bg); color: var(--violet);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; margin: 0 auto 16px;
+  font-size: 1.5rem; margin: 0 auto 18px;
 }
-h1 { font-size: 1.6rem; font-weight: 800; margin: 0 0 10px; }
+h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 10px; letter-spacing: -0.02em; }
 p { color: var(--ink-soft); line-height: 1.6; }
-.steps { text-align: left; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--rule); }
-.steps li { margin-bottom: 10px; color: var(--ink-soft); }
+.steps { text-align: left; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--rule); list-style: none; padding-left: 0; }
+.steps li { margin-bottom: 14px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start; }
+.steps li .n {
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--violet); color: white; font-size: 0.75rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
 a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
-.ref { margin-top: 20px; font-size: 0.8rem; color: #b0b0c0; }
+.ref { margin-top: 20px; font-size: 0.8rem; color: #b0b0c4; }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="nav">
   <a href="/" class="logo">SweepDBM<span>.</span></a>
+</div>
+
+<div class="wrap">
   <div class="card">
     <div class="badge">&#10003;</div>
     <h1>You're all set</h1>
     <p>Payment's through. Your dedicated number and account are being created automatically right now - that takes about a minute.</p>
     <ol class="steps">
-      <li>Export your dormant/old leads from your CRM as a CSV (name + phone number is enough, any format works).</li>
-      <li>Email it to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a>.</li>
-      <li>We'll get your first campaign live and you'll start seeing hot-lead alerts on WhatsApp.</li>
+      <li><span class="n">1</span> Export your dormant/old leads from your CRM as a CSV (name + phone number is enough, any format works).</li>
+      <li><span class="n">2</span> Email it to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a>.</li>
+      <li><span class="n">3</span> We'll get your first campaign live - hot leads will start hitting your phone by SMS the moment someone replies.</li>
     </ol>
     <p id="ref" class="ref"></p>
   </div>
