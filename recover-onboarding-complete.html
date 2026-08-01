@@ -11,11 +11,15 @@
   --bg: #f7f7fb;
   --ink: #12121a;
   --ink-soft: #55556b;
+  --ink-mid: #8a8aa0;
   --rule: #ebebf3;
   --violet: #7c5cfc;
   --violet-bg: #f1eeff;
   --coral: #e96a4d;
+  --coral-h: #d95a3d;
   --green: #1db27a;
+  --green-bg: #e8f8f1;
+  --red: #eb5757;
   --black: #12121a;
   --r: 16px;
   --shadow-md: 0 12px 32px rgba(18,18,26,0.10);
@@ -57,13 +61,43 @@ body {
 }
 h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 10px; letter-spacing: -0.02em; }
 p { color: var(--ink-soft); line-height: 1.6; }
-.steps { text-align: left; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--rule); list-style: none; padding-left: 0; }
-.steps li { margin-bottom: 14px; color: var(--ink-soft); display: flex; gap: 12px; align-items: flex-start; }
-.steps li .n {
-  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-  background: var(--violet); color: white; font-size: 0.75rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
+
+.upload-box {
+  text-align: left;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
 }
+.upload-box label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; }
+.upload-box input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px dashed var(--rule);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: var(--bg);
+}
+button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--coral);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover { background: var(--coral-h); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+#result { display: none; margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 0.9rem; text-align: left; line-height: 1.5; }
+#result.success { background: var(--green-bg); color: #0f7a51; display: block; }
+#result.error { background: #fdecea; color: #b03a2e; display: block; }
+
+.fallback { margin-top: 18px; font-size: 0.85rem; color: var(--ink-mid); text-align: center; }
 a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
 .ref { margin-top: 20px; font-size: 0.8rem; color: #b0b0c4; }
 </style>
@@ -78,11 +112,15 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
     <div class="badge">&#10003;</div>
     <h1>You're all set</h1>
     <p>Payment's through. Your dedicated number and account are being created automatically right now - that takes about a minute.</p>
-    <ol class="steps">
-      <li><span class="n">1</span> Export your dormant/old leads from your CRM as a CSV (name + phone number is enough, any format works).</li>
-      <li><span class="n">2</span> Email it to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a>.</li>
-      <li><span class="n">3</span> We'll get your first campaign live - hot leads will start hitting your phone by SMS the moment someone replies.</li>
-    </ol>
+
+    <div class="upload-box">
+      <label for="csv-file">Upload your dormant/old leads (CSV - name + phone number is enough, any format works)</label>
+      <input type="file" id="csv-file" accept=".csv">
+      <button type="button" id="upload-btn">Upload my leads</button>
+      <div id="result"></div>
+    </div>
+
+    <p class="fallback">Having trouble? Email your CSV to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a> instead.</p>
     <p id="ref" class="ref"></p>
   </div>
 </div>
@@ -92,6 +130,59 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
   if (businessId) {
     document.getElementById('ref').textContent = 'Reference: ' + businessId;
   }
+
+  const fileInput = document.getElementById('csv-file');
+  const uploadBtn = document.getElementById('upload-btn');
+  const resultBox = document.getElementById('result');
+
+  uploadBtn.addEventListener('click', async () => {
+    resultBox.className = '';
+    resultBox.style.display = 'none';
+
+    if (!businessId) {
+      resultBox.className = 'error';
+      resultBox.textContent = "We couldn't find your account reference in the page link - please email your CSV instead.";
+      return;
+    }
+    if (!fileInput.files.length) {
+      resultBox.className = 'error';
+      resultBox.textContent = 'Choose a CSV file first.';
+      return;
+    }
+
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = 'Uploading...';
+
+    const formData = new FormData();
+    formData.append('business_id', businessId);
+    formData.append('file', fileInput.files[0]);
+
+    try {
+      const res = await fetch('https://silver-bullet-ai-production.up.railway.app/api/campaigns/upload-leads', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong uploading that file.');
+      }
+
+      resultBox.className = 'success';
+      resultBox.textContent = `Got it - ${data.valid_count} leads queued` +
+        (data.skipped_count ? ` (${data.skipped_count} rows skipped - invalid numbers, duplicates, or opt-outs)` : '') +
+        `. We'll start reaching out to them shortly, and hot replies will hit your phone the moment someone responds.`;
+      uploadBtn.textContent = 'Uploaded';
+
+    } catch (err) {
+      resultBox.className = 'error';
+      resultBox.textContent = err.message.includes('not active yet') || err.message.includes('provisioned')
+        ? "Your account is still finishing setup (usually under a minute after payment) - please try uploading again shortly."
+        : err.message;
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = 'Upload my leads';
+    }
+  });
 </script>
 </body>
 </html>
