@@ -78,6 +78,16 @@ p { color: var(--ink-soft); line-height: 1.6; }
   font-size: 0.9rem;
   background: var(--bg);
 }
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.consent-row input[type="checkbox"] { width: auto; margin-top: 3px; flex-shrink: 0; }
 button {
   width: 100%;
   margin-top: 16px;
@@ -114,13 +124,17 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
     <p>Payment's through. Your dedicated number and account are being created automatically right now - that takes about a minute.</p>
 
     <div class="upload-box">
-      <label for="csv-file">Upload your dormant/old leads (CSV - name + phone number is enough, any format works)</label>
-      <input type="file" id="csv-file" accept=".csv">
+      <label for="csv-file">Upload your dormant/old leads (CSV or Excel - name + phone number is enough, any format works)</label>
+      <input type="file" id="csv-file" accept=".csv,.xlsx,.xls">
+      <label class="consent-row" for="consent-checkbox">
+        <input type="checkbox" id="consent-checkbox">
+        <span>I confirm this business has permission to contact everyone in this list by SMS.</span>
+      </label>
       <button type="button" id="upload-btn">Upload my leads</button>
       <div id="result"></div>
     </div>
 
-    <p class="fallback">Having trouble? Email your CSV to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a> instead.</p>
+    <p class="fallback">Having trouble? Email your list to <a class="mail" href="mailto:david@silverbulletpro.com?subject=My%20lead%20list%20-%20Recover">david@silverbulletpro.com</a> instead.</p>
     <p id="ref" class="ref"></p>
   </div>
 </div>
@@ -132,6 +146,7 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
   }
 
   const fileInput = document.getElementById('csv-file');
+  const consentCheckbox = document.getElementById('consent-checkbox');
   const uploadBtn = document.getElementById('upload-btn');
   const resultBox = document.getElementById('result');
 
@@ -141,12 +156,17 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
 
     if (!businessId) {
       resultBox.className = 'error';
-      resultBox.textContent = "We couldn't find your account reference in the page link - please email your CSV instead.";
+      resultBox.textContent = "We couldn't find your account reference in the page link - please email your list instead.";
       return;
     }
     if (!fileInput.files.length) {
       resultBox.className = 'error';
-      resultBox.textContent = 'Choose a CSV file first.';
+      resultBox.textContent = 'Choose a CSV or Excel file first.';
+      return;
+    }
+    if (!consentCheckbox.checked) {
+      resultBox.className = 'error';
+      resultBox.textContent = 'Please confirm you have permission to contact this list before uploading.';
       return;
     }
 
@@ -156,6 +176,7 @@ a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
     const formData = new FormData();
     formData.append('business_id', businessId);
     formData.append('file', fileInput.files[0]);
+    formData.append('permission_confirmed', 'true');
 
     try {
       const res = await fetch('https://silver-bullet-ai-production.up.railway.app/api/campaigns/upload-leads', {
