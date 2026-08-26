@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gold Mine Scan - Revenue Recovery Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --bg: #f7f7fb;
+  --ink: #12121a;
+  --ink-soft: #55556b;
+  --ink-mid: #8a8aa0;
+  --rule: #ebebf3;
+  --violet: #7c5cfc;
+  --violet-bg: #f1eeff;
+  --coral: #e96a4d;
+  --coral-h: #d95a3d;
+  --yellow: #ffc93c;
+  --blue: #56ccf2;
+  --red: #eb5757;
+  --black: #12121a;
+  --r: 16px;
+  --shadow-md: 0 12px 32px rgba(18,18,26,0.10);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nav {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+}
+.logo { font-weight: 800; font-size: 1.15rem; text-decoration: none; color: var(--ink); }
+.logo span { color: var(--coral); }
+.nav a.pill {
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+}
+
+.wrap { max-width: 620px; margin: 0 auto; padding: 44px 20px 80px; }
+
+.accent-row { display: flex; gap: 10px; margin-bottom: 22px; }
+.accent-row .dot { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.accent-row .dot.y { background: var(--yellow); }
+.accent-row .dot.b { background: var(--blue); }
+.accent-row .dot.v { background: var(--violet); }
+.accent-row .dot.r { background: var(--red); }
+
+h1 { font-size: 2.15rem; font-weight: 800; margin: 0 0 8px; line-height: 1.15; letter-spacing: -0.02em; }
+.sub { color: var(--ink-soft); margin: 0 0 32px; font-size: 1.05rem; line-height: 1.55; }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 30px;
+  box-shadow: var(--shadow-md);
+}
+label { display: block; font-weight: 600; font-size: 0.9rem; margin: 20px 0 6px; }
+label:first-of-type { margin-top: 0; }
+.hint { display: block; font-weight: 400; color: var(--ink-mid); font-size: 0.82rem; margin-top: 3px; }
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--bg);
+}
+input:focus { outline: none; border-color: var(--violet); background: var(--white); box-shadow: 0 0 0 3px var(--violet-bg); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+button {
+  width: 100%;
+  margin-top: 28px;
+  padding: 15px;
+  border: none;
+  border-radius: 999px;
+  background: var(--coral);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover { background: var(--coral-h); }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+#msg { margin-top: 14px; font-size: 0.9rem; display: none; }
+#msg.error { color: var(--coral-h); }
+
+.note { margin-top: 22px; color: var(--ink-mid); font-size: 0.85rem; text-align: center; }
+.note a { color: var(--violet); text-decoration: none; font-weight: 600; }
+
+/* Result state */
+#result-card { display: none; text-align: center; }
+.result-label { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-mid); }
+.result-figure {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--violet);
+  margin: 10px 0 4px;
+  letter-spacing: -0.02em;
+}
+.result-caption { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 26px; line-height: 1.5; }
+.result-cta {
+  display: inline-block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.result-cta:hover { opacity: 0.9; }
+.result-secondary { margin-top: 14px; font-size: 0.88rem; color: var(--ink-mid); }
+.result-secondary a { color: var(--violet); font-weight: 600; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="/" class="logo">SweepDBM<span>.</span></a>
+  <a href="mailto:david@silverbulletpro.com" class="pill">Questions?</a>
+</div>
+
+<div class="wrap">
+  <div class="accent-row">
+    <div class="dot y">💰</div>
+    <div class="dot b">📊</div>
+    <div class="dot v">⛏️</div>
+    <div class="dot r">🔥</div>
+  </div>
+
+  <h1>The Gold Mine Scan</h1>
+  <p class="sub">Most businesses never follow up on leads that don't buy first time. They just go quiet - not gone. Enter a couple of numbers and find out what's likely still sitting in your old lead list, unclaimed.</p>
+
+  <div class="card" id="form-card">
+    <form id="scan-form">
+      <label for="name">Your name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="business_name">Business name <span class="hint" style="display:inline">(optional)</span></label>
+      <input type="text" id="business_name" name="business_name">
+
+      <div class="two-col">
+        <div>
+          <label for="dormant_lead_count">Dormant / past leads
+            <span class="hint">Old enquiries, quotes, or contacts that never converted</span>
+          </label>
+          <input type="number" id="dormant_lead_count" name="dormant_lead_count" min="1" placeholder="e.g. 400" required>
+        </div>
+        <div>
+          <label for="avg_deal_value">Average deal value (£)
+            <span class="hint">What one of these is typically worth if it converts</span>
+          </label>
+          <input type="number" id="avg_deal_value" name="avg_deal_value" min="1" placeholder="e.g. 3000" required>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-btn">Reveal My Gold Mine</button>
+      <div id="msg"></div>
+    </form>
+  </div>
+
+  <div class="card" id="result-card">
+    <div class="result-label">Conservatively sitting in your dormant list</div>
+    <div class="result-figure" id="result-figure">£0 - £0</div>
+    <p class="result-caption" id="result-caption"></p>
+    <a href="recover-signup.html" class="result-cta" id="result-cta">Get SWEEP Recover to go and claim it</a>
+    <p class="result-secondary">Sending this to a client or a partner instead? <a href="mailto:david@silverbulletpro.com">Get in touch</a> about referring them.</p>
+  </div>
+
+  <p class="note">This is an estimate based on a conservative 5-10% recovery rate - real results vary by list quality and how long it's been since anyone followed up.</p>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const referralSource = params.get('ref') || null;
+
+document.getElementById('scan-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('msg');
+  msg.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Scanning...';
+
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    business_name: document.getElementById('business_name').value.trim(),
+    dormant_lead_count: document.getElementById('dormant_lead_count').value,
+    avg_deal_value: document.getElementById('avg_deal_value').value,
+    referral_source: referralSource
+  };
+
+  try {
+    const res = await fetch('https://silver-bullet-ai-production.up.railway.app/api/leadmagnet/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Something went wrong. Please try again.');
+    }
+
+    const fmt = (n) => '£' + Number(n).toLocaleString('en-GB');
+    document.getElementById('result-figure').textContent =
+      `${fmt(data.conservative_estimate)} - ${fmt(data.optimistic_estimate)}`;
+    document.getElementById('result-caption').textContent =
+      `Based on ${payload.dormant_lead_count} dormant leads at an average deal value of £${Number(payload.avg_deal_value).toLocaleString('en-GB')}, even a modest 5-10% recovery rate is real money left on the table.`;
+
+    document.getElementById('form-card').style.display = 'none';
+    document.getElementById('result-card').style.display = 'block';
+    document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+
+  } catch (err) {
+    msg.className = 'error';
+    msg.textContent = err.message;
+    msg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Reveal My Gold Mine';
+  }
+});
+</script>
+</body>
+</html>
