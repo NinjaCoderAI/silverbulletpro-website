@@ -417,6 +417,8 @@ footer{padding:40px 0 130px;border-top:1px solid var(--edge-soft)}
           <div class="field"><label for="business">Business name</label><input id="business" type="text" placeholder="Clyde Kitchens" required></div>
           <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="craig@clydekitchens.co.uk" required></div>
           <div class="field"><label for="mobile">Your mobile number</label><input id="mobile" type="tel" placeholder="07700 900123" required></div>
+          <div class="field"><label for="whatsapp">WhatsApp number for alerts (optional)</label><input id="whatsapp" type="tel" placeholder="07700 900123"></div>
+          <div class="field"><label for="alertEmail">Extra email for alerts (optional)</label><input id="alertEmail" type="email" placeholder="office@clydekitchens.co.uk"></div>
           <div class="field">
             <label for="source">Where do most enquiries come from?</label>
             <select id="source">
@@ -482,6 +484,8 @@ document.getElementById('submit').addEventListener('click', function(){
   var business = document.getElementById('business').value.trim();
   var email = document.getElementById('email').value.trim();
   var mobile = document.getElementById('mobile').value.trim();
+  var whatsapp = document.getElementById('whatsapp').value.trim();
+  var alertEmail = document.getElementById('alertEmail').value.trim();
   var source = document.getElementById('source').value;
 
   var errEl = document.getElementById('formErr');
@@ -496,6 +500,8 @@ document.getElementById('submit').addEventListener('click', function(){
     business_name: business,
     owner_email: email,
     alert_phone_number: mobile,
+    whatsapp_recipient: whatsapp || undefined,
+    alert_email: alertEmail || undefined,
     lead_source: source
   };
 
