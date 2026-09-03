@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're set up - SPEED</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --bg: #f7f7fb;
+  --ink: #12121a;
+  --ink-soft: #55556b;
+  --ink-mid: #8a8aa0;
+  --rule: #ebebf3;
+  --violet: #7c5cfc;
+  --violet-bg: #f1eeff;
+  --coral: #e96a4d;
+  --coral-h: #d95a3d;
+  --green: #1db27a;
+  --green-bg: #e8f8f1;
+  --r: 16px;
+  --shadow-md: 0 12px 32px rgba(18,18,26,0.10);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.nav {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 10px 18px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+}
+.logo { font-weight: 800; font-size: 1.15rem; text-decoration: none; color: var(--ink); }
+.logo span { color: var(--coral); }
+
+.wrap { max-width: 560px; margin: 0 auto; padding: 44px 20px 80px; text-align: center; }
+.card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 40px 30px;
+  box-shadow: var(--shadow-md);
+  margin-top: 28px;
+}
+.badge {
+  width: 52px; height: 52px; border-radius: 16px;
+  background: var(--violet-bg); color: var(--violet);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin: 0 auto 18px;
+}
+h1 { font-size: 1.7rem; font-weight: 800; margin: 0 0 10px; letter-spacing: -0.02em; }
+p { color: var(--ink-soft); line-height: 1.6; }
+
+.steps {
+  text-align: left;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+.step { display: flex; gap: 12px; padding: 10px 0; }
+.step-n {
+  flex: 0 0 26px; height: 26px; border-radius: 50%;
+  background: var(--violet-bg); color: var(--violet);
+  font-weight: 700; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.step-b b { display: block; font-size: 0.95rem; color: var(--ink); }
+.step-b span { font-size: 0.87rem; }
+
+.fallback { margin-top: 22px; font-size: 0.85rem; color: var(--ink-mid); text-align: center; }
+a.mail { color: var(--coral); font-weight: 600; text-decoration: none; }
+.ref { margin-top: 20px; font-size: 0.8rem; color: #b0b0c4; }
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="/" class="logo">SPEED<span>.</span></a>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <div class="badge">&#10003;</div>
+    <h1>You're all set</h1>
+    <p>Payment's through. Your dedicated UK number and account are being created automatically right now - that takes about a minute.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-b"><b>We'll text you shortly</b><span>To book your fifteen-minute setup call and write your qualifying questions together.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-b"><b>We connect your enquiries</b><span>Your website form or Facebook/Google lead ads get pointed at SPEED - no CSV, no list to upload.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-b"><b>Live within 24 hours</b><span>Every new enquiry from that point gets a reply inside 60 seconds.</span></div>
+      </div>
+    </div>
+
+    <p class="fallback">Having trouble, or want to get started sooner? Email <a class="mail" href="mailto:david@silverbulletpro.com?subject=SPEED%20setup">david@silverbulletpro.com</a>.</p>
+    <p id="ref" class="ref"></p>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const businessId = params.get('business_id');
+  if (businessId) {
+    document.getElementById('ref').textContent = 'Reference: ' + businessId;
+  }
+</script>
+</body>
+</html>
