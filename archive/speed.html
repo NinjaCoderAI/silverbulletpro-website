@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEED — every enquiry answered in under 60 seconds</title>
+<meta name="description" content="SPEED replies to every new enquiry in under 60 seconds, qualifies by text and books the appointment. One week free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#040209;
+  --deep:#090514;
+  --edge:rgba(255,255,255,.09);
+  --edge-soft:rgba(255,255,255,.055);
+  --text:#F0EDF7;
+  --dim:#9C96B4;
+  --dimmer:#6B6584;
+  --violet:#8B5CF6;
+  --blue:#3B6DFF;
+  --pink:#E879C0;
+  --peach:#F7C09A;
+  --go:#2ED694;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--void);color:var(--text);
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px;position:relative;z-index:3}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.03em;line-height:1.12}
+h1{font-size:clamp(2.1rem,5.5vw,3.5rem)}
+h2{font-size:clamp(1.7rem,4vw,2.55rem)}
+h3{font-size:1.05rem;letter-spacing:-.015em;line-height:1.35}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:6px}
+.grad{
+  background:linear-gradient(92deg,#6E9BFF 0%,#A855F7 34%,#E879C0 66%,#F7C09A 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lede{color:var(--dim);font-size:clamp(.99rem,2.1vw,1.11rem);max-width:56ch}
+.small{font-size:.82rem;color:var(--dimmer);line-height:1.5}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.center{text-align:center}
+.center .lede{margin-left:auto;margin-right:auto}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--edge);
+  background:rgba(255,255,255,.035);border-radius:100px;padding:6px 15px 6px 12px;
+  font-size:.79rem;color:var(--dim);margin-bottom:22px;
+}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--violet);display:block;
+  box-shadow:0 0 0 0 rgba(139,92,246,.6);animation:pulse 2.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(139,92,246,0)}100%{box-shadow:0 0 0 0 rgba(139,92,246,0)}}
+/* nav */
+nav{position:sticky;top:14px;z-index:80;padding:0 22px}
+.nav-in{
+  max-width:980px;margin:0 auto;background:#fff;border-radius:14px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 9px 9px 18px;box-shadow:0 18px 44px -20px rgba(0,0,0,.9);
+}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;color:#0A0512;text-decoration:none;letter-spacing:-.03em;font-size:1.06rem}
+.ring{width:15px;height:15px;border-radius:50%;border:2px solid var(--violet);border-top-color:transparent;transform:rotate(30deg)}
+.nav-links{display:flex;gap:26px;font-size:.88rem;color:#4B4763}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:#0A0512}
+.btn{
+  display:inline-block;background:var(--blue);color:#fff;text-decoration:none;border:0;cursor:pointer;
+  font-family:inherit;font-weight:500;font-size:.95rem;padding:11px 20px;border-radius:9px;
+  transition:filter .15s ease;
+}
+.btn:hover{filter:brightness(1.14)}
+.btn-lg{font-size:1.02rem;padding:15px 28px;border-radius:11px}
+.btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--edge);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.09)}
+/* light source bloom rising from the bottom of a section */
+.bloom{
+  position:absolute;left:50%;transform:translateX(-50%);bottom:-70px;
+  width:min(1500px,145vw);height:620px;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 34% 62% at 50% 100%, rgba(255,241,226,.60), transparent 70%),
+    radial-gradient(ellipse 52% 78% at 50% 100%, rgba(196,150,255,.36), transparent 72%),
+    radial-gradient(ellipse 78% 96% at 50% 100%, rgba(96,42,190,.24), transparent 76%);
+  filter:blur(24px);
+}
+.bloom.up{bottom:auto;top:-200px;transform:translateX(-50%) rotate(180deg)}
+.veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 30%, transparent, rgba(4,2,9,.55) 90%)}
+section{padding:100px 0;position:relative;overflow:hidden}
+.sec-head{margin-bottom:52px}
+.sec-head .lede{margin-top:16px}
+/* hero */
+.hero{padding:74px 0 118px;position:relative;overflow:hidden}
+.rays{position:absolute;left:0;right:0;bottom:0;height:640px;z-index:1;pointer-events:none;opacity:.85}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.hero-note{margin-top:16px;font-size:.85rem;color:var(--dimmer)}
+/* demo */
+.demo{
+  max-width:560px;margin:54px auto 0;border:1px solid var(--edge);border-radius:18px;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+  backdrop-filter:blur(14px);overflow:hidden;text-align:left;
+  box-shadow:0 50px 110px -55px rgba(168,85,247,.95);
+}
+.demo-head{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--edge-soft)}
+.demo-head span{font-size:.79rem;color:var(--dim)}
+.clock{font-size:.94rem;font-weight:700;color:var(--peach)}
+.thread{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:348px}
+.msg{opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease;max-width:88%}
+.msg.on{opacity:1;transform:none}
+.stamp{font-size:.68rem;color:var(--dimmer);margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+.bub{padding:10px 13px;border-radius:13px;font-size:.92rem;line-height:1.45}
+.out{align-self:flex-end;text-align:right}
+.out .stamp{text-align:right}
+.out .bub{background:linear-gradient(135deg,#7B3FF2,#3B6DFF);color:#fff;border-bottom-right-radius:4px;text-align:left}
+.in .bub{background:rgba(255,255,255,.06);border:1px solid var(--edge-soft);border-bottom-left-radius:4px}
+.event{align-self:stretch;max-width:100%;border-left:2px solid var(--edge);padding-left:11px}
+.event .bub{background:none;padding:0;font-size:.84rem;color:var(--dim)}
+.event.won{border-color:var(--go)}
+.event.won .bub{color:var(--go);font-weight:600}
+.demo-foot{border-top:1px solid var(--edge-soft);padding:11px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.replay{background:rgba(255,255,255,.05);border:1px solid var(--edge);border-radius:8px;padding:6px 13px;font-family:inherit;font-size:.8rem;cursor:pointer;color:var(--text)}
+.replay:hover{background:rgba(255,255,255,.1)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stat{border:1px solid var(--edge-soft);border-radius:16px;padding:28px 24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.008))}
+.figure{font-size:clamp(2.15rem,4.6vw,2.85rem);font-weight:600;letter-spacing:-.045em;line-height:1;margin-bottom:12px}
+.stat p{color:var(--dim);font-size:.95rem}
+.stat cite{display:block;font-size:.71rem;color:#57526E;font-style:normal;margin-top:14px;line-height:1.45}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:3}
+.card{
+  border:1px solid var(--edge-soft);border-radius:18px;padding:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+  backdrop-filter:blur(10px);display:flex;flex-direction:column;min-height:252px;
+}
+.card .tag{display:inline-flex;align-items:center;gap:7px;font-size:.74rem;color:var(--dim);
+  border:1px solid var(--edge);background:rgba(255,255,255,.04);border-radius:100px;padding:5px 12px 5px 10px;align-self:flex-start;margin-bottom:auto}
+.card .tag i{width:5px;height:5px;border-radius:50%;background:var(--violet)}
+.card h3{margin:44px 0 8px}
+.card p{font-size:.92rem;color:var(--dim)}
+.card.hot{
+  background:linear-gradient(165deg,rgba(190,120,255,.30),rgba(120,55,225,.30) 45%,rgba(20,8,44,.75));
+  border-color:rgba(255,255,255,.18);box-shadow:0 40px 80px -40px rgba(190,120,255,.85);
+}
+.card.hot .tag{border-color:rgba(255,255,255,.28)}
+.card.hot .tag i{background:#fff}
+.card.hot p{color:rgba(255,255,255,.8)}
+.card.hot .btn{margin-top:16px;align-self:flex-start;font-size:.88rem;padding:10px 18px;
+  background:linear-gradient(135deg,#7B3FF2,#3B6DFF)}
+/* rows */
+.rows{border-top:1px solid var(--edge-soft);max-width:78ch;margin:0 auto}
+.row{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--edge-soft);align-items:baseline}
+.row .t{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex:0 0 72px;color:var(--peach)}
+.row .b b{font-weight:600}
+.row .b span{display:block;font-size:.93rem;margin-top:3px;color:var(--dim)}
+/* trial */
+.trial-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.trial-grid .rows{max-width:none;margin:0}
+.price{
+  border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:30px;
+  background:linear-gradient(165deg,rgba(190,120,255,.26),rgba(90,40,190,.22) 45%,rgba(9,5,20,.85));
+  backdrop-filter:blur(12px);box-shadow:0 50px 100px -55px rgba(190,120,255,.9);
+}
+.price .big{font-size:2.05rem;font-weight:600;letter-spacing:-.04em;line-height:1.1}
+.price ul{list-style:none;margin:22px 0;padding:0}
+.price li{padding:10px 0 10px 24px;position:relative;font-size:.94rem;color:var(--dim);border-bottom:1px solid var(--edge-soft)}
+.price li:last-child{border-bottom:0}
+.price li::before{content:"";position:absolute;left:2px;top:19px;width:6px;height:6px;border-radius:50%;background:var(--go)}
+.price .btn{display:block;text-align:center}
+/* faq */
+details{border-bottom:1px solid var(--edge-soft);padding:18px 0}
+details summary{cursor:pointer;font-weight:500;font-size:1.01rem;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";color:var(--pink);font-size:1.35rem;line-height:1}
+details[open] summary::after{content:"\2013"}
+details p{margin-top:11px;color:var(--dim);font-size:.95rem;max-width:72ch}
+/* form */
+.form-card{
+  border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:clamp(26px,5vw,54px);
+  background:linear-gradient(150deg,rgba(190,120,255,.26),rgba(59,109,255,.14) 50%,rgba(9,5,20,.88));
+  backdrop-filter:blur(12px);
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;
+  box-shadow:0 60px 130px -70px rgba(190,120,255,1);
+}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.85rem;margin-bottom:6px;color:var(--dim)}
+.field input,.field select{
+  width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);
+  background:rgba(4,2,9,.62);color:#fff;font-family:inherit;font-size:1rem;
+}
+.field input::placeholder{color:#615C7A}
+.field input:focus,.field select:focus{border-color:var(--pink);outline:none}
+.form-card .btn{width:100%;margin-top:6px;font-size:1.04rem;padding:16px}
+.form-note{font-size:.78rem;color:#8B85A3;margin-top:12px;line-height:1.5}
+.done{display:none}
+.done.on{display:block}
+.tick{width:42px;height:42px;border-radius:50%;background:var(--go);display:flex;align-items:center;justify-content:center;color:#040209;font-size:1.3rem;font-weight:700;margin-bottom:16px}
+.hide{display:none}
+.err{display:none;color:var(--pink);font-size:.82rem;margin-top:10px}
+.err.on{display:block}
+footer{padding:40px 0 130px;border-top:1px solid var(--edge-soft)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(4,2,9,.94);backdrop-filter:blur(12px);border-top:1px solid var(--edge-soft);padding:11px 16px;display:none;z-index:90}
+.sticky .btn{width:100%;text-align:center;background:linear-gradient(135deg,#7B3FF2,#3B6DFF)}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .stats,.cards{grid-template-columns:1fr}
+  .trial-grid,.form-card{grid-template-columns:1fr;gap:34px}
+  section{padding:66px 0}
+  .hero{padding:50px 0 86px}
+  .card{min-height:0}
+  .card h3{margin-top:26px}
+  .sticky{display:block}
+  .nav-cta{padding:9px 15px;font-size:.86rem}
+  .bloom{height:460px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .msg{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#top"><span class="ring" aria-hidden="true"></span>SPEED</a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#covers">What it covers</a>
+      <a href="#trial">The free week</a>
+    </div>
+    <a class="btn nav-cta" href="#start">Start free week</a>
+  </div>
+</nav>
+<header class="hero center" id="top">
+  <svg class="rays" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="ray" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#F7C09A" stop-opacity=".9"/>
+        <stop offset="45%" stop-color="#A855F7" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#6E9BFF" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="dot"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <g fill="none" stroke="url(#ray)" stroke-width="1">
+      <path d="M600 640 C 600 470 600 300 600 120"/>
+      <path d="M600 640 C 560 470 470 320 400 200"/>
+      <path d="M600 640 C 640 470 730 320 800 200"/>
+      <path d="M600 640 C 520 480 350 380 210 330"/>
+      <path d="M600 640 C 680 480 850 380 990 330"/>
+      <path d="M600 640 C 500 500 300 450 120 450"/>
+      <path d="M600 640 C 700 500 900 450 1080 450"/>
+    </g>
+    <g fill="#fff">
+      <circle cx="600" cy="120" r="2.6" opacity=".95"/><circle cx="400" cy="200" r="2.2" opacity=".8"/>
+      <circle cx="800" cy="200" r="2.2" opacity=".8"/><circle cx="210" cy="330" r="2" opacity=".7"/>
+      <circle cx="990" cy="330" r="2" opacity=".7"/><circle cx="120" cy="450" r="1.8" opacity=".6"/>
+      <circle cx="1080" cy="450" r="1.8" opacity=".6"/>
+      <circle cx="95" cy="70" r="1.6" opacity=".55"/><circle cx="1035" cy="150" r="1.4" opacity=".5"/>
+    </g>
+  </svg>
+  <div class="bloom"></div>
+  <div class="wrap">
+    <span class="badge"><i></i>Speed-to-lead, handled</span>
+    <h1>Right now your new enquiry<br><span class="grad">is messaging your competitors</span></h1>
+    <p class="lede" style="margin-top:22px">SPEED texts every lead back in under 60 seconds, asks your qualifying questions and books them into your diary. Evenings, weekends, while you are on site.</p>
+    <div class="hero-actions">
+      <a class="btn btn-lg" href="#start">Start your free week</a>
+      <a class="btn btn-lg btn-ghost" href="#how">See how it works</a>
+    </div>
+    <p class="hero-note">One week free. No card. Live on your number within 24 hours.</p>
+    <div class="demo" aria-label="Example conversation">
+      <div class="demo-head">
+        <span>New enquiry &mdash; kitchen quote</span>
+        <span class="clock mono" id="clock">00:00</span>
+      </div>
+      <div class="thread" id="thread">
+        <div class="msg event" data-at="0"><div class="bub">Form submitted on your website at 9:14pm</div></div>
+        <div class="msg out" data-at="41"><div class="stamp">00:41</div><div class="bub">Hi Sarah, it's Craig at Clyde Kitchens. I've just seen your enquiry &mdash; are you hoping to get started this side of Christmas?</div></div>
+        <div class="msg in" data-at="88"><div class="stamp">01:28</div><div class="bub">Yes, ideally October if possible</div></div>
+        <div class="msg out" data-at="96"><div class="stamp">01:36</div><div class="bub">Perfect, that's doable. I can get someone out for a free measure-up &mdash; Thursday 10am or Friday 2pm?</div></div>
+        <div class="msg in" data-at="131"><div class="stamp">02:11</div><div class="bub">Thursday works</div></div>
+        <div class="msg event won" data-at="140"><div class="bub">Booked at 02:20. Alert sent to your phone.</div></div>
+      </div>
+      <div class="demo-foot">
+        <p class="small">Your questions, your tone, your number.</p>
+        <button class="replay" id="replay" type="button">Replay</button>
+      </div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="badge"><i></i>The cost of waiting</span>
+      <h2>Leads are not lost to bad marketing<br><span class="grad">they are lost at 9pm on a Tuesday</span></h2>
+      <p class="lede">The enquiry arrives while you are eating, driving, on the tools or asleep. By the time you see it, someone quicker has already spoken to them.</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="figure" style="color:var(--peach)">42 hours</div>
+        <p>The average time a business takes to make first contact with a web enquiry.</p>
+        <cite>Harvard Business Review, The Short Life of Online Sales Leads, 2011 &mdash; audit of 2,241 companies</cite>
+      </div>
+      <div class="stat">
+        <div class="figure" style="color:var(--pink)">23%</div>
+        <p>Never replied to the enquiry at all. Not late. Never.</p>
+        <cite>Same audit of 2,241 companies</cite>
+      </div>
+      <div class="stat">
+        <div class="figure grad">21&times;</div>
+        <p>More likely to qualify a lead when contact happens inside five minutes rather than thirty.</p>
+        <cite>Oldroyd / InsideSales Lead Response Management study</cite>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="how">
+  <div class="bloom"></div>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="badge"><i></i>How it works</span>
+      <h2>Three steps, then it runs<br><span class="grad">without you in the loop</span></h2>
+      <p class="lede">No dashboard to learn, no CRM migration, nothing new for anyone to remember.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag"><i></i>Setup</span>
+        <h3>Point your enquiries at SPEED</h3>
+        <p>Connect your website form or your Facebook and Google lead ads. Ten minutes, and it works alongside whatever you use today.</p>
+      </div>
+      <div class="card hot">
+        <span class="tag"><i></i>The bit that matters</span>
+        <h3>A reply lands in under 60 seconds</h3>
+        <p>From a UK mobile number that is yours. It asks the two or three questions that tell you whether this lead is worth your time.</p>
+        <a class="btn" href="#start">Start your free week</a>
+      </div>
+      <div class="card">
+        <span class="tag"><i></i>Outcome</span>
+        <h3>You get a booking, not a to-do</h3>
+        <p>Qualified: the appointment lands in your diary and your phone buzzes. Not interested: you never think about it again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="covers">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="badge"><i></i>A normal week</span>
+      <h2>What it covers,<br><span class="grad">so that you do not have to</span></h2>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="t mono">21:14</div><div class="b"><b>Sunday night enquiry</b><span>Answered in 48 seconds. Booked for Wednesday before you have even seen it.</span></div></div>
+      <div class="row"><div class="t mono">11:02</div><div class="b"><b>You are up a ladder</b><span>The conversation happens anyway. You read it later, on the way home.</span></div></div>
+      <div class="row"><div class="t mono">14:36</div><div class="b"><b>Three enquiries at once</b><span>All three get a reply in the same minute. No queue, no favourites.</span></div></div>
+      <div class="row"><div class="t mono">18:50</div><div class="b"><b>Tyre-kicker</b><span>Filtered out by your own questions before it ever costs you a site visit.</span></div></div>
+      <div class="row"><div class="t mono">09:20</div><div class="b"><b>You want to take over</b><span>Reply from your phone at any point and SPEED steps aside mid-conversation.</span></div></div>
+    </div>
+  </div>
+</section>
+<section id="trial">
+  <div class="bloom up"></div>
+  <div class="wrap trial-grid">
+    <div>
+      <span class="badge"><i></i>Seven days, real leads</span>
+      <h2>Try it on your own enquiries<br><span class="grad">before you pay anything</span></h2>
+      <p class="lede" style="margin-top:18px">Not a demo and not a sandbox. Your enquiries, your number, your questions, for a week. If it books nothing you would not have booked anyway, walk away and keep the transcripts.</p>
+      <div class="rows" style="margin-top:30px">
+        <div class="row"><div class="t mono">Day 0</div><div class="b"><b>Fifteen minute setup call</b><span>We write your qualifying questions together and point your enquiries at SPEED.</span></div></div>
+        <div class="row"><div class="t mono">Day 1</div><div class="b"><b>Live on your own UK number</b><span>Every new enquiry from that moment gets answered inside a minute.</span></div></div>
+        <div class="row"><div class="t mono">Day 7</div><div class="b"><b>You decide</b><span>Look at what got booked. Continue or stop, with no notice period either way.</span></div></div>
+      </div>
+    </div>
+    <div class="price">
+      <div class="big">Free for 7 days</div>
+      <p class="small" style="margin-top:6px">Then &pound;497 a month. Cancel any time.</p>
+      <ul>
+        <li>No card to start</li>
+        <li>Unlimited enquiries during the trial</li>
+        <li>Your own UK mobile number included</li>
+        <li>Set up for you, not by you</li>
+        <li>UK GDPR and PECR compliant</li>
+      </ul>
+      <a class="btn btn-lg" href="#start">Start your free week</a>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap" style="max-width:840px">
+    <div class="sec-head center"><h2>Reasonable questions</h2></div>
+    <details><summary>Will it sound like a robot?</summary><p>It uses your words, your business name and the questions you would ask yourself. Most people reply to it exactly as they would reply to you, and you can read every message as it happens.</p></details>
+    <details><summary>What if someone asks something odd?</summary><p>If a message goes outside what SPEED can handle, it stops and alerts you rather than guessing. You take over from your own phone, in the same thread.</p></details>
+    <details><summary>Do I need to change my website or CRM?</summary><p>No. The simplest setup is connecting your website form or your Facebook/Google lead ads through a quick integration we set up for you. Nothing changes about how leads reach you today &mdash; SPEED just gets a copy of each one, instantly.</p></details>
+    <details><summary>Is texting leads legal in the UK?</summary><p>Yes, where the person has submitted an enquiry to you and is expecting a response. SPEED only ever replies to inbound enquiries and never cold texts. Every message carries an opt-out.</p></details>
+    <details><summary>What happens to my leads after the week?</summary><p>They are yours. Every conversation is exported to you whether you continue or not.</p></details>
+    <details><summary>How quickly can I be live?</summary><p>Within 24 hours of your setup call, usually the same day.</p></details>
+  </div>
+</section>
+<section id="start">
+  <div class="bloom"></div>
+  <div class="wrap">
+    <div class="form-card">
+      <div>
+        <span class="badge"><i></i>Takes about a minute</span>
+        <h2>Start your free week</h2>
+        <p class="lede" style="margin-top:16px">Tell us where your enquiries come from and SPEED will be answering them by tomorrow.</p>
+        <p class="small" style="margin-top:24px">Built and run in Glasgow by Oakbank Innovations.</p>
+      </div>
+      <div>
+        <div id="formWrap">
+          <div class="field"><label for="name">Your name</label><input id="name" type="text" placeholder="Craig Wilson" required></div>
+          <div class="field"><label for="business">Business name</label><input id="business" type="text" placeholder="Clyde Kitchens" required></div>
+          <div class="field"><label for="mobile">Your mobile number</label><input id="mobile" type="tel" placeholder="07700 900123" required></div>
+          <div class="field">
+            <label for="source">Where do most enquiries come from?</label>
+            <select id="source">
+              <option>Website form</option>
+              <option>Facebook or Instagram ads</option>
+              <option>Google ads</option>
+              <option>A lead provider (Checkatrade, Bark, etc.)</option>
+              <option>A mixture of a few</option>
+            </select>
+          </div>
+          <button class="btn" id="submit" type="button">Start my free week</button>
+          <p class="err" id="formErr">Something went wrong sending that &mdash; call or text us instead and we'll get you set up.</p>
+          <p class="form-note">No card. We will text you to arrange the fifteen minute setup. Your details are used to set up your trial and nothing else.</p>
+        </div>
+        <div class="done" id="done">
+          <div class="tick" aria-hidden="true">&check;</div>
+          <h3 style="margin-bottom:8px">You are in.</h3>
+          <p style="color:var(--dim)">Keep an eye on your phone. We will text you shortly to book the setup call and get your number live.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot">
+    <p class="small">SPEED is part of SWEEP by Oakbank Innovations, Glasgow.</p>
+    <p class="small">hello@silverbulletpro.com</p>
+  </div>
+</footer>
+<div class="sticky"><a class="btn btn-lg" href="#start">Start your free week</a></div>
+<script>
+/* Where signups go - the Railway backend, same pattern as the Recover signup form. */
+var FORM_ENDPOINT = "https://silver-bullet-ai-production.up.railway.app/api/speed-trial/submit";
+var thread = document.getElementById('thread');
+var msgs = Array.prototype.slice.call(thread.querySelectorAll('.msg'));
+var clock = document.getElementById('clock');
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var tick, t = 0;
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');}
+function play(){
+  clearInterval(tick);
+  if(reduce){ msgs.forEach(function(m){m.classList.add('on');}); clock.textContent='02:20'; return; }
+  msgs.forEach(function(m){m.classList.remove('on');});
+  t = 0; clock.textContent = '00:00';
+  tick = setInterval(function(){
+    t++;
+    clock.textContent = fmt(t);
+    msgs.forEach(function(m){ if(t >= +m.dataset.at) m.classList.add('on'); });
+    if(t >= 140) clearInterval(tick);
+  }, 60);
+}
+document.getElementById('replay').addEventListener('click', play);
+var io = new IntersectionObserver(function(e){
+  if(e[0].isIntersecting){ play(); io.disconnect(); }
+},{threshold:.3});
+io.observe(thread);
+document.getElementById('submit').addEventListener('click', function(){
+  var data = {
+    name: document.getElementById('name').value.trim(),
+    business: document.getElementById('business').value.trim(),
+    mobile: document.getElementById('mobile').value.trim(),
+    source: document.getElementById('source').value
+  };
+  var errEl = document.getElementById('formErr');
+  errEl.classList.remove('on');
+  if(!data.name || !data.business || !data.mobile){
+    alert('Add your name, business and mobile number so we can get you set up.');
+    return;
+  }
+  var btn = document.getElementById('submit');
+  btn.textContent = 'Setting you up...'; btn.disabled = true;
+  fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    .then(function(res){
+      if(!res.ok) throw new Error('Request failed: ' + res.status);
+      document.getElementById('formWrap').classList.add('hide');
+      document.getElementById('done').classList.add('on');
+    })
+    .catch(function(e){
+      console.error(e);
+      btn.textContent = 'Start my free week'; btn.disabled = false;
+      errEl.classList.add('on');
+    });
+});
+</script>
+</body>
+</html>
