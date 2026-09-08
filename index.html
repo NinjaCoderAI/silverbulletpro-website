@@ -206,6 +206,48 @@ h2 em,
   animation: fadeUp 0.7s ease both 0.3s;
 }
 
+.hero-media {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--rule);
+  background: var(--white);
+}
+
+.hero-media-poster,
+.hero-media-video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-media-video { display: none; }
+.hero-media.playing .hero-media-poster { display: none; }
+.hero-media.playing .hero-play-btn { display: none; }
+.hero-media.playing .hero-media-video { display: block; }
+
+.hero-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--violet);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(26, 26, 46, 0.28);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.hero-play-btn svg { margin-left: 3px; }
+.hero-play-btn:hover { transform: translate(-50%, -50%) scale(1.07); background: #fff; }
+
 /* ═══════════════════════════════════
    TICKER
 ═══════════════════════════════════ */
@@ -934,7 +976,15 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   </div>
 
   <div class="hero-right">
-    <img src="sweep-revenue3.png" alt="3 ways SWEEP turns leads, customers and enquiries into revenue" style="width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--rule);">
+    <div class="hero-media" id="heroMedia">
+      <img class="hero-media-poster" src="sweep-revenue4.jpg" alt="3 ways SWEEP turns leads, customers and enquiries into revenue">
+      <button class="hero-play-btn" id="heroPlayBtn" aria-label="Play video: 3 ways SWEEP turns leads, customers and enquiries into revenue" type="button">
+        <svg viewBox="0 0 24 24" width="24" height="24"><polygon points="6,4 20,12 6,20" fill="currentColor"></polygon></svg>
+      </button>
+      <video class="hero-media-video" id="heroVideo" playsinline controls preload="none">
+        <source src="sweep-3ways-demo.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </div>
 </div>
@@ -1222,6 +1272,24 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
+
+/* -- HERO VIDEO: plays only on click, never autoplay -- */
+(function () {
+  const media = document.getElementById('heroMedia');
+  const btn = document.getElementById('heroPlayBtn');
+  const video = document.getElementById('heroVideo');
+  if (!media || !btn || !video) return;
+
+  btn.addEventListener('click', function () {
+    media.classList.add('playing');
+    video.play();
+  });
+
+  video.addEventListener('ended', function () {
+    media.classList.remove('playing');
+    video.currentTime = 0;
+  });
+})();
 </script>
 </body>
 </html>
