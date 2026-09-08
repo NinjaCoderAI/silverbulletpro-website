@@ -206,28 +206,28 @@ h2 em,
   animation: fadeUp 0.7s ease both 0.3s;
 }
 
-.hero-media {
+.cv-wrap {
   position: relative;
-  border-radius: 20px;
+  border-radius: var(--r);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--rule);
   background: var(--white);
 }
 
-.hero-media-poster,
-.hero-media-video {
+.cv-poster,
+.cv-video {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.hero-media-video { display: none; }
-.hero-media.playing .hero-media-poster { display: none; }
-.hero-media.playing .hero-play-btn { display: none; }
-.hero-media.playing .hero-media-video { display: block; }
+.cv-video { display: none; }
+.cv-wrap.playing .cv-poster { display: none; }
+.cv-wrap.playing .cv-play { display: none; }
+.cv-wrap.playing .cv-video { display: block; }
 
-.hero-play-btn {
+.cv-play {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -245,8 +245,8 @@ h2 em,
   box-shadow: 0 8px 26px rgba(26, 26, 46, 0.28);
   transition: transform 0.15s ease, background 0.15s ease;
 }
-.hero-play-btn svg { margin-left: 3px; }
-.hero-play-btn:hover { transform: translate(-50%, -50%) scale(1.07); background: #fff; }
+.cv-play svg { margin-left: 3px; }
+.cv-play:hover { transform: translate(-50%, -50%) scale(1.07); background: #fff; }
 
 /* ═══════════════════════════════════
    TICKER
@@ -976,15 +976,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   </div>
 
   <div class="hero-right">
-    <div class="hero-media" id="heroMedia">
-      <img class="hero-media-poster" src="sweep-revenue4.jpg" alt="3 ways SWEEP turns leads, customers and enquiries into revenue">
-      <button class="hero-play-btn" id="heroPlayBtn" aria-label="Play video: 3 ways SWEEP turns leads, customers and enquiries into revenue" type="button">
-        <svg viewBox="0 0 24 24" width="24" height="24"><polygon points="6,4 20,12 6,20" fill="currentColor"></polygon></svg>
-      </button>
-      <video class="hero-media-video" id="heroVideo" playsinline controls preload="none">
-        <source src="sweep-3ways-demo.mp4" type="video/mp4">
-      </video>
-    </div>
+    <img src="sweep-revenue4.jpg" alt="3 ways SWEEP turns leads, customers and enquiries into revenue" style="width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--rule);">
   </div>
 </div>
 </div>
@@ -1113,10 +1105,16 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     <div class="section-tag reveal">Ecosystem Demo</div>
     <h2 class="section-h reveal" style="margin-bottom: 2rem;">The complete platform architecture built for <em>maximum return.</em></h2>
     <div class="reveal" style="display: inline-block; width: 100%; max-width: 960px;">
-      <video autoplay loop muted controls playsinline style="width: 100%; height: auto; display: block; border-radius: var(--r); box-shadow: var(--shadow-md); border: 1px solid var(--rule);">
-        <source src="sweep-revenue.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <div class="cv-wrap">
+        <img class="cv-poster" src="sweep-revenue4.jpg" alt="3 ways SWEEP turns leads, customers and enquiries into revenue">
+        <button class="cv-play" aria-label="Play video: 3 ways SWEEP turns leads, customers and enquiries into revenue" type="button">
+          <svg viewBox="0 0 24 24" width="24" height="24"><polygon points="6,4 20,12 6,20" fill="currentColor"></polygon></svg>
+        </button>
+        <video class="cv-video" playsinline controls preload="none">
+          <source src="sweep-3ways-demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   </div>
 </section>
@@ -1273,23 +1271,22 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* -- HERO VIDEO: plays only on click, never autoplay -- */
-(function () {
-  const media = document.getElementById('heroMedia');
-  const btn = document.getElementById('heroPlayBtn');
-  const video = document.getElementById('heroVideo');
-  if (!media || !btn || !video) return;
+/* -- CLICK-TO-PLAY VIDEO: any .cv-wrap block, plays only on click, never autoplay -- */
+document.querySelectorAll('.cv-wrap').forEach(function (wrap) {
+  const btn = wrap.querySelector('.cv-play');
+  const video = wrap.querySelector('.cv-video');
+  if (!btn || !video) return;
 
   btn.addEventListener('click', function () {
-    media.classList.add('playing');
+    wrap.classList.add('playing');
     video.play();
   });
 
   video.addEventListener('ended', function () {
-    media.classList.remove('playing');
+    wrap.classList.remove('playing');
     video.currentTime = 0;
   });
-})();
+});
 </script>
 </body>
 </html>
