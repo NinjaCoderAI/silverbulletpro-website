@@ -233,7 +233,7 @@ h2 em,
   color: var(--violet);
   font-style: italic;
   font-weight: 700;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .hero-rotate.fading {
   opacity: 0;
@@ -1399,8 +1399,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       i = (i + 1) % words.length;
       el.textContent = words[i];
       el.classList.remove('fading');
-    }, 250);
-  }, 2000);
+    }, 500);
+  }, 3200);
 })();
 
 /* -- THEME TOGGLE: light is the default for every new visitor; a
