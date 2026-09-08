@@ -31,6 +31,32 @@
   --r-pill:   999px;
   --shadow:   0 2px 16px rgba(26,26,46,0.08);
   --shadow-md:0 8px 32px rgba(26,26,46,0.12);
+  --ink-fixed:#1a1a2e;
+  --nav-bg:   rgba(255,255,255,0.92);
+}
+
+/* ═══════════════════════════════════
+   DARK MODE — same tokens, vibrant swirl-inspired palette.
+   Light mode above is untouched and stays the default; this block
+   only takes effect once [data-theme="dark"] is set on <html> by
+   the toggle script near the end of the page.
+═══════════════════════════════════ */
+[data-theme="dark"] {
+  --white:    #14101f;
+  --bg:       #14101f;
+  --lavender: #1f1830;
+  --ink:      #f5f3ff;
+  --ink-soft: #c9c3dc;
+  --ink-mid:  #9089ad;
+  --rule:     rgba(255,255,255,0.14);
+  --coral:    #ff4d8d;
+  --coral-h:  #ff2d78;
+  --violet:   #a78bfa;
+  --violet-d: #8b5cf6;
+  --violet-bg:rgba(167,139,250,0.16);
+  --shadow:   0 2px 16px rgba(0,0,0,0.45);
+  --shadow-md:0 8px 32px rgba(0,0,0,0.55);
+  --nav-bg:   rgba(15,11,26,0.75);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,7 +79,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: rgba(255,255,255,0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--rule);
@@ -98,12 +124,66 @@ nav {
   transition: background 0.2s, transform 0.15s !important;
 }
 .nav-cta:hover { background: var(--coral-h) !important; transform: translateY(-1px) !important; }
+[data-theme="dark"] .nav-cta { background: #000 !important; }
+[data-theme="dark"] .nav-cta:hover { background: #1a1a1a !important; }
+
+/* ═══════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════ */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.theme-toggle {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--white);
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.theme-toggle:hover {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+  transform: translateY(-1px);
+}
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 /* ═══════════════════════════════════
    HERO
 ═══════════════════════════════════ */
-.hero {
+.hero-bg {
   background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);
+}
+
+[data-theme="dark"] .hero-bg {
+  background:
+    radial-gradient(ellipse 60% 55% at 12% 25%, rgba(56,132,255,0.55), transparent 60%),
+    radial-gradient(ellipse 60% 65% at 52% 60%, rgba(219,39,199,0.6), transparent 62%),
+    radial-gradient(ellipse 55% 55% at 92% 20%, rgba(255,145,40,0.5), transparent 60%),
+    linear-gradient(160deg, #0c0a18 0%, #150e28 55%, #170b20 100%);
+  background-size: 160% 160%;
+  animation: heroDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes heroDrift {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+
+.hero {
   padding: 5rem 2.5rem 4rem;
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -252,7 +332,7 @@ h2 em,
    TICKER
 ═══════════════════════════════════ */
 .ticker-wrap {
-  background: var(--ink);
+  background: var(--ink-fixed);
   overflow: hidden;
   padding: 0.8rem 0;
 }
@@ -765,7 +845,7 @@ h2 em,
    FINAL CTA
 ═══════════════════════════════════ */
 .cta-section {
-  background: linear-gradient(135deg, var(--ink) 0%, #2d1b69 100%);
+  background: linear-gradient(135deg, var(--ink-fixed) 0%, #2d1b69 100%);
   padding: 7rem 2.5rem;
   text-align: center;
   position: relative;
@@ -924,6 +1004,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 @media (max-width: 900px) {
   nav { padding: 0 1.5rem; }
   .nav-links { display: none; }
+  .nav-right { gap: 0.6rem; }
 
   .hero {
     grid-template-columns: 1fr;
@@ -948,19 +1029,37 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 }
 
 </style>
+<script>
+  /* Runs before paint so a returning dark-mode visitor doesn't see a
+     flash of the light theme. Light stays the default for everyone
+     else - this only does anything if 'dark' was saved previously. */
+  (function () {
+    try {
+      if (localStorage.getItem('sweep-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
 <nav>
   <a href="#" class="nav-logo">SWEEP<span>.</span></a>
-  <div class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="/recover-signup" class="nav-cta">Get started</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/recover-signup" class="nav-cta">Get started</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    </button>
   </div>
 </nav>
 
-<div style="background: linear-gradient(160deg, #ffffff 0%, #f3f0ff 60%, #ffeeed 100%);">
+<div class="hero-bg">
 <div class="hero">
   <div class="hero-left">
     <div class="hero-tag">AI-Powered Lead Response, Recovery &amp; Retention</div>
@@ -1270,6 +1369,32 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
+
+/* -- THEME TOGGLE: light is the default for every new visitor; a
+   returning visitor's choice is remembered via localStorage -- */
+(function () {
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+
+  function apply(theme) {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  var current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  apply(current);
+
+  btn.addEventListener('click', function () {
+    current = current === 'dark' ? 'light' : 'dark';
+    apply(current);
+    try { localStorage.setItem('sweep-theme', current); } catch (e) {}
+  });
+})();
 
 /* -- CLICK-TO-PLAY VIDEO: any .cv-wrap block, plays only on click, never autoplay -- */
 document.querySelectorAll('.cv-wrap').forEach(function (wrap) {
