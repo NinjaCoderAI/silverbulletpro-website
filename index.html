@@ -671,6 +671,55 @@ h2 em,
 }
 
 /* ═══════════════════════════════════
+   FAQ
+═══════════════════════════════════ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  max-width: 780px;
+}
+
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.4rem 1.7rem;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  color: var(--violet);
+  font-weight: 800;
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { content: '\2013'; }
+
+.faq-item p {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+
+/* ═══════════════════════════════════
    FINAL CTA
 ═══════════════════════════════════ */
 .cta-section {
@@ -873,7 +922,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 <div class="hero">
   <div class="hero-left">
     <div class="hero-tag">AI-Powered Lead Response, Recovery &amp; Retention</div>
-    <h1>Turn Dead Leads, Existing Customers &amp; New Enquiries into Paying Customers. <em>Fast.</em> </h1>
+    <h1>Turn Dead Leads, Existing Customers &amp; New Enquiries into Closed Revenue. <em>Fast.</em> </h1>
     <p class="hero-sub">No Ad Spend. No SEO. No Cold Outreach.</p>
     <div class="hero-actions">
       <a class="btn-coral" href="https://silverbulletpro.com/recover-signup">
@@ -881,7 +930,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       </a>
       <a class="btn-ghost" href="#how">How it works</a>
     </div>
-    <p class="hero-note">No commitment. 15-minute demo on your actual data.</p>
+    <p class="hero-note">No commitment. 15-minute set-up &amp; discovery chat.</p>
   </div>
 
   <div class="hero-right">
@@ -939,7 +988,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       <div class="step-card reveal">
         <div class="step-number">03</div>
         <h3>You close the deal</h3>
-        <p>Hot leads fire straight to your WhatsApp. You step in only when someone is ready to buy. The AI handles everything else.</p>
+        <p>Hot leads fire straight to your WhatsApp. You step in only when someone is ready to buy or sell. SWEEP handles everything else.</p>
       </div>
     </div>
   </div>
@@ -972,7 +1021,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 <section class="section bg-white">
   <div class="section-inner">
     <div class="section-tag reveal">Three Ways In</div>
-    <h2 class="section-h reveal">Every business has all three problems. <em>Start with the one costing you the most.</em></h2>
+    <h2 class="section-h reveal">Every business has all three leaks. <em>Start with the one costing you the most.</em></h2>
 
     <div class="verticals-grid reveal">
       <div class="vertical-card">
@@ -1008,186 +1057,6 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   </div>
 </section>
 
-<section class="waterfall-section">
-  <div class="waterfall-header">
-    <div class="section-tag" style="color: #a78bfa; background: rgba(124,58,237,0.15);">What It Sounds Like</div>
-    <h2 class="section-h" style="color: #fff;">Three products. <em>One kind of conversation.</em></h2>
-  </div>
-
-  <div class="waterfall-track track-left">
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;Uploaded eighteen months of dead quotes on a Friday afternoon. By Monday, three people who&rsquo;d gone quiet were back in the diary.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recover">RECOVER</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;We text everyone due a service reminder now instead of hoping they remember. A forgotten admin job turned into real bookings.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recall">RECALLS</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;A Sunday evening enquiry got a reply in under a minute and was booked in before we&rsquo;d even seen it come through.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-speed">SPEED</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;Uploaded eighteen months of dead quotes on a Friday afternoon. By Monday, three people who&rsquo;d gone quiet were back in the diary.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recover">RECOVER</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;We text everyone due a service reminder now instead of hoping they remember. A forgotten admin job turned into real bookings.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recall">RECALLS</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;A Sunday evening enquiry got a reply in under a minute and was booked in before we&rsquo;d even seen it come through.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-speed">SPEED</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="waterfall-track track-right">
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;Uploaded eighteen months of dead quotes on a Friday afternoon. By Monday, three people who&rsquo;d gone quiet were back in the diary.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recover">RECOVER</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;We text everyone due a service reminder now instead of hoping they remember. A forgotten admin job turned into real bookings.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recall">RECALLS</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;A Sunday evening enquiry got a reply in under a minute and was booked in before we&rsquo;d even seen it come through.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-speed">SPEED</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;Uploaded eighteen months of dead quotes on a Friday afternoon. By Monday, three people who&rsquo;d gone quiet were back in the diary.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recover">RECOVER</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;We text everyone due a service reminder now instead of hoping they remember. A forgotten admin job turned into real bookings.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-recall">RECALLS</span>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      </div>
-      <p class="review-text">&ldquo;A Sunday evening enquiry got a reply in under a minute and was booked in before we&rsquo;d even seen it come through.&rdquo;</p>
-      <div class="review-footer">
-        <span class="review-author">Illustrative example &mdash; not a real customer</span>
-        <span class="review-tag-badge tag-speed">SPEED</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="section bg-white" style="border-bottom: 1px solid var(--rule);">
   <div class="section-inner" style="text-align: center;">
@@ -1249,6 +1118,44 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     </div>
   </div>
 </section>
+
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-tag reveal">Reasonable Questions</div>
+    <h2 class="section-h reveal">Before you ask <em>&mdash; we probably already have.</em></h2>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>Will it sound like a robot?</summary>
+        <p>No. It uses your business name, your words and the questions you'd actually ask. Most people reply to it exactly as they would to you, and every message is visible to you as it happens.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if someone asks something it can't handle?</summary>
+        <p>It stops and flags the conversation for you rather than guessing &mdash; straight to your WhatsApp, SMS or email, whichever you've set up. You take it from there, in the same thread.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is texting people like this legal in the UK?</summary>
+        <p>Yes. Recover and Recalls only ever contact people who've previously enquired or bought from you, and Speed only replies to someone who's just submitted an enquiry to you. Every message carries an opt-out, and nobody is ever cold-texted.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to change my CRM or website?</summary>
+        <p>No. Recover and Recalls just need a CSV export of your list &mdash; any format works. Speed connects to your existing website form or Facebook/Google lead ads through a quick integration we set up for you.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's the actual difference between Recover and Recalls?</summary>
+        <p>Same engine, different list. Recover reaches out to old, dead leads and quotes that never closed. Recalls reaches out to people who've already bought from you, for renewals, service reminders or upsells. Recalls is set up together with you rather than self-serve.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How quickly can I be live?</summary>
+        <p>Recover and Recalls: as soon as your list is uploaded, usually the same day. Speed: within 24 hours of a short setup call.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What happens to my leads or customers if I cancel?</summary>
+        <p>They're yours. Every conversation is exported to you whether you continue or not.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 
 <section class="cta-section" id="cta">
   <div class="cta-inner">
