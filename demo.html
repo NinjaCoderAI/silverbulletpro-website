@@ -292,9 +292,9 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
           <div class="editor-title">Edit this demo</div>
           <div class="editor-grid">
             <div class="field"><label for="r-lead">Lead's name</label><input type="text" id="r-lead" value="Sarah"></div>
-            <div class="field"><label for="r-business">Business name</label><input type="text" id="r-business" value="Clyde Kitchens"></div>
+            <div class="field"><label for="r-business">Business name</label><input type="text" id="r-business" value="Clyde Motors"></div>
             <div class="field"><label for="r-owner">Sent from (owner)</label><input type="text" id="r-owner" value="Craig"></div>
-            <div class="field"><label for="r-product">What they quoted for</label><input type="text" id="r-product" value="kitchen refit"></div>
+            <div class="field"><label for="r-product">What they quoted for</label><input type="text" id="r-product" value="a Ford Focus"></div>
           </div>
         </div>
         <button class="replay-btn" data-replay="recover" type="button">
@@ -304,7 +304,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       </div>
       <div class="device" id="device-recover">
         <div class="device-top">
-          <div><b id="r-top-name">Sarah</b><span id="r-top-sub">Kitchen quote &middot; 8 months ago</span></div>
+          <div><b id="r-top-name">Sarah</b><span id="r-top-sub">Car quote &middot; 8 months ago</span></div>
           <div class="clock" data-clock>00:00</div>
         </div>
         <div class="thread" data-thread id="thread-recover"></div>
@@ -324,10 +324,10 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
           <div class="editor-title">Edit this demo</div>
           <div class="editor-grid">
             <div class="field"><label for="c-lead">Customer's name</label><input type="text" id="c-lead" value="James"></div>
-            <div class="field"><label for="c-business">Business name</label><input type="text" id="c-business" value="Clyde Kitchens"></div>
+            <div class="field"><label for="c-business">Business name</label><input type="text" id="c-business" value="Clyde Motors"></div>
             <div class="field"><label for="c-owner">Sent from (owner)</label><input type="text" id="c-owner" value="Craig"></div>
-            <div class="field"><label for="c-original">Original purchase</label><input type="text" id="c-original" value="kitchen"></div>
-            <div class="field"><label for="c-upsell">Cross-sell offer</label><input type="text" id="c-upsell" value="bathroom"></div>
+            <div class="field"><label for="c-original">Original purchase</label><input type="text" id="c-original" value="car"></div>
+            <div class="field"><label for="c-upsell">Cross-sell offer</label><input type="text" id="c-upsell" value="service plan"></div>
           </div>
         </div>
         <button class="replay-btn" data-replay="recalls" type="button">
@@ -337,7 +337,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       </div>
       <div class="device" id="device-recalls">
         <div class="device-top">
-          <div><b id="c-top-name">James</b><span id="c-top-sub">Kitchen customer &middot; 14 months ago</span></div>
+          <div><b id="c-top-name">James</b><span id="c-top-sub">Car customer &middot; 14 months ago</span></div>
           <div class="clock" data-clock>00:00</div>
         </div>
         <div class="thread" data-thread id="thread-recalls"></div>
@@ -444,12 +444,12 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     // the hot-lead alert fires off THAT reply, not the first one.
     recover: function () {
       var lead = esc(val('r-lead', 'Emma'));
-      var business = esc(val('r-business', 'Clyde Kitchens'));
+      var business = esc(val('r-business', 'Clyde Motors'));
       var owner = esc(val('r-owner', 'Craig'));
-      var product = esc(val('r-product', 'kitchen refit'));
+      var product = esc(val('r-product', 'a Ford Focus'));
 
       document.getElementById('r-top-name').textContent = lead;
-      document.getElementById('r-top-sub').textContent = 'Enquired about a ' + product;
+      document.getElementById('r-top-sub').textContent = 'Enquired about ' + product;
 
       return [
         { type: 'sys', text: 'Recover uploaded dormant leads on ' + owner + "'s behalf, including " + lead + ' - quoted a while back, never followed up' },
@@ -463,10 +463,10 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     },
     recalls: function () {
       var lead = esc(val('c-lead', 'James'));
-      var business = esc(val('c-business', 'Clyde Kitchens'));
+      var business = esc(val('c-business', 'Clyde Motors'));
       var owner = esc(val('c-owner', 'Craig'));
-      var original = esc(val('c-original', 'kitchen'));
-      var upsell = esc(val('c-upsell', 'bathroom'));
+      var original = esc(val('c-original', 'car'));
+      var upsell = esc(val('c-upsell', 'service plan'));
       var originalCap = original.charAt(0).toUpperCase() + original.slice(1);
 
       document.getElementById('c-top-name').textContent = lead;
@@ -476,7 +476,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
         { type: 'sys', text: 'Recalls campaign targeting ' + original + ' customers for a ' + upsell + ' cross-sell' },
         { type: 'us', text: 'Hi ' + lead + ", it's Sarah from " + business + ' - hope you’re keeping well! Just checking this is still your best number?', stamp: 'Sent' },
         { type: 'them', text: 'Yep still me!', stamp: 'Replied next day' },
-        { type: 'us', text: 'Perfect, thanks! Quick one - we’ve got ' + upsell + ' available at the moment, thought you might want to know. Interested?', stamp: 'Sent' },
+        { type: 'us', text: 'Perfect, thanks! Quick one - we’ve got a ' + upsell + ' available at the moment, thought you might want to know. Interested?', stamp: 'Sent' },
         { type: 'them', text: originalCap + '’s brilliant thanks, and actually yes we have been talking about the ' + upsell, stamp: 'Replied 1h later' },
         { type: 'us', text: 'Brilliant, thanks for letting me know! I’ll get one of the team to give you a call shortly.', stamp: 'Sent' },
         { type: 'sys', text: 'Hot lead - flagged as Recalls (' + upsell + ' cross-sell). Alert sent to ' + owner + '.' }
