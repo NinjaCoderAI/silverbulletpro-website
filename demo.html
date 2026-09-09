@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SWEEP — See It In Action (Recover, Recalls &amp; Speed Demo)</title>
-<meta name="description" content="Three mock conversations, dummy data - exactly how Recover, Recalls and Speed reply to a real lead, a real customer, and a real new enquiry.">
+<meta name="description" content="Editable mock demo - type in a real prospect's details and watch Recover, Recalls and Speed reply exactly as they would for a real lead, customer or enquiry.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 <style>
 
@@ -64,18 +64,12 @@ body {
 
 /* ── NAV (matches index.html) ── */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 200;
+  position: sticky; top: 0; z-index: 200;
   background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--rule);
-  padding: 0 2.5rem;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 0 2.5rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
 }
 .nav-logo { font-size: 1rem; font-weight: 800; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
 .nav-logo span { color: var(--coral); }
@@ -84,12 +78,9 @@ nav {
 .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--ink); }
 .nav-cta {
-  background: var(--coral) !important;
-  color: #fff !important;
-  padding: 0.5rem 1.2rem;
-  border-radius: var(--r-pill);
-  font-size: 0.82rem !important;
-  font-weight: 600 !important;
+  background: var(--coral) !important; color: #fff !important;
+  padding: 0.5rem 1.2rem; border-radius: var(--r-pill);
+  font-size: 0.82rem !important; font-weight: 600 !important;
   transition: background 0.2s, transform 0.15s !important;
 }
 .nav-cta:hover { background: var(--coral-h) !important; transform: translateY(-1px) !important; }
@@ -116,33 +107,19 @@ nav {
 }
 
 /* ── PAGE HEADER ── */
-.page-head {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 4rem 2.5rem 1rem;
-  text-align: center;
-}
+.page-head { max-width: 900px; margin: 0 auto; padding: 3.4rem 2.5rem 1rem; text-align: center; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.4rem;
   font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--violet); background: var(--violet-bg);
   padding: 0.3rem 0.8rem; border-radius: var(--r-pill); margin-bottom: 1.2rem;
 }
-.page-head h1 {
-  font-size: clamp(2rem, 4.2vw, 3rem);
-  font-weight: 800; letter-spacing: -0.03em; line-height: 1.12;
-  margin-bottom: 1rem;
-}
+.page-head h1 { font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 1rem; }
 .page-head h1 em { font-style: italic; color: var(--violet); }
-.page-head p {
-  font-size: 1.05rem; color: var(--ink-soft); max-width: 56ch; margin: 0 auto;
-}
+.page-head p { font-size: 1.05rem; color: var(--ink-soft); max-width: 60ch; margin: 0 auto; }
 
 /* ── TAB SWITCHER ── */
-.tabs {
-  display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
-  margin: 2.4rem auto 0; padding: 0 2.5rem; max-width: 900px;
-}
+.tabs { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin: 2.2rem auto 0; padding: 0 2.5rem; max-width: 900px; }
 .tab-btn {
   display: flex; align-items: center; gap: 0.55rem;
   padding: 0.75rem 1.3rem; border-radius: var(--r-pill);
@@ -152,21 +129,19 @@ nav {
 }
 .tab-btn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-mid); flex-shrink: 0; }
 .tab-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
-.tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
-.tab-btn.active .dot { background: currentColor; }
+.tab-btn.active { color: #fff; }
 .tab-btn[data-tab="recover"].active { background: var(--coral); border-color: var(--coral); }
 .tab-btn[data-tab="recalls"].active { background: var(--green); border-color: var(--green); }
 .tab-btn[data-tab="speed"].active   { background: var(--violet); border-color: var(--violet); }
+.tab-btn.active .dot { background: currentColor; }
 
 /* ── DEMO PANEL ── */
-.demo-wrap { max-width: 1120px; margin: 0 auto; padding: 3rem 2.5rem 6rem; }
+.demo-wrap { max-width: 1160px; margin: 0 auto; padding: 2.6rem 2.5rem 5rem; }
 .panel { display: none; }
 .panel.active { display: block; }
 
-.panel-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
-}
-@media (max-width: 860px) { .panel-grid { grid-template-columns: 1fr; gap: 2.2rem; } }
+.panel-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: start; }
+@media (max-width: 900px) { .panel-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
 .panel-copy .tag-pill {
   display: inline-block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em;
@@ -177,26 +152,40 @@ nav {
 .panel[data-panel="recalls"] .tag-pill { background: var(--green); }
 .panel[data-panel="speed"]   .tag-pill { background: var(--violet); }
 
-.panel-copy h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.9rem; line-height: 1.2; }
-.panel-copy .lede { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; margin-bottom: 1.8rem; }
+.panel-copy h2 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.7rem; line-height: 1.25; }
+.panel-copy .lede { font-size: 0.94rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 1.5rem; }
 
-.beats { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.8rem; }
-.beats li { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
-.beats .n {
-  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
-  background: var(--lavender); color: var(--violet); font-weight: 800; font-size: 0.72rem;
-  display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;
+/* editable fields */
+.editor {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 1.2rem 1.3rem; margin-bottom: 1rem;
 }
+.editor-title {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-mid); margin-bottom: 0.85rem;
+}
+.editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+@media (max-width: 480px) { .editor-grid { grid-template-columns: 1fr; } }
+.field label { display: block; font-size: 0.68rem; font-weight: 700; color: var(--ink-mid); margin-bottom: 0.3rem; }
+.field input {
+  width: 100%; border: 1px solid var(--rule); border-radius: 8px; padding: 0.5rem 0.6rem;
+  font-family: inherit; font-size: 0.85rem; color: var(--ink); background: var(--bg);
+  outline: none; transition: border-color 0.15s;
+}
+.field input:focus { border-color: var(--violet); }
 
 .replay-btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  background: transparent; border: 1.5px solid var(--rule); color: var(--ink-soft);
-  font-family: inherit; font-size: 0.85rem; font-weight: 600;
-  padding: 0.6rem 1.2rem; border-radius: var(--r-pill); cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  background: var(--ink); border: none; color: #fff;
+  font-family: inherit; font-size: 0.85rem; font-weight: 700;
+  padding: 0.7rem 1.3rem; border-radius: var(--r-pill); cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s; margin-top: 0.9rem;
 }
-.replay-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
-.replay-btn svg { width: 14px; height: 14px; }
+.replay-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+.replay-btn svg { width: 13px; height: 13px; }
+.panel[data-panel="recover"] .replay-btn { background: var(--coral); }
+.panel[data-panel="recalls"] .replay-btn { background: var(--green); }
+.panel[data-panel="speed"]   .replay-btn { background: var(--violet); }
 
 /* ── PHONE / THREAD MOCKUP (deliberately fixed-dark, like a real device
      screenshot - doesn't re-theme with the page's light/dark toggle) ── */
@@ -217,8 +206,8 @@ nav {
   color: #2ed18a; background: rgba(46,209,138,.14); padding: 4px 11px; border-radius: 99px;
   white-space: nowrap; border: 1px solid rgba(46,209,138,.24);
 }
-.thread { padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 280px; }
-.sys { align-self: center; text-align: center; font-size: 11px; color: #6e848b; max-width: 85%; line-height: 1.4; }
+.thread { padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 290px; }
+.sys { align-self: center; text-align: center; font-size: 11px; color: #6e848b; max-width: 90%; line-height: 1.4; }
 .bub { max-width: 84%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.45; }
 .bub.them { align-self: flex-start; background: #1e2c35; border-bottom-left-radius: 5px; color: #f2f6f5; }
 .bub.us { align-self: flex-end; background: #0f7a50; border-bottom-right-radius: 5px; color: #eafff5; }
@@ -238,10 +227,7 @@ nav {
 .playing .step:nth-child(6) { animation-delay: 3.4s; }
 @keyframes land { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
-.disclaimer {
-  max-width: 900px; margin: 0 auto; padding: 0 2.5rem 4rem; text-align: center;
-  font-size: 0.8rem; color: var(--ink-mid); line-height: 1.6;
-}
+.disclaimer { max-width: 900px; margin: 0 auto; padding: 0 2.5rem 4rem; text-align: center; font-size: 0.8rem; color: var(--ink-mid); line-height: 1.6; }
 
 /* ── FOOTER (matches index.html) ── */
 footer {
@@ -280,9 +266,9 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 </nav>
 
 <div class="page-head">
-  <span class="eyebrow">Live demo &middot; dummy data</span>
+  <span class="eyebrow">Live, editable demo &middot; dummy data</span>
   <h1>See all three products <em>in action.</em></h1>
-  <p>Three mock conversations below, not real customers - but the exact message flow, timing and hand-off a real lead, a real existing customer, and a real new enquiry would each get.</p>
+  <p>Type in a real prospect's name, business or offer below and hit replay - the conversation updates on the spot. Nothing here is a real customer, but the flow, timing and hand-off are exactly how each product behaves live.</p>
 </div>
 
 <div class="tabs" role="tablist">
@@ -298,30 +284,28 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     <div class="panel-grid">
       <div class="panel-copy">
         <span class="tag-pill">Recover</span>
-        <h2>An 8-month-old kitchen quote, back from the dead</h2>
-        <p class="lede">Sarah asked Clyde Kitchens for a quote back in January. Nobody followed up after the first call, and the enquiry went cold. Recover reaches out on its own, months later, at exactly the moment she's ready to talk again.</p>
-        <ul class="beats">
-          <li><span class="n">1</span>Recover texts every dormant lead in the uploaded list, spaced out naturally rather than all at once.</li>
-          <li><span class="n">2</span>A reply comes in - Recover reads it, decides it's a hot lead, and alerts Craig instantly.</li>
-          <li><span class="n">3</span>Craig takes it from there on his own phone. Recover's job is done the moment a human's needed.</li>
-        </ul>
+        <h2>An old quote, back from the dead</h2>
+        <p class="lede">Recover reaches back out to a dormant lead, months after everyone else stopped trying. Edit the details below with a real example and re-run it.</p>
+        <div class="editor">
+          <div class="editor-title">Edit this demo</div>
+          <div class="editor-grid">
+            <div class="field"><label for="r-lead">Lead's name</label><input type="text" id="r-lead" value="Sarah"></div>
+            <div class="field"><label for="r-business">Business name</label><input type="text" id="r-business" value="Clyde Kitchens"></div>
+            <div class="field"><label for="r-owner">Sent from (owner)</label><input type="text" id="r-owner" value="Craig"></div>
+            <div class="field"><label for="r-product">What they quoted for</label><input type="text" id="r-product" value="kitchen refit"></div>
+          </div>
+        </div>
         <button class="replay-btn" data-replay="recover" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          Replay
+          Update &amp; replay
         </button>
       </div>
       <div class="device" id="device-recover">
         <div class="device-top">
-          <div><b>Sarah M.</b><span>Kitchen quote &middot; 14 Jan</span></div>
+          <div><b id="r-top-name">Sarah</b><span id="r-top-sub">Kitchen quote &middot; 8 months ago</span></div>
           <div class="clock" data-clock>00:00</div>
         </div>
-        <div class="thread" data-thread>
-          <div class="sys step">Recover uploaded 340 dormant leads on Craig's behalf, including Sarah - quoted 8 months ago, never followed up</div>
-          <div class="bub us step">Hi Sarah, it's Craig at Clyde Kitchens. You got a quote from us back in January for the kitchen refit - still something you're looking to get sorted?<span class="stamp">Sent</span></div>
-          <div class="bub them step">Oh wow, didn't expect anyone to follow up honestly! Yes actually, we're finally ready to go ahead<span class="stamp">Replied 22h later</span></div>
-          <div class="bub us step">Brilliant, great to hear. I'll get Craig to give you a call today to get things moving.<span class="stamp">Sent</span></div>
-          <div class="sys step">Hot lead - WhatsApp + email alert sent to Craig. Full conversation visible in his inbox.</div>
-        </div>
+        <div class="thread" data-thread id="thread-recover"></div>
         <div class="device-foot"><span>Alerts-only - your words, no live AI conversation</span></div>
       </div>
     </div>
@@ -332,30 +316,29 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     <div class="panel-grid">
       <div class="panel-copy">
         <span class="tag-pill">Recalls</span>
-        <h2>A happy customer, fourteen months on</h2>
-        <p class="lede">James had a new kitchen fitted by Clyde Kitchens last year. He was never going to think to ask about a bathroom on his own - so Recalls does the asking, at a moment tied to a real reason to reach out.</p>
-        <ul class="beats">
-          <li><span class="n">1</span>Recalls runs against your own past-customer list, not a stranger's - same engine as Recover, aimed differently.</li>
-          <li><span class="n">2</span>The message is built around a real offer you choose - a renewal, a check-in, a natural upsell.</li>
-          <li><span class="n">3</span>Set up together with you on a call rather than self-serve, since the offer changes every time.</li>
-        </ul>
+        <h2>A happy customer, asked at the right moment</h2>
+        <p class="lede">Same engine as Recover, aimed at your own past customers with a specific offer. Edit the details and re-run it.</p>
+        <div class="editor">
+          <div class="editor-title">Edit this demo</div>
+          <div class="editor-grid">
+            <div class="field"><label for="c-lead">Customer's name</label><input type="text" id="c-lead" value="James"></div>
+            <div class="field"><label for="c-business">Business name</label><input type="text" id="c-business" value="Clyde Kitchens"></div>
+            <div class="field"><label for="c-owner">Sent from (owner)</label><input type="text" id="c-owner" value="Craig"></div>
+            <div class="field"><label for="c-original">Original purchase</label><input type="text" id="c-original" value="kitchen"></div>
+            <div class="field"><label for="c-upsell">Cross-sell offer</label><input type="text" id="c-upsell" value="bathroom"></div>
+          </div>
+        </div>
         <button class="replay-btn" data-replay="recalls" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          Replay
+          Update &amp; replay
         </button>
       </div>
       <div class="device" id="device-recalls">
         <div class="device-top">
-          <div><b>James P.</b><span>Kitchen customer &middot; fitted Jul 2025</span></div>
+          <div><b id="c-top-name">James</b><span id="c-top-sub">Kitchen customer &middot; 14 months ago</span></div>
           <div class="clock" data-clock>00:00</div>
         </div>
-        <div class="thread" data-thread>
-          <div class="sys step">Recalls campaign: "Bathroom cross-sell" - targeting kitchen customers 12+ months post-install</div>
-          <div class="bub us step">Hi James, it's Craig at Clyde Kitchens. Just checking in since the new kitchen went in - how's it holding up? We're also taking bathroom bookings for early next year if that's ever crossed your mind.<span class="stamp">Sent</span></div>
-          <div class="bub them step">Kitchen's brilliant thanks. Funny you ask actually, we have been talking about doing the bathroom<span class="stamp">Replied next day</span></div>
-          <div class="bub us step">Perfect - I'll get Craig to give you a quick call to talk through options.<span class="stamp">Sent</span></div>
-          <div class="sys step">Hot lead - flagged as Recalls (bathroom cross-sell). Alert sent to Craig.</div>
-        </div>
+        <div class="thread" data-thread id="thread-recalls"></div>
         <div class="device-foot"><span>Same engine as Recover, aimed at your own customers</span></div>
       </div>
     </div>
@@ -366,31 +349,28 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     <div class="panel-grid">
       <div class="panel-copy">
         <span class="tag-pill">Speed</span>
-        <h2>A Sunday-evening enquiry, answered in under a minute</h2>
-        <p class="lede">Tom submits a website enquiry about a leaning tree at 9:14pm on a Sunday. Nobody's near a phone. Speed replies before he's closed the tab - and the appointment's booked before Liam even sees it come through.</p>
-        <ul class="beats">
-          <li><span class="n">1</span>Speed connects to your website form or Facebook/Google lead ads - a reply goes out in under 60 seconds, any hour.</li>
-          <li><span class="n">2</span>It asks the one or two questions that tell you whether it's worth a call - urgency, timing, budget.</li>
-          <li><span class="n">3</span>A qualified reply gets handed straight to your phone. Liam wakes up to a booking already in the diary.</li>
-        </ul>
+        <h2>A new enquiry, answered in under a minute</h2>
+        <p class="lede">A brand-new lead lands and gets a reply before anyone's even seen it come through. Edit the details and re-run it.</p>
+        <div class="editor">
+          <div class="editor-title">Edit this demo</div>
+          <div class="editor-grid">
+            <div class="field"><label for="s-lead">Enquirer's name</label><input type="text" id="s-lead" value="Tom"></div>
+            <div class="field"><label for="s-business">Business name</label><input type="text" id="s-business" value="Clyde Tree Services"></div>
+            <div class="field"><label for="s-owner">Sent from (owner)</label><input type="text" id="s-owner" value="Liam"></div>
+            <div class="field"><label for="s-enquiry">Enquired about</label><input type="text" id="s-enquiry" value="leaning sycamore"></div>
+          </div>
+        </div>
         <button class="replay-btn" data-replay="speed" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          Replay
+          Update &amp; replay
         </button>
       </div>
       <div class="device" id="device-speed">
         <div class="device-top">
-          <div><b>New enquiry - leaning tree</b><span>Website form &middot; Sunday 21:14</span></div>
+          <div><b id="s-top-name">New enquiry</b><span id="s-top-sub">Website form &middot; Sunday 21:14</span></div>
           <div class="clock" data-clock>00:00</div>
         </div>
-        <div class="thread" data-thread>
-          <div class="sys step">Tom submitted the website form at 21:14</div>
-          <div class="bub us step">Hi Tom, it's Liam at Clyde Tree Services - just seen your enquiry about the leaning sycamore. Is this urgent (storm risk) or can it wait for a normal slot?<span class="stamp">00:41</span></div>
-          <div class="bub them step">Kind of urgent, it's leaning right over our garage<span class="stamp">01:19</span></div>
-          <div class="bub us step">Understood - I can get someone out to assess it tomorrow morning, does 9am work?<span class="stamp">01:28</span></div>
-          <div class="bub them step">9am is perfect, thank you<span class="stamp">01:52</span></div>
-          <div class="sys step">Booked at 02:00. Alert sent to Liam's phone. Liam was asleep.</div>
-        </div>
+        <div class="thread" data-thread id="thread-speed"></div>
         <div class="device-foot"><span>Your words, your tone, your own UK number</span></div>
       </div>
     </div>
@@ -398,7 +378,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 
 </div>
 
-<p class="disclaimer">Every conversation on this page uses invented names and dummy data for illustration - none of it reflects a real SWEEP customer. Timings shown (reply speed, response time) reflect how each product is designed to perform, not a measured result from a live account.</p>
+<p class="disclaimer">Every conversation on this page uses invented or user-entered names for illustration - none of it reflects a real SWEEP customer. Timings shown reflect how each product is designed to perform, not a measured result from a live account.</p>
 
 <footer>
   <a href="index.html" class="footer-logo">SWEEP<span>.</span></a>
@@ -420,8 +400,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   })();
 </script>
 <script>
-/* -- THEME TOGGLE (same behaviour as index.html, shares the same
-   localStorage key so the choice carries across both pages) -- */
+/* -- THEME TOGGLE (shares the same localStorage key as index.html) -- */
 (function () {
   var btn = document.getElementById('themeToggle');
   if (!btn) return;
@@ -440,24 +419,96 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   });
 })();
 
-/* -- TABS + THREAD PLAYBACK -- */
+/* -- EDITABLE DEMOS: reads each panel's input fields, builds the thread
+   HTML from a template, and plays it. Re-run any time via its
+   "Update & replay" button, or by switching tabs. -- */
 (function () {
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var tabs = document.querySelectorAll('.tab-btn');
-  var panels = document.querySelectorAll('.panel');
-  var replayBtns = document.querySelectorAll('[data-replay]');
 
-  function msFor(name) {
-    // roughly matches each thread's step count so the clock lands on the
-    // last message's timestamp instead of running past it
-    return { recover: 3600, recalls: 3600, speed: 4200 }[name] || 3600;
+  function val(id, fallback) {
+    var el = document.getElementById(id);
+    var v = el && el.value.trim();
+    return v ? v : fallback;
   }
 
-  function play(name) {
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  var builders = {
+    recover: function () {
+      var lead = esc(val('r-lead', 'Sarah'));
+      var business = esc(val('r-business', 'Clyde Kitchens'));
+      var owner = esc(val('r-owner', 'Craig'));
+      var product = esc(val('r-product', 'kitchen refit'));
+
+      document.getElementById('r-top-name').textContent = lead;
+      document.getElementById('r-top-sub').textContent = 'Enquired about a ' + product;
+
+      return [
+        { type: 'sys', text: 'Recover uploaded dormant leads on ' + owner + "'s behalf, including " + lead + ' - quoted a while back, never followed up' },
+        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + '. You got a quote from us a while back for the ' + product + " - still something you're looking to get sorted?", stamp: 'Sent' },
+        { type: 'them', text: "Oh wow, didn't expect anyone to follow up honestly! Yes actually, we're finally ready to go ahead", stamp: 'Replied 22h later' },
+        { type: 'us', text: 'Brilliant, great to hear. I’ll get ' + owner + ' to give you a call today to get things moving.', stamp: 'Sent' },
+        { type: 'sys', text: 'Hot lead - WhatsApp + email alert sent to ' + owner + '. Full conversation visible in their inbox.' }
+      ];
+    },
+    recalls: function () {
+      var lead = esc(val('c-lead', 'James'));
+      var business = esc(val('c-business', 'Clyde Kitchens'));
+      var owner = esc(val('c-owner', 'Craig'));
+      var original = esc(val('c-original', 'kitchen'));
+      var upsell = esc(val('c-upsell', 'bathroom'));
+
+      document.getElementById('c-top-name').textContent = lead;
+      document.getElementById('c-top-sub').textContent = original.charAt(0).toUpperCase() + original.slice(1) + ' customer';
+
+      return [
+        { type: 'sys', text: 'Recalls campaign targeting ' + original + ' customers for a ' + upsell + ' cross-sell' },
+        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + '. Just checking in since the new ' + original + " went in - how's it holding up? We're also taking " + upsell + ' bookings for early next year if that’s ever crossed your mind.', stamp: 'Sent' },
+        { type: 'them', text: original.charAt(0).toUpperCase() + original.slice(1) + "'s brilliant thanks. Funny you ask actually, we have been talking about doing the " + upsell, stamp: 'Replied next day' },
+        { type: 'us', text: 'Perfect - I’ll get ' + owner + ' to give you a quick call to talk through options.', stamp: 'Sent' },
+        { type: 'sys', text: 'Hot lead - flagged as Recalls (' + upsell + ' cross-sell). Alert sent to ' + owner + '.' }
+      ];
+    },
+    speed: function () {
+      var lead = esc(val('s-lead', 'Tom'));
+      var business = esc(val('s-business', 'Clyde Tree Services'));
+      var owner = esc(val('s-owner', 'Liam'));
+      var enquiry = esc(val('s-enquiry', 'leaning sycamore'));
+
+      document.getElementById('s-top-name').textContent = 'New enquiry - ' + enquiry;
+      document.getElementById('s-top-sub').textContent = 'Website form · Sunday 21:14';
+
+      return [
+        { type: 'sys', text: lead + ' submitted the website form at 21:14' },
+        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + ' - just seen your enquiry about the ' + enquiry + '. Is this urgent or can it wait for a normal slot?', stamp: '00:41' },
+        { type: 'them', text: 'Kind of urgent, it’s leaning right over our garage', stamp: '01:19' },
+        { type: 'us', text: 'Understood - I can get someone out to assess it tomorrow morning, does 9am work?', stamp: '01:28' },
+        { type: 'them', text: '9am is perfect, thank you', stamp: '01:52' },
+        { type: 'sys', text: 'Booked at 02:00. Alert sent to ' + owner + '’s phone. ' + owner + ' was asleep.' }
+      ];
+    }
+  };
+
+  function renderMessages(msgs) {
+    return msgs.map(function (m) {
+      if (m.type === 'sys') return '<div class="sys step">' + m.text + '</div>';
+      var stamp = m.stamp ? '<span class="stamp">' + m.stamp + '</span>' : '';
+      return '<div class="bub ' + m.type + ' step">' + m.text + stamp + '</div>';
+    }).join('');
+  }
+
+  function msFor(name) { return { recover: 3600, recalls: 3600, speed: 4600 }[name] || 3600; }
+
+  function run(name) {
+    var thread = document.getElementById('thread-' + name);
     var device = document.getElementById('device-' + name);
-    if (!device) return;
-    var thread = device.querySelector('[data-thread]');
     var clock = device.querySelector('[data-clock]');
+    if (!thread || !builders[name]) return;
+
+    thread.innerHTML = renderMessages(builders[name]());
+
     thread.classList.remove('playing');
     void thread.offsetWidth;
     thread.classList.add('playing');
@@ -469,12 +520,15 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     clearInterval(device._timer);
     device._timer = setInterval(function () {
       var elapsed = Math.min(Date.now() - start, total);
-      var secs = Math.round((elapsed / total) * 112); // scale to a believable seconds count
+      var secs = Math.round((elapsed / total) * 112);
       var m = Math.floor(secs / 60), s = secs % 60;
       clock.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
       if (elapsed >= total) clearInterval(device._timer);
     }, 60);
   }
+
+  var tabs = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
 
   function activate(name) {
     tabs.forEach(function (t) {
@@ -485,14 +539,14 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     panels.forEach(function (p) {
       p.classList.toggle('active', p.getAttribute('data-panel') === name);
     });
-    play(name);
+    run(name);
   }
 
   tabs.forEach(function (t) {
     t.addEventListener('click', function () { activate(t.getAttribute('data-tab')); });
   });
-  replayBtns.forEach(function (b) {
-    b.addEventListener('click', function () { play(b.getAttribute('data-replay')); });
+  document.querySelectorAll('[data-replay]').forEach(function (b) {
+    b.addEventListener('click', function () { run(b.getAttribute('data-replay')); });
   });
 
   activate('recover');
