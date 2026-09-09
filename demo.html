@@ -225,6 +225,8 @@ nav {
 .playing .step:nth-child(4) { animation-delay: 2s; }
 .playing .step:nth-child(5) { animation-delay: 2.7s; }
 .playing .step:nth-child(6) { animation-delay: 3.4s; }
+.playing .step:nth-child(7) { animation-delay: 4.1s; }
+.playing .step:nth-child(8) { animation-delay: 4.8s; }
 @keyframes land { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
 .disclaimer { max-width: 900px; margin: 0 auto; padding: 0 2.5rem 4rem; text-align: center; font-size: 0.8rem; color: var(--ink-mid); line-height: 1.6; }
@@ -436,8 +438,12 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
   }
 
   var builders = {
+    // Matches the real two-touch structure in campaignMessages.js: SMS1
+    // only confirms identity (persona is always "Sarah" in every live code
+    // path - never the real owner's name), SMS2 asks about interest, and
+    // the hot-lead alert fires off THAT reply, not the first one.
     recover: function () {
-      var lead = esc(val('r-lead', 'Sarah'));
+      var lead = esc(val('r-lead', 'Emma'));
       var business = esc(val('r-business', 'Clyde Kitchens'));
       var owner = esc(val('r-owner', 'Craig'));
       var product = esc(val('r-product', 'kitchen refit'));
@@ -447,10 +453,12 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
 
       return [
         { type: 'sys', text: 'Recover uploaded dormant leads on ' + owner + "'s behalf, including " + lead + ' - quoted a while back, never followed up' },
-        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + '. You got a quote from us a while back for the ' + product + " - still something you're looking to get sorted?", stamp: 'Sent' },
-        { type: 'them', text: "Oh wow, didn't expect anyone to follow up honestly! Yes actually, we're finally ready to go ahead", stamp: 'Replied 22h later' },
-        { type: 'us', text: 'Brilliant, great to hear. I’ll get ' + owner + ' to give you a call today to get things moving.', stamp: 'Sent' },
-        { type: 'sys', text: 'Hot lead - WhatsApp + email alert sent to ' + owner + '. Full conversation visible in their inbox.' }
+        { type: 'us', text: 'Hi ' + lead + ", it's Sarah from " + business + ' - is this still the best number for you about ' + product + '?', stamp: 'Sent' },
+        { type: 'them', text: 'Yeah that’s me, why?', stamp: 'Replied 4h later' },
+        { type: 'us', text: 'Ah brilliant! Didn’t want to just ring you out of nowhere - did you ever get ' + product + ' sorted?', stamp: 'Sent' },
+        { type: 'them', text: 'Actually no, we’re finally ready to go ahead', stamp: 'Replied 20 min later' },
+        { type: 'us', text: 'Brilliant, thanks for letting me know! I’ll get one of the team to give you a call shortly.', stamp: 'Sent' },
+        { type: 'sys', text: 'Hot lead - alert sent to ' + owner + ' (SMS/WhatsApp/email, whichever are set up). ' + owner + ' calls ' + lead + ' directly from here.' }
       ];
     },
     recalls: function () {
@@ -459,18 +467,27 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       var owner = esc(val('c-owner', 'Craig'));
       var original = esc(val('c-original', 'kitchen'));
       var upsell = esc(val('c-upsell', 'bathroom'));
+      var originalCap = original.charAt(0).toUpperCase() + original.slice(1);
 
       document.getElementById('c-top-name').textContent = lead;
-      document.getElementById('c-top-sub').textContent = original.charAt(0).toUpperCase() + original.slice(1) + ' customer';
+      document.getElementById('c-top-sub').textContent = originalCap + ' customer';
 
       return [
         { type: 'sys', text: 'Recalls campaign targeting ' + original + ' customers for a ' + upsell + ' cross-sell' },
-        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + '. Just checking in since the new ' + original + " went in - how's it holding up? We're also taking " + upsell + ' bookings for early next year if that’s ever crossed your mind.', stamp: 'Sent' },
-        { type: 'them', text: original.charAt(0).toUpperCase() + original.slice(1) + "'s brilliant thanks. Funny you ask actually, we have been talking about doing the " + upsell, stamp: 'Replied next day' },
-        { type: 'us', text: 'Perfect - I’ll get ' + owner + ' to give you a quick call to talk through options.', stamp: 'Sent' },
+        { type: 'us', text: 'Hi ' + lead + ", it's Sarah from " + business + ' - hope you’re keeping well! Just checking this is still your best number?', stamp: 'Sent' },
+        { type: 'them', text: 'Yep still me!', stamp: 'Replied next day' },
+        { type: 'us', text: 'Perfect, thanks! Quick one - we’ve got ' + upsell + ' available at the moment, thought you might want to know. Interested?', stamp: 'Sent' },
+        { type: 'them', text: originalCap + '’s brilliant thanks, and actually yes we have been talking about the ' + upsell, stamp: 'Replied 1h later' },
+        { type: 'us', text: 'Brilliant, thanks for letting me know! I’ll get one of the team to give you a call shortly.', stamp: 'Sent' },
         { type: 'sys', text: 'Hot lead - flagged as Recalls (' + upsell + ' cross-sell). Alert sent to ' + owner + '.' }
       ];
     },
+    // Speed's real default opener is generic - "thanks for your enquiry,
+    // what's the best time for a call?" - not enquiry-specific. A
+    // topic-aware opener like the field below is possible, but needs a
+    // custom message wired in from your form/Zapier setup, it isn't
+    // automatic. No live negotiation of a time either way - one fixed
+    // confirmation line, then a human calls and books the actual slot.
     speed: function () {
       var lead = esc(val('s-lead', 'Tom'));
       var business = esc(val('s-business', 'Clyde Tree Services'));
@@ -481,12 +498,11 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
       document.getElementById('s-top-sub').textContent = 'Website form · Sunday 21:14';
 
       return [
-        { type: 'sys', text: lead + ' submitted the website form at 21:14' },
-        { type: 'us', text: 'Hi ' + lead + ", it's " + owner + ' at ' + business + ' - just seen your enquiry about the ' + enquiry + '. Is this urgent or can it wait for a normal slot?', stamp: '00:41' },
-        { type: 'them', text: 'Kind of urgent, it’s leaning right over our garage', stamp: '01:19' },
-        { type: 'us', text: 'Understood - I can get someone out to assess it tomorrow morning, does 9am work?', stamp: '01:28' },
-        { type: 'them', text: '9am is perfect, thank you', stamp: '01:52' },
-        { type: 'sys', text: 'Booked at 02:00. Alert sent to ' + owner + '’s phone. ' + owner + ' was asleep.' }
+        { type: 'sys', text: lead + ' submitted the website form at 21:14, mentioning the ' + enquiry },
+        { type: 'us', text: 'Hi ' + lead + ', thanks for your enquiry. What’s the best time for a quick call?', stamp: '00:41' },
+        { type: 'them', text: 'Kind of urgent, it’s leaning right over our garage - could someone call today?', stamp: '01:19' },
+        { type: 'us', text: 'Brilliant, thanks for letting me know! I’ll get one of the team to give you a call shortly.', stamp: '01:24' },
+        { type: 'sys', text: 'Hot lead - alert sent to ' + owner + '’s phone with a summary and recommended action. ' + owner + ' calls ' + lead + ' and books the visit himself - Speed’s job is the fast reply and hand-off, not the booking itself.' }
       ];
     }
   };
@@ -499,7 +515,7 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     }).join('');
   }
 
-  function msFor(name) { return { recover: 3600, recalls: 3600, speed: 4600 }[name] || 3600; }
+  function msFor(name) { return { recover: 4600, recalls: 4600, speed: 3200 }[name] || 3600; }
 
   function run(name) {
     var thread = document.getElementById('thread-' + name);
@@ -513,7 +529,12 @@ footer p { font-size: 0.7rem; color: var(--ink-mid); }
     void thread.offsetWidth;
     thread.classList.add('playing');
 
-    if (reduceMotion) { clock.textContent = '01:52'; return; }
+    if (reduceMotion) {
+      var finalSecs = Math.round(112);
+      var fm = Math.floor(finalSecs / 60), fs = finalSecs % 60;
+      clock.textContent = (fm < 10 ? '0' : '') + fm + ':' + (fs < 10 ? '0' : '') + fs;
+      return;
+    }
 
     var total = msFor(name);
     var start = Date.now();
