@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWEEP — Every Lead Gets a Response, Every Time</title>
+<meta name="description" content="SWEEP catches every lead — a missed call, a new enquiry, or an old dead lead in your database — replies in seconds, and hands you the ones ready to buy.">
+<style>
+:root {
+  --white:     #ffffff;
+  --bg:        #f9f9fc;
+  --lavender:  #f3f0ff;
+  --ink:       #1a1a2e;
+  --ink-soft:  #4a4a6a;
+  --ink-mid:   #7a7a9a;
+  --rule:      #e8e8f0;
+  --coral:     #f97066;
+  --coral-h:   #f75a4e;
+  --coral-bg:  #fff1ef;
+  --violet:    #7c3aed;
+  --violet-d:  #6d28d9;
+  --violet-bg: #ede9fe;
+  --green:     #10b981;
+  --green-bg:  #e6f9f2;
+  --amber:     #f59e0b;
+  --r:         16px;
+  --r-lg:      24px;
+  --r-pill:    999px;
+  --shadow:    0 2px 16px rgba(26,26,46,0.07);
+  --shadow-md: 0 12px 32px rgba(26,26,46,0.10);
+  --shadow-lg: 0 30px 70px rgba(26,26,46,0.16);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font: 100%/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+section { padding: 7rem 1.5rem; position: relative; }
+.wrap { max-width: 1140px; margin: 0 auto; }
+img, svg { display: block; }
+
+/* grain texture, subtle, over everything */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  opacity: 0.025; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===================== TYPE ===================== */
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+h1 { font-size: clamp(2.6rem, 5.4vw, 4.5rem); line-height: 1.03; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.85rem); line-height: 1.08; letter-spacing: -0.025em; }
+h3 { font-size: 1.2rem; line-height: 1.3; letter-spacing: -0.01em; }
+p { color: var(--ink-soft); }
+em { font-style: italic; color: var(--violet); position: relative; }
+.hl { position: relative; white-space: nowrap; }
+.hl svg { position: absolute; left: -2%; bottom: -0.28em; width: 104%; height: 0.5em; z-index: -1; }
+
+/* ===================== BACKDROP BLOBS ===================== */
+.blob { position: absolute; border-radius: 50%; filter: blur(70px); z-index: 0; pointer-events: none; }
+
+/* ===================== NAV ===================== */
+nav {
+  position: sticky; top: 0; z-index: 500;
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  padding: 0 1.75rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: border-color 0.3s var(--ease-out), height 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+nav.scrolled { border-bottom-color: var(--rule); height: 60px; box-shadow: 0 4px 24px rgba(26,26,46,0.05); }
+.logo { font-size: 1.1rem; font-weight: 800; color: var(--ink); text-decoration: none; letter-spacing: -0.03em; display: flex; align-items: center; gap: 0.4rem; }
+.logo .dot { color: var(--coral); }
+.nav-links { display: flex; align-items: center; gap: 2.1rem; }
+.nav-links a:not(.cta) { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); text-decoration: none; transition: color 0.2s var(--ease-out); }
+.nav-links a:not(.cta):hover { color: var(--ink); }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 0.4rem; }
+.burger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s var(--ease-out), opacity 0.2s; }
+
+.cta {
+  background: var(--coral); color: #fff !important; padding: 0.62rem 1.35rem;
+  border-radius: var(--r-pill); font-size: 0.85rem !important; font-weight: 700 !important;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap;
+  transition: background 0.2s var(--ease-out), transform 0.12s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  box-shadow: 0 6px 18px rgba(249,112,102,0.32);
+}
+.cta:hover { background: var(--coral-h); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(249,112,102,0.4); }
+.cta:active { transform: translateY(0) scale(0.96); transition-duration: 0.08s; }
+.cta.ghost { background: transparent; color: var(--ink) !important; box-shadow: none; border: 1.5px solid var(--rule); }
+.cta.ghost:hover { border-color: var(--ink-mid); background: var(--bg); transform: translateY(-2px); box-shadow: var(--shadow); }
+.cta.big { font-size: 0.98rem !important; padding: 0.95rem 1.9rem; }
+
+/* ===================== HERO ===================== */
+.hero-bg {
+  background: linear-gradient(165deg, #ffffff 0%, #f8f6ff 45%, #fff4f2 100%);
+  padding-top: 4rem; overflow: hidden;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center;
+  max-width: 1180px; margin: 0 auto; padding: 3rem 1.5rem 2rem; position: relative; z-index: 2;
+}
+@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; } }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: var(--violet-bg); color: var(--violet-d); font-size: 0.8rem; font-weight: 700;
+  padding: 0.5rem 1.05rem; border-radius: var(--r-pill); margin-bottom: 1.75rem;
+}
+.tag .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--violet); animation: pulse 2s var(--ease-out) infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.7); } }
+
+.hero-copy h1 { margin-bottom: 1.5rem; }
+.hero-sub { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--ink-soft); max-width: 480px; margin-bottom: 2.25rem; }
+@media (max-width: 980px) { .hero-sub { margin-left: auto; margin-right: auto; } }
+.hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+@media (max-width: 980px) { .hero-actions { justify-content: center; } }
+.hero-note { font-size: 0.82rem; color: var(--ink-mid); display: flex; align-items: center; gap: 0.5rem; }
+@media (max-width: 980px) { .hero-note { justify-content: center; } }
+.hero-note svg { width: 14px; height: 14px; color: var(--green); flex-shrink: 0; }
+
+/* trust strip */
+.trust-strip { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
+@media (max-width: 980px) { .trust-strip { justify-content: center; } }
+.trust-item { display: flex; align-items: center; gap: 0.55rem; font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+.trust-item svg { width: 18px; height: 18px; color: var(--violet); flex-shrink: 0; }
+
+/* ---- phone / message mockup ---- */
+.phone-wrap { position: relative; display: flex; justify-content: center; }
+.phone {
+  width: 100%; max-width: 380px; background: var(--white); border-radius: 28px;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--rule); padding: 1.5rem 1.4rem 1.75rem;
+  position: relative; z-index: 2;
+}
+.phone-head { display: flex; align-items: center; gap: 0.65rem; padding-bottom: 1.1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--rule); }
+.phone-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--lavender); display: flex; align-items: center; justify-content: center; color: var(--violet-d); font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+.phone-head .who { font-size: 0.88rem; font-weight: 700; }
+.phone-head .sub { font-size: 0.72rem; color: var(--ink-mid); }
+.bubble-row { display: flex; margin-bottom: 0.65rem; opacity: 0; transform: translateY(10px); animation: bubbleIn 0.5s var(--ease-out) forwards; }
+.bubble-row.them { justify-content: flex-start; }
+.bubble-row.you { justify-content: flex-end; }
+.bubble {
+  max-width: 78%; padding: 0.65rem 0.95rem; border-radius: 16px; font-size: 0.85rem; line-height: 1.4; font-weight: 500;
+}
+.bubble-row.them .bubble { background: var(--bg); color: var(--ink); border-bottom-left-radius: 5px; }
+.bubble-row.you .bubble { background: var(--coral); color: #fff; border-bottom-right-radius: 5px; }
+.typing { display: inline-flex; gap: 3px; padding: 0.85rem 1rem; }
+.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-mid); animation: typingDot 1.2s infinite ease-in-out; }
+.typing span:nth-child(2) { animation-delay: 0.15s; } .typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typingDot { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
+.alert-card {
+  margin-top: 1rem; background: var(--ink); border-radius: 16px; padding: 1rem 1.1rem; color: #fff;
+  opacity: 0; transform: translateY(10px) scale(0.97); animation: bubbleIn 0.55s var(--ease-spring) forwards; animation-delay: 2.5s;
+  box-shadow: 0 12px 28px rgba(26,26,46,0.35);
+}
+.alert-top { display: flex; align-items: center; gap: 0.45rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--coral); margin-bottom: 0.5rem; }
+.alert-top svg { width: 13px; height: 13px; }
+.alert-card .msg { font-size: 0.85rem; font-weight: 600; line-height: 1.4; }
+
+@keyframes bubbleIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+.bubble-row:nth-child(1) { animation-delay: 0.2s; }
+.bubble-row:nth-child(2) { animation-delay: 0.9s; }
+.bubble-row:nth-child(3) { animation-delay: 1.7s; }
+
+.float-chip {
+  position: absolute; background: var(--white); border: 1px solid var(--rule); border-radius: 14px;
+  padding: 0.6rem 0.9rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.76rem; font-weight: 700; z-index: 3; animation: floatY 4.5s ease-in-out infinite;
+}
+.float-chip svg { width: 16px; height: 16px; }
+.float-chip.f1 { top: 6%; left: -8%; color: var(--green); animation-delay: 0s; }
+.float-chip.f2 { bottom: 10%; right: -10%; color: var(--violet); animation-delay: 1.5s; }
+@keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@media (max-width: 980px) { .float-chip { display: none; } }
+
+/* ===================== ICONS (shared) ===================== */
+.icon-tile {
+  width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-bottom: 1rem;
+}
+.icon-tile svg { width: 22px; height: 22px; }
+.icon-tile.coral { background: var(--coral-bg); color: var(--coral-h); }
+.icon-tile.violet { background: var(--violet-bg); color: var(--violet-d); }
+.icon-tile.green { background: var(--green-bg); color: var(--green); }
+
+/* ===================== SECTION HEAD ===================== */
+.section-bg { background: var(--bg); }
+.kicker { font-size: 0.78rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 1rem; display: block; }
+.section-head { max-width: 660px; margin: 0 auto 4rem; text-align: center; position: relative; z-index: 1; }
+.section-head p { margin-top: 1.1rem; font-size: 1.06rem; }
+
+/* ===================== PROBLEM ===================== */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; position: relative; z-index: 1; }
+@media (max-width: 860px) { .grid-3 { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r-lg);
+  padding: 2.1rem 1.85rem; box-shadow: var(--shadow); transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s;
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(124,58,237,0.25); }
+.card h3 { margin-bottom: 0.6rem; }
+.card p { font-size: 0.93rem; line-height: 1.6; }
+.fine { font-size: 0.85rem; color: var(--ink-mid); text-align: center; margin-top: 2.5rem; position: relative; z-index: 1; }
+.fine strong { color: var(--ink); }
+
+/* ===================== LADDER ===================== */
+.ladder { position: relative; max-width: 800px; margin: 0 auto; z-index: 1; }
+.ladder::before {
+  content: ""; position: absolute; left: 27px; top: 30px; bottom: 30px; width: 2px;
+  background: linear-gradient(var(--rule), var(--rule)); background-image: repeating-linear-gradient(180deg, var(--rule) 0 6px, transparent 6px 12px);
+}
+.rung { display: flex; gap: 1.6rem; margin-bottom: 2.25rem; position: relative; }
+.rung:last-child { margin-bottom: 0; }
+.rung-num {
+  flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: var(--white); border: 2px solid var(--rule);
+  color: var(--violet-d); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1; transition: border-color 0.3s, transform 0.3s var(--ease-spring);
+}
+.rung.featured .rung-num { border-color: var(--violet); background: var(--violet-bg); }
+.rung-body {
+  flex: 1; background: var(--white); border: 1px solid var(--rule); border-radius: var(--r-lg);
+  padding: 1.75rem 2rem; box-shadow: var(--shadow); transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+.rung-body:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.rung.featured .rung-body { border-color: var(--violet); box-shadow: 0 0 0 3px var(--violet-bg), var(--shadow-md); }
+.rung-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.rung h3 { font-size: 1.2rem; }
+.rung-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.28rem 0.65rem; border-radius: var(--r-pill); background: var(--coral-bg); color: var(--coral-h); white-space: nowrap; }
+.rung p { font-size: 0.93rem; margin-bottom: 0.75rem; }
+.rung-modules { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.rung-mod { font-size: 0.73rem; font-weight: 600; color: var(--ink-soft); background: var(--bg); border: 1px solid var(--rule); padding: 0.32rem 0.7rem; border-radius: var(--r-pill); }
+
+/* ===================== PRICING ===================== */
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; position: relative; z-index: 1; }
+@media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; } }
+.price-card {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r-lg);
+  padding: 2.4rem 2rem; display: flex; flex-direction: column; box-shadow: var(--shadow);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); position: relative;
+}
+.price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.price-card.mid {
+  border: 2px solid var(--violet); box-shadow: var(--shadow-lg);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+}
+.price-card.mid:hover { transform: translateY(-8px) scale(1.015); }
+.most {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--violet); color: #fff;
+  font-size: 0.68rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--r-pill); text-transform: uppercase; letter-spacing: 0.06em;
+  box-shadow: 0 6px 16px rgba(124,58,237,0.35);
+}
+.price-name { font-size: 0.85rem; font-weight: 700; color: var(--ink-mid); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.7rem; }
+.price-amount { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.3rem; }
+.price-amount span { font-size: 1rem; font-weight: 600; color: var(--ink-mid); }
+.price-desc { font-size: 0.89rem; margin-bottom: 1.6rem; min-height: 42px; }
+.price-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.85rem; flex: 1; }
+.price-list li { font-size: 0.87rem; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 0.6rem; }
+.price-list li svg { width: 16px; height: 16px; color: var(--green); flex-shrink: 0; margin-top: 0.15rem; }
+.price-card .cta { justify-content: center; width: 100%; }
+
+/* ===================== VERTICALS ===================== */
+.vert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; position: relative; z-index: 1; }
+@media (max-width: 860px) { .vert-grid { grid-template-columns: 1fr; } }
+.vert { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.75rem; box-shadow: var(--shadow); transition: transform 0.3s var(--ease-out), box-shadow 0.3s; }
+.vert:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.vert .icon-tile { margin: 0 auto 1rem; }
+.vert { text-align: center; }
+.vert h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+.vert p { font-size: 0.85rem; }
+
+/* ===================== FINAL CTA ===================== */
+.final-outer { padding: 2rem 1.5rem 7rem; }
+.final {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2b1c4a 55%, #3a1830 100%);
+  border-radius: 32px; padding: 4.5rem 2rem; text-align: center; color: #fff;
+  max-width: 1140px; margin: 0 auto; position: relative; overflow: hidden;
+}
+.final::before, .final::after { content: ""; position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.5; }
+.final::before { width: 280px; height: 280px; background: var(--coral); top: -80px; left: -60px; }
+.final::after { width: 320px; height: 320px; background: var(--violet); bottom: -100px; right: -60px; }
+.final > * { position: relative; z-index: 1; }
+.final h2 { color: #fff; margin-bottom: 1rem; }
+.final p.sub { color: rgba(255,255,255,0.72); max-width: 480px; margin: 0 auto 2.25rem; }
+.final .hero-note { color: rgba(255,255,255,0.5); justify-content: center; margin-top: 1.4rem; }
+.final .hero-note svg { color: var(--green); }
+
+/* ===================== FOOTER ===================== */
+footer { padding: 3.5rem 1.5rem 2.75rem; text-align: center; border-top: 1px solid var(--rule); }
+footer .logo { justify-content: center; margin-bottom: 0.85rem; }
+footer p { font-size: 0.8rem; color: var(--ink-mid); }
+
+/* ===================== REVEAL ===================== */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stagger.in .card:nth-child(1), .reveal-stagger.in .vert:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger .card, .reveal-stagger .vert { opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+.reveal-stagger.in .card:nth-child(1), .reveal-stagger.in .vert:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.05s; }
+.reveal-stagger.in .card:nth-child(2), .reveal-stagger.in .vert:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.15s; }
+.reveal-stagger.in .card:nth-child(3), .reveal-stagger.in .vert:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.25s; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: opacity 0.2s ease !important; }
+  .reveal, .reveal-stagger .card, .reveal-stagger .vert { transform: none; }
+}
+
+/* mobile nav */
+@media (max-width: 760px) {
+  .nav-links { position: fixed; top: 68px; left: 0; right: 0; background: var(--white); flex-direction: column;
+    align-items: flex-start; padding: 1.5rem 1.75rem 2rem; gap: 1.25rem; border-bottom: 1px solid var(--rule);
+    box-shadow: var(--shadow-md); transform: translateY(-130%); opacity: 0; transition: transform 0.35s var(--ease-out), opacity 0.3s; }
+  .nav-links.open { transform: translateY(0); opacity: 1; }
+  .nav-links .cta { width: 100%; justify-content: center; }
+  .burger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="logo">SWEEP<span class="dot">.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#problem">The problem</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Book%20a%2015-min%20call" class="cta">Book a 15-min call</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero-bg" id="top">
+  <div class="blob" style="width:480px;height:480px;background:#ede9fe;top:-160px;right:-120px;"></div>
+  <div class="blob" style="width:420px;height:420px;background:#ffe4e0;bottom:-180px;left:-140px;"></div>
+
+  <div class="hero-grid">
+    <div class="hero-copy reveal in">
+      <span class="tag"><span class="pulse"></span> Never miss a lead — from any channel</span>
+      <h1>Every lead gets a<br>response. <em>Every time.</em></h1>
+      <p class="hero-sub">No matter how it arrived — a call you missed, a form filled in at 11pm, or an enquiry that went cold six months ago — SWEEP catches it, replies in seconds, and hands you the ones ready to buy.</p>
+      <div class="hero-actions">
+        <a href="#how" class="cta big">See how it works</a>
+        <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Book%20a%2015-min%20call" class="cta ghost big">Book a 15-min call</a>
+      </div>
+      <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No commitment. 15-minute set-up &amp; discovery chat.</p>
+
+      <div class="trust-strip">
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg> Replies in seconds</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> One number, every channel</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg> No contracts</div>
+      </div>
+    </div>
+
+    <div class="phone-wrap reveal in">
+      <div class="float-chip f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Sent in 8 seconds</div>
+      <div class="float-chip f2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg> Hot lead</div>
+      <div class="phone">
+        <div class="phone-head">
+          <div class="phone-avatar">S</div>
+          <div><div class="who">New enquiry</div><div class="sub">via website form · just now</div></div>
+        </div>
+        <div class="bubble-row you"><div class="bubble">Hi Sarah, thanks for your enquiry! What's the best time for a quick call?</div></div>
+        <div class="bubble-row them"><div class="bubble">Yeah, tomorrow afternoon works for me</div></div>
+        <div class="bubble-row you"><div class="bubble">Perfect, I'll pass this straight to the team — talk soon!</div></div>
+        <div class="alert-card">
+          <div class="alert-top"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg> Hot lead alert</div>
+          <div class="msg">Sarah wants a call tomorrow afternoon. Sent to you instantly — no delay, no missed opportunity.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="problem" class="section-bg">
+  <div class="blob" style="width:400px;height:400px;background:#e6f9f2;top:20%;right:-160px;opacity:0.6;"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">The problem</span>
+      <h2>You're not short of leads.<br>You're losing the ones you already have.</h2>
+      <p>Every business with a phone, a website, and a bit of history is leaking revenue in three specific, unglamorous ways.</p>
+    </div>
+    <div class="grid-3 reveal-stagger">
+      <div class="card">
+        <div class="icon-tile coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h3>The call you missed</h3>
+        <p>You're on a job, in a van, or it's 7pm on a Sunday. The phone rings, nobody answers, and the caller assumes you're not interested — so they ring the next name down.</p>
+      </div>
+      <div class="card">
+        <div class="icon-tile violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>The enquiry that goes cold</h3>
+        <p>Contact speed is the single biggest lever on whether a fresh lead converts. A reply within minutes converts dramatically better than one the next day — and most businesses reply the next day, if at all.</p>
+      </div>
+      <div class="card">
+        <div class="icon-tile green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg></div>
+        <h3>The database doing nothing</h3>
+        <p>Every business with any history has a quiet graveyard of quotes given and calls taken that nobody circled back on — demand you already paid to generate, sitting completely idle.</p>
+      </div>
+    </div>
+    <p class="fine reveal">SWEEP is built to close all three leaks with <strong>one system, on one number, for one monthly fee.</strong></p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">How it works</span>
+      <h2>One relationship. <em>Three</em> ways it pays for itself.</h2>
+      <p>Start with the easiest yes. Grow into the rest once you've seen it working — same number, same system, no new setup.</p>
+    </div>
+
+    <div class="ladder">
+      <div class="rung reveal">
+        <div class="rung-num">1</div>
+        <div class="rung-body">
+          <div class="rung-top"><h3>Never Miss a Lead</h3><span class="rung-badge">Start here</span></div>
+          <p>Every missed call and every new web or ad enquiry gets an instant, human-quality reply within seconds — and anything hot gets flagged straight to you.</p>
+          <div class="rung-modules"><span class="rung-mod">Voice AI</span><span class="rung-mod">Speed</span></div>
+        </div>
+      </div>
+      <div class="rung featured reveal">
+        <div class="rung-num">2</div>
+        <div class="rung-body">
+          <div class="rung-top"><h3>+ Recover</h3><span class="rung-badge">Most popular add-on</span></div>
+          <p>Once you're covered going forward, we dig through everything already sitting dead in your database and wake it back up — leads who already raised their hand once.</p>
+          <div class="rung-modules"><span class="rung-mod">Database reactivation</span><span class="rung-mod">Zero ad spend</span></div>
+        </div>
+      </div>
+      <div class="rung reveal">
+        <div class="rung-num">3</div>
+        <div class="rung-body">
+          <div class="rung-top"><h3>+ Qualify</h3><span class="rung-badge">Full autopilot</span></div>
+          <p>For businesses who want to stop being the bottleneck entirely — the AI carries the full qualifying conversation itself, not just the alert.</p>
+          <div class="rung-modules"><span class="rung-mod">AI-run conversations</span><span class="rung-mod">Hands-off</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section-bg">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Pricing</span>
+      <h2>Simple, monthly, no contracts.</h2>
+      <p>Final numbers confirmed on your call based on lead volume — these are the starting points.</p>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price-card">
+        <div class="price-name">Never Miss a Lead</div>
+        <div class="price-amount">From £197<span>/mo</span></div>
+        <p class="price-desc">The easiest yes — covers every new enquiry and missed call, starting today.</p>
+        <ul class="price-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Instant reply to every new enquiry</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Missed-call transcription &amp; triage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Hot-lead alerts by SMS &amp; email</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> One dedicated business number</li>
+        </ul>
+        <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Never%20Miss%20a%20Lead" class="cta ghost">Get started</a>
+      </div>
+      <div class="price-card mid">
+        <div class="most">Recommended</div>
+        <div class="price-name">+ Recover</div>
+        <div class="price-amount">From £497<span>/mo</span></div>
+        <p class="price-desc">Everything above, plus we wake up every dead lead already in your database.</p>
+        <ul class="price-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Everything in Never Miss a Lead</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Full database reactivation campaign</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Two-touch, low-pressure SMS sequence</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Automatic follow-up on silent leads</li>
+        </ul>
+        <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Recover" class="cta">Get started</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">+ Qualify</div>
+        <div class="price-amount">From £997<span>/mo</span></div>
+        <p class="price-desc">For businesses who want the AI to run the whole first conversation.</p>
+        <ul class="price-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Everything in Recover</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> AI carries the full qualifying conversation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Only fully-qualified leads reach you</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Built around your own script &amp; tone</li>
+        </ul>
+        <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Qualify" class="cta ghost">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Built for</span>
+      <h2>Considered-purchase businesses with a phone that matters.</h2>
+      <p>Anywhere a missed lead is worth real money, and where old enquiries are worth revisiting.</p>
+    </div>
+    <div class="vert-grid reveal-stagger">
+      <div class="vert">
+        <div class="icon-tile coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Trades &amp; Home Improvement</h3><p>Kitchens, renovations, installations — high-ticket jobs where a missed call is a missed sale.</p>
+      </div>
+      <div class="vert">
+        <div class="icon-tile violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
+        <h3>Membership &amp; Leisure</h3><p>Clubs and venues with enquiry lists that go quiet long before anyone follows up.</p>
+      </div>
+      <div class="vert">
+        <div class="icon-tile green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <h3>Financial &amp; Professional Services</h3><p>Brokers and advisers where an old enquiry can still be very much live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="final-outer">
+  <div class="final reveal">
+    <h2>Stop losing leads you already paid for.</h2>
+    <p class="sub">15 minutes on a call is all it takes to see whether SWEEP fits your business.</p>
+    <a href="mailto:david@oakbankinnovations.com?subject=SWEEP%20-%20Book%20a%2015-min%20call" class="cta big">Book a 15-min call</a>
+    <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No commitment. No contracts. Cancel any time.</p>
+  </div>
+</div>
+
+<footer>
+  <a href="#top" class="logo">SWEEP<span class="dot">.</span></a>
+  <p>© 2026 SWEEP, part of Oakbank Innovations. Every lead answered — no matter how it arrived.</p>
+</footer>
+
+<script>
+(function () {
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function () { links.classList.toggle('open'); });
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { links.classList.remove('open'); });
+  });
+
+  var items = document.querySelectorAll('.reveal, .reveal-stagger');
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
