@@ -430,6 +430,17 @@ footer{padding:40px 0 130px;border-top:1px solid var(--edge-soft)}
               <option>A mixture of a few</option>
             </select>
           </div>
+          <div class="field" style="display:flex;gap:12px">
+            <div style="flex:1">
+              <label for="hoursOpen">Opens at (optional)</label>
+              <input id="hoursOpen" type="time" value="08:00">
+            </div>
+            <div style="flex:1">
+              <label for="hoursClose">Closes at (optional)</label>
+              <input id="hoursClose" type="time" value="18:00">
+            </div>
+          </div>
+          <p class="form-note" style="margin-top:-6px;margin-bottom:14px">Defaulted to 8am-6pm every day - adjust to match yours, or clear both if it varies too much to set (we'll just say we're mid-job instead of guessing open or closed).</p>
           <div class="field" style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)">
             <label style="display:flex;align-items:center;gap:10px;font-weight:600;color:var(--fg,inherit);margin-bottom:0">
               <input type="checkbox" id="enableAi" style="width:auto">
@@ -520,6 +531,8 @@ document.getElementById('submit').addEventListener('click', function(){
   var source = document.getElementById('source').value;
   var enableAi = document.getElementById('enableAi').checked;
   var niche = document.getElementById('niche').value;
+  var hoursOpen = document.getElementById('hoursOpen').value;
+  var hoursClose = document.getElementById('hoursClose').value;
 
   var errEl = document.getElementById('formErr');
   errEl.classList.remove('on');
@@ -536,7 +549,9 @@ document.getElementById('submit').addEventListener('click', function(){
     whatsapp_recipient: whatsapp || undefined,
     alert_email: alertEmail || undefined,
     lead_source: source,
-    enable_ai: enableAi
+    enable_ai: enableAi,
+    hours_open: hoursOpen || undefined,
+    hours_close: hoursClose || undefined
   };
   if(enableAi){
     payload.niche = niche;
