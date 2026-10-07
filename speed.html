@@ -189,12 +189,13 @@ details p{margin-top:11px;color:var(--dim);font-size:.95rem;max-width:72ch}
 }
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.85rem;margin-bottom:6px;color:var(--dim)}
-.field input,.field select{
+.field input,.field select,.field textarea{
   width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);
   background:rgba(4,2,9,.62);color:#fff;font-family:inherit;font-size:1rem;
 }
-.field input::placeholder{color:#615C7A}
-.field input:focus,.field select:focus{border-color:var(--pink);outline:none}
+.field textarea{resize:vertical;min-height:90px;line-height:1.5}
+.field input::placeholder,.field textarea::placeholder{color:#615C7A}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pink);outline:none}
 .form-card .btn{width:100%;margin-top:6px;font-size:1.04rem;padding:16px}
 .form-note{font-size:.78rem;color:#8B85A3;margin-top:12px;line-height:1.5}
 .done{display:none}
@@ -429,6 +430,32 @@ footer{padding:40px 0 130px;border-top:1px solid var(--edge-soft)}
               <option>A mixture of a few</option>
             </select>
           </div>
+          <div class="field" style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)">
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;color:var(--fg,inherit);margin-bottom:0">
+              <input type="checkbox" id="enableAi" style="width:auto">
+              Let AI reply live and qualify them (recommended)
+            </label>
+            <p class="form-note" style="margin-top:6px">Instead of just a fixed "sorry we missed you" text, the AI has the actual conversation - asks what they need, when, and gets them booked in - then hands you the finished summary.</p>
+          </div>
+          <div class="field" id="nicheField" style="display:none">
+            <label for="niche">What trade is this for?</label>
+            <select id="niche">
+              <option value="plumbing">Plumbing</option>
+              <option value="electrical">Electrical</option>
+              <option value="roofing">Roofing</option>
+              <option value="general_trade">General trade / handyman</option>
+              <option value="solar">Solar panels</option>
+              <option value="life_insurance">Life insurance</option>
+              <option value="personal_injury">Personal injury claims</option>
+              <option value="mortgage">Mortgages</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field" id="faqField" style="display:none">
+            <label for="faqText">FAQs &amp; opening times (optional)</label>
+            <textarea id="faqText" rows="5" placeholder="Opening hours are 8am to 6pm Monday to Saturday.&#10;We cover all of Glasgow and the surrounding area.&#10;Emergency call-outs available 24/7 at a higher rate."></textarea>
+            <p class="form-note" style="margin-top:6px">Paste this straight from your website or just type it out - one fact per line. The AI will use exactly what you write here, nothing else.</p>
+          </div>
           <button class="btn" id="submit" type="button">Get SPEED live &mdash; &pound;497/mo</button>
           <p class="err" id="formErr">Something went wrong sending that &mdash; call or text us instead and we'll get you set up.</p>
           <p class="form-note">You'll be taken to secure Stripe checkout to complete payment. Have a discount code? There's a spot to enter it there. Cancel any time, no contract.</p>
@@ -479,6 +506,10 @@ var io = new IntersectionObserver(function(e){
   if(e[0].isIntersecting){ play(); io.disconnect(); }
 },{threshold:.3});
 io.observe(thread);
+document.getElementById('enableAi').addEventListener('change', function(){
+  document.getElementById('nicheField').style.display = this.checked ? 'block' : 'none';
+  document.getElementById('faqField').style.display = this.checked ? 'block' : 'none';
+});
 document.getElementById('submit').addEventListener('click', function(){
   var name = document.getElementById('name').value.trim();
   var business = document.getElementById('business').value.trim();
@@ -487,6 +518,8 @@ document.getElementById('submit').addEventListener('click', function(){
   var whatsapp = document.getElementById('whatsapp').value.trim();
   var alertEmail = document.getElementById('alertEmail').value.trim();
   var source = document.getElementById('source').value;
+  var enableAi = document.getElementById('enableAi').checked;
+  var niche = document.getElementById('niche').value;
 
   var errEl = document.getElementById('formErr');
   errEl.classList.remove('on');
@@ -502,8 +535,13 @@ document.getElementById('submit').addEventListener('click', function(){
     alert_phone_number: mobile,
     whatsapp_recipient: whatsapp || undefined,
     alert_email: alertEmail || undefined,
-    lead_source: source
+    lead_source: source,
+    enable_ai: enableAi
   };
+  if(enableAi){
+    payload.niche = niche;
+    payload.faq_text = document.getElementById('faqText').value.trim();
+  }
 
   var btn = document.getElementById('submit');
   btn.textContent = 'Taking you to checkout...'; btn.disabled = true;
