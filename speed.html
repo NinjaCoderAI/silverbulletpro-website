@@ -467,6 +467,13 @@ footer{padding:40px 0 130px;border-top:1px solid var(--edge-soft)}
             <textarea id="faqText" rows="5" placeholder="Opening hours are 8am to 6pm Monday to Saturday.&#10;We cover all of Glasgow and the surrounding area.&#10;Emergency call-outs available 24/7 at a higher rate."></textarea>
             <p class="form-note" style="margin-top:6px">Paste this straight from your website or just type it out - one fact per line. The AI will use exactly what you write here, nothing else.</p>
           </div>
+          <div class="field" id="calcomField" style="display:none">
+            <label for="calcomApiKey">Cal.com API key (optional)</label>
+            <input id="calcomApiKey" type="text" placeholder="cal_live_xxxxxxxxxxxxxxxx">
+            <label for="calcomEventTypeId" style="margin-top:10px">Cal.com event type ID (optional)</label>
+            <input id="calcomEventTypeId" type="text" inputmode="numeric" placeholder="e.g. 123456">
+            <p class="form-note" style="margin-top:6px">Connect a <a href="https://cal.com" target="_blank" rel="noopener" style="text-decoration:underline">Cal.com</a> calendar and the AI checks your real availability and books the appointment itself, instead of just taking a rough time preference. Find your key under Settings &gt; Security, and the event type ID in that event type's own settings URL (cal.com/event-types/&lt;id&gt;). Leave blank for now and add it later - everything else still works without it.</p>
+          </div>
           <button class="btn" id="submit" type="button">Get SPEED live &mdash; &pound;497/mo</button>
           <p class="err" id="formErr">Something went wrong sending that &mdash; call or text us instead and we'll get you set up.</p>
           <p class="form-note">You'll be taken to secure Stripe checkout to complete payment. Have a discount code? There's a spot to enter it there. Cancel any time, no contract.</p>
@@ -520,6 +527,7 @@ io.observe(thread);
 document.getElementById('enableAi').addEventListener('change', function(){
   document.getElementById('nicheField').style.display = this.checked ? 'block' : 'none';
   document.getElementById('faqField').style.display = this.checked ? 'block' : 'none';
+  document.getElementById('calcomField').style.display = this.checked ? 'block' : 'none';
 });
 document.getElementById('submit').addEventListener('click', function(){
   var name = document.getElementById('name').value.trim();
@@ -556,6 +564,12 @@ document.getElementById('submit').addEventListener('click', function(){
   if(enableAi){
     payload.niche = niche;
     payload.faq_text = document.getElementById('faqText').value.trim();
+    var calcomApiKey = document.getElementById('calcomApiKey').value.trim();
+    var calcomEventTypeId = document.getElementById('calcomEventTypeId').value.trim();
+    if(calcomApiKey && calcomEventTypeId){
+      payload.calcom_api_key = calcomApiKey;
+      payload.calcom_event_type_id = calcomEventTypeId;
+    }
   }
 
   var btn = document.getElementById('submit');

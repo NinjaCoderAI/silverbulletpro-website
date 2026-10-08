@@ -195,6 +195,12 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
       <label for="callback_number">Number the AI tells leads it'll call from <span class="hint" style="display:inline">defaults to your alert number above</span></label>
       <input type="tel" id="callback_number" name="callback_number" placeholder="+447700900000">
+
+      <label for="calcom_api_key">Cal.com API key <span class="hint" style="display:inline">optional - connect a calendar so the AI can book a real slot, not just note a preference</span></label>
+      <input type="text" id="calcom_api_key" name="calcom_api_key" placeholder="cal_live_xxxxxxxxxxxxxxxx">
+
+      <label for="calcom_event_type_id">Cal.com event type ID <span class="hint" style="display:inline">from that event type's settings URL, e.g. cal.com/event-types/123456</span></label>
+      <input type="text" id="calcom_event_type_id" name="calcom_event_type_id" inputmode="numeric" placeholder="123456">
     </div>
 
     <button type="submit" id="submit-btn">Continue to payment</button>
@@ -264,6 +270,12 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     payload.qualification_question_2 = q2Input.value.trim();
     payload.ai_persona_name = document.getElementById('ai_persona_name').value.trim();
     payload.callback_number = document.getElementById('callback_number').value.trim();
+    const calcomApiKey = document.getElementById('calcom_api_key').value.trim();
+    const calcomEventTypeId = document.getElementById('calcom_event_type_id').value.trim();
+    if (calcomApiKey && calcomEventTypeId) {
+      payload.calcom_api_key = calcomApiKey;
+      payload.calcom_event_type_id = calcomEventTypeId;
+    }
   }
 
   try {
