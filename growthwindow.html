@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Growth Window</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="The growth and maturation check academies use, for players outside an academy: predicted adult height and where your child is in the growth spurt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800;1,900&family=Mulish:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: matchday-programme spreads. Navy bands with gold double rules and slanted stripes alternate with white pages; the hero is a spatial glass "window" that measures a player. */
+:root{
+  --paper:#FFFFFF; --bg:#F4F6FA; --ink:#0B1A33; --muted:#4D5A70; --line:#DCE2EC;
+  --navy:#0D2041; --navy-2:#16305C; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#FFF4D2; --warn-ink:#5B4300; --err:#B3261E;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
+  --navy:#0E2246; --navy-2:#1A3463; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#3A2F0B; --warn-ink:#FCE7A6; --err:#FF8A80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
+  --navy:#0E2246; --navy-2:#1A3463; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#3A2F0B; --warn-ink:#FCE7A6; --err:#FF8A80; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;line-height:.95;letter-spacing:.005em;text-transform:uppercase;text-wrap:balance;margin:0}
+h1{font-size:clamp(46px,6.2vw,84px);overflow-wrap:anywhere}
+h2{font-size:clamp(40px,5.6vw,64px)}
+h3{font-size:28px}
+h1 em,h2 em{font-style:inherit;color:var(--gold)}
+.on-paper h2 em{color:inherit;background:linear-gradient(transparent 62%,var(--gold) 62%);padding-inline:.06em}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.rule{height:9px;background:linear-gradient(var(--gold) 0 2px,transparent 2px 6px,var(--gold) 6px 9px)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border:0;cursor:pointer;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;transform:none;filter:none}
+.btn.dark{background:var(--navy);color:var(--on-navy)}
+.setup{background:var(--warn-bg);color:var(--warn-ink);font-size:14px;padding-block:10px}
+
+/* ===== HERO (fixed navy look in both themes) ===== */
+.hero{position:relative;background:var(--navy);color:var(--on-navy);overflow:hidden;isolation:isolate}
+.hero .stripes{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero .stripes svg{position:absolute;right:-40px;top:0;height:100%;width:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:22px}
+.brand{font-family:var(--display);font-style:italic;font-weight:900;font-size:28px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand span{color:var(--gold)}
+.top .btn{font-size:18px;padding:9px 18px}
+.hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;padding-block:20px 72px}
+.hgrid>*{min-width:0}
+.hcopy{display:flex;flex-direction:column;gap:22px}
+.hcopy .eyebrow{color:var(--gold)}
+.hcopy .lede{font-size:19px;color:var(--on-navy-muted);max-width:32em}
+.hcopy .meta{font-size:14px;color:var(--on-navy-muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:0;font-size:14px;color:var(--on-navy-muted)}
+.facts li::before{content:"";display:inline-block;width:10px;height:10px;background:var(--gold);transform:skewX(-14deg);margin-right:8px}
+
+/* spatial glass scene */
+.scene{position:relative;height:560px;perspective:1300px;touch-action:pan-y}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,4deg)) rotateY(var(--ry,-10deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.scene.auto .rig{animation:sway 14s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotateX(4deg) rotateY(-12deg)}50%{transform:rotateX(2deg) rotateY(8deg)}}
+.glow{position:absolute;border-radius:50%;filter:blur(60px);transform-style:preserve-3d}
+.glow.g1{width:340px;height:340px;left:8%;top:14%;background:radial-gradient(circle,rgba(255,198,41,.55),transparent 70%);transform:translateZ(-200px);animation:drift 12s ease-in-out infinite}
+.glow.g2{width:380px;height:380px;right:0;bottom:4%;background:radial-gradient(circle,rgba(70,130,255,.55),transparent 70%);transform:translateZ(-240px);animation:drift 15s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:30px -24px}}
+.ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%) translateZ(-160px);font-family:var(--display);font-style:italic;font-weight:900;font-size:300px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,198,41,.32);white-space:nowrap;user-select:none}
+.glass{position:absolute;border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.08),0 30px 60px -20px rgba(0,0,0,.55);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);color:#fff}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 45%,transparent 60%);background-size:250% 100%;background-position:120% 0;animation:sheen 7s ease-in-out infinite;pointer-events:none}
+@keyframes sheen{0%,60%{background-position:120% 0}100%{background-position:-120% 0}}
+.window{left:50%;top:50%;width:300px;height:470px;margin:-235px 0 0 -150px;transform:translateZ(0);padding:18px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.window .wtop{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.window .dots{display:flex;gap:5px}.window .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}
+.window svg{flex:1;width:100%;min-height:0;overflow:visible}
+.chip{padding:12px 16px;border-radius:20px;display:flex;flex-direction:column;gap:0;animation:float 6s ease-in-out infinite}
+.chip .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.chip .v{font-family:var(--display);font-style:italic;font-weight:800;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.chip .v small{font-size:18px;opacity:.75;margin-left:2px}
+.chip.c1{left:-4%;top:8%;transform:translateZ(110px)}
+.chip.c2{right:-4%;top:64%;transform:translateZ(150px);animation-delay:-2s}
+.chip.c3{left:-2%;bottom:6%;transform:translateZ(90px);animation-delay:-4s;flex-direction:row;align-items:center;gap:10px}
+.chip.c3 b{display:inline-block;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;text-transform:uppercase;padding:2px 10px;transform:skewX(-8deg)}
+.chip .v.gold{color:var(--gold)}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.pop{animation:pop .9s cubic-bezier(.2,1.4,.3,1) both,float 6s ease-in-out .9s infinite}
+@keyframes pop{from{scale:.82}to{scale:1}}
+
+/* gauge pieces */
+.g-fill{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(var(--fill,1))}
+.g-pred{stroke-dasharray:260;stroke-dashoffset:var(--dash,0)}
+.g-scan{animation:scan 6s cubic-bezier(.5,0,.3,1) 2.6s infinite}
+@keyframes scan{0%{transform:translateY(0);opacity:0}8%{opacity:1}55%{transform:translateY(-330px);opacity:1}62%,100%{transform:translateY(-330px);opacity:0}}
+
+/* ===== PAGES ===== */
+.on-paper{background:var(--paper)}
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.split>*{min-width:0}
+.bigs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.bigs>div{min-width:0;display:flex;flex-direction:column;gap:10px;border-top:3px solid var(--navy);padding-top:14px}
+:root[data-theme="dark"] .bigs>div{border-top-color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigs>div{border-top-color:var(--gold)}}
+.bigs .n{font-family:var(--display);font-style:italic;font-weight:900;font-size:68px;line-height:.9;color:var(--navy)}
+:root[data-theme="dark"] .bigs .n{color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigs .n{color:var(--gold)}}
+.bigs p{color:var(--muted)}
+.src{font-size:13px;color:var(--muted);margin-top:28px}
+
+.list{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column}
+.list li{display:grid;grid-template-columns:24px 1fr;gap:12px;padding-block:13px;border-bottom:1px solid var(--line)}
+.list li::before{content:"";width:12px;height:12px;margin-top:7px;background:var(--gold);transform:skewX(-14deg)}
+.sample{background:var(--navy);color:var(--on-navy);padding:28px;display:flex;flex-direction:column;gap:18px;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
+.sample .tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--gold);color:var(--gold-ink);padding:4px 10px}
+.sample h3{color:var(--on-navy)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stats>div{border-top:2px solid var(--gold);padding-top:8px;min-width:0}
+.stats .k{font-size:11px;font-weight:700;color:var(--on-navy-muted);text-transform:uppercase;letter-spacing:.08em}
+.stats .v{font-family:var(--display);font-style:italic;font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.stats .v small{font-size:18px;color:var(--on-navy-muted)}
+.stage{display:flex;gap:4px}
+.stage span{flex:1;font-size:12px;font-weight:700;text-align:center;padding:9px 4px;background:var(--navy-2);color:var(--on-navy-muted);line-height:1.2}
+.stage span.on{background:var(--gold);color:var(--gold-ink)}
+.sample p{font-size:15px;color:var(--on-navy-muted)}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:40px;counter-reset:s}
+.steps>div{min-width:0;display:flex;flex-direction:column;gap:8px}
+.steps>div::before{counter-increment:s;content:counter(s);font-family:var(--display);font-style:italic;font-weight:900;font-size:110px;line-height:.8;color:var(--gold)}
+.steps strong{font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;text-transform:uppercase;line-height:1}
+.steps p{color:var(--muted);font-size:16px}
+
+/* order (navy spread with a paper form card) */
+.order{background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden;isolation:isolate}
+.order .stripes{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.order .stripes svg{position:absolute;left:-60px;top:0;height:100%;width:auto;transform:scaleX(-1)}
+.ograd{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.ograd>*{min-width:0}
+.ograd .eyebrow{color:var(--gold)}
+.price{font-family:var(--display);font-style:italic;font-weight:900;font-size:120px;line-height:.85;color:var(--gold)}
+.ofine{font-size:15px;color:var(--on-navy-muted)}
+.fcard{background:var(--paper);color:var(--ink);padding:28px;clip-path:polygon(0 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%)}
+form{display:flex;flex-direction:column;gap:22px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+legend{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;padding:0;margin-bottom:10px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row>*{min-width:0}
+label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+.hint{font-weight:500;font-size:13px;color:var(--muted)}
+input,select{font:inherit;font-weight:600;font-size:17px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-bottom:2px solid var(--ink);border-radius:0;padding:12px;width:100%;min-width:0;font-variant-numeric:tabular-nums}
+input:focus,select:focus{border-bottom-color:var(--gold);outline:none;box-shadow:0 2px 0 var(--gold)}
+.pair{display:flex;gap:8px}
+.pair label{flex:1}
+.seg{display:inline-flex;border:2px solid var(--ink);align-self:flex-start}
+.seg button{font:inherit;font-size:14px;font-weight:800;background:transparent;color:var(--ink);border:0;padding:8px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.check{flex-direction:row;align-items:flex-start;gap:10px;font-weight:500;font-size:14px}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--navy)}
+.errors{color:var(--err);font-size:14px;font-weight:600;min-height:1.2em}
+.fcard .btn{background:var(--navy);color:var(--on-navy)}
+:root[data-theme="dark"] .fcard .btn{background:var(--gold);color:var(--gold-ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fcard .btn{background:var(--gold);color:var(--gold-ink)}}
+.fine{font-size:13px;color:var(--muted)}
+
+details{border-bottom:1px solid var(--line);padding-block:18px}
+summary{cursor:pointer;font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase;line-height:1.1;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:30px;line-height:.8}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted);max-width:44em}
+footer{background:var(--navy);color:var(--on-navy-muted);font-size:13px;padding-block:36px}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer strong{color:var(--on-navy)}
+
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .on-paper h2 em{background:none;color:var(--gold)}}
+:root[data-theme="dark"] .on-paper h2 em{background:none;color:var(--gold)}
+@media (max-width:900px){
+  .hero .stripes,.order .stripes{display:none}
+  .hgrid,.split,.ograd{grid-template-columns:1fr}
+  .scene{height:520px;max-width:520px;width:100%;margin:0 auto}
+  .bigs{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:480px){
+  .steps{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .scene{height:450px}
+  .window{transform:translateZ(0) scale(.84)}
+  .chip{padding:9px 12px}
+  .chip .v{font-size:30px}
+  .chip.c1{left:6%;top:2%}.chip.c2{right:5%;top:69%}.chip.c3{left:6%;bottom:2%}
+  .scene.auto .rig{animation-duration:18s}
+  .ghost{font-size:220px}
+  .stats .v{font-size:34px}
+  .price{font-size:96px}
+  section{padding-block:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body style="margin:0">
+
+
+<div class="setup" id="setup" hidden><div class="wrap">Setup needed: paste your Stripe payment link and contact email into the CONFIG block at the bottom of this file. Until then the order button stays switched off.</div></div>
+
+<header class="hero">
+  <div class="stripes" aria-hidden="true">
+    <svg viewBox="0 0 400 900" preserveAspectRatio="xMaxYMid slice"><path d="M330 -10 L190 700 Q180 750 130 750 L-400 750" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="10"/><path d="M372 -10 L232 735 Q222 790 170 790 L-400 790" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/><path d="M300 -10 L162 690" fill="none" stroke="var(--gold)" stroke-width="3" opacity=".7"/></svg>
+  </div>
+  <div class="rule"></div>
+  <div class="wrap top">
+    <div class="brand">Growth <span>Window</span></div>
+    <a class="btn" href="#order">Get the report</a>
+  </div>
+  <div class="wrap hgrid">
+    <div class="hcopy">
+      <p class="eyebrow">For players outside an academy</p>
+      <h1>The growth check academies use. <em>Now for your player.</em></h1>
+      <p class="lede">Scottish academies screen players' growth and maturation to decide who plays in which age group. If your child isn't in an academy, they've almost certainly never had one. Growth Window gives you the same measure: predicted adult height, and where they are in the growth spurt.</p>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <a class="btn" href="#order">Get the report · <span class="js-price">£99</span></a>
+        <span class="meta">Emailed within 24 hours · 14-day refund</span>
+      </div>
+      <ul class="facts">
+        <li>Same method as Scottish academy screening</li>
+        <li>Measured at home, no X-ray</li>
+      </ul>
+    </div>
+    <div class="scene" id="scene" aria-label="Animated example: a boy aged 11½ measured at 148.5 cm, with a predicted adult height of 181 cm">
+      <div class="rig" id="rig">
+        <div class="glow g1"></div>
+        <div class="glow g2"></div>
+        <div class="ghost" aria-hidden="true">82%</div>
+        <div class="glass window">
+          <div class="wtop"><span>Sam · age 11½</span><span class="dots"><i></i><i></i><i></i></span></div>
+          <div id="gauge"></div>
+        </div>
+        <div class="glass chip c1 pop"><span class="k">Predicted adult</span><span class="v"><span id="cnt-pred">181</span><small>cm</small></span></div>
+        <div class="glass chip c2 pop" style="animation-delay:.15s,-2s"><span class="k">Adult height now</span><span class="v gold"><span id="cnt-pah">82</span><small>%</small></span></div>
+        <div class="glass chip c3 pop" style="animation-delay:.3s,-4s"><span class="k">Stage</span><b>Before the spurt</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="on-paper"><div class="wrap">
+  <p class="eyebrow">Why it matters</p>
+  <h2 style="margin-top:10px">Age groups compare <em>birthdays</em>, not bodies</h2>
+  <div class="bigs">
+    <div><div class="n">5–6 yrs</div><p>The gap in physical development that can exist between players in the same age group. A 14-year-old early developer can be the size of a typical 16-year-old.</p></div>
+    <div><div class="n">Age 14</div><p>By 14, no late-maturing players were left in the Club Academy Scotland system. Late developers end up outside academies, and that's where this report helps most.</p></div>
+    <div><div class="n">85–96%</div><p>The share of adult height reached during the growth spurt. These are the thresholds Scottish academies use to group players by maturity.</p></div>
+  </div>
+  <p class="src">Source: Scottish FA, Club Academy Scotland: A Clubs Guide to Bio-banding. Growth Window is not affiliated with or endorsed by the Scottish FA.</p>
+</div></section>
+
+<div class="rule"></div>
+
+<section><div class="wrap split">
+  <div>
+    <p class="eyebrow">What you get</p>
+    <h2 style="margin-top:10px">One page. <em>Every answer.</em></h2>
+    <ul class="list">
+      <li><span><strong>Predicted adult height</strong>, with the range 9 in 10 predictions fall within</span></li>
+      <li><span><strong>Percentage of adult height</strong> your child has reached today</span></li>
+      <li><span><strong>Growth stage</strong>: before, entering, in or past the growth spurt</span></li>
+      <li><span><strong>Centimetres still to grow</strong>, and the genetic target height from both parents</span></li>
+      <li><span><strong>What this stage usually means</strong> for training and recovery</span></li>
+      <li><span><strong>When to re-measure</strong>, so you can track real growth across the season</span></li>
+    </ul>
+  </div>
+  <div class="sample" aria-label="Sample report">
+    <span class="tag">Sample report · example child</span>
+    <h3>Sam, age 11½</h3>
+    <div class="stats">
+      <div><div class="k">Predicted adult</div><div class="v">181<small> cm</small></div></div>
+      <div><div class="k">Adult height now</div><div class="v">82<small>%</small></div></div>
+      <div><div class="k">Still to grow</div><div class="v">33<small> cm</small></div></div>
+    </div>
+    <div class="stage" aria-label="Growth stage">
+      <span class="on">Before spurt</span><span>Entering</span><span>In spurt</span><span>Past spurt</span>
+    </div>
+    <p>Sam is likely to be among the later-maturing players in his age group right now, with most of his growth spurt still ahead. 9 in 10 predictions like this land between 176 and 186 cm.</p>
+  </div>
+</div></section>
+
+<section class="on-paper"><div class="wrap">
+  <p class="eyebrow">Before you order</p>
+  <h2 style="margin-top:10px">Measure at home in <em>five minutes</em></h2>
+  <div class="steps">
+    <div><strong>Height</strong><p>Shoes off, heels against a wall, looking straight ahead. Rest a hardback book flat on their head, mark the wall and measure to the nearest half centimetre.</p></div>
+    <div><strong>Weight</strong><p>Bathroom scales, light clothes, no shoes. Morning is best.</p></div>
+    <div><strong>Parents</strong><p>Use measured heights for both biological parents if you can. Most adults round their height up.</p></div>
+    <div><strong>Date of birth</strong><p>We use the exact age in months, so the report matches today's measurements.</p></div>
+  </div>
+</div></section>
+
+<section class="order" id="order">
+  <div class="stripes" aria-hidden="true">
+    <svg viewBox="0 0 400 900" preserveAspectRatio="xMaxYMid slice"><path d="M330 -10 L190 700 Q180 750 130 750 L-400 750" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10"/><path d="M300 -10 L162 690" fill="none" stroke="var(--gold)" stroke-width="3" opacity=".5"/></svg>
+  </div>
+  <div class="wrap ograd">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <p class="eyebrow">Order</p>
+      <h2>Get your <em>report</em></h2>
+      <div class="price js-price">£99</div>
+      <p class="ofine">One child, one report. You'll pay securely on Stripe and receive the PDF by email within 24 hours.</p>
+      <p class="ofine">Buying as a Christmas present? Order now and we'll send the report to you to print or forward.</p>
+    </div>
+    <div class="fcard">
+      <form id="f" novalidate>
+        <fieldset>
+          <legend>Units</legend>
+          <div class="seg" role="group" aria-label="Units">
+            <button type="button" id="u-metric" aria-pressed="true">cm and kg</button>
+            <button type="button" id="u-imp" aria-pressed="false">feet and stones</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Your player</legend>
+          <div class="row">
+            <label for="sex">Sex
+              <select id="sex"><option value="">Choose</option><option value="M">Boy</option><option value="F">Girl</option></select>
+            </label>
+            <label for="dob">Date of birth
+              <input id="dob" type="date">
+            </label>
+          </div>
+          <div class="row">
+            <div class="metric"><label for="h">Height <span class="hint">cm, no shoes</span><input id="h" type="number" inputmode="decimal" step="0.1" placeholder="148.5"></label></div>
+            <div class="imperial pair" hidden><label for="h-ft">Height ft<input id="h-ft" type="number" inputmode="numeric" placeholder="4"></label><label for="h-in">in<input id="h-in" type="number" inputmode="decimal" step="0.25" placeholder="10.5"></label></div>
+            <div class="metric"><label for="w">Weight <span class="hint">kg</span><input id="w" type="number" inputmode="decimal" step="0.1" placeholder="41.2"></label></div>
+            <div class="imperial pair" hidden><label for="w-st">Weight st<input id="w-st" type="number" inputmode="numeric" placeholder="6"></label><label for="w-lb">lb<input id="w-lb" type="number" inputmode="decimal" step="0.5" placeholder="7"></label></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Biological parents</legend>
+          <div class="row">
+            <div class="metric"><label for="fh">Father's height <span class="hint">cm</span><input id="fh" type="number" inputmode="decimal" step="0.5" placeholder="182"></label></div>
+            <div class="imperial pair" hidden><label for="fh-ft">Father ft<input id="fh-ft" type="number" inputmode="numeric" placeholder="6"></label><label for="fh-in">in<input id="fh-in" type="number" inputmode="decimal" step="0.25" placeholder="0"></label></div>
+            <div class="metric"><label for="mh">Mother's height <span class="hint">cm</span><input id="mh" type="number" inputmode="decimal" step="0.5" placeholder="167.5"></label></div>
+            <div class="imperial pair" hidden><label for="mh-ft">Mother ft<input id="mh-ft" type="number" inputmode="numeric" placeholder="5"></label><label for="mh-in">in<input id="mh-in" type="number" inputmode="decimal" step="0.25" placeholder="6"></label></div>
+          </div>
+        </fieldset>
+        <label class="check" for="ok"><input id="ok" type="checkbox"><span>I'm the child's parent or guardian. I understand the report is a statistical estimate, not a medical assessment, and I've read the privacy note below.</span></label>
+        <p class="errors" id="err" role="alert"></p>
+        <a class="btn" id="pay" aria-disabled="true" role="link">Continue to payment · <span class="js-price">£99</span></a>
+        <p class="fine">On the payment page you'll add your email and your child's first name. We never ask for a surname.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper"><div class="wrap">
+  <p class="eyebrow">Questions</p>
+  <h2 style="margin:10px 0 18px">Straight <em>answers</em></h2>
+  <details><summary>How accurate is it?</summary><p>The report uses the Khamis-Roche method, published in the journal Pediatrics in 1994 and used in Scottish academy screening. The Scottish FA's guide to bio-banding quotes a median error of about 2.2 cm for boys. In the original study, 9 in 10 predictions landed within 5.3 cm of actual adult height for boys and 4.3 cm for girls. Treat it as a well-founded estimate, not a promise. Careful measurements make the biggest difference.</p></details>
+  <details><summary>Don't academies already do this?</summary><p>Yes. Scottish academies screen growth and maturation and use it to place players in age groups. That's exactly why this report exists: players outside an academy, including many late developers, never get one, and their parents never see the numbers.</p></details>
+  <details><summary>Will it tell me if my child will make it?</summary><p>No. Height and maturity are one part of the picture, and plenty of top players were late developers. The report helps you understand why your child might look ahead of or behind teammates right now, and what is likely to change.</p></details>
+  <details><summary>Is this medical advice?</summary><p>No. It is an educational estimate. If your child has ongoing pain, very fast or very slow growth, or a medical condition affecting growth, speak to your GP.</p></details>
+  <details><summary>How often should I re-measure?</summary><p>Every three to four months during the growth years. How fast your child is growing tells you more than any single measurement.</p></details>
+  <details><summary>What if I'm not happy?</summary><p>If the report isn't what you expected, reply to the email within 14 days and we'll refund you in full.</p></details>
+  <details id="privacy"><summary>Privacy note</summary><p>We collect your email address, your child's first name, sex, age, height and weight, and both parents' heights, only to produce and send this report. Payment is handled by Stripe; we never see your card details. We don't share your data, use it for marketing, or keep your child's measurements for longer than 30 days after sending the report, unless you ask us to keep them for a follow-up. To ask about or delete your data, email <span class="js-email"></span>.</p></details>
+</div></section>
+</main>
+
+<div class="rule"></div>
+<footer><div class="wrap">
+  <span><strong class="js-biz"></strong> · <span class="js-email"></span></span>
+  <span>Growth Window reports are statistical estimates for educational use and are not medical advice. Growth Window is not affiliated with or endorsed by the Scottish FA or any club.</span>
+  <span>Sources: Khamis HJ, Roche AF. Pediatrics 1994;94:504–507. Scottish FA, Club Academy Scotland: A Clubs Guide to Bio-banding.</span>
+</div></footer>
+
+<script>
+/* ===== CONFIG: edit these four lines ===== */
+const CONFIG = {
+  STRIPE_LINK: "https://buy.stripe.com/REPLACE_ME",   // your Stripe Payment Link
+  PRICE: "£99",
+  CONTACT_EMAIL: "hello@yourdomain.co.uk",
+  BUSINESS_NAME: "Growth Window"
+};
+/* ========================================= */
+
+const $ = id => document.getElementById(id);
+const configured = /^https:\/\/(buy\.stripe\.com|checkout\.stripe\.com)\//.test(CONFIG.STRIPE_LINK) && !/REPLACE_ME/.test(CONFIG.STRIPE_LINK);
+$('setup').hidden = configured;
+document.querySelectorAll('.js-price').forEach(e => e.textContent = CONFIG.PRICE);
+document.querySelectorAll('.js-email').forEach(e => e.textContent = CONFIG.CONTACT_EMAIL);
+document.querySelectorAll('.js-biz').forEach(e => e.textContent = CONFIG.BUSINESS_NAME);
+
+/* ===== Hero gauge: example boy 11.5y, 148.5 cm, 41.2 kg, parents 182 / 167.5 ===== */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function gauge(){
+  const cur = 148.5, pred = 181.2, b85 = pred*.85, b96 = pred*.96;
+  const top = 195, bot = 115, H = 380, pad = 10, W = 268, x0 = 40, cx = 92, cw = 74;
+  const y = cm => pad + (top - cm)/(top - bot)*H;
+  const F = 'font-family="Barlow Condensed, Arial Narrow, sans-serif" font-style="italic" font-weight="800"';
+  let s = `<svg viewBox="0 0 ${W} ${H + pad*2}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <defs>
+      <linearGradient id="gf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".25"/><stop offset="1" stop-color="#FFC629"/></linearGradient>
+      <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFC629" stop-opacity="0"/><stop offset=".5" stop-color="#FFE38A"/><stop offset="1" stop-color="#FFC629" stop-opacity="0"/></linearGradient>
+    </defs>`;
+  s += `<rect x="${cx+cw+14}" y="${y(b96)}" width="7" height="${y(b85)-y(b96)}" fill="#FFC629" transform="skewY(0)"/>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)-4}" font-family="Mulish, sans-serif" font-size="10.5" font-weight="700" fill="rgba(255,255,255,.75)">GROWTH</text>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)+9}" font-family="Mulish, sans-serif" font-size="10.5" font-weight="700" fill="rgba(255,255,255,.75)">SPURT</text>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)+23}" ${F} font-size="14" fill="#FFC629">85–96%</text>`;
+  for (let cm = bot; cm <= top; cm++){
+    const major = cm % 10 === 0, mid = cm % 5 === 0;
+    s += `<line x1="${x0}" x2="${x0 + (major?16:mid?10:5)}" y1="${y(cm)}" y2="${y(cm)}" stroke="#fff" stroke-opacity="${major?.85:.4}" stroke-width="${major?1.4:1}"/>`;
+    if (major) s += `<text x="${x0-7}" y="${y(cm)+4}" text-anchor="end" font-family="Mulish, sans-serif" font-size="11" font-weight="700" fill="rgba(255,255,255,.7)">${cm}</text>`;
+  }
+  s += `<line x1="${x0}" x2="${x0}" y1="${y(top)}" y2="${y(bot)}" stroke="#fff" stroke-opacity=".85" stroke-width="2"/>`;
+  s += `<rect x="${cx}" y="${y(pred)}" width="${cw}" height="${y(cur)-y(pred)}" fill="rgba(255,198,41,.08)" stroke="#FFC629" stroke-width="1.5" stroke-dasharray="5 5" id="g-ghost"/>`;
+  s += `<rect class="g-fill" id="g-fill" x="${cx}" y="${y(cur)}" width="${cw}" height="${y(bot)-y(cur)}" fill="url(#gf)"/>`;
+  s += `<line class="g-pred" id="g-pred" x1="${x0}" x2="${cx+cw+4}" y1="${y(pred)}" y2="${y(pred)}" stroke="#FFC629" stroke-width="3"/>`;
+  s += `<text x="${cx+cw/2}" y="${y(pred)-9}" text-anchor="middle" ${F} font-size="20" fill="#FFC629">181 PREDICTED</text>`;
+  s += `<line x1="${x0}" x2="${cx+cw+4}" y1="${y(cur)}" y2="${y(cur)}" stroke="#fff" stroke-width="3"/>`;
+  s += `<text x="${cx+cw/2}" y="${y(cur)+24}" text-anchor="middle" ${F} font-size="22" fill="#0D2041"><tspan id="cnt-cur">148.5</tspan></text>`;
+  s += `<rect class="g-scan" x="${x0}" y="${y(bot)-2}" width="${cx+cw-x0+30}" height="3" fill="url(#gs)"/>`;
+  s += `</svg>`;
+  $('gauge').innerHTML = s;
+  $('gauge').style.cssText = 'flex:1;min-height:0;display:flex';
+
+  if (reduce) return;
+  // Load sequence: bar grows 0 -> today, counter ticks, prediction line draws, then gauge rests and scans.
+  const fill = $('g-fill'), predL = $('g-pred'), ghost = $('g-ghost'), cnt = $('cnt-cur');
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const t0 = performance.now(), D1 = 1500, D2 = 700;
+  ghost.style.opacity = 0;
+  function frame(now){
+    const t = Math.min(1, (now - t0)/D1), e = ease(t);
+    fill.style.setProperty('--fill', e);
+    cnt.textContent = (bot + (cur - bot)*e).toFixed(1);
+    const t2 = Math.max(0, Math.min(1, (now - t0 - D1 + 200)/D2));
+    predL.style.setProperty('--dash', 260*(1 - ease(t2)));
+    ghost.style.opacity = ease(t2);
+    if (t < 1 || t2 < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== Spatial parallax: pointer tilt on desktop, slow sway on touch ===== */
+(function parallax(){
+  const scene = $('scene'), rig = $('rig');
+  if (reduce) return;
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches){ scene.classList.add('auto'); return; }
+  scene.addEventListener('pointermove', e => {
+    const r = scene.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - .5, py = (e.clientY - r.top)/r.height - .5;
+    rig.style.setProperty('--ry', (px*22).toFixed(2) + 'deg');
+    rig.style.setProperty('--rx', (-py*14).toFixed(2) + 'deg');
+  });
+  scene.addEventListener('pointerleave', () => { rig.style.removeProperty('--ry'); rig.style.removeProperty('--rx'); });
+})();
+
+/* ===== Order form ===== */
+let imperial = false;
+function setUnits(imp){
+  imperial = imp;
+  $('u-metric').setAttribute('aria-pressed', String(!imp));
+  $('u-imp').setAttribute('aria-pressed', String(imp));
+  document.querySelectorAll('.metric').forEach(e => e.hidden = imp);
+  document.querySelectorAll('.imperial').forEach(e => e.hidden = !imp);
+  update();
+}
+$('u-metric').onclick = () => setUnits(false);
+$('u-imp').onclick = () => setUnits(true);
+
+const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : NaN; };
+const ftin = (ft, inch) => { const f = num(ft), i = num(inch); if (isNaN(f) && isNaN(i)) return NaN; return ((f||0)*12 + (i||0)) * 2.54; };
+const stlb = (st, lb) => { const s = num(st), l = num(lb); if (isNaN(s) && isNaN(l)) return NaN; return ((s||0)*14 + (l||0)) * 0.45359237; };
+
+function ageMonths(dob){
+  const d = new Date(dob + 'T12:00:00'), now = new Date();
+  if (isNaN(d)) return NaN;
+  let m = (now.getFullYear() - d.getFullYear()) * 12 + (now.getMonth() - d.getMonth());
+  if (now.getDate() < d.getDate()) m -= 1;
+  return m;
+}
+
+function read(){
+  const errs = [];
+  const sex = $('sex').value;
+  const months = ageMonths($('dob').value);
+  const h = imperial ? ftin('h-ft','h-in') : num('h');
+  const w = imperial ? stlb('w-st','w-lb') : num('w');
+  const fh = imperial ? ftin('fh-ft','fh-in') : num('fh');
+  const mh = imperial ? ftin('mh-ft','mh-in') : num('mh');
+  if (!sex) errs.push('Choose boy or girl.');
+  if (isNaN(months)) errs.push('Add a date of birth.');
+  else if (months < 48 || months > 210) errs.push('The method works for ages 4 to 17½. Check the date of birth.');
+  if (isNaN(h)) errs.push("Add your child's height.");
+  else if (h < 90 || h > 210) errs.push("Check your child's height. It should be between 90 and 210 cm (about 3 ft to 6 ft 11).");
+  if (isNaN(w)) errs.push("Add your child's weight.");
+  else if (w < 12 || w > 140) errs.push("Check your child's weight. It should be between 12 and 140 kg.");
+  if (isNaN(fh) || isNaN(mh)) errs.push("Add both parents' heights.");
+  else if (fh < 140 || fh > 220 || mh < 135 || mh > 210) errs.push("Check the parents' heights. One looks out of the usual range.");
+  if (!$('ok').checked) errs.push('Tick the box to confirm you are the parent or guardian.');
+  return { errs, code: ['GW1', sex, months, Math.round(h*10), Math.round(w*10), Math.round(fh*10), Math.round(mh*10)].join('-') };
+}
+
+let touched = false;
+function update(){
+  const { errs, code } = read();
+  const ready = !errs.length && configured;
+  const pay = $('pay');
+  if (ready) {
+    const u = new URL(CONFIG.STRIPE_LINK);
+    u.searchParams.set('client_reference_id', code);
+    pay.href = u.toString();
+    pay.setAttribute('aria-disabled', 'false');
+  } else {
+    pay.removeAttribute('href');
+    pay.setAttribute('aria-disabled', 'true');
+  }
+  $('err').textContent = touched ? (errs[0] || (configured ? '' : 'Ordering opens once the payment link is set up.')) : '';
+}
+$('f').addEventListener('input', () => { touched = true; update(); });
+$('f').addEventListener('change', () => { touched = true; update(); });
+$('f').addEventListener('submit', e => e.preventDefault());
+$('pay').addEventListener('click', e => {
+  if ($('pay').getAttribute('aria-disabled') === 'true') { e.preventDefault(); touched = true; update(); }
+});
+update();
+</script>
+
+</body>
+</html>
