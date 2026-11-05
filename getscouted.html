@@ -157,7 +157,7 @@ details p{margin-top:10px;color:var(--muted)}
 <body style="margin:0">
 
 
-<div class="announce"><div class="wrap">Price: <b class="js-price">£99</b> · Report in your inbox within 24 hours</div></div>
+<div class="announce"><div class="wrap">Reports from <b class="js-price">£29</b> · In your inbox within minutes</div></div>
 
 <header class="wrap head">
   <div class="brand"><i aria-hidden="true"></i>Growth Window</div>
@@ -297,10 +297,10 @@ details p{margin-top:10px;color:var(--muted)}
 <section class="offer" id="offer"><div class="wrap wide">
   <div class="ocard">
     <div style="display:flex;flex-direction:column;gap:16px">
-      <p class="eyebrow" style="color:var(--lime)">Founding families</p>
+      <p class="eyebrow" style="color:var(--lime)">Two ways to start</p>
       <h2>Find out where your player is in their growth</h2>
-      <div class="price js-price">£99</div>
-      <p style="opacity:.85;font-size:16px">One child, one report, emailed as a PDF within 24 hours.</p>
+      <div class="price">from <span class="js-price">£29</span></div>
+      <p style="opacity:.85;font-size:16px"><strong>Basic £29:</strong> the one-page growth snapshot.<br><strong>Silver £99:</strong> a 7-page season report, a page for the coach and two re-measures over 12 months. Both emailed as a PDF within minutes.</p>
       <a class="pill js-order" href="#offer">Get my player's report <span class="arrow" aria-hidden="true">→</span></a>
     </div>
     <div style="display:flex;flex-direction:column;gap:20px;justify-content:center">
@@ -308,9 +308,10 @@ details p{margin-top:10px;color:var(--muted)}
         <li>Predicted adult height and likely range</li>
         <li>Growth stage and % of adult height reached</li>
         <li>Plain-English guidance for this stage</li>
-        <li>Re-measure date to track real growth</li>
+        <li>Silver adds a development plan, a coach page and growth-speed tracking</li>
         <li>Secure payment by Stripe</li>
       </ul>
+      <p style="font-size:15px;opacity:.9">Buying for Christmas? <a class="js-giftl" href="#offer" style="color:var(--lime);font-weight:800">Give Silver as a gift card</a>.</p>
       <div class="guar"><b>14<br>days</b><span>Not useful? Reply within 14 days for a full refund.</span></div>
     </div>
   </div>
@@ -338,7 +339,7 @@ details p{margin-top:10px;color:var(--muted)}
 
 <div class="sticky" role="region" aria-label="Order">
   <div class="in">
-    <div class="t"><b>Growth Window report · <span class="js-price">£99</span></b><span>Emailed within 24 hours · 14-day refund</span></div>
+    <div class="t"><b>Growth Window · from <span class="js-price">£29</span></b><span>Emailed in minutes · 14-day refund</span></div>
     <a class="pill js-order" href="#offer">Get the report <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </div>
@@ -346,12 +347,13 @@ details p{margin-top:10px;color:var(--muted)}
 <script>
 /* ===== CONFIG ===== */
 const CONFIG = {
-  ORDER_URL: "index.html#order", // your sales page order form, e.g. "index.html#order"
-  PRICE: "£99",
-  CONTACT_EMAIL: "hello@yourdomain.co.uk"
+  ORDER_URL: "growthwindow.html#pricing", // the sales page pricing section
+  PRICE: "£29",
+  CONTACT_EMAIL: "david@silverbulletpro.com"
 };
 /* ================== */
 document.querySelectorAll('.js-price').forEach(e => e.textContent = CONFIG.PRICE);
+document.querySelectorAll('.js-giftl').forEach(a => { a.href = 'https://buy.stripe.com/4gMfZh67E4cK0x97PD7ss0c'; });
 document.querySelectorAll('.js-order').forEach(a => { a.href = CONFIG.ORDER_URL; if (/^https?:/.test(CONFIG.ORDER_URL)) a.target = '_blank'; });
 document.querySelectorAll('.js-email').forEach(e => e.textContent = 'Contact: ' + CONFIG.CONTACT_EMAIL);
 
