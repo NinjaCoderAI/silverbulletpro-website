@@ -357,7 +357,7 @@ footer strong{color:var(--on-navy)}
       <span class="badge">Most complete</span>
       <h3>Silver</h3>
       <div class="amt"><span class="js-p-silver">£99</span><small>12 months</small></div>
-      <p class="sum">A 7-page season report, then two re-measures to track how fast they're growing.</p>
+      <p class="sum">An 8-page season report, then two re-measures to track how fast they're growing.</p>
       <ul>
         <li>Everything in Basic</li>
         <li>Growth explained: where your player sits and why it matters</li>
@@ -404,7 +404,7 @@ footer strong{color:var(--on-navy)}
           <legend>Your report</legend>
           <div class="pick">
             <label for="t-basic"><input type="radio" name="tier" id="t-basic" value="basic"><span><b>Basic · <span class="js-p-basic" style="display:inline;font-size:inherit;color:inherit">£29</span></b><span>One-page snapshot</span></span></label>
-            <label for="t-silver"><input type="radio" name="tier" id="t-silver" value="silver" checked><span><b>Silver · <span class="js-p-silver" style="display:inline;font-size:inherit;color:inherit">£99</span></b><span>7 pages + 2 re-measures</span></span></label>
+            <label for="t-silver"><input type="radio" name="tier" id="t-silver" value="silver" checked><span><b>Silver · <span class="js-p-silver" style="display:inline;font-size:inherit;color:inherit">£99</span></b><span>8 pages + 2 re-measures</span></span></label>
           </div>
         </fieldset>
         <fieldset>
@@ -495,7 +495,7 @@ document.querySelectorAll('.js-gift').forEach(a => { if (okLink(CONFIG.GIFT_LINK
 /* Tier choice: the pricing cards and the form's radio buttons stay in sync */
 const DESC = {
   basic: 'Basic: the one-page growth snapshot.',
-  silver: 'Silver: the 7-page season report, a page for the coach, and two re-measures over 12 months to track growth speed.'
+  silver: 'Silver: the 8-page season report, a page for the coach, and two re-measures over 12 months to track growth speed.'
 };
 const tier = () => ($('t-basic').checked ? 'basic' : 'silver');
 function showTier(){

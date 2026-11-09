@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Growth Window Basketball</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="How tall will your basketball player be? Predicted adult height and where your child is in the growth spurt, measured at home in five minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,700;1,800;1,900&family=Mulish:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: matchday-programme spreads. Navy bands with gold double rules and slanted stripes alternate with white pages; the hero is a spatial glass "window" that measures a player. */
+:root{
+  --paper:#FFFFFF; --bg:#F4F6FA; --ink:#0B1A33; --muted:#4D5A70; --line:#DCE2EC;
+  --navy:#0D2041; --navy-2:#16305C; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#FFF4D2; --warn-ink:#5B4300; --err:#B3261E;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
+  --navy:#0E2246; --navy-2:#1A3463; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#3A2F0B; --warn-ink:#FCE7A6; --err:#FF8A80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
+  --navy:#0E2246; --navy-2:#1A3463; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --warn-bg:#3A2F0B; --warn-ink:#FCE7A6; --err:#FF8A80; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;line-height:.95;letter-spacing:.005em;text-transform:uppercase;text-wrap:balance;margin:0}
+h1{font-size:clamp(46px,6.2vw,84px);overflow-wrap:anywhere}
+h2{font-size:clamp(40px,5.6vw,64px)}
+h3{font-size:28px}
+h1 em,h2 em{font-style:inherit;color:var(--gold)}
+.on-paper h2 em{color:inherit;background:linear-gradient(transparent 62%,var(--gold) 62%);padding-inline:.06em}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.rule{height:9px;background:linear-gradient(var(--gold) 0 2px,transparent 2px 6px,var(--gold) 6px 9px)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border:0;cursor:pointer;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;transform:none;filter:none}
+.btn.dark{background:var(--navy);color:var(--on-navy)}
+.setup{background:var(--warn-bg);color:var(--warn-ink);font-size:14px;padding-block:10px}
+
+/* ===== HERO (fixed navy look in both themes) ===== */
+.hero{position:relative;background:var(--navy);color:var(--on-navy);overflow:hidden;isolation:isolate}
+.hero .stripes{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero .stripes svg{position:absolute;right:-40px;top:0;height:100%;width:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:22px}
+.brand{font-family:var(--display);font-style:italic;font-weight:900;font-size:28px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand span{color:var(--gold)}
+.top .btn{font-size:18px;padding:9px 18px}
+.hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;padding-block:20px 72px}
+.hgrid>*{min-width:0}
+.hcopy{display:flex;flex-direction:column;gap:22px}
+.hcopy .eyebrow{color:var(--gold)}
+.hcopy .lede{font-size:19px;color:var(--on-navy-muted);max-width:32em}
+.hcopy .meta{font-size:14px;color:var(--on-navy-muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:0;font-size:14px;color:var(--on-navy-muted)}
+.facts li::before{content:"";display:inline-block;width:10px;height:10px;background:var(--gold);transform:skewX(-14deg);margin-right:8px}
+
+/* spatial glass scene */
+.scene{position:relative;height:560px;perspective:1300px;touch-action:pan-y}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,4deg)) rotateY(var(--ry,-10deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.scene.auto .rig{animation:sway 14s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotateX(4deg) rotateY(-12deg)}50%{transform:rotateX(2deg) rotateY(8deg)}}
+.glow{position:absolute;border-radius:50%;filter:blur(60px);transform-style:preserve-3d}
+.glow.g1{width:340px;height:340px;left:8%;top:14%;background:radial-gradient(circle,rgba(255,198,41,.55),transparent 70%);transform:translateZ(-200px);animation:drift 12s ease-in-out infinite}
+.glow.g2{width:380px;height:380px;right:0;bottom:4%;background:radial-gradient(circle,rgba(70,130,255,.55),transparent 70%);transform:translateZ(-240px);animation:drift 15s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:30px -24px}}
+.ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%) translateZ(-160px);font-family:var(--display);font-style:italic;font-weight:900;font-size:300px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,198,41,.32);white-space:nowrap;user-select:none}
+.glass{position:absolute;border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.08),0 30px 60px -20px rgba(0,0,0,.55);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);color:#fff}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 45%,transparent 60%);background-size:250% 100%;background-position:120% 0;animation:sheen 7s ease-in-out infinite;pointer-events:none}
+@keyframes sheen{0%,60%{background-position:120% 0}100%{background-position:-120% 0}}
+.window{left:50%;top:50%;width:300px;height:470px;margin:-235px 0 0 -150px;transform:translateZ(0);padding:18px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.window .wtop{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.window .dots{display:flex;gap:5px}.window .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}
+.window svg{flex:1;width:100%;min-height:0;overflow:visible}
+.chip{padding:12px 16px;border-radius:20px;display:flex;flex-direction:column;gap:0;animation:float 6s ease-in-out infinite}
+.chip .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.chip .v{font-family:var(--display);font-style:italic;font-weight:800;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.chip .v small{font-size:18px;opacity:.75;margin-left:2px}
+.chip.c1{left:-4%;top:8%;transform:translateZ(110px)}
+.chip.c2{right:-4%;top:64%;transform:translateZ(150px);animation-delay:-2s}
+.chip.c3{left:-2%;bottom:6%;transform:translateZ(90px);animation-delay:-4s;flex-direction:row;align-items:center;gap:10px}
+.chip.c3 b{display:inline-block;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;text-transform:uppercase;padding:2px 10px;transform:skewX(-8deg)}
+.chip .v.gold{color:var(--gold)}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.pop{animation:pop .9s cubic-bezier(.2,1.4,.3,1) both,float 6s ease-in-out .9s infinite}
+@keyframes pop{from{scale:.82}to{scale:1}}
+
+/* gauge pieces */
+.g-fill{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(var(--fill,1))}
+.g-pred{stroke-dasharray:260;stroke-dashoffset:var(--dash,0)}
+.g-scan{animation:scan 6s cubic-bezier(.5,0,.3,1) 2.6s infinite}
+@keyframes scan{0%{transform:translateY(0);opacity:0}8%{opacity:1}55%{transform:translateY(-330px);opacity:1}62%,100%{transform:translateY(-330px);opacity:0}}
+
+/* ===== PAGES ===== */
+.on-paper{background:var(--paper)}
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.split>*{min-width:0}
+.bigs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.bigs>div{min-width:0;display:flex;flex-direction:column;gap:10px;border-top:3px solid var(--navy);padding-top:14px}
+:root[data-theme="dark"] .bigs>div{border-top-color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigs>div{border-top-color:var(--gold)}}
+.bigs .n{font-family:var(--display);font-style:italic;font-weight:900;font-size:68px;line-height:.9;color:var(--navy)}
+:root[data-theme="dark"] .bigs .n{color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bigs .n{color:var(--gold)}}
+.bigs p{color:var(--muted)}
+.src{font-size:13px;color:var(--muted);margin-top:28px}
+
+.list{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column}
+.list li{display:grid;grid-template-columns:24px 1fr;gap:12px;padding-block:13px;border-bottom:1px solid var(--line)}
+.list li::before{content:"";width:12px;height:12px;margin-top:7px;background:var(--gold);transform:skewX(-14deg)}
+.sample{background:var(--navy);color:var(--on-navy);padding:28px;display:flex;flex-direction:column;gap:18px;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
+.sample .tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--gold);color:var(--gold-ink);padding:4px 10px}
+.sample h3{color:var(--on-navy)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stats>div{border-top:2px solid var(--gold);padding-top:8px;min-width:0}
+.stats .k{font-size:11px;font-weight:700;color:var(--on-navy-muted);text-transform:uppercase;letter-spacing:.08em}
+.stats .v{font-family:var(--display);font-style:italic;font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.stats .v small{font-size:18px;color:var(--on-navy-muted)}
+.stage{display:flex;gap:4px}
+.stage span{flex:1;font-size:12px;font-weight:700;text-align:center;padding:9px 4px;background:var(--navy-2);color:var(--on-navy-muted);line-height:1.2}
+.stage span.on{background:var(--gold);color:var(--gold-ink)}
+.sample p{font-size:15px;color:var(--on-navy-muted)}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:40px;counter-reset:s}
+.steps>div{min-width:0;display:flex;flex-direction:column;gap:8px}
+.steps>div::before{counter-increment:s;content:counter(s);font-family:var(--display);font-style:italic;font-weight:900;font-size:110px;line-height:.8;color:var(--gold)}
+.steps strong{font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;text-transform:uppercase;line-height:1}
+.steps p{color:var(--muted);font-size:16px}
+
+/* order (navy spread with a paper form card) */
+.order{background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden;isolation:isolate}
+.order .stripes{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.order .stripes svg{position:absolute;left:-60px;top:0;height:100%;width:auto;transform:scaleX(-1)}
+.ograd{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.ograd>*{min-width:0}
+.ograd .eyebrow{color:var(--gold)}
+.price{font-family:var(--display);font-style:italic;font-weight:900;font-size:120px;line-height:.85;color:var(--gold)}
+.ofine{font-size:15px;color:var(--on-navy-muted)}
+.fcard{background:var(--paper);color:var(--ink);padding:28px;clip-path:polygon(0 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%)}
+form{display:flex;flex-direction:column;gap:22px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+legend{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;padding:0;margin-bottom:10px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row>*{min-width:0}
+label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+.hint{font-weight:500;font-size:13px;color:var(--muted)}
+input,select{font:inherit;font-weight:600;font-size:17px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-bottom:2px solid var(--ink);border-radius:0;padding:12px;width:100%;min-width:0;font-variant-numeric:tabular-nums}
+input:focus,select:focus{border-bottom-color:var(--gold);outline:none;box-shadow:0 2px 0 var(--gold)}
+.pair{display:flex;gap:8px}
+.pair label{flex:1}
+.seg{display:inline-flex;border:2px solid var(--ink);align-self:flex-start}
+.seg button{font:inherit;font-size:14px;font-weight:800;background:transparent;color:var(--ink);border:0;padding:8px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.check{flex-direction:row;align-items:flex-start;gap:10px;font-weight:500;font-size:14px}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--navy)}
+.errors{color:var(--err);font-size:14px;font-weight:600;min-height:1.2em}
+.errors ul{margin:4px 0 0;padding-left:18px}
+#f [aria-invalid="true"]{border-color:var(--err);border-bottom-color:var(--err);background:color-mix(in srgb,var(--err) 8%,var(--bg))}
+#f input[type=checkbox][aria-invalid="true"]{outline:2px solid var(--err);outline-offset:2px}
+.fcard .btn{background:var(--navy);color:var(--on-navy)}
+:root[data-theme="dark"] .fcard .btn{background:var(--gold);color:var(--gold-ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fcard .btn{background:var(--gold);color:var(--gold-ink)}}
+.fine{font-size:13px;color:var(--muted)}
+.gift-line{margin-top:24px;padding:16px 20px;border:2px dashed var(--gold);font-size:15px;max-width:none}
+.gift-line a{font-family:var(--display);font-style:italic;font-weight:800;font-size:19px;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+
+/* tiers */
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.tier{position:relative;background:var(--paper);border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tier.best{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+.tier .badge{position:absolute;top:-14px;right:20px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:16px;text-transform:uppercase;padding:4px 12px;transform:skewX(-8deg)}
+.tier h3{font-size:34px}
+.tier.best h3{color:var(--on-navy)}
+.tier .amt{font-family:var(--display);font-style:italic;font-weight:900;font-size:76px;line-height:.85;color:var(--navy)}
+:root[data-theme="dark"] .tier:not(.best) .amt{color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tier:not(.best) .amt{color:var(--gold)}}
+.tier.best .amt{color:var(--gold)}
+.tier .amt small{font-size:20px;font-weight:700;margin-left:6px;color:var(--muted)}
+.tier.best .amt small{color:var(--on-navy-muted)}
+.tier .sum{font-size:15px;color:var(--muted)}
+.tier.best .sum{color:var(--on-navy-muted)}
+.tier ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1}
+.tier li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:15px}
+.tier li::before{content:"";width:10px;height:10px;margin-top:7px;background:var(--gold);transform:skewX(-14deg)}
+.tier li.no{color:var(--muted);text-decoration:line-through}
+.tier li.no::before{background:var(--line)}
+.tier .btn{align-self:flex-start}
+.tier:not(.best) .btn{background:var(--navy);color:var(--on-navy)}
+:root[data-theme="dark"] .tier:not(.best) .btn{background:var(--gold);color:var(--gold-ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tier:not(.best) .btn{background:var(--gold);color:var(--gold-ink)}}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick label{flex-direction:row;align-items:center;gap:10px;border:2px solid var(--line);padding:12px;cursor:pointer;font-size:15px}
+.pick label:has(input:checked){border-color:var(--ink);background:var(--bg)}
+.pick input{width:18px;height:18px;flex:none;accent-color:var(--navy)}
+.pick b{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;line-height:1}
+.pick span span{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+@media (max-width:760px){.tiers{grid-template-columns:1fr}}
+@media (max-width:420px){.pick{grid-template-columns:1fr}}
+
+details{border-bottom:1px solid var(--line);padding-block:18px}
+summary{cursor:pointer;font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase;line-height:1.1;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:30px;line-height:.8}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted);max-width:44em}
+footer{background:var(--navy);color:var(--on-navy-muted);font-size:13px;padding-block:36px}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer strong{color:var(--on-navy)}
+
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .on-paper h2 em{background:none;color:var(--gold)}}
+:root[data-theme="dark"] .on-paper h2 em{background:none;color:var(--gold)}
+@media (max-width:900px){
+  .hero .stripes,.order .stripes{display:none}
+  .hgrid,.split,.ograd{grid-template-columns:1fr}
+  .scene{height:520px;max-width:520px;width:100%;margin:0 auto}
+  .bigs{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:480px){
+  .steps{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .scene{height:450px}
+  .window{transform:translateZ(0) scale(.84)}
+  .chip{padding:9px 12px}
+  .chip .v{font-size:30px}
+  .chip.c1{left:6%;top:2%}.chip.c2{right:5%;top:69%}.chip.c3{left:6%;bottom:2%}
+  .scene.auto .rig{animation-duration:18s}
+  .ghost{font-size:220px}
+  .stats .v{font-size:34px}
+  .price{font-size:96px}
+  section{padding-block:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body style="margin:0">
+
+
+<div class="setup" id="setup" hidden><div class="wrap">Setup needed: paste your Stripe payment link and contact email into the CONFIG block at the bottom of this file. Until then the order button stays switched off.</div></div>
+
+<header class="hero">
+  <div class="stripes" aria-hidden="true">
+    <svg viewBox="0 0 400 900" preserveAspectRatio="xMaxYMid slice"><path d="M330 -10 L190 700 Q180 750 130 750 L-400 750" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="10"/><path d="M372 -10 L232 735 Q222 790 170 790 L-400 790" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/><path d="M300 -10 L162 690" fill="none" stroke="var(--gold)" stroke-width="3" opacity=".7"/></svg>
+  </div>
+  <div class="rule"></div>
+  <div class="wrap top">
+    <div class="brand">Growth <span>Window</span></div>
+    <a class="btn" href="#pricing">Get the report</a>
+  </div>
+  <div class="wrap hgrid">
+    <div class="hcopy">
+      <p class="eyebrow">For youth basketball parents</p>
+      <h1>How tall will your player grow? <em>Find out at home.</em></h1>
+      <p class="lede">In basketball, size gets noticed early. Players born the same year can be years apart in physical development, and studies of elite youth basketball found early developers were picked more often. Growth Window gives you the numbers sports scientists use: predicted adult height, and where your child is in the growth spurt.</p>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <a class="btn" href="#pricing">Get the report · from <span class="js-from">$29</span></a>
+        <span class="meta">Emailed in minutes · 14-day refund</span>
+      </div>
+      <ul class="facts">
+        <li>Method developed on American children</li>
+        <li>Measured at home, no X-ray</li>
+      </ul>
+    </div>
+    <div class="scene" id="scene" aria-label="Animated example: a boy aged 11½ measured at 4 feet 10 inches, with a predicted adult height of 5 feet 11 inches">
+      <div class="rig" id="rig">
+        <div class="glow g1"></div>
+        <div class="glow g2"></div>
+        <div class="ghost" aria-hidden="true">82%</div>
+        <div class="glass window">
+          <div class="wtop"><span>Sam · age 11½</span><span class="dots"><i></i><i></i><i></i></span></div>
+          <div id="gauge"></div>
+        </div>
+        <div class="glass chip c1 pop"><span class="k">Predicted adult</span><span class="v"><span id="cnt-pred">5'11"</span></span></div>
+        <div class="glass chip c2 pop" style="animation-delay:.15s,-2s"><span class="k">Adult height now</span><span class="v gold"><span id="cnt-pah">82</span><small>%</small></span></div>
+        <div class="glass chip c3 pop" style="animation-delay:.3s,-4s"><span class="k">Stage</span><b>Before the spurt</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="on-paper"><div class="wrap">
+  <p class="eyebrow">Why it matters</p>
+  <h2 style="margin-top:10px">Age groups compare <em>birthdays</em>, not bodies</h2>
+  <div class="bigs">
+    <div><div class="n">5–6 yrs</div><p>The gap in physical development that can exist between players in the same age group. A 14-year-old early developer can be the size of a typical 16-year-old.</p></div>
+    <div><div class="n">#1</div><p>In a study of elite adolescent basketball players, how far a player was past the growth spurt was the strongest predictor of game performance of everything measured. Late developers risk being overlooked.</p></div>
+    <div><div class="n">85–96%</div><p>The share of adult height reached during the growth spurt. These are the thresholds youth academies use to group players by maturity.</p></div>
+  </div>
+  <p class="src">Sources: Torres-Unda et al., Journal of Sports Sciences (2013) and Journal of Strength and Conditioning Research (2016); youth academy growth and maturation research. Growth Window is not affiliated with or endorsed by USA Basketball, the NBA or any team.</p>
+</div></section>
+
+<div class="rule"></div>
+
+<section><div class="wrap split">
+  <div>
+    <p class="eyebrow">Every report includes</p>
+    <h2 style="margin-top:10px">Clear numbers. <em>Plain English.</em></h2>
+    <ul class="list">
+      <li><span><strong>Predicted adult height</strong>, with the range 9 in 10 predictions fall within</span></li>
+      <li><span><strong>Percentage of adult height</strong> your child has reached today</span></li>
+      <li><span><strong>Growth stage</strong>: before, entering, in or past the growth spurt</span></li>
+      <li><span><strong>Inches still to grow</strong>, and the genetic target height from both parents</span></li>
+      <li><span><strong>What this stage usually means</strong> for training and recovery</span></li>
+      <li><span><strong>When to re-measure</strong>, so you can track real growth across the season</span></li>
+    </ul>
+  </div>
+  <div class="sample" aria-label="Sample report">
+    <span class="tag">Sample report · example child</span>
+    <h3>Sam, age 11½</h3>
+    <div class="stats">
+      <div><div class="k">Predicted adult</div><div class="v">5'11"</div></div>
+      <div><div class="k">Adult height now</div><div class="v">82<small>%</small></div></div>
+      <div><div class="k">Still to grow</div><div class="v">13<small> in</small></div></div>
+    </div>
+    <div class="stage" aria-label="Growth stage">
+      <span class="on">Before spurt</span><span>Entering</span><span>In spurt</span><span>Past spurt</span>
+    </div>
+    <p>Sam is likely to be among the later-maturing players in his age group right now, with most of his growth spurt still ahead. 9 in 10 predictions like this land between 5'9" and 6'1".</p>
+  </div>
+</div></section>
+
+<section class="on-paper" id="pricing"><div class="wrap">
+  <p class="eyebrow">Choose your report</p>
+  <h2 style="margin-top:10px">A snapshot, or <em>the full season</em></h2>
+  <div class="tiers">
+    <div class="tier">
+      <h3>Basic</h3>
+      <div class="amt"><span class="js-p-basic">$29</span><small>one report</small></div>
+      <p class="sum">The one-page growth snapshot.</p>
+      <ul>
+        <li>Predicted adult height and likely range</li>
+        <li>% of adult height reached and growth stage</li>
+        <li>What this stage means for training</li>
+        <li class="no">Development plan for their stage</li>
+        <li class="no">Page for the coach</li>
+        <li class="no">Two re-measures with growth speed</li>
+      </ul>
+      <a class="btn js-choose" data-tier="basic" href="#order">Choose Basic</a>
+    </div>
+    <div class="tier best">
+      <span class="badge">Most complete</span>
+      <h3>Silver</h3>
+      <div class="amt"><span class="js-p-silver">$99</span><small>12 months</small></div>
+      <p class="sum">An 8-page season report, then two re-measures to track how fast they're growing.</p>
+      <ul>
+        <li>Everything in Basic</li>
+        <li>Growth explained: where your player sits and why it matters</li>
+        <li>Development focus: physical, technical, tactical and mental</li>
+        <li>Training load and growing pains: what to watch, when to see a pediatrician</li>
+        <li>A one-page summary to hand to the coach</li>
+        <li>Re-measures at 4 and 8 months with growth speed in inches per year</li>
+      </ul>
+      <a class="btn js-choose" data-tier="silver" href="#order">Choose Silver</a>
+    </div>
+  </div>
+  <p class="gift-line"><strong>Buying for someone else?</strong> Give Silver as a gift. You get a printable gift card with a code right away, and the parent adds the measurements when they redeem it. <a class="js-gift" href="#pricing">Buy a gift card · <span class="js-p-silver">$99</span></a></p>
+</div></section>
+
+<div class="rule"></div>
+
+<section><div class="wrap">
+  <p class="eyebrow">Before you order</p>
+  <h2 style="margin-top:10px">Measure at home in <em>five minutes</em></h2>
+  <div class="steps">
+    <div><strong>Height</strong><p>Shoes off, heels against a wall, looking straight ahead. Rest a hardback book flat on their head, mark the wall and measure to the nearest quarter inch.</p></div>
+    <div><strong>Weight</strong><p>Bathroom scales, light clothes, no shoes. Morning is best.</p></div>
+    <div><strong>Parents</strong><p>Use measured heights for both biological parents if you can. Most adults round their height up.</p></div>
+    <div><strong>Date of birth</strong><p>We use the exact age in months, so the report matches today's measurements.</p></div>
+  </div>
+</div></section>
+
+<section class="order" id="order">
+  <div class="stripes" aria-hidden="true">
+    <svg viewBox="0 0 400 900" preserveAspectRatio="xMaxYMid slice"><path d="M330 -10 L190 700 Q180 750 130 750 L-400 750" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10"/><path d="M300 -10 L162 690" fill="none" stroke="var(--gold)" stroke-width="3" opacity=".5"/></svg>
+  </div>
+  <div class="wrap ograd">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <p class="eyebrow">Order</p>
+      <h2>Get your <em>report</em></h2>
+      <div class="price" id="o-price">$99</div>
+      <p class="ofine" id="o-desc"></p>
+      <p class="ofine">One child per order. You'll pay securely on Stripe and receive the PDF by email within minutes.</p>
+      <p class="ofine">Buying as a holiday gift and don't have the measurements? <a class="js-gift" href="#pricing" style="color:var(--gold)">Buy a gift card instead</a>.</p>
+    </div>
+    <div class="fcard">
+      <form id="f" novalidate>
+        <fieldset>
+          <legend>Your report</legend>
+          <div class="pick">
+            <label for="t-basic"><input type="radio" name="tier" id="t-basic" value="basic"><span><b>Basic · <span class="js-p-basic" style="display:inline;font-size:inherit;color:inherit">$29</span></b><span>One-page snapshot</span></span></label>
+            <label for="t-silver"><input type="radio" name="tier" id="t-silver" value="silver" checked><span><b>Silver · <span class="js-p-silver" style="display:inline;font-size:inherit;color:inherit">$99</span></b><span>8 pages + 2 re-measures</span></span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Units</legend>
+          <div class="seg" role="group" aria-label="Units">
+            <button type="button" id="u-metric" aria-pressed="true">cm and kg</button>
+            <button type="button" id="u-imp" aria-pressed="false">feet and pounds</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Your player</legend>
+          <div class="row">
+            <label for="sex">Sex
+              <select id="sex"><option value="">Choose</option><option value="M">Boy</option><option value="F">Girl</option></select>
+            </label>
+            <label for="dob">Date of birth
+              <input id="dob" type="date">
+            </label>
+          </div>
+          <div class="row">
+            <div class="metric"><label for="h">Height <span class="hint">cm, no shoes</span><input id="h" type="number" inputmode="decimal" step="0.1" placeholder="149"></label></div>
+            <div class="imperial pair" hidden><label for="h-ft">Height ft<input id="h-ft" type="number" inputmode="numeric" placeholder="4"></label><label for="h-in">in<input id="h-in" type="number" inputmode="decimal" step="0.25" placeholder="10.5"></label></div>
+            <div class="metric"><label for="w">Weight <span class="hint">kg</span><input id="w" type="number" inputmode="decimal" step="0.1" placeholder="41.2"></label></div>
+            <div class="imperial" hidden><label for="w-lb">Weight <span class="hint">lb</span><input id="w-lb" type="number" inputmode="decimal" step="0.5" placeholder="91"></label><input id="w-st" type="hidden"></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Biological parents</legend>
+          <div class="row">
+            <div class="metric"><label for="fh">Father's height <span class="hint">cm</span><input id="fh" type="number" inputmode="decimal" step="0.5" placeholder="182"></label></div>
+            <div class="imperial pair" hidden><label for="fh-ft">Father ft<input id="fh-ft" type="number" inputmode="numeric" placeholder="6"></label><label for="fh-in">in<input id="fh-in" type="number" inputmode="decimal" step="0.25" placeholder="0"></label></div>
+            <div class="metric"><label for="mh">Mother's height <span class="hint">cm</span><input id="mh" type="number" inputmode="decimal" step="0.5" placeholder="167.5"></label></div>
+            <div class="imperial pair" hidden><label for="mh-ft">Mother ft<input id="mh-ft" type="number" inputmode="numeric" placeholder="5"></label><label for="mh-in">in<input id="mh-in" type="number" inputmode="decimal" step="0.25" placeholder="6"></label></div>
+          </div>
+        </fieldset>
+        <label class="check" for="sure" id="sure-wrap" hidden><input id="sure" type="checkbox"><span id="sure-text">I've re-measured and these numbers are correct.</span></label>
+        <label class="check" for="ok"><input id="ok" type="checkbox"><span>I'm the child's parent or guardian. I understand the report is a statistical estimate, not a medical assessment, and I've read the privacy note below.</span></label>
+        <p class="errors" id="err" role="alert"></p>
+        <a class="btn" id="pay" role="link">Continue to payment · <span id="pay-price">$99</span></a>
+        <p class="fine">On the payment page you'll add your email and your child's first name. We never ask for a surname.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper"><div class="wrap">
+  <p class="eyebrow">Questions</p>
+  <h2 style="margin:10px 0 18px">Straight <em>answers</em></h2>
+  <details><summary>How accurate is it?</summary><p>The report uses the Khamis-Roche method, published in the journal Pediatrics in 1994 and developed on American children. In the original study, 9 in 10 predictions landed within about 2.1 inches of actual adult height for boys and 1.7 inches for girls. Treat it as a well-founded estimate, not a promise. Careful measurements make the biggest difference.</p></details>
+  <details><summary>Don't teams already do this?</summary><p>Some elite programs and academies measure growth and maturation. Most school, club and AAU players never get assessed, and their parents never see the numbers. That's why this report exists.</p></details>
+  <details><summary>Will it tell me if my child will make it?</summary><p>No. Height and maturity are one part of the picture, and plenty of top players were late developers. The report helps you understand why your child might look ahead of or behind teammates right now, and what is likely to change.</p></details>
+  <details><summary>Is this medical advice?</summary><p>No. It is an educational estimate. If your child has ongoing pain, very fast or very slow growth, or a medical condition affecting growth, speak to your pediatrician.</p></details>
+  <details><summary>How often should I re-measure?</summary><p>Every three to four months during the growth years. How fast your child is growing tells you more than any single measurement.</p></details>
+  <details><summary>What if I'm not happy?</summary><p>If the report isn't what you expected, reply to the email within 14 days and we'll refund you in full.</p></details>
+  <details id="privacy"><summary>Privacy note</summary><p>We collect your email address, your child's first name, sex, age, height and weight, and both parents' heights, only to produce and send this report. Payment is handled by Stripe; we never see your card details. We store your order securely in the UK to send your report and, for Silver, your re-measure reminders. We don't share your data or use it for marketing. Basic: we delete your child's measurements 30 days after sending. Silver: we keep them for 13 months to track growth, then delete them. You can ask us to delete them sooner at any time. To ask about or delete your data, email <span class="js-email"></span>.</p></details>
+</div></section>
+</main>
+
+<div class="rule"></div>
+<footer><div class="wrap">
+  <span><strong class="js-biz"></strong> · <span class="js-email"></span></span>
+  <span>Growth Window reports are statistical estimates for educational use and are not medical advice. Growth Window is not affiliated with or endorsed by USA Basketball, the NBA or any team.</span>
+  <span>Sources: Khamis HJ, Roche AF. Pediatrics 1994;94:504–507. Torres-Unda J, et al. J Sports Sci 2013;31:196–203. Torres-Unda J, et al. J Strength Cond Res 2016;30:1325–1332.</span>
+</div></footer>
+
+<script>
+/* ===== CONFIG: edit these four lines ===== */
+const CONFIG = {
+  STRIPE_LINKS: {
+    basic: "https://buy.stripe.com/6oU00jdA6dNk7ZB4Dr7ss0g",   // Basic $29 Payment Link (US basketball)
+    silver: "https://buy.stripe.com/dRm14n7bI10y93F2vj7ss0h"   // Silver $99 Payment Link (US basketball)
+  },
+  PRICES: { basic: "$29", silver: "$99" },
+  GIFT_LINK: "https://buy.stripe.com/dRm8wP1Ro6kSa7Jd9X7ss0i",  // Silver gift card Payment Link (US basketball)
+  CONTACT_EMAIL: "david@silverbulletpro.com",
+  BUSINESS_NAME: "Growth Window"
+};
+/* ========================================= */
+
+const $ = id => document.getElementById(id);
+const okLink = u => /^https:\/\/(buy\.stripe\.com|checkout\.stripe\.com)\//.test(u || '') && !/REPLACE_ME/.test(u);
+const configured = okLink(CONFIG.STRIPE_LINKS.basic) && okLink(CONFIG.STRIPE_LINKS.silver);
+$('setup').hidden = configured;
+document.querySelectorAll('.js-p-basic, .js-from').forEach(e => e.textContent = CONFIG.PRICES.basic);
+document.querySelectorAll('.js-p-silver').forEach(e => e.textContent = CONFIG.PRICES.silver);
+document.querySelectorAll('.js-gift').forEach(a => { if (okLink(CONFIG.GIFT_LINK)) a.href = CONFIG.GIFT_LINK; });
+
+/* Tier choice: the pricing cards and the form's radio buttons stay in sync */
+const DESC = {
+  basic: 'Basic: the one-page growth snapshot.',
+  silver: 'Silver: the 8-page season report, a page for the coach, and two re-measures over 12 months to track growth speed.'
+};
+const tier = () => ($('t-basic').checked ? 'basic' : 'silver');
+function showTier(){
+  const t = tier();
+  $('o-price').textContent = CONFIG.PRICES[t];
+  $('pay-price').textContent = CONFIG.PRICES[t];
+  $('o-desc').textContent = DESC[t];
+}
+document.querySelectorAll('.js-choose').forEach(a => a.addEventListener('click', () => {
+  $(a.dataset.tier === 'basic' ? 't-basic' : 't-silver').checked = true;
+  showTier(); update();
+}));
+['t-basic','t-silver'].forEach(id => $(id).addEventListener('change', showTier));
+showTier();
+document.querySelectorAll('.js-email').forEach(e => e.textContent = CONFIG.CONTACT_EMAIL);
+document.querySelectorAll('.js-biz').forEach(e => e.textContent = CONFIG.BUSINESS_NAME);
+
+/* ===== Hero gauge: example boy 11.5y, 148.5 cm, 41.2 kg, parents 182 / 167.5 ===== */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function gauge(){
+  const cur = 148.5, pred = 181.2, b85 = pred*.85, b96 = pred*.96;
+  const top = 195, bot = 115, H = 380, pad = 10, W = 268, x0 = 40, cx = 92, cw = 74;
+  const y = cm => pad + (top - cm)/(top - bot)*H;
+  const F = 'font-family="Barlow Condensed, Arial Narrow, sans-serif" font-style="italic" font-weight="800"';
+  let s = `<svg viewBox="0 0 ${W} ${H + pad*2}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <defs>
+      <linearGradient id="gf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".25"/><stop offset="1" stop-color="#FFC629"/></linearGradient>
+      <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFC629" stop-opacity="0"/><stop offset=".5" stop-color="#FFE38A"/><stop offset="1" stop-color="#FFC629" stop-opacity="0"/></linearGradient>
+    </defs>`;
+  s += `<rect x="${cx+cw+14}" y="${y(b96)}" width="7" height="${y(b85)-y(b96)}" fill="#FFC629" transform="skewY(0)"/>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)-4}" font-family="Mulish, sans-serif" font-size="10.5" font-weight="700" fill="rgba(255,255,255,.75)">GROWTH</text>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)+9}" font-family="Mulish, sans-serif" font-size="10.5" font-weight="700" fill="rgba(255,255,255,.75)">SPURT</text>`;
+  s += `<text x="${cx+cw+28}" y="${y((b85+b96)/2)+23}" ${F} font-size="14" fill="#FFC629">85–96%</text>`;
+  for (let inch = Math.ceil(bot/2.54); inch <= Math.floor(top/2.54); inch++){
+    const cm = inch*2.54, major = inch % 6 === 0, mid = inch % 3 === 0;
+    s += `<line x1="${x0}" x2="${x0 + (major?16:mid?10:5)}" y1="${y(cm)}" y2="${y(cm)}" stroke="#fff" stroke-opacity="${major?.85:.4}" stroke-width="${major?1.4:1}"/>`;
+    if (major) s += `<text x="${x0-7}" y="${y(cm)+4}" text-anchor="end" font-family="Mulish, sans-serif" font-size="11" font-weight="700" fill="rgba(255,255,255,.7)">${Math.floor(inch/12)}'${inch%12}"</text>`;
+  }
+  s += `<line x1="${x0}" x2="${x0}" y1="${y(top)}" y2="${y(bot)}" stroke="#fff" stroke-opacity=".85" stroke-width="2"/>`;
+  s += `<rect x="${cx}" y="${y(pred)}" width="${cw}" height="${y(cur)-y(pred)}" fill="rgba(255,198,41,.08)" stroke="#FFC629" stroke-width="1.5" stroke-dasharray="5 5" id="g-ghost"/>`;
+  s += `<rect class="g-fill" id="g-fill" x="${cx}" y="${y(cur)}" width="${cw}" height="${y(bot)-y(cur)}" fill="url(#gf)"/>`;
+  s += `<line class="g-pred" id="g-pred" x1="${x0}" x2="${cx+cw+4}" y1="${y(pred)}" y2="${y(pred)}" stroke="#FFC629" stroke-width="3"/>`;
+  s += `<text x="${cx+cw/2}" y="${y(pred)-9}" text-anchor="middle" ${F} font-size="20" fill="#FFC629">5'11&quot; PREDICTED</text>`;
+  s += `<line x1="${x0}" x2="${cx+cw+4}" y1="${y(cur)}" y2="${y(cur)}" stroke="#fff" stroke-width="3"/>`;
+  s += `<text x="${cx+cw/2}" y="${y(cur)+24}" text-anchor="middle" ${F} font-size="22" fill="#0D2041"><tspan id="cnt-cur">4'10&quot;</tspan></text>`;
+  s += `<rect class="g-scan" x="${x0}" y="${y(bot)-2}" width="${cx+cw-x0+30}" height="3" fill="url(#gs)"/>`;
+  s += `</svg>`;
+  $('gauge').innerHTML = s;
+  $('gauge').style.cssText = 'flex:1;min-height:0;display:flex';
+
+  if (reduce) return;
+  // Load sequence: bar grows 0 -> today, counter ticks, prediction line draws, then gauge rests and scans.
+  const fill = $('g-fill'), predL = $('g-pred'), ghost = $('g-ghost'), cnt = $('cnt-cur');
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const t0 = performance.now(), D1 = 1500, D2 = 700;
+  ghost.style.opacity = 0;
+  function frame(now){
+    const t = Math.min(1, (now - t0)/D1), e = ease(t);
+    fill.style.setProperty('--fill', e);
+    { const inch = Math.round((bot + (cur - bot)*e) / 2.54); cnt.textContent = `${Math.floor(inch/12)}'${inch%12}"`; }
+    const t2 = Math.max(0, Math.min(1, (now - t0 - D1 + 200)/D2));
+    predL.style.setProperty('--dash', 260*(1 - ease(t2)));
+    ghost.style.opacity = ease(t2);
+    if (t < 1 || t2 < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== Spatial parallax: pointer tilt on desktop, slow sway on touch ===== */
+(function parallax(){
+  const scene = $('scene'), rig = $('rig');
+  if (reduce) return;
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches){ scene.classList.add('auto'); return; }
+  scene.addEventListener('pointermove', e => {
+    const r = scene.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - .5, py = (e.clientY - r.top)/r.height - .5;
+    rig.style.setProperty('--ry', (px*22).toFixed(2) + 'deg');
+    rig.style.setProperty('--rx', (-py*14).toFixed(2) + 'deg');
+  });
+  scene.addEventListener('pointerleave', () => { rig.style.removeProperty('--ry'); rig.style.removeProperty('--rx'); });
+})();
+
+/* ===== Order form ===== */
+let imperial = false;
+function setUnits(imp){
+  imperial = imp;
+  $('u-metric').setAttribute('aria-pressed', String(!imp));
+  $('u-imp').setAttribute('aria-pressed', String(imp));
+  document.querySelectorAll('.metric').forEach(e => e.hidden = imp);
+  document.querySelectorAll('.imperial').forEach(e => e.hidden = !imp);
+  update();
+}
+$('u-metric').onclick = () => setUnits(false);
+$('u-imp').onclick = () => setUnits(true);
+
+const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : NaN; };
+const ftin = (ft, inch) => { const f = num(ft), i = num(inch); if (isNaN(f) && isNaN(i)) return NaN; return ((f||0)*12 + (i||0)) * 2.54; };
+const stlb = (st, lb) => { const s = num(st), l = num(lb); if (isNaN(s) && isNaN(l)) return NaN; return ((s||0)*14 + (l||0)) * 0.45359237; };
+
+function ageMonths(dob){
+  const d = new Date(dob + 'T12:00:00'), now = new Date();
+  if (isNaN(d)) return NaN;
+  let m = (now.getFullYear() - d.getFullYear()) * 12 + (now.getMonth() - d.getMonth());
+  if (now.getDate() < d.getDate()) m -= 1;
+  return m;
+}
+
+
+/* Rough median heights (cm) by age for the plausibility check only. Not used in the report. */
+const MEDIANS = { M: [103,110,116,122,128,133,138,143,149,156,163,168,172,174], F: [102,109,115,121,127,133,138,144,151,156,160,162,163,163] };
+const MEDIAN_HEIGHT = (age, sex) => { const t = MEDIANS[sex]; if (!t) return null; const i = Math.max(0, Math.min(13, Math.round(age) - 4)); return t[i]; };
+const UNIT_TXT = (h, w) => `${Math.floor(h/2.54/12)} ft ${Math.round(h/2.54 - Math.floor(h/2.54/12)*12)} in and ${Math.round(w*2.20462)} lb`;
+
+function read(){
+  const errs = [];
+  const sex = $('sex').value;
+  const months = ageMonths($('dob').value);
+  const h = imperial ? ftin('h-ft','h-in') : num('h');
+  const w = imperial ? stlb('w-st','w-lb') : num('w');
+  const fh = imperial ? ftin('fh-ft','fh-in') : num('fh');
+  const mh = imperial ? ftin('mh-ft','mh-in') : num('mh');
+  const H = imperial ? ['h-ft','h-in'] : ['h'], Wt = imperial ? ['w-st','w-lb'] : ['w'];
+  const FH = imperial ? ['fh-ft','fh-in'] : ['fh'], MH = imperial ? ['mh-ft','mh-in'] : ['mh'];
+  const add = (msg, ids) => errs.push({ msg, ids });
+  if (!sex) add('Choose boy or girl.', ['sex']);
+  if (isNaN(months)) add('Add a date of birth.', ['dob']);
+  else if (months < 48 || months > 210) add('The method works for ages 4 to 17½. Check the date of birth.', ['dob']);
+  if (isNaN(h)) add("Add your child's height.", H);
+  else if (h < 90 || h > 210) add("Check your child's height. It should be between 90 and 210 cm (about 3 ft to 6 ft 11).", H);
+  if (isNaN(w)) add("Add your child's weight.", Wt);
+  else if (w < 12 || w > 140) add("Check your child's weight. It should be between 26 and 310 lb.", Wt);
+  if (isNaN(fh)) add("Add the father's height.", FH);
+  else if (fh < 140 || fh > 220) add("Check the father's height. It should be between 140 and 220 cm.", FH);
+  if (isNaN(mh)) add("Add the mother's height.", MH);
+  else if (mh < 135 || mh > 210) add("Check the mother's height. It should be between 135 and 210 cm.", MH);
+  // Plausibility: catches typos like 12 kg for a 148 cm child before they become a wrong report.
+  const unusual = [];
+  if (!errs.length || errs.every(e => e.ids[0] === 'ok')) {
+    const bmi = w / Math.pow(h / 100, 2);
+    if (bmi < 10 || bmi > 45) add(`That weight doesn't look possible for that height. Please check both: ${UNIT_TXT(h, w)}.`, [...H, ...Wt]);
+    else if (bmi < 12.5 || bmi > 32) unusual.push({ msg: `The weight looks unusual for that height (${UNIT_TXT(h, w)}).`, ids: [...H, ...Wt] });
+    const med = MEDIAN_HEIGHT(months / 12, sex);
+    if (med && Math.abs(h - med) > 25) unusual.push({ msg: `The height looks unusual for a child aged ${Math.floor(months / 12)}.`, ids: H });
+    const fhOdd = fh < 150 || fh > 205, mhOdd = mh < 140 || mh > 195;
+    if (fhOdd || mhOdd) unusual.push({ msg: "One of the parents' heights looks unusual.", ids: fhOdd ? FH : MH });
+  }
+  $('sure-wrap').hidden = !unusual.length;
+  if (unusual.length) {
+    $('sure-text').textContent = unusual.map(u => u.msg).join(' ') + " I've checked and these numbers are correct.";
+    if (!$('sure').checked) add('Please double-check the measurements, then tick the box to confirm they are correct.', [...unusual.flatMap(u => u.ids), 'sure']);
+  }
+  if (!$('ok').checked) add('Tick the box to confirm you are the parent or guardian.', ['ok']);
+  return { errs, code: ['GW1', sex, months, Math.round(h*10), Math.round(w*10), Math.round(fh*10), Math.round(mh*10)].join('-') };
+}
+
+/* The button always looks clickable. If something is missing, clicking it lists every problem and marks the fields. */
+let tried = false;
+function update(){
+  const { errs, code } = read();
+  const pay = $('pay');
+  document.querySelectorAll('#f [aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+  if (!errs.length && configured) {
+    const u = new URL(CONFIG.STRIPE_LINKS[tier()]);
+    u.searchParams.set('client_reference_id', code);
+    pay.href = u.toString();
+  } else {
+    pay.removeAttribute('href');
+  }
+  if (!tried) { $('err').textContent = ''; return; }
+  errs.forEach(e => e.ids.forEach(id => $(id).setAttribute('aria-invalid', 'true')));
+  const msgs = errs.map(e => e.msg);
+  if (!configured) msgs.push('Ordering opens once the payment link is set up.');
+  $('err').innerHTML = msgs.length ? '<strong>Before you continue:</strong><ul>' + msgs.map(m => '<li></li>').join('') + '</ul>' : '';
+  $('err').querySelectorAll('li').forEach((li, i) => li.textContent = msgs[i]);
+}
+$('f').addEventListener('input', update);
+$('f').addEventListener('change', update);
+$('f').addEventListener('submit', e => e.preventDefault());
+$('pay').addEventListener('click', e => {
+  if (!$('pay').getAttribute('href')) {
+    e.preventDefault();
+    tried = true; update();
+    const first = document.querySelector('#f [aria-invalid="true"]');
+    if (first) first.focus({ preventScroll: false });
+  }
+});
+$('pay').addEventListener('keydown', e => { if (e.key === 'Enter' && !$('pay').getAttribute('href')) $('pay').click(); });
+$('pay').setAttribute('tabindex', '0');
+setUnits(true); // US default: feet and pounds
+update();
+</script>
+
+</body>
+</html>
