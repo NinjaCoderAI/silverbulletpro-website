@@ -440,6 +440,7 @@ footer strong{color:var(--on-navy)}
             <div class="imperial pair" hidden><label for="mh-ft">Mother ft<input id="mh-ft" type="number" inputmode="numeric" placeholder="5"></label><label for="mh-in">in<input id="mh-in" type="number" inputmode="decimal" step="0.25" placeholder="6"></label></div>
           </div>
         </fieldset>
+        <label class="check" for="sure" id="sure-wrap" hidden><input id="sure" type="checkbox"><span id="sure-text">I've re-measured and these numbers are correct.</span></label>
         <label class="check" for="ok"><input id="ok" type="checkbox"><span>I'm the child's parent or guardian. I understand the report is a statistical estimate, not a medical assessment, and I've read the privacy note below.</span></label>
         <p class="errors" id="err" role="alert"></p>
         <a class="btn" id="pay" role="link">Continue to payment · <span id="pay-price">$99</span></a>
@@ -602,6 +603,12 @@ function ageMonths(dob){
   return m;
 }
 
+
+/* Rough median heights (cm) by age for the plausibility check only. Not used in the report. */
+const MEDIANS = { M: [103,110,116,122,128,133,138,143,149,156,163,168,172,174], F: [102,109,115,121,127,133,138,144,151,156,160,162,163,163] };
+const MEDIAN_HEIGHT = (age, sex) => { const t = MEDIANS[sex]; if (!t) return null; const i = Math.max(0, Math.min(13, Math.round(age) - 4)); return t[i]; };
+const UNIT_TXT = (h, w) => `${Math.floor(h/2.54/12)} ft ${Math.round(h/2.54 - Math.floor(h/2.54/12)*12)} in and ${Math.round(w*2.20462)} lb`;
+
 function read(){
   const errs = [];
   const sex = $('sex').value;
@@ -619,11 +626,27 @@ function read(){
   if (isNaN(h)) add("Add your child's height.", H);
   else if (h < 90 || h > 210) add("Check your child's height. It should be between 90 and 210 cm (about 3 ft to 6 ft 11).", H);
   if (isNaN(w)) add("Add your child's weight.", Wt);
-  else if (w < 12 || w > 140) add("Check your child's weight. It should be between 12 and 140 kg.", Wt);
+  else if (w < 12 || w > 140) add("Check your child's weight. It should be between 26 and 310 lb.", Wt);
   if (isNaN(fh)) add("Add the father's height.", FH);
   else if (fh < 140 || fh > 220) add("Check the father's height. It should be between 140 and 220 cm.", FH);
   if (isNaN(mh)) add("Add the mother's height.", MH);
   else if (mh < 135 || mh > 210) add("Check the mother's height. It should be between 135 and 210 cm.", MH);
+  // Plausibility: catches typos like 12 kg for a 148 cm child before they become a wrong report.
+  const unusual = [];
+  if (!errs.length || errs.every(e => e.ids[0] === 'ok')) {
+    const bmi = w / Math.pow(h / 100, 2);
+    if (bmi < 10 || bmi > 45) add(`That weight doesn't look possible for that height. Please check both: ${UNIT_TXT(h, w)}.`, [...H, ...Wt]);
+    else if (bmi < 12.5 || bmi > 32) unusual.push({ msg: `The weight looks unusual for that height (${UNIT_TXT(h, w)}).`, ids: [...H, ...Wt] });
+    const med = MEDIAN_HEIGHT(months / 12, sex);
+    if (med && Math.abs(h - med) > 25) unusual.push({ msg: `The height looks unusual for a child aged ${Math.floor(months / 12)}.`, ids: H });
+    const fhOdd = fh < 150 || fh > 205, mhOdd = mh < 140 || mh > 195;
+    if (fhOdd || mhOdd) unusual.push({ msg: "One of the parents' heights looks unusual.", ids: fhOdd ? FH : MH });
+  }
+  $('sure-wrap').hidden = !unusual.length;
+  if (unusual.length) {
+    $('sure-text').textContent = unusual.map(u => u.msg).join(' ') + " I've checked and these numbers are correct.";
+    if (!$('sure').checked) add('Please double-check the measurements, then tick the box to confirm they are correct.', [...unusual.flatMap(u => u.ids), 'sure']);
+  }
   if (!$('ok').checked) add('Tick the box to confirm you are the parent or guardian.', ['ok']);
   return { errs, code: ['GW1', sex, months, Math.round(h*10), Math.round(w*10), Math.round(fh*10), Math.round(mh*10)].join('-') };
 }
