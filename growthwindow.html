@@ -315,6 +315,7 @@ footer strong{color:var(--on-navy)}
       <li><span><strong>Predicted adult height</strong>, with the range 9 in 10 predictions fall within</span></li>
       <li><span><strong>Percentage of adult height</strong> your child has reached today</span></li>
       <li><span><strong>Growth stage</strong>: before, entering, in or past the growth spurt</span></li>
+      <li><span><strong>Timing for age</strong>: early developer, on time or late developer, compared with typical children the same age</span></li>
       <li><span><strong>Centimetres still to grow</strong>, and the genetic target height from both parents</span></li>
       <li><span><strong>What this stage usually means</strong> for training and recovery</span></li>
       <li><span><strong>When to re-measure</strong>, so you can track real growth across the season</span></li>
@@ -331,7 +332,7 @@ footer strong{color:var(--on-navy)}
     <div class="stage" aria-label="Growth stage">
       <span class="on">Before spurt</span><span>Entering</span><span>In spurt</span><span>Past spurt</span>
     </div>
-    <p>Sam is likely to be among the later-maturing players in his age group right now, with most of his growth spurt still ahead. 9 in 10 predictions like this land between 176 and 186 cm.</p>
+    <p>Sam is growing about on time for his age, like a typical 11½-year-old boy, with most of his growth spurt still ahead. 9 in 10 predictions like this land between 176 and 186 cm.</p>
   </div>
 </div></section>
 
@@ -345,7 +346,7 @@ footer strong{color:var(--on-navy)}
       <p class="sum">The one-page growth snapshot.</p>
       <ul>
         <li>Predicted adult height and likely range</li>
-        <li>% of adult height reached and growth stage</li>
+        <li>% of adult height, growth stage and timing for age</li>
         <li>What this stage means for training</li>
         <li class="no">Development plan for their stage</li>
         <li class="no">Page for the coach</li>
@@ -418,7 +419,8 @@ footer strong{color:var(--on-navy)}
           <legend>Your player</legend>
           <div class="row">
             <label for="sex">Sex
-              <select id="sex"><option value="">Choose</option><option value="M">Boy</option><option value="F">Girl</option></select>
+              <select id="sex" aria-describedby="sex-why"><option value="">Choose</option><option value="M">Boy</option><option value="F">Girl</option></select>
+              <span class="hint" id="sex-why" style="display:block;margin-top:6px">Boys and girls grow on different timetables, so the calculation uses your child's biological sex.</span>
             </label>
             <label for="dob">Date of birth
               <input id="dob" type="date">
@@ -638,7 +640,7 @@ function read(){
     if (bmi < 10 || bmi > 45) add(`That weight doesn't look possible for that height. Please check both: ${UNIT_TXT(h, w)}.`, [...H, ...Wt]);
     else if (bmi < 12.5 || bmi > 32) unusual.push({ msg: `The weight looks unusual for that height (${UNIT_TXT(h, w)}).`, ids: [...H, ...Wt] });
     const med = MEDIAN_HEIGHT(months / 12, sex);
-    if (med && Math.abs(h - med) > 25) unusual.push({ msg: `The height looks unusual for a child aged ${Math.floor(months / 12)}.`, ids: H });
+    if (med && Math.abs(h - med) > 18) unusual.push({ msg: `The height looks unusual for a child aged ${Math.floor(months / 12)}.`, ids: H });
     const fhOdd = fh < 150 || fh > 205, mhOdd = mh < 140 || mh > 195;
     if (fhOdd || mhOdd) unusual.push({ msg: "One of the parents' heights looks unusual.", ids: fhOdd ? FH : MH });
   }
