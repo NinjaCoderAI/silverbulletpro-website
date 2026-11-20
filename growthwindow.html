@@ -316,7 +316,7 @@ footer strong{color:var(--on-navy)}
       <li><span><strong>Early, on time or late</strong>: whether they're maturing earlier or later than most children their age, measured against official growth charts. <span class="hint" style="white-space:nowrap">· Basic and Silver</span></span></li>
       <li><span><strong>How much growing is left</strong>: predicted adult height and growth still to come, with an honest range. <span class="hint" style="white-space:nowrap">· Basic and Silver</span></span></li>
       <li><span><strong>What it means for their football</strong>: why age alone doesn't tell the whole story, what to watch for during the growth spurt, and a page to share with the coach. <span class="hint" style="white-space:nowrap">· Silver</span></span></li>
-      <li><span><strong>What to measure and when</strong>: two re-measures over 12 months to track how fast they're growing. <span class="hint" style="white-space:nowrap">· Silver</span></span></li>
+      <li><span><strong>What to measure and when</strong>: a 12-month measurement plan with the dates to measure again and how to work out growth speed. <span class="hint" style="white-space:nowrap">· Silver</span></span></li>
     </ul>
     <p class="hint" style="margin-top:14px">An educational estimate. It doesn't predict selection or talent, diagnose anything, or replace your GP.</p>
   </div>
@@ -349,22 +349,22 @@ footer strong{color:var(--on-navy)}
         <li>What this stage means for training</li>
         <li class="no">Development plan for their stage</li>
         <li class="no">Page for the coach</li>
-        <li class="no">Two re-measures with growth speed</li>
+        <li class="no">12-month measurement plan</li>
       </ul>
       <a class="btn js-choose" data-tier="basic" href="#order">Choose Basic</a>
     </div>
     <div class="tier best">
       <span class="badge">Most complete</span>
       <h3>Silver</h3>
-      <div class="amt"><span class="js-p-silver">£99</span><small>12 months</small></div>
-      <p class="sum">An 8-page season report, then two re-measures to track how fast they're growing.</p>
+      <div class="amt"><span class="js-p-silver">£99</span><small>one report</small></div>
+      <p class="sum">An 8-page season report with a page for the coach and a 12-month measurement plan.</p>
       <ul>
         <li>Everything in Basic</li>
         <li>Growth explained: where your player sits and why it matters</li>
         <li>Development focus: physical, technical, tactical and mental</li>
         <li>Training load and growing pains: what to watch, when to see a GP</li>
         <li>A one-page summary to hand to the coach</li>
-        <li>Re-measures at 4 and 8 months with growth speed in cm per year</li>
+        <li>A 12-month measurement plan: when to measure again and how to work out growth speed</li>
       </ul>
       <a class="btn js-choose" data-tier="silver" href="#order">Choose Silver</a>
     </div>
@@ -404,7 +404,7 @@ footer strong{color:var(--on-navy)}
           <legend>Your report</legend>
           <div class="pick">
             <label for="t-basic"><input type="radio" name="tier" id="t-basic" value="basic"><span><b>Basic · <span class="js-p-basic" style="display:inline;font-size:inherit;color:inherit">£29</span></b><span>One-page snapshot</span></span></label>
-            <label for="t-silver"><input type="radio" name="tier" id="t-silver" value="silver" checked><span><b>Silver · <span class="js-p-silver" style="display:inline;font-size:inherit;color:inherit">£99</span></b><span>8 pages + 2 re-measures</span></span></label>
+            <label for="t-silver"><input type="radio" name="tier" id="t-silver" value="silver" checked><span><b>Silver · <span class="js-p-silver" style="display:inline;font-size:inherit;color:inherit">£99</span></b><span>8-page season report</span></span></label>
           </div>
         </fieldset>
         <fieldset>
@@ -460,7 +460,7 @@ footer strong{color:var(--on-navy)}
   <details><summary>Is this medical advice?</summary><p>No. It is an educational estimate. If your child has ongoing pain, very fast or very slow growth, or a medical condition affecting growth, speak to your GP.</p></details>
   <details><summary>How often should I re-measure?</summary><p>Every three to four months during the growth years. How fast your child is growing tells you more than any single measurement.</p></details>
   <details><summary>What if I'm not happy?</summary><p>If the report isn't what you expected, reply to the email within 14 days and we'll refund you in full.</p></details>
-  <details id="privacy"><summary>Privacy note</summary><p>We collect your email address, your child's first name, sex, age, height and weight, and both parents' heights, only to produce and send this report. Payment is handled by Stripe; we never see your card details. We store your order securely in the UK to send your report and, for Silver, your re-measure reminders. We don't share your data or use it for marketing. Basic: we delete your child's measurements 30 days after sending. Silver: we keep them for 13 months to track growth, then delete them. You can ask us to delete them sooner at any time. To ask about or delete your data, email <span class="js-email"></span>.</p></details>
+  <details id="privacy"><summary>Privacy note</summary><p>We collect your email address, your child's first name, sex, age, height and weight, and both parents' heights, only to produce and send this report. Payment is handled by Stripe; we never see your card details. We store your order securely in the UK to send your report. We don't share your data or use it for marketing. We delete your child's measurements 30 days after sending. You can ask us to delete them sooner at any time. To ask about or delete your data, email <span class="js-email"></span>.</p></details>
 </div></section>
 </main>
 
@@ -496,7 +496,7 @@ document.querySelectorAll('.js-gift').forEach(a => { if (okLink(CONFIG.GIFT_LINK
 /* Tier choice: the pricing cards and the form's radio buttons stay in sync */
 const DESC = {
   basic: 'Basic: the one-page growth snapshot.',
-  silver: 'Silver: the 8-page season report, a page for the coach, and two re-measures over 12 months to track growth speed.'
+  silver: 'Silver: the 8-page season report, a page for the coach, and a 12-month measurement plan.'
 };
 const tier = () => ($('t-basic').checked ? 'basic' : 'silver');
 function showTier(){
