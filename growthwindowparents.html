@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Growth Window for football parents</title>
+<meta name="description" content="Is your child being judged on how big they are today? Find out whether they're developing early, on time or late, and what it means for their football over the next 12 months.">
+<meta property="og:title" content="Is your child being judged on how big they are today?">
+<meta property="og:description" content="Children born in the same year can be years apart physically. One 5-minute measure at home shows where your child really is.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,700;1,800;1,900&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF; --bg:#F4F6FA; --ink:#0B1A33; --muted:#4D5A70; --line:#DCE2EC;
+  --navy:#0D2041; --navy-2:#16305C; --gold:#FFC629; --gold-ink:#0D2041;
+  --on-navy:#FFFFFF; --on-navy-muted:#B6C2D8;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A; --navy:#0E2246; --navy-2:#1A3463; color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#12203A; --bg:#0A1528; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A; --navy:#0E2246; --navy-2:#1A3463; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;line-height:.95;text-transform:uppercase;text-wrap:balance;margin:0}
+h1{font-size:clamp(48px,7vw,92px)}
+h2{font-size:clamp(38px,5.4vw,62px)}
+h3{font-size:30px}
+h1 em,h2 em{font-style:inherit;color:var(--gold)}
+.on-paper{background:var(--paper)}
+.on-paper h2 em{color:inherit;background:linear-gradient(transparent 62%,var(--gold) 62%);padding-inline:.06em}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.rule{height:9px;background:linear-gradient(var(--gold) 0 2px,transparent 2px 6px,var(--gold) 6px 9px)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;padding:15px 30px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn.dark{background:var(--navy);color:#fff}
+.lede{font-size:20px;max-width:34em}
+.muted{color:var(--muted)}
+
+/* hero */
+.hero{background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:22px}
+.brand{font-family:var(--display);font-style:italic;font-weight:900;font-size:28px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand span{color:var(--gold)}
+.hgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:end;padding-block:24px 0}
+.hgrid>*{min-width:0}
+.hcopy{display:flex;flex-direction:column;gap:22px;padding-bottom:64px}
+.hcopy .eyebrow{color:var(--gold)}
+.hcopy .lede{color:var(--on-navy-muted)}
+.offer{font-size:15px;color:var(--on-navy-muted)}
+.offer b{color:var(--gold)}
+.team{display:flex;flex-direction:column;align-items:center}
+.team svg{width:100%;max-width:440px;height:auto;display:block}
+.team p{font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase;color:var(--gold);padding:10px 0 18px}
+
+/* two parents */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.card{background:var(--bg);border-top:4px solid var(--navy);padding:28px;display:flex;flex-direction:column;gap:12px}
+:root[data-theme="dark"] .card{border-top-color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{border-top-color:var(--gold)}}
+.card .q{font-weight:800;font-size:20px}
+.bridge{margin-top:36px;font-size:22px;font-weight:700;max-width:36em}
+.bridge span{background:linear-gradient(transparent 62%,var(--gold) 62%)}
+
+/* rewards */
+.rewards{list-style:none;padding:0;margin:40px 0 0;display:flex;flex-direction:column}
+.rewards li{display:grid;grid-template-columns:84px 1fr;gap:20px;padding-block:24px;border-bottom:1px solid var(--line)}
+.rewards .n{font-family:var(--display);font-style:italic;font-weight:900;font-size:72px;line-height:.85;color:var(--navy)}
+:root[data-theme="dark"] .rewards .n{color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rewards .n{color:var(--gold)}}
+.rewards h3{font-size:34px}
+.rewards p{margin-top:6px}
+.tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--navy);color:#fff;padding:3px 9px}
+.tag.s{background:var(--gold);color:var(--gold-ink)}
+
+/* not */
+.not{background:var(--navy);color:var(--on-navy)}
+.not .eyebrow{color:var(--gold)}
+.nots{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.nots>div{border-top:2px solid var(--gold);padding-top:14px;color:var(--on-navy-muted)}
+.nots b{display:block;color:#fff;font-size:20px;margin-bottom:6px}
+
+/* quotes */
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+blockquote{margin:0;background:var(--paper);padding:30px;border-left:5px solid var(--gold);display:flex;flex-direction:column;gap:14px}
+.stars{color:#C99400;letter-spacing:4px;font-size:20px}
+blockquote p{font-size:19px;font-weight:600}
+blockquote cite{font-style:normal;font-size:15px;color:var(--muted)}
+blockquote cite b{color:var(--ink)}
+.fine{font-size:13px;color:var(--muted);margin-top:18px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;counter-reset:s}
+.steps>div{border-top:3px solid var(--navy);padding-top:14px}
+:root[data-theme="dark"] .steps>div{border-top-color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .steps>div{border-top-color:var(--gold)}}
+.steps h3{font-size:28px;margin-bottom:6px}
+
+/* pricing */
+.tiers{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;margin-top:36px;align-items:stretch}
+.tier{background:var(--paper);border:1px solid var(--line);padding:30px;display:flex;flex-direction:column;gap:14px}
+.tier.best{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tier .amt{font-family:var(--display);font-style:italic;font-weight:900;font-size:72px;line-height:.85}
+.tier.best .amt{color:var(--gold)}
+.tier .amt s{font-size:34px;opacity:.55;margin-right:10px}
+.tier ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tier .btn{margin-top:auto;align-self:flex-start}
+.bf{font-size:14px;font-weight:800;color:var(--gold)}
+.gift{margin-top:22px;font-size:16px}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding-block:16px}
+summary{cursor:pointer;font-weight:800;font-size:19px}
+details p{margin-top:10px;color:var(--muted)}
+
+footer{background:var(--navy);color:var(--on-navy-muted);font-size:13px;padding-block:36px}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer strong{color:#fff}
+
+@media (max-width:820px){
+  section{padding-block:56px}
+  .hgrid,.two,.quotes,.tiers{grid-template-columns:1fr}
+  .nots,.steps{grid-template-columns:1fr}
+  .hcopy{padding-bottom:20px}
+  .rewards li{grid-template-columns:56px 1fr;gap:14px}
+  .rewards .n{font-size:56px}
+  .top .btn{display:none}
+}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap top">
+    <div class="brand">Growth <span>Window</span></div>
+    <a class="btn" style="font-size:18px;padding:9px 18px" href="growthwindow.html#order">Get the report</a>
+  </div>
+  <div class="wrap hgrid">
+    <div class="hcopy">
+      <div class="eyebrow">For football parents</div>
+      <h1>Is your child being judged on how big they are <em>today?</em></h1>
+      <p class="lede">Children born in the same year can be years apart physically. One 5-minute measure at home shows where your child really is in their development, and what it means for their football over the next 12 months.</p>
+      <div><a class="btn" href="growthwindow.html#order">Discover their Growth Window</a></div>
+      <p class="offer">Personalised report from £29, emailed in minutes. <b class="bf-only">Black Friday: £40 off Silver with code 40OFF until 30 November.</b></p>
+    </div>
+    <div class="team" aria-label="Five illustrated players of different heights, all aged 12">
+      <svg viewBox="0 0 440 330" role="img" aria-labelledby="teamt"><title id="teamt">Five players aged 12, from 136 cm to 165 cm tall</title>
+        <defs><g id="kid"><ellipse cx="38" cy="19" rx="14" ry="16" fill="#fff"/><rect x="33" y="32" width="10" height="9" rx="3" fill="#fff"/><path d="M38 40 C50 40 60 43 64 50 L72 108 Q73 113 68 113 L64 112 L58 72 L57 112 L19 112 L18 72 L12 112 L8 113 Q3 113 4 108 L12 50 C16 43 26 40 38 40Z" fill="#FFC629"/><path d="M18 110 L58 110 L60 146 L41 146 L38 132 L35 146 L16 146Z" fill="#9db4dc"/><path d="M18 144 L35 144 L33 228 L22 228Z" fill="#fff"/><path d="M41 144 L58 144 L54 228 L43 228Z" fill="#fff"/><path d="M21 226 L34 226 L35 246 L12 246 Q12 236 21 232Z" fill="#fff"/><path d="M43 226 L55 226 L58 232 Q66 236 66 246 L42 246Z" fill="#fff"/></g></defs>
+        <g font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="800" font-size="20" fill="#fff" text-anchor="middle">
+          <use href="#kid" transform="translate(18,98) scale(0.82,0.926)"/><text x="49" y="90">136cm</text>
+          <use href="#kid" transform="translate(102,85) scale(0.86,0.979)"/><text x="135" y="77">143cm</text>
+          <use href="#kid" transform="translate(186,72) scale(0.9,1.02)"/><text x="220" y="64">149cm</text>
+          <use href="#kid" transform="translate(270,58) scale(0.94,1.07)"/><text x="306" y="50">156cm</text>
+          <use href="#kid" transform="translate(354,40) scale(0.98,1.13)"/><text x="391" y="32">165cm</text>
+        </g>
+      </svg>
+      <p>All five are 12 years old.</p>
+    </div>
+  </div>
+  <div class="rule"></div>
+</header>
+
+<section class="on-paper"><div class="wrap">
+  <div class="eyebrow">You've probably seen this from the touchline</div>
+  <h2 style="margin-top:12px">Two parents. <em>Same question.</em></h2>
+  <div class="two">
+    <div class="card">
+      <h3>The smallest in the team</h3>
+      <p class="muted">He's technically one of the best. But he's getting knocked off the ball, the bigger lads get picked first, and his confidence is starting to dip.</p>
+      <p class="q">"Is he behind, or just developing later?"</p>
+    </div>
+    <div class="card">
+      <h3>The biggest in the team</h3>
+      <p class="muted">She's scoring, winning every challenge and the coaches love her. But you've noticed she's a head taller than girls born the same year.</p>
+      <p class="q">"Will it last when the others catch up?"</p>
+    </div>
+  </div>
+  <p class="bridge">Both answers depend on the same thing: <span>their timing, not just their size.</span> That's what Growth Window shows you.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">What you'll walk away with</div>
+  <h2 style="margin-top:12px">Not more charts. <em>Peace of mind.</em></h2>
+  <ul class="rewards">
+    <li><div class="n">1</div><div><h3>Reassurance</h3><p>Where your child really sits in their physical development, compared with official growth charts rather than the teammates standing next to them.</p><span class="tag">Basic and Silver</span></div></li>
+    <li><div class="n">2</div><div><h3>Perspective</h3><p>Whether they're developing early, on time or late for their age, and why the size gap you see on a Saturday may not last.</p><span class="tag">Basic and Silver</span></div></li>
+    <li><div class="n">3</div><div><h3>Clarity</h3><p>Their predicted adult height with an honest range, how much of their adult height they've reached, and where they are in the growth spurt.</p><span class="tag">Basic and Silver</span></div></li>
+    <li><div class="n">4</div><div><h3>Confidence</h3><p>A one-page summary for the coach, so you can have a calm, informed conversation about training and how they're judged.</p><span class="tag s">Silver</span></div></li>
+    <li><div class="n">5</div><div><h3>A plan</h3><p>What to watch for during the growth spurt, from clumsy spells to sore knees and heels, plus when to measure again and how to read the change.</p><span class="tag s">Silver</span></div></li>
+  </ul>
+</div></section>
+
+<section class="not"><div class="wrap">
+  <div class="eyebrow">Our promise to you and your child</div>
+  <h2 style="margin-top:12px">Clarity, <em>not pressure.</em></h2>
+  <div class="nots">
+    <div><b>It won't predict talent.</b>Size and timing are one part of a young player's journey. Skill, attitude and enjoyment matter far more.</div>
+    <div><b>It won't diagnose anything.</b>It's an educational estimate from home measurements, not medical advice. If something worries you, see your GP.</div>
+    <div><b>It won't tell you to push harder.</b>It helps you understand your child, so you can support them better and take the pressure off.</div>
+  </div>
+</div></section>
+
+<section class="on-paper"><div class="wrap">
+  <div class="eyebrow">What parents say</div>
+  <h2 style="margin-top:12px">Real parents. <em>Real relief.</em></h2>
+  <div class="quotes">
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"My son is one of the most technical players in his grassroots team, but scouts keep picking bigger players. Really happy with this report. It predicted he'll grow to around 6 ft 1."</p><cite><b>Dan</b> · Dad of a 9½-year-old</cite></blockquote>
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"My daughter had knee pain, and the report helped me understand it could be linked to her growth spurt. I shared it with her coach, and they're putting together an adapted training plan."</p><cite><b>Susan</b> · Mum of a 12-year-old elite player</cite></blockquote>
+  </div>
+  <p class="fine">Real Growth Window customers, shared with permission. Individual results vary.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">How it works</div>
+  <h2 style="margin-top:12px">Five minutes <em>at home</em></h2>
+  <div class="steps">
+    <div><h3>1. Measure</h3><p class="muted">Your child's height and weight, plus both parents' heights. A tape measure and bathroom scales are all you need.</p></div>
+    <div><h3>2. Choose</h3><p class="muted">Basic or Silver. Pay securely with Stripe; we never see your card details.</p></div>
+    <div><h3>3. Read</h3><p class="muted">Your personalised report arrives by email within minutes, ready to read, print or share with the coach.</p></div>
+  </div>
+</div></section>
+
+<section class="on-paper" id="pricing"><div class="wrap">
+  <div class="eyebrow">Choose your report</div>
+  <h2 style="margin-top:12px">Discover their <em>Growth Window</em></h2>
+  <div class="tiers">
+    <div class="tier">
+      <h3>Basic</h3>
+      <div class="amt">£29</div>
+      <p class="muted">A one-page snapshot.</p>
+      <ul><li>Early, on time or late for their age</li><li>Predicted adult height with an honest range</li><li>% of adult height reached and growth stage</li></ul>
+      <a class="btn dark" href="growthwindow.html#order">Choose Basic</a>
+    </div>
+    <div class="tier best">
+      <h3>Silver</h3>
+      <div class="amt"><span class="bf-only"><s>£99</s>£59</span><span class="after-bf" hidden>£99</span></div>
+      <p class="bf bf-only">Black Friday: code 40OFF at checkout, until 30 November</p>
+      <ul><li>Everything in Basic, in an 8-page season report</li><li>What their stage means for training and development</li><li>Growth-spurt watch list: what to look for and when to see a GP</li><li>A one-page summary for the coach</li><li>A 12-month measurement plan</li></ul>
+      <a class="btn" href="growthwindow.html#order">Choose Silver</a>
+    </div>
+  </div>
+  <p class="gift">Buying for a grandchild, niece or nephew? <a href="https://buy.stripe.com/4gMfZh67E4cK0x97PD7ss0c">Give Silver as a gift card</a>. The parent adds the measurements when they redeem it.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Questions parents ask</div>
+  <h2 style="margin-top:12px;margin-bottom:20px">Good <em>questions</em></h2>
+  <details><summary>How accurate is the prediction?</summary><p>We use the Khamis-Roche method, built from a long-term study of children followed into adulthood. In that study, 9 in 10 predictions fell within about 5 cm of actual adult height. That's why every report shows a range, not a single number.</p></details>
+  <details><summary>What ages does it work for?</summary><p>Children aged 4 to 17. It's most useful from around 8 to 15, when the gap between early and late developers is biggest.</p></details>
+  <details><summary>Is this what academies do?</summary><p>Professional academies use growth and maturity measures like these to "bio-band" players, grouping them by physical development as well as age. Growth Window brings the same idea to parents outside an academy. We're not affiliated with any club or governing body.</p></details>
+  <details><summary>What happens to my child's data?</summary><p>We use the measurements only to make and send your report, never for marketing, and we delete them 30 days after sending. You can ask us to delete them sooner at any time.</p></details>
+  <div style="margin-top:36px"><a class="btn" href="growthwindow.html#order">Discover their Growth Window</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <span><strong>Growth Window</strong> · Oakbank Innovations Ltd · <a href="mailto:david@silverbulletpro.com">david@silverbulletpro.com</a></span>
+  <span>Growth Window reports are statistical estimates for educational use and are not medical advice. Growth Window is not affiliated with or endorsed by the Scottish FA, the Premier League or any club.</span>
+  <span>Sources: Khamis HJ, Roche AF. Pediatrics 1994;94:504–507. Freeman JV et al. Arch Dis Child 1995;73:17–24 (UK90 growth charts). Cumming SP et al. Strength Cond J 2017;39(2):34–47.</span>
+</div></footer>
+<script>
+/* Black Friday pricing switches off automatically at the end of 30 November (UK time). */
+if (Date.now() >= Date.parse("2026-12-01T00:00:00Z")) {
+  document.querySelectorAll(".bf-only").forEach(e => e.hidden = true);
+  document.querySelectorAll(".after-bf").forEach(e => e.hidden = false);
+}
+</script>
+
+</body>
+</html>
