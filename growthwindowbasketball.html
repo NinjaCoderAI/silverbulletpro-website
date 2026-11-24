@@ -525,6 +525,8 @@ document.querySelectorAll('.js-choose').forEach(a => a.addEventListener('click',
   showTier(); update();
 }));
 ['t-basic','t-silver'].forEach(id => $(id).addEventListener('change', showTier));
+/* Arriving from a listicle with ?tier=basic: preselect Basic */
+try { if (!PROMO && new URLSearchParams(location.search).get('tier') === 'basic') $('t-basic').checked = true; } catch (e) {}
 showTier();
 document.querySelectorAll('.js-email').forEach(e => e.textContent = CONFIG.CONTACT_EMAIL);
 document.querySelectorAll('.js-biz').forEach(e => e.textContent = CONFIG.BUSINESS_NAME);

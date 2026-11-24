@@ -7,473 +7,358 @@
 <link rel="icon" type="image/png" sizes="32x32" href="gw-icon-32.png">
 <link rel="apple-touch-icon" href="gw-apple-touch-icon.png">
 <title>Growth Window: 7 Reasons</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="7 reasons Scottish football parents are checking their child's growth window, backed by the 2025 Club Academy Scotland maturity study.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,700;1,800;1,900&family=Mulish:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800;1,900&family=Mulish:wght@400;500;700;800&display=swap">
+<link rel="preload" as="image" href="gw-media/gw-sample-p1.jpg">
 <style>
-/* Layout: an advertorial listicle — one column of numbered reasons, each paired with a small football-native graphic, ending in an offer card and a sticky order bar. */
 :root{
-  --bg:#F4F6FA; --surface:#FFFFFF; --ink:#0B1A33; --muted:#4D5A70; --line:#DCE2EC;
-  --pitch:#0D2041; --lime:#FFC629; --lime-ink:#0D2041; --soft:#E8EDF6;
-  --deep:#0D2041; --on-deep:#FFFFFF;
-  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --navy:#0D2041; --navy-2:#16305C; --gold:#FFC629; --gold-tint:#FFF3CC; --gold-ink:#0D2041;
+  --bg:#F3F5F9; --card:#FFFFFF; --ink:#0D2041; --text:#2A3650; --muted:#55627A; --line:#DCE2EC;
+  --ok:#1F8A5B; --no:#B4BCCB;
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
   --body:"Mulish",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0A1528; --surface:#12203A; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
-  --pitch:#FFC629; --lime:#FFC629; --lime-ink:#0D2041; --soft:#1A2B4A; --deep:#0E2246; --on-deep:#EEF2F8; color-scheme:dark}}
+  --bg:#0A1528; --card:#12203A; --ink:#EEF2F8; --text:#D3DAE6; --muted:#A5B1C6; --line:#24365A;
+  --gold-tint:#2A2A1A; --navy-2:#1B3566; --no:#4A5A78; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0A1528; --surface:#12203A; --ink:#EEF2F8; --muted:#A5B1C6; --line:#24365A;
-  --pitch:#FFC629; --lime:#FFC629; --lime-ink:#0D2041; --soft:#1A2B4A; --deep:#0E2246; --on-deep:#EEF2F8; color-scheme:dark}
+  --bg:#0A1528; --card:#12203A; --ink:#EEF2F8; --text:#D3DAE6; --muted:#A5B1C6; --line:#24365A;
+  --gold-tint:#2A2A1A; --navy-2:#1B3566; --no:#4A5A78; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wide{max-width:1000px}
-h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;line-height:.98;letter-spacing:.005em;text-transform:uppercase;text-wrap:balance;margin:0}
-h1{font-size:clamp(44px,7.4vw,74px)}
-h2{font-size:clamp(36px,5vw,52px)}
-h3{font-size:clamp(28px,4vw,36px)}
-p{margin:0}
-a{color:var(--pitch)}
-:focus-visible{outline:3px solid var(--pitch);outline-offset:3px}
-.mark{background:var(--lime);color:var(--lime-ink);padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--deep);color:var(--on-deep);font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;text-decoration:none;padding:14px 30px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:transform .15s}
-.pill:hover{transform:translateY(-2px)}
-.pill .arrow{display:inline-block;width:28px;height:28px;border-radius:50%;background:var(--lime);color:var(--lime-ink);font-size:16px;line-height:28px;text-align:center}
-.small{font-size:14px;color:var(--muted)}
-.eyebrow{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pitch)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--body);padding-bottom:84px}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.wide{max-width:1040px}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;color:var(--ink);line-height:1.02;letter-spacing:-.005em;margin:0}
+h1{font-size:clamp(38px,9.4vw,62px)}
+h2{font-size:clamp(32px,7vw,46px)}
+h3{font-size:clamp(28px,6.4vw,38px)}
+p{margin:0 0 14px}
 
-/* announcement + header */
-.announce{background:var(--deep);color:var(--on-deep);font-size:14px;font-weight:700;text-align:center;padding-block:9px;border-bottom:3px double var(--lime)}
-.announce b{color:var(--lime)}
-.head{display:flex;justify-content:space-between;align-items:center;padding-block:16px}
-.brand{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;text-transform:uppercase;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.brand i{width:10px;height:22px;background:var(--lime);transform:skewX(-14deg)}
+/* bars */
+.announce{background:var(--gold);color:var(--gold-ink);text-align:center;font-weight:800;font-size:14px;padding:9px 12px;line-height:1.35}
+.nav{background:var(--navy);color:#fff}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:54px}
+.logo{font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;letter-spacing:.01em;display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none}
+.logo i{width:8px;height:22px;background:var(--gold);transform:skewX(-14deg);display:block}
+.nav a.small{color:var(--gold);font-weight:800;font-size:14px;text-decoration:none}
+
+/* buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;text-decoration:none;padding:16px 26px;border-radius:12px;box-shadow:0 4px 0 #C99400;transition:transform .12s, box-shadow .12s;text-align:center;line-height:1.05}
+.btn:hover{transform:translateY(-1px);box-shadow:0 5px 0 #C99400}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #C99400}
+.assure{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:12px;font-size:14px;font-weight:700;color:var(--muted)}
+.assure span{display:flex;align-items:center;gap:6px}
+.assure svg{flex:none}
 
 /* hero */
-.hero{display:flex;flex-direction:column;gap:20px;padding-block:20px 36px}
-.byline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
-.byline span+span::before{content:"·";margin-right:10px}
-.lede{font-size:20px;color:var(--muted)}
-.trust{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
-.trust li{font-size:14px;font-weight:600;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
-.trust li::before{content:"✓";color:var(--pitch);font-weight:800;margin-right:6px}
+.hero{background:var(--navy);color:#E6ECF6;padding:22px 0 30px;overflow:hidden}
+.hero h1{color:#fff}
+.hero .read{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px}
+.hero .lede{font-size:17px;color:#C9D3E5;margin:14px 0 0}
+.hero-grid{display:grid;gap:22px}
+.art{position:relative;height:300px;margin-top:4px}
+.ruler{position:absolute;left:0;top:0;bottom:0;width:64px;background:#F7E7B0;border-radius:6px;box-shadow:inset -2px 0 0 rgba(0,0,0,.12);
+  background-image:repeating-linear-gradient(to top, rgba(13,32,65,.55) 0 1px, transparent 1px 100%);background-size:100% calc(100% / 28)}
+.ruler .ft{position:absolute;left:0;width:36px;border-top:2px solid var(--navy);font:800 12px/1 var(--body);color:var(--navy);padding:3px 0 0 4px}
+.mark{position:absolute;left:46px;z-index:2;display:flex;align-items:center;gap:8px;white-space:nowrap;font-weight:800;font-size:12.5px;line-height:1.15}
+.mark > span{background:var(--navy);padding:4px 8px 4px 4px;border-radius:8px}
+.mark::before{content:"";width:34px;height:3px;border-radius:2px;background:currentColor;margin-left:-28px}
+.mark.now{color:#fff}
+.mark.pred{color:var(--gold)}
+.mark b{display:block;font-family:var(--display);font-style:italic;font-size:26px;font-weight:900}
+.pages{position:absolute;right:-6px;top:0;width:min(56%,300px);height:100%}
+.pages img{position:absolute;width:80%;border-radius:4px;box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.pages .p1{left:0;top:16px;transform:rotate(-5deg)}
+.pages .p2{right:0;top:42px;transform:rotate(4deg)}
+.pages .tag{position:absolute;right:6px;bottom:0;background:#fff;color:var(--navy);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px}
+.checks{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px}
+.checks li{display:grid;grid-template-columns:24px 1fr;gap:10px;font-weight:700;color:#fff;font-size:16px;line-height:1.4}
+.checks li::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%230D2041' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;margin-top:1px}
+.hero .assure{color:#AEBBD2}
+.byline{font-size:13px;color:#8D9BB5;margin-top:16px}
+@media (prefers-reduced-motion:no-preference){
+  .mark.pred{animation:rise 1.4s .5s cubic-bezier(.2,.8,.2,1) both}
+  .mark.pred .dash{animation:fade .6s 1.7s both}
+  @keyframes rise{from{bottom:var(--from);opacity:.0}to{opacity:1}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+}
+@media (min-width:900px){
+  .hero{padding:44px 0 54px}
+  .hero-grid{grid-template-columns:1.15fr 1fr;align-items:center;gap:48px}
+  .art{height:420px}
+  .pages{width:62%;right:0}
+  .hero .lede{font-size:19px}
+}
 
-/* product card used in hero */
-.card{background:var(--surface);border-radius:2px;padding:24px;border:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
-.card .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.card .name{font-family:var(--display);font-weight:800;font-size:24px}
-.tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--soft);color:var(--muted);border-radius:999px;padding:4px 10px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stats div{background:var(--bg);border-radius:2px;padding:12px;min-width:0}
-.stats .k{font-size:12px;color:var(--muted);line-height:1.3}
-.stats .v{font-family:var(--display);font-weight:800;font-size:30px;font-variant-numeric:tabular-nums;line-height:1.1}
-.stats .v small{font-size:15px;color:var(--muted);font-weight:600}
-.stage{display:flex;gap:4px}
-.stage span{flex:1;text-align:center;font-size:12px;font-weight:600;padding:8px 4px;border-radius:999px;background:var(--bg);color:var(--muted);line-height:1.2}
-.stage span.on{background:var(--lime);color:var(--lime-ink)}
+/* proof */
+.proof{padding:26px 0 8px}
+.revs{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 10px;margin:0 -16px;scrollbar-width:none}
+.revs::-webkit-scrollbar{display:none}
+.rev{flex:0 0 86%;scroll-snap-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:8px}
+.stars{color:#E3A600;font-size:18px;letter-spacing:2px;line-height:1}
+.rev h4{margin:0;font:900 italic 24px/1.05 var(--display);color:var(--ink)}
+.rev p{margin:0;font-size:15.5px}
+.rev cite{font-style:normal;font-weight:800;font-size:14px;color:var(--muted);margin-top:auto}
+.real{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.basis{margin-top:18px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.basis span{font-size:13.5px;font-weight:700;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+@media (min-width:760px){.revs{overflow:visible;margin:0;padding:4px 0 10px}.rev{flex:1}}
 
 /* reasons */
-.reasons{display:flex;flex-direction:column;gap:56px;padding-block:24px 48px}
-.reason{display:grid;grid-template-columns:72px 1fr;gap:20px}
-.reason>*{min-width:0}
-.num{font-family:var(--display);font-style:italic;font-weight:900;font-size:96px;line-height:.8;color:var(--lime);-webkit-text-stroke:2px var(--deep);paint-order:stroke fill}
-.reason .txt{display:flex;flex-direction:column;gap:14px}
-.reason .txt p{color:var(--muted)}
-.viz{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:20px;margin-top:4px}
-.viz svg{display:block;width:100%;height:auto}
-.vlabel{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.bigstat{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.bigstat b{font-family:var(--display);font-style:italic;font-weight:900;font-size:84px;line-height:1;color:var(--pitch)}
-.bigstat span{flex:1;min-width:200px;font-size:16px;color:var(--muted)}
-.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
-.ba>div{background:var(--bg);border-radius:2px;padding:14px;min-width:0}
-.ba .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.ba .v{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.15}
-.ba .after{background:var(--lime);color:var(--lime-ink)}
-.ba .after .k{color:var(--lime-ink);opacity:.75}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chips span{background:var(--bg);border-radius:999px;padding:10px 16px;font-weight:600;font-size:15px}
-.chips span.no{text-decoration:line-through;color:var(--muted);font-weight:500}
-.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
-.checks li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:16px}
-.checks li::before{content:"✓";width:24px;height:24px;border-radius:50%;background:var(--lime);color:var(--lime-ink);font-weight:800;font-size:13px;display:grid;place-items:center}
+.reasons{padding:18px 0 10px}
+.reason{padding:34px 0;border-bottom:1px solid var(--line)}
+.reason:last-child{border-bottom:0}
+.num{font:900 italic 20px/1 var(--display);color:var(--gold-ink);background:var(--gold);display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;margin-bottom:14px}
+.reason h3{margin-bottom:14px}
+.fig{margin:20px 0 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;overflow:hidden}
+.fig.dark{background:var(--navy);border-color:var(--navy);color:#DDE5F2}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.45}
+.fig.dark figcaption{color:#9FB0CC}
+.fig svg{width:100%;height:auto;display:block}
+.figtitle{font-weight:800;color:var(--ink);font-size:16px;margin-bottom:8px}
+.fig.dark .figtitle{color:#fff}
+.big{display:flex;align-items:center;gap:18px}
+.big b{font:900 italic 110px/.85 var(--display);color:var(--gold)}
+.big span{font-size:17px;font-weight:700;color:#fff;line-height:1.35}
+.path{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.path div{border-radius:14px;padding:16px}
+.path .a{background:var(--bg);border:1px solid var(--line)}
+.path .b{background:var(--gold);color:var(--gold-ink)}
+.path small{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.path .b small{color:#4A3B00}
+.path strong{font:900 italic 24px/1.05 var(--display);color:var(--ink)}
+.path .b strong{color:var(--gold-ink)}
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kit div{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:12px;font-weight:800;font-size:15px;color:var(--ink);line-height:1.2}
+.kit svg{width:30px;height:30px;flex:none}
+.kit .x{opacity:.55;text-decoration:line-through;font-weight:700}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.list li{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:16px;line-height:1.45}
+.list li::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%230D2041' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;margin-top:2px}
+.r7{display:grid;gap:18px}
+.r7 img{border-radius:6px;box-shadow:0 14px 30px rgba(13,32,65,.22);max-width:260px;margin:0 auto}
+@media (min-width:700px){.r7{grid-template-columns:1fr 220px;align-items:center}}
 
-/* comparison */
-.compare{padding-block:40px}
-.tbl-wrap{overflow-x:auto;margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:2px}
-table{width:100%;border-collapse:collapse;min-width:520px;font-size:15px}
-th,td{padding:14px 12px;text-align:center;border-bottom:1px solid var(--line)}
-th:first-child,td:first-child{text-align:left}
-thead th{font-family:var(--display);font-weight:800;font-size:16px;line-height:1.2;vertical-align:bottom}
-tbody tr:last-child td{border-bottom:0}
-.us{background:var(--soft)}
-thead th.us{background:var(--lime);color:var(--lime-ink)}
-.y{color:var(--pitch);font-weight:800;font-size:18px}
-.n{color:var(--muted);font-size:18px}
-.s{color:var(--muted);font-size:13px}
+/* inline CTA */
+.cta-band{background:var(--navy);border-radius:18px;padding:22px 20px;margin:10px 0;color:#DDE5F2}
+.cta-band p{margin:0 0 4px;font:900 italic 28px/1.05 var(--display);color:#fff}
+.cta-band span{display:block;font-size:15px;margin-bottom:16px;color:#AEBBD2}
+
+/* inside gallery */
+.inside{background:var(--card);border-block:1px solid var(--line);padding:40px 0}
+.inside .intro{max-width:560px}
+.gal{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px 16px 18px;margin:0 -16px;scrollbar-width:none}
+.gal::-webkit-scrollbar{display:none}
+.gal figure{flex:0 0 62%;scroll-snap-align:center;margin:0}
+.gal img{border-radius:6px;box-shadow:0 16px 32px rgba(13,32,65,.22);border:1px solid var(--line)}
+.gal figcaption{font-weight:800;font-size:15px;color:var(--ink);margin-top:12px}
+.gal figcaption span{display:block;font-weight:500;font-size:14px;color:var(--muted)}
+.pdf{font-weight:800;color:var(--ink)}
+@media (min-width:760px){.gal{overflow:visible;margin:0;padding:20px 0 18px}.gal figure{flex:1}}
+
+/* compare */
+.compare{padding:44px 0 20px}
+.tbl{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tr{display:grid;grid-template-columns:1fr 74px 74px 74px;align-items:center;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+.tr > *{padding:12px 8px;text-align:center}
+.tr > :first-child{text-align:left;padding-left:16px;font-weight:700;color:var(--ink);font-size:15px;line-height:1.3}
+.th > *{font-size:12.5px;font-weight:800;color:var(--muted);line-height:1.2}
+.tr > :nth-child(2){background:var(--gold-tint);align-self:stretch;display:flex;align-items:center;justify-content:center}
+.th > :nth-child(2){background:var(--gold);color:var(--gold-ink)}
+.ic{width:22px;height:22px;margin:0 auto}
+.some{font-size:12px;font-weight:700;color:var(--muted)}
 
 /* offer */
-.offer{padding-block:40px}
-.ocard{background:var(--deep);color:var(--on-deep);border-radius:2px;padding:32px 24px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.ocard>*{min-width:0}
-.ocard h2{color:var(--on-deep)}
-.ocard .price{font-family:var(--display);font-style:italic;font-weight:900;font-size:110px;line-height:1;color:var(--lime)}
-.ocard .checks li{font-size:16px}
-.ocard .pill{background:var(--lime);color:var(--lime-ink);align-self:flex-start}
-.ocard .pill .arrow{background:var(--deep);color:var(--lime)}
-.guar{display:flex;gap:12px;align-items:center;font-size:15px;opacity:.9}
-.guar b{flex:none;width:52px;height:52px;border-radius:50%;border:2px dashed var(--lime);display:grid;place-items:center;font-family:var(--display);font-size:15px;color:var(--lime)}
-/* faq */
-.faq{padding-block:32px 48px}
-details{border-bottom:1px solid var(--line);padding-block:16px}
-summary{cursor:pointer;font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-family:var(--display);font-weight:800;font-size:24px;line-height:1;color:var(--pitch)}
-details[open] summary::after{content:"–"}
-details p{margin-top:10px;color:var(--muted)}
-.notes{font-size:13px;color:var(--muted);padding-block:24px 40px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
-.notes ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
-
-/* sticky order bar */
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.sticky .in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sticky .t{font-size:14px;line-height:1.3;min-width:0}
-.sticky .t b{font-family:var(--display);font-size:18px;display:block}
-.sticky .pill{font-size:17px;padding:12px 20px;white-space:nowrap}
-
-@media (max-width:640px){
-  .reason{grid-template-columns:1fr;gap:14px}
-  .num{font-size:72px}
-  .ocard{grid-template-columns:1fr;padding:28px 20px}
-  .ba{grid-template-columns:1fr}
-  .ba .arr{transform:rotate(90deg);justify-self:center}
-  .stats .v{font-size:24px}
-  .sticky .t span{display:none}
+.offer{padding:40px 0 30px}
+.offer-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 16px;box-shadow:0 20px 50px rgba(13,32,65,.10)}
+.offer-head{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center;margin-bottom:18px}
+.offer-head img{border-radius:4px;box-shadow:0 8px 18px rgba(13,32,65,.25)}
+.offer-head p{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.opt{display:block;position:relative;border:2px solid var(--line);border-radius:16px;padding:16px 16px 14px 50px;margin-bottom:12px;cursor:pointer;background:var(--card)}
+.opt input{position:absolute;left:16px;top:19px;width:22px;height:22px;accent-color:var(--navy);margin:0}
+.opt:has(input:checked){border-color:var(--navy);background:var(--gold-tint)}
+.opt .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.opt .nm{font:900 italic 26px/1 var(--display);color:var(--ink)}
+.opt .sub{display:block;font-size:14px;color:var(--muted);font-weight:700;margin-top:4px}
+.opt .pr{font:900 italic 34px/1 var(--display);color:var(--ink);white-space:nowrap;text-align:right}
+.opt .pr s{font-size:20px;color:var(--muted);margin-right:6px;font-weight:700}
+.opt .flag{position:absolute;top:-12px;left:46px;background:var(--navy);color:#fff;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
+.opt ul{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:6px}
+.opt li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:14.5px;line-height:1.4;color:var(--text)}
+.opt li svg{width:18px;height:18px;margin-top:2px}
+.opt li.no{color:var(--muted)}
+.code{background:var(--navy);color:#fff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;margin:4px 0 14px}
+.code b{color:var(--gold)}
+.offer .btn{width:100%;font-size:26px;padding:18px 20px}
+.offer .assure{color:var(--muted)}
+.later{margin:16px 0 0;font-size:15px;text-align:center}
+.later a{font-weight:800;color:var(--ink)}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;counter-reset:s}
+.steps li{text-align:center;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.steps li::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;margin:0 auto 6px}
+.guar{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.guar .seal{width:64px;height:64px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 italic 26px/.85 var(--display);box-shadow:0 0 0 4px var(--card),0 0 0 6px var(--gold)}
+.guar .seal small{font:800 10px/1 var(--body);font-style:normal;margin-top:3px}
+.guar p{margin:0;font-size:14.5px}
+.guar strong{color:var(--ink)}
+.gift{text-align:center;font-size:14.5px;margin:14px 0 0;color:var(--muted)}
+.gift a{font-weight:800;color:var(--ink)}
+@media (min-width:900px){
+  .offer-grid{display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:start}
+  .offer-card{padding:28px 26px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.offer-side h2{margin-bottom:12px}
+.offer-side{margin-bottom:22px}
 
-/* ===== proof + offer upgrades ===== */
-.proof{background:var(--surface);border-block:1px solid var(--line);padding-block:28px}
-.revs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.rev{background:var(--bg);padding:20px 22px;border-left:4px solid var(--lime);display:flex;flex-direction:column;gap:8px}
-.rev .st{color:#C99400;letter-spacing:3px;font-size:16px}
-.rev h4{margin:0;font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;line-height:1.05}
-.rev p{margin:0;font-size:15px;color:var(--muted)}
-.rev cite{font-style:normal;font-size:13px;font-weight:700}
-.basis{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;justify-content:center;margin-top:22px;font-size:13px;color:var(--muted)}
-.basis b{font-family:var(--display);font-style:italic;font-weight:800;font-size:17px;color:var(--ink);text-transform:uppercase;letter-spacing:.02em}
-.inline-cta{background:var(--deep);color:var(--on-deep);padding:22px 24px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
-.inline-cta p{margin:0;font-weight:700}
-.inline-cta p span{display:block;font-weight:400;font-size:14px;opacity:.8}
-.inline-cta .pill{background:var(--lime);color:var(--lime-ink)}
-.inline-cta .pill .arrow{background:var(--deep);color:var(--lime)}
-.inside{padding-block:48px}
-.pages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
-.pages figure{margin:0}
-.pages img{width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 18px 40px rgba(13,32,65,.18)}
-.pages figcaption{font-size:13px;color:var(--muted);margin-top:8px;font-weight:600}
-.tiers2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.tier2{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:20px;display:flex;flex-direction:column;gap:8px}
-.tier2.best{border:2px solid var(--lime)}
-.tier2 .nm{font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase}
-.tier2 .pr{font-family:var(--display);font-style:italic;font-weight:900;font-size:56px;line-height:1;color:var(--lime)}
-.tier2 .pr s{font-size:28px;opacity:.55;margin-right:8px;color:var(--on-deep)}
-.tier2 p{margin:0;font-size:14px;opacity:.85}
-.tier2 .pill{font-size:16px;padding:10px 16px;white-space:nowrap;align-self:flex-start;margin-top:auto}
-.tier2 .badge{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:var(--lime-ink);padding:3px 8px}
-.later-line{font-size:15px;opacity:.9}
-.later-line a{color:var(--lime);font-weight:800}
-.next{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;counter-reset:n}
-.next li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:15px}
-.next li::before{counter-increment:n;content:counter(n);width:26px;height:26px;border-radius:50%;background:var(--lime);color:var(--lime-ink);font-weight:800;text-align:center;line-height:26px;font-size:14px}
-@media (max-width:760px){.revs,.tiers2{grid-template-columns:1fr}.pages{grid-template-columns:1fr 1fr}.pages figure:nth-child(3){display:none}}
+/* faq + footer */
+.faq{padding:30px 0 20px}
+details{border-bottom:1px solid var(--line);padding:4px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:14px 0;font-weight:800;font-size:17px;color:var(--ink)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;line-height:1;color:var(--muted);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{font-size:16px;margin:0 0 16px}
+.final{background:var(--navy);color:#C9D3E5;padding:40px 0;text-align:center;margin-top:20px}
+.final h2{color:#fff;margin-bottom:10px}
+.final .btn{max-width:420px;margin:20px auto 0}
+.final .assure{color:#AEBBD2}
+.foot{padding:28px 0 20px;font-size:13px;color:var(--muted)}
+.foot ol{padding-left:18px;margin:8px 0 14px}
+.foot li{margin-bottom:6px}
+
+/* sticky */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(13,32,65,.12);padding:10px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s}
+.sticky.on{transform:none}
+.sticky .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0}
+.sticky .t{font-size:13px;line-height:1.3;color:var(--muted);font-weight:700}
+.sticky .t b{display:block;font-size:15.5px;color:var(--ink);font-weight:800;white-space:nowrap}
+.sticky .btn{font-size:19px;padding:12px 18px;box-shadow:0 3px 0 #C99400;white-space:nowrap}
 </style>
 </head>
-<body style="margin:0">
+<body>
+<div class="announce"><span class="bf-only">Black Friday: £40 off the Silver report with code 40OFF. Ends 30 November.</span><span class="after-bf" hidden>Reports from £29, emailed within minutes, with a 14-day refund</span></div>
+<header class="nav"><div class="wrap wide"><a class="logo" href="#top"><i></i>Growth Window</a><a class="small" href="#offer">Get the report</a></div></header>
 
-
-<div class="announce"><div class="wrap"><span class="bf-only">Black Friday: <b>£40 off Silver</b> with code <b>40OFF</b> · ends 30 November</span><span class="after-bf" hidden>Reports from <b class="js-price">£29</b> · In your inbox within minutes · <b>14-day refund</b></span></div></div>
-
-<header class="wrap head">
-  <div class="brand"><i aria-hidden="true"></i>Growth Window</div>
-  <a class="small js-order" href="#offer">Get the report</a>
-</header>
-
-<main>
-<div class="wrap hero">
-  <p class="eyebrow">For parents of players outside an academy · 4-minute read</p>
-  <h1>7 reasons football parents are checking their child's <span class="mark">growth window</span> before the next trial</h1>
-  <div class="byline"><span>Written by a Glasgow football dad</span><span>Updated November 2026</span></div>
-  <p class="lede">Your child might be one of the best players on the pitch and still look small next to teammates born the same year. Academies in England and Scotland now screen players for exactly this. If your child isn't in one, here's what the research says and how to find out where your player stands.</p>
-  <div class="card" aria-label="Example Growth Window report">
-    <div class="top"><span class="name">Sam, age 11½</span><span class="tag">Example report</span></div>
-    <div class="stats">
-      <div><div class="k">Predicted adult height</div><div class="v">181<small> cm</small></div></div>
-      <div><div class="k">Adult height reached</div><div class="v">82<small>%</small></div></div>
-      <div><div class="k">Still to grow</div><div class="v">33<small> cm</small></div></div>
-    </div>
-    <div class="stage" aria-label="Growth stage: before the spurt"><span class="on">Before spurt</span><span>Entering</span><span>In spurt</span><span>Past spurt</span></div>
-    <p style="margin-top:12px"><a href="growth-window-sample-report.pdf" target="_blank" rel="noopener" style="font-weight:800">See Sam's full 8-page sample report (PDF) &rarr;</a></p>
+<section class="hero" id="top"><div class="wrap wide"><div class="hero-grid">
+  <div>
+    <div class="read">A 4-minute read for parents of players outside an academy</div>
+    <h1>7 reasons football parents are checking their child's growth window before the next trial</h1>
+    <p class="lede">Your child might be one of the best players on the pitch and still look small next to teammates born the same year. Academies in England and Scotland now screen players for exactly this. If your child isn't in one, nobody is checking.</p>
   </div>
-  <ul class="trust">
-    <li>Method published in Pediatrics</li>
-    <li>Same method the Premier League has used for bio-banding</li>
-    <li>No X-ray, measured at home</li>
-  </ul>
-</div>
+  <div>
+    <div class="art"><div class="ruler" aria-hidden="true"><div class="ft" style="bottom:0.00%">4'</div><div class="ft" style="bottom:21.43%">4'6</div><div class="ft" style="bottom:42.86%">5'</div><div class="ft" style="bottom:64.29%">5'6</div><div class="ft" style="bottom:85.71%">6'</div></div><div class="mark now" style="bottom:calc(35.71% - 14px)"><span><b>4'10"</b>Sam today</span></div><div class="mark pred" style="bottom:calc(82.14% - 14px);--from:calc(35.71% - 14px)"><span><b>5'11"</b><span class="dash">Predicted</span></span></div><div class="pages"><img class="p1" src="gw-media/gw-sample-p1.jpg" alt="Example Growth Window report cover" width="600" height="849"><img class="p2" src="gw-media/gw-sample-p2.jpg" alt="Example growth summary page" width="600" height="849"><span class="tag">Example report</span></div></div>
+  </div>
+  <div class="hero-buy">
+    <ul class="checks"><li>Predicted adult height, with an honest range</li><li>Early, on time or late for their age</li><li>Measured at home in 5 minutes. No X-ray.</li></ul>
+    <a class="btn" href="#offer">Check my player's growth</a>
+    <div class="assure"><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor" opacity=".9"/></svg>14-day refund</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="currentColor" opacity=".9"/><path d="M3 7l9 6 9-6" fill="none" stroke="var(--bg)" stroke-width="2"/></svg>Emailed within minutes</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="12" rx="3" fill="currentColor" opacity=".9"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>Secure checkout by Stripe</span></div>
+    <div class="byline">Written by a Glasgow football dad. Updated November 2026.</div>
+  </div>
+</div></div></section>
 
 <section class="proof"><div class="wrap">
-  <div class="revs">
-    <div class="rev"><div class="st" aria-label="5 stars">★★★★★</div><h4>"Scouts keep picking bigger players"</h4><p>"My son is one of the most technical players in his grassroots team, but scouts keep picking bigger players. Really happy with this report. It predicted he'll grow to around 6 ft 1."</p><cite>Dan · Dad of a 9½-year-old</cite></div>
-    <div class="rev"><div class="st" aria-label="5 stars">★★★★★</div><h4>"I shared it with her coach"</h4><p>"My daughter had knee pain, and the report helped me understand it could be linked to her growth spurt. I shared it with her coach, and they're putting together an adapted training plan."</p><cite>Susan · Mum of a 12-year-old elite player</cite></div>
-  </div>
-  <div class="basis"><span>Built on:</span><b>Pediatrics journal method</b><b>University of Bath research</b><b>Premier League bio-banding</b><b>Scottish FA guidance</b></div>
-  <p style="text-align:center;font-size:12px;color:var(--muted);margin:10px 0 0">Real customers, shared with permission. Growth Window is not affiliated with or endorsed by any of the organisations named.</p>
+  <div class="revs"><article class="rev"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><h4>“Scouts keep picking bigger players”</h4><p>“My son is one of the most technical players in his grassroots team, but scouts keep picking bigger players. Really happy with this report. It predicted he'll grow to around 6 ft 1.”</p><cite>Dan, dad of a 9½-year-old</cite></article><article class="rev"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><h4>“I shared it with her coach”</h4><p>“My daughter had knee pain, and the report helped me understand it could be linked to her growth spurt. I shared it with her coach, and they're putting together an adapted training plan.”</p><cite>Susan, mum of a 12-year-old elite player</cite></article></div>
+  <p class="real">Real customers, shared with permission.</p>
+  <div class="basis"><span>Method published in Pediatrics</span><span>Used in Scottish academy screening</span><span>University of Bath research</span><span>No X-ray, measured at home</span></div>
 </div></section>
 
-<div class="wrap reasons">
+<main class="wrap reasons">
+<article class="reason" id="r1"><div class="num" aria-hidden="true">1</div><h3>Kids born in the same year can be up to six years apart in physical development</h3><p>In a Scottish FA-commissioned study of academy players, some boys in the same age group were up to six years apart biologically. One 15-year-old had the body of an 18-year-old. If your child looks small next to teammates, birth year may be the wrong comparison.</p><figure class="fig dark"><svg viewBox="0 0 520 330" role="img" aria-label="Two players of the same age: one biologically 13, one biologically 18"><line x1="20" x2="500" y1="290" y2="290" stroke="#2A4373" stroke-width="1" stroke-dasharray="0"/><line x1="20" x2="500" y1="250" y2="250" stroke="#2A4373" stroke-width="1" stroke-dasharray="4 6"/><line x1="20" x2="500" y1="210" y2="210" stroke="#2A4373" stroke-width="1" stroke-dasharray="4 6"/><line x1="20" x2="500" y1="170" y2="170" stroke="#2A4373" stroke-width="1" stroke-dasharray="4 6"/><line x1="20" x2="500" y1="130" y2="130" stroke="#2A4373" stroke-width="1" stroke-dasharray="4 6"/><line x1="20" x2="500" y1="90" y2="90" stroke="#2A4373" stroke-width="1" stroke-dasharray="4 6"/><g><circle cx="170" cy="166" r="26" fill="#2A4373" stroke="#6F8FC7" stroke-width="3"/><rect x="132" y="200" width="76" height="90" rx="30" fill="#2A4373" stroke="#6F8FC7" stroke-width="3"/><text x="170" y="112" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="30" fill="#fff">Biological age 13</text><text x="170" y="132" text-anchor="middle" font-family="Mulish,sans-serif" font-weight="700" font-size="15" fill="#9FB0CC">Age 15</text></g><g><circle cx="350" cy="102" r="26" fill="#FFC629" stroke="#FFC629" stroke-width="3"/><rect x="312" y="136" width="76" height="154" rx="30" fill="#FFC629" stroke="#FFC629" stroke-width="3"/><text x="350" y="48" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="30" fill="#fff">Biological age 18</text><text x="350" y="68" text-anchor="middle" font-family="Mulish,sans-serif" font-weight="700" font-size="15" fill="#9FB0CC">Age 15</text></g><text x="260" y="320" text-anchor="middle" font-family="Mulish,sans-serif" font-weight="800" font-size="15" fill="#fff">Same team. Same birth year.</text></svg><figcaption>Illustration based on the range reported in a 2025 Club Academy Scotland study.</figcaption></figure></article>
+<article class="reason" id="r2"><div class="num" aria-hidden="true">2</div><h3>Academies tend to pick the early developers, and the gap grows every year</h3><p>A 2025 study of 1,011 players at 12 Club Academy Scotland academies found that selection favoured early-maturing boys from under-12s onwards. The bias was small at U12 and large by U18. England shows the same pattern: at one English Premier League academy, 55% of U9 to U16 players were born September to November and only 13% June to August.</p><figure class="fig dark"><div class="figtitle">Players at one Premier League academy, U9 to U16</div><svg viewBox="0 0 520 220" role="img" aria-label="55 percent of academy players born September to November, 13 percent born June to August"><rect x="20" y="40" width="440" height="58" rx="12" fill="#FFC629"/><text x="36" y="79" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="34" fill="#0D2041">55%  born Sep to Nov</text><rect x="20" y="128" width="104" height="58" rx="12" fill="#6F8FC7"/><text x="36" y="167" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="34" fill="#0D2041">13%</text><text x="140" y="167" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="34" fill="#fff">born Jun to Aug</text></svg><figcaption>Source: Hill et al., Journal of Sports Sciences, 2020.</figcaption></figure></article>
+<div class="cta-band"><p>Is your player early, on time or late?</p><span>Find out in 5 minutes at home, from £29.</span><a class="btn" href="#offer">Check my player's growth</a></div>
+<article class="reason" id="r3"><div class="num" aria-hidden="true">3</div><h3>Late developers are the players most likely to slip through</h3><p>Researchers found late developers were heavily underrepresented in Scottish academies. Many of them catch up physically later on. According to the Scottish FA's own guide, by age 14 no late-maturing players were left in the Club Academy Scotland system. Knowing which group your child is in helps you read a trial result for what it really is.</p><figure class="fig dark"><div class="big"><b>0</b><span>late-maturing players left in the Club Academy Scotland system by age 14</span></div><figcaption>Source: Scottish FA, Club Academy Scotland: A Clubs Guide to Bio-banding.</figcaption></figure></article>
+<article class="reason" id="r4"><div class="num" aria-hidden="true">4</div><h3>Academy players get screened. Most others never do.</h3><p>The Scottish FA has introduced growth and maturation screening in Club Academy Scotland. Clubs submit maturation data in quarterly windows, and the results decide whether a player can play in a younger age group. Players outside academies, where most late developers end up, don't get this.</p><figure class="fig"><div class="path"><div class="a"><small>Academy player</small><strong>Screened every quarter</strong></div><div class="b"><small>Your player, outside an academy</small><strong>Usually never measured</strong></div></div></figure></article>
+<article class="reason" id="r5"><div class="num" aria-hidden="true">5</div><h3>You can check it at home in five minutes, with no X-ray</h3><p>The report uses the Khamis-Roche method, published in the journal Pediatrics and the same method used in Scottish academy screening. All you need is a tape measure, bathroom scales and both parents' heights.</p><figure class="fig"><div class="figtitle">All you need</div><div class="kit"><div class=""><svg viewBox="0 0 32 32"><circle cx="13" cy="15" r="10" fill="#FFC629"/><circle cx="13" cy="15" r="3.5" fill="#0D2041"/><path d="M13 25h17v-5" fill="none" stroke="#0D2041" stroke-width="3"/></svg><span>Tape measure</span></div><div class=""><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="22" rx="5" fill="#FFC629"/><rect x="10" y="10" width="12" height="6" rx="2" fill="#0D2041"/></svg><span>Bathroom scales</span></div><div class=""><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="22" rx="4" fill="#FFC629"/><rect x="4" y="6" width="24" height="7" rx="3" fill="#0D2041"/><circle cx="12" cy="20" r="2" fill="#0D2041"/><circle cx="20" cy="20" r="2" fill="#0D2041"/></svg><span>Date of birth</span></div><div class=""><svg viewBox="0 0 32 32"><circle cx="11" cy="10" r="5" fill="#0D2041"/><circle cx="22" cy="12" r="4" fill="#0D2041"/><path d="M2 28c0-6 4-10 9-10s9 4 9 10zM17 28c0-5 2-9 5-9s7 3 7 9z" fill="#FFC629"/></svg><span>Both parents' heights</span></div><div class="x"><svg viewBox="0 0 32 32"><rect x="5" y="4" width="22" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M5 28L27 4" stroke="currentColor" stroke-width="2.5"/></svg><span>No X-ray</span></div><div class="x"><svg viewBox="0 0 32 32"><path d="M16 5v22M5 16h22" stroke="currentColor" stroke-width="4"/><path d="M4 28L28 4" stroke="currentColor" stroke-width="2.5"/></svg><span>No clinic visit</span></div></div><figcaption>Step-by-step measuring guide included on the order page.</figcaption></figure></article>
+<div class="cta-band"><p>Don't let their size today be the reason they're overlooked.</p><span>No tape measure to hand? You can buy now and measure later.</span><a class="btn" href="#offer">Check my player's growth</a></div>
+<article class="reason" id="r6"><div class="num" aria-hidden="true">6</div><h3>It tells you when the growth spurt is coming</h3><p>Around their fastest growth, many young players go through a clumsy spell and growth-related aches around the knees and heels. Seeing it coming means you can mention it to the coach early and help your player stay patient while their body catches up.</p><figure class="fig dark"><div class="figtitle">The report shows where your player is on this curve</div><svg viewBox="0 0 520 240" role="img" aria-label="Growth speed slows through childhood, rises sharply to a peak during the growth spurt, then drops"><rect x="236" y="14" width="128" height="176" rx="14" fill="#16305C"/><text x="300" y="182" text-anchor="middle" font-family="Mulish,sans-serif" font-weight="700" font-size="13" fill="#9FB0CC">Clumsy spells and</text><text x="300" y="198" text-anchor="middle" font-family="Mulish,sans-serif" font-weight="700" font-size="13" fill="#9FB0CC">sore knees most common</text><path d="M24,110 C90,128 160,142 214,148 C252,152 268,44 300,44 C332,44 346,138 382,168 C414,190 456,194 500,196" fill="none" stroke="#FFC629" stroke-width="6" stroke-linecap="round"/><circle cx="300" cy="44" r="9" fill="#fff" stroke="#FFC629" stroke-width="4"/><text x="316" y="40" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="900" font-size="24" fill="#fff">Peak growth</text><text x="24" y="92" font-family="Mulish,sans-serif" font-weight="800" font-size="14" fill="#C9D3E5">Growth speed</text><line x1="24" x2="500" y1="214" y2="214" stroke="#2A4373" stroke-width="2"/><text x="24" y="234" font-family="Mulish,sans-serif" font-weight="700" font-size="13" fill="#9FB0CC">Younger</text><text x="500" y="234" text-anchor="end" font-family="Mulish,sans-serif" font-weight="700" font-size="13" fill="#9FB0CC">Older</text></svg><figcaption>Illustration of typical growth speed through adolescence.</figcaption></figure></article>
+<article class="reason" id="r7"><div class="num" aria-hidden="true">7</div><h3>You get a clear answer, not a raw number</h3><p>Free calculators give you a number. Your Growth Window report explains what the number means, on pages you can keep, share with the coach and compare next season.</p><figure class="fig"><div class="r7"><ul class="list"><li>Predicted adult height, with the range 9 in 10 predictions land within</li><li>How much of their adult height your child has reached today</li><li>Growth stage: before, entering, in or past the growth spurt</li><li>Whether they're an early developer, on time or a late developer for their age</li><li>What that stage usually means for training and recovery</li><li>When to measure again to track real growth</li></ul><img src="gw-media/gw-sample-p2.jpg" alt="Example growth summary page from a report" loading="lazy" width="600" height="849"></div><figcaption>Example page from a report for Sam, age 11½.</figcaption></figure></article>
+</main>
 
-  <article class="reason">
-    <div class="num" aria-hidden="true">1</div>
-    <div class="txt">
-      <h3>Kids born in the same year can be up to six years apart in physical development</h3>
-      <p>In a Scottish FA-commissioned study of academy players, some boys in the same age group were up to six years apart biologically. One 15-year-old had the body of an 18-year-old. If your child looks small next to teammates, birth year may be the wrong comparison.</p>
-      <div class="viz">
-        <div class="vlabel">Same age group, very different bodies</div>
-        <div id="v1"></div>
-      </div>
-    </div>
-  </article>
-
-  <article class="reason">
-    <div class="num" aria-hidden="true">2</div>
-    <div class="txt">
-      <h3>Academies tend to pick the early developers, and the gap grows every year</h3>
-      <p>A 2025 study of 1,011 players at 12 Club Academy Scotland academies found that selection favoured early-maturing boys from under-12s onwards. The bias was small at U12 and large by U18. England shows the same pattern: at one English Premier League academy, 55% of U9–U16 players were born September to November and only 13% June to August.</p>
-      <div class="viz">
-        <div class="vlabel">Bias towards early developers, by age group</div>
-        <div id="v2"></div>
-      </div>
-    </div>
-  </article>
-
-  <div class="inline-cta"><p>Is your player early, on time or late?<span>Find out in 5 minutes at home · from £29 · 14-day refund</span></p><a class="pill js-order" href="#offer">See where they stand <span class="arrow" aria-hidden="true">→</span></a></div>
-  <article class="reason">
-    <div class="num" aria-hidden="true">3</div>
-    <div class="txt">
-      <h3>Late developers are the players most likely to slip through</h3>
-      <p>Researchers found late developers were heavily underrepresented in Scottish academies. Many of them catch up physically later on. According to the Scottish FA's own guide, by age 14 no late-maturing players were left in the Club Academy Scotland system. Knowing which group your child is in helps you read a trial result for what it really is.</p>
-      <div class="viz bigstat"><b>0</b><span>late-maturing players left in the Club Academy Scotland system by age 14.</span></div>
-    </div>
-  </article>
-
-  <article class="reason">
-    <div class="num" aria-hidden="true">4</div>
-    <div class="txt">
-      <h3>Academy players get screened. Most others never do.</h3>
-      <p>The Scottish FA has introduced growth and maturation screening in Club Academy Scotland. Clubs submit maturation data in quarterly windows, and the results decide whether a player can play in a younger age group. Players outside academies, where most late developers end up, don't get this.</p>
-      <div class="viz ba">
-        <div><div class="k">Academy player</div><div class="v">Screened, data submitted every quarter window</div></div>
-        <div class="arr" aria-hidden="true" style="font-family:var(--display);font-weight:800;font-size:28px;color:var(--pitch)">→</div>
-        <div class="after"><div class="k">Your player, outside an academy</div><div class="v">Usually never measured</div></div>
-      </div>
-    </div>
-  </article>
-
-  <article class="reason">
-    <div class="num" aria-hidden="true">5</div>
-    <div class="txt">
-      <h3>You can check it at home in five minutes, with no X-ray</h3>
-      <p>The report uses the Khamis-Roche method, published in the journal Pediatrics and the same method used in Scottish academy screening. All you need is a tape measure, bathroom scales and both parents' heights.</p>
-      <div class="viz">
-        <div class="vlabel">What you need</div>
-        <div class="chips"><span>Tape measure</span><span>Bathroom scales</span><span>Date of birth</span><span>Both parents' heights</span><span class="no">X-ray</span><span class="no">Clinic visit</span></div>
-      </div>
-    </div>
-  </article>
-
-  <div class="inline-cta"><p>Don't let their size today be the reason they're overlooked.<span>No tape measure to hand? You can buy now and measure later.</span></p><a class="pill js-order" href="#offer">See where they stand <span class="arrow" aria-hidden="true">→</span></a></div>
-  <article class="reason">
-    <div class="num" aria-hidden="true">6</div>
-    <div class="txt">
-      <h3>It tells you when the growth spurt is coming</h3>
-      <p>Around their fastest growth, many young players go through a clumsy spell and growth-related aches around the knees and heels. Seeing it coming means you can mention it to the coach early and help your player stay patient while their body catches up.</p>
-      <div class="viz">
-        <div class="vlabel">How fast children grow through adolescence (illustration)</div>
-        <div id="v6"></div>
-      </div>
-    </div>
-  </article>
-
-  <article class="reason">
-    <div class="num" aria-hidden="true">7</div>
-    <div class="txt">
-      <h3>You get a clear answer, not a raw number</h3>
-      <p>Free calculators give you a number. Your Growth Window report explains what the number means, on one page you can keep and compare next season.</p>
-      <div class="viz">
-        <ul class="checks">
-          <li>Predicted adult height, with the range 9 in 10 predictions land within</li>
-          <li>How much of their adult height your child has reached today</li>
-          <li>Growth stage: before, entering, in or past the growth spurt</li>
-          <li>Whether they're an early developer, on time or a late developer for their age</li>
-          <li>What that stage usually means for training and recovery</li>
-          <li>When to measure again to track real growth</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-</div>
-
-<section class="inside"><div class="wrap">
-  <p class="eyebrow">Look inside</p>
-  <h2 style="margin-top:8px">What you actually get</h2>
-  <div class="pages">
-    <figure><img src="gw-media/gw-sample-p1.jpg" alt="Sample Silver report cover" loading="lazy" width="600" height="849"><figcaption>Your player's season report</figcaption></figure>
-    <figure><img src="gw-media/gw-sample-p2.jpg" alt="Sample growth summary page" loading="lazy" width="600" height="849"><figcaption>Growth summary: height, stage, timing</figcaption></figure>
-    <figure><img src="gw-media/gw-sample-p6.jpg" alt="Sample page for the coach" loading="lazy" width="600" height="849"><figcaption>A page to hand to the coach</figcaption></figure>
+<section class="inside"><div class="wrap wide">
+  <div class="intro"><h2>What arrives in your inbox</h2><p style="margin-top:10px">An 8-page PDF built around your own child's measurements. Here are three of the pages from an example report.</p></div>
+  <div class="gal">
+    <figure><img src="gw-media/gw-sample-p1.jpg" alt="Report cover" loading="lazy" width="600" height="849"><figcaption>Your player's season report<span>Their name, age and the date measured</span></figcaption></figure>
+    <figure><img src="gw-media/gw-sample-p2.jpg" alt="Growth summary page" loading="lazy" width="600" height="849"><figcaption>Growth summary<span>Height, stage and timing on one page</span></figcaption></figure>
+    <figure><img src="gw-media/gw-sample-p6.jpg" alt="Page for the coach" loading="lazy" width="600" height="849"><figcaption>A page for the coach<span>What this stage means for training</span></figcaption></figure>
   </div>
-  <p style="margin-top:16px"><a href="growth-window-sample-report.pdf" target="_blank" rel="noopener" style="font-weight:800">Read the full 8-page sample report (PDF) &rarr;</a></p>
+  <a class="pdf" href="growth-window-sample-report.pdf" target="_blank" rel="noopener">Read the full example report (PDF)</a>
 </div></section>
 
 <section class="compare"><div class="wrap">
-  <p class="eyebrow">How it compares</p>
-  <h2 style="margin-top:8px">More than a number, less than a clinic</h2>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th scope="col"></th><th scope="col" class="us">Growth Window</th><th scope="col">Free online calculator</th><th scope="col">Guessing from the touchline</th></tr></thead>
-      <tbody>
-        <tr><td>Predicted adult height</td><td class="us"><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✕</span></td></tr>
-        <tr><td>Honest likely range shown</td><td class="us"><span class="y">✓</span></td><td><span class="s">Sometimes</span></td><td><span class="n">✕</span></td></tr>
-        <tr><td>Growth stage explained in plain English</td><td class="us"><span class="y">✓</span></td><td><span class="n">✕</span></td><td><span class="n">✕</span></td></tr>
-        <tr><td>What it means for training and recovery</td><td class="us"><span class="y">✓</span></td><td><span class="n">✕</span></td><td><span class="n">✕</span></td></tr>
-        <tr><td>Step-by-step home measuring guide</td><td class="us"><span class="y">✓</span></td><td><span class="n">✕</span></td><td><span class="n">✕</span></td></tr>
-        <tr><td>One-page PDF to keep and compare</td><td class="us"><span class="y">✓</span></td><td><span class="n">✕</span></td><td><span class="n">✕</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <h2>More than a number, less than a clinic</h2>
+  <div class="tbl" role="table"><div class="tr th"><span></span><span>Growth Window</span><span>Free calculator</span><span>Guessing from the touchline</span></div><div class="tr"><span>Predicted adult height</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><div class="tr"><span>Honest likely range shown</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="some">Some</span></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><div class="tr"><span>Growth stage in plain English</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><div class="tr"><span>What it means for training</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><div class="tr"><span>Home measuring guide</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div><div class="tr"><span>A page for the coach</span><span><svg viewBox="0 0 24 24" class="ic" aria-label="Yes"><circle cx="12" cy="12" r="11" fill="var(--ok)"/><path d="M6.5 12.5l3.6 3.6 7.4-8.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><svg viewBox="0 0 24 24" class="ic" aria-label="No"><circle cx="12" cy="12" r="11" fill="var(--no)"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span></div></div>
 </div></section>
 
-<section class="offer" id="offer"><div class="wrap wide">
-  <div class="ocard">
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <p class="eyebrow" style="color:var(--lime)">Two ways to start</p>
-      <h2>Find out where your player is in their growth</h2>
-      <div class="tiers2">
-        <div class="tier2"><div class="nm">Basic</div><div class="pr">£29</div><p>One-page snapshot: early, on time or late; predicted adult height; growth stage.</p><a class="pill js-order" href="#offer">Choose Basic</a></div>
-        <div class="tier2 best"><span class="badge">Full report</span><div class="nm">Silver</div><div class="pr"><span class="bf-only"><s>£99</s>£59</span><span class="after-bf" hidden>£99</span></div><p>8-page season report, a page for the coach and a 12-month measurement plan.<span class="bf-only"> Code <b>40OFF</b> at checkout.</span></p><a class="pill js-order" href="#offer">Choose Silver</a></div>
-      </div>
-      <p class="later-line">No tape measure to hand? <a href="https://buy.stripe.com/8x2aEXdA69x45Rt4Dr7ss0j">Buy Silver now, measure later &rarr;</a></p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:20px;justify-content:center">
-      <ul class="checks">
-        <li>Predicted adult height and likely range</li>
-        <li>Growth stage, % of adult height and timing for age</li>
-        <li>Plain-English guidance for this stage</li>
-        <li>Silver adds a development plan, a coach page and a 12-month measurement plan</li>
-        <li>Secure payment by Stripe</li>
-      </ul>
-      <p style="font-size:15px;opacity:.9">Buying for Christmas? <a class="js-giftl" href="#offer" style="color:var(--lime);font-weight:800">Give Silver as a gift card</a>.</p>
-      <ol class="next"><li>Measure at home (5 minutes)</li><li>Pay securely with Stripe</li><li>Your report arrives by email within minutes</li></ol>
-      <div class="guar"><b>14<br>days</b><span>Not useful? Reply within 14 days for a full refund.</span></div>
-    </div>
+<section class="offer" id="offer"><div class="wrap wide"><div class="offer-grid">
+  <div class="offer-side">
+    <h2>Find out where your player is in their growth</h2>
+    <p>Measure at home tonight. Your report lands in your inbox minutes after you pay.</p>
+    
   </div>
-</div></section>
+  <div class="offer-card">
+    <div class="offer-head"><img src="gw-media/gw-sample-p1.jpg" alt="Growth Window report cover" width="600" height="849" loading="lazy"><div><h3 style="font-size:28px">Growth Window report</h3><p>For one player. PDF by email.</p></div></div>
+    <label class="opt"><span class="flag">Most complete</span><input type="radio" name="tier" value="silver" checked>
+      <span class="row"><span><span class="nm">Silver</span><span class="sub">Full season report</span></span><span class="pr"><span class="bf-only"><s>£99</s>£59</span><span class="after-bf" hidden>£99</span></span></span>
+      <ul><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Predicted adult height with an honest range</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Early, on time or late for their age</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Growth stage and % of adult height reached</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>8-page season report with a development plan</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A page to hand to the coach</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>12-month measurement plan</span></li></ul></label>
+    <label class="opt"><input type="radio" name="tier" value="basic">
+      <span class="row"><span><span class="nm">Basic</span><span class="sub">Growth snapshot</span></span><span class="pr">£29</span></span>
+      <ul><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Predicted adult height with an honest range</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Early, on time or late for their age</span></li><li class=""><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Growth stage and % of adult height reached</span></li><li class="no"><svg viewBox="0 0 24 24"><path d="M7 12h10" stroke="var(--no)" stroke-width="3" stroke-linecap="round"/></svg><span>One-page snapshot only, no coach page or plan</span></li></ul></label>
+    <div class="code bf-only">Black Friday: enter code <b>40OFF</b> at checkout for £40 off Silver. Ends 30 November.</div>
+    <a class="btn" id="buy" href="growthwindow.html?tier=silver#pricing">Get the Silver report</a>
+    <div class="assure"><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor" opacity=".9"/></svg>14-day refund</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="currentColor" opacity=".9"/><path d="M3 7l9 6 9-6" fill="none" stroke="var(--bg)" stroke-width="2"/></svg>Emailed within minutes</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="12" rx="3" fill="currentColor" opacity=".9"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>Secure checkout by Stripe</span></div>
+    <p class="later">No tape measure to hand? <a href="https://buy.stripe.com/8x2aEXdA69x45Rt4Dr7ss0j">Buy Silver now, measure later</a></p>
+    <ol class="steps"><li>Measure at home in 5 minutes</li><li>Pay securely with Stripe</li><li>Report in your inbox in minutes</li></ol>
+    <div class="guar"><div class="seal">14<small>DAYS</small></div><p><strong>Not useful? Get every penny back.</strong> Reply to your report email within 14 days for a full refund. No forms, no questions.</p></div>
+    <p class="gift">Buying for Christmas? <a href="https://buy.stripe.com/4gMfZh67E4cK0x97PD7ss0c">Give Silver as a gift card</a></p>
+  </div>
+</div></div></section>
 
 <section class="faq"><div class="wrap">
-  <h2 style="margin-bottom:12px">Questions parents ask</h2>
-  <details><summary>How accurate is it?</summary><p>In the original study, 9 in 10 predictions landed within 5.3 cm of actual adult height for boys and 4.3 cm for girls. It was developed on healthy children in the United States, so treat it as a well-founded estimate. Careful measurements make the biggest difference, and the order page shows you how.</p></details>
-  <details><summary>Will it tell me if my child will make it?</summary><p>No. Height and maturity are one part of the picture, and plenty of top players were late developers. The report helps you understand why your child might look ahead of or behind teammates right now, and what is likely to change.</p></details>
-  <details><summary>Is this medical advice?</summary><p>No. It's an educational estimate. If your child has ongoing pain, very fast or very slow growth, or a condition affecting growth, speak to your GP.</p></details>
-  <details><summary>What happens to my child's data?</summary><p>We use the measurements only to make and send your report, never for marketing. We delete them 30 days after sending. You can ask us to delete them sooner at any time. Payment is handled by Stripe, so we never see your card details.</p></details>
+  <h2 style="margin-bottom:10px">Questions parents ask</h2>
+  <details><summary>How accurate is it?</summary><p>In the original study, 9 in 10 predictions landed within 5.3 cm of actual adult height for boys and 4.3 cm for girls. It was developed on healthy children in the United States, so treat it as a well-founded estimate. Careful measurements make the biggest difference, and the order page shows you how.</p></details><details><summary>What do I need to measure?</summary><p>A tape measure, a bathroom scales, your child's date of birth and both biological parents' heights. Measuring takes about five minutes, and the order page walks you through it step by step.</p></details><details><summary>I don't have a tape measure to hand. Can I still order?</summary><p>Yes. Choose Silver and use the buy now, measure later link. We email you a private link straight away, and your report arrives minutes after you enter the measurements.</p></details><details><summary>Will it tell me if my child will make it?</summary><p>No. Height and maturity are one part of the picture, and plenty of top players were late developers. The report helps you understand why your child might look ahead of or behind teammates right now, and what is likely to change.</p></details><details><summary>Is this medical advice?</summary><p>No. It's an educational estimate. If your child has ongoing pain, very fast or very slow growth, or a condition affecting growth, speak to your GP.</p></details><details><summary>What happens to my child's data?</summary><p>We use the measurements only to make and send your report, never for marketing. We delete them 30 days after sending. You can ask us to delete them sooner at any time. Payment is handled by Stripe, so we never see your card details.</p></details><details><summary>What if it isn't useful?</summary><p>Reply to your report email within 14 days and we'll refund you in full. No forms, no questions.</p></details>
 </div></section>
 
-<div class="wrap notes">
-  <strong>Sources</strong>
-  <ol>
-    <li>Curnyn S, Leslie M, Palmer D, Williams S, Cumming S. The influence of relative age and biological maturation on player selection in Club Academy Scotland. Journal of Sports Sciences, 2025;43(18):1980–1991.</li>
-    <li>University of Bath. University of Bath leads world's largest growth and maturation study in elite football. 5 August 2025.</li>
-    <li>Scottish FA. Club Academy Scotland: A Clubs Guide to Bio-banding.</li>
-    <li>Khamis HJ, Roche AF. Predicting adult stature without using skeletal age: the Khamis-Roche method. Pediatrics, 1994;94(4):504–507.</li>
-    <li>Hill M, Scott S, Malina RM, McGee D, Cumming SP. Relative age and maturation selection biases in academy football. Journal of Sports Sciences, 2020;38(11–12):1359–1367.</li>
-    <li>Premier League, Bio-banding festival at Lilleshall (April 2016).</li>
-  </ol>
-  <p>Growth Window reports are statistical estimates for educational use and are not medical advice. Growth Window is not affiliated with or endorsed by the Scottish FA, the Premier League or any club. <span class="js-email"></span></p>
-</div>
-</main>
+<section class="final"><div class="wrap">
+  <h2>Find out where your player really is</h2>
+  <p>Five minutes with a tape measure tonight. A clear answer in your inbox minutes later.</p>
+  <a class="btn" href="#offer">Check my player's growth</a>
+  <div class="assure"><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor" opacity=".9"/></svg>14-day refund</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="currentColor" opacity=".9"/><path d="M3 7l9 6 9-6" fill="none" stroke="var(--bg)" stroke-width="2"/></svg>Emailed within minutes</span><span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="12" rx="3" fill="currentColor" opacity=".9"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>Secure checkout by Stripe</span></div>
+</div></section>
 
-<div class="sticky" role="region" aria-label="Order">
-  <div class="in">
-    <div class="t"><b>Growth Window · from <span class="js-price">£29</span></b><span>Emailed in minutes · 14-day refund</span></div>
-    <a class="pill js-order" href="#offer">Get the report <span class="arrow" aria-hidden="true">→</span></a>
-  </div>
-</div>
+<footer class="foot"><div class="wrap">
+  <strong>Sources</strong><ol><li>Curnyn S, Leslie M, Palmer D, Williams S, Cumming S. The influence of relative age and biological maturation on player selection in Club Academy Scotland. Journal of Sports Sciences, 2025;43(18):1980–1991.</li><li>University of Bath. University of Bath leads world's largest growth and maturation study in elite football. 5 August 2025.</li><li>Scottish FA. Club Academy Scotland: A Clubs Guide to Bio-banding.</li><li>Khamis HJ, Roche AF. Predicting adult stature without using skeletal age: the Khamis-Roche method. Pediatrics, 1994;94(4):504–507.</li><li>Hill M, Scott S, Malina RM, McGee D, Cumming SP. Relative age and maturation selection biases in academy football. Journal of Sports Sciences, 2020;38(11–12):1359–1367.</li><li>Premier League, Bio-banding festival at Lilleshall (April 2016).</li></ol>
+  <p>Growth Window reports are statistical estimates for educational use and are not medical advice. Growth Window is not affiliated with or endorsed by the Scottish FA, the Premier League or any club. <span class="js-email"></span></p>
+</div></footer>
+
+<div class="sticky" id="sticky" role="region" aria-label="Order"><div class="wrap">
+  <div class="t"><b>Growth report from £29</b>14-day refund</div>
+  <a class="btn" href="#offer">Get the report</a>
+</div></div>
 
 <script>
-/* ===== CONFIG ===== */
-const CONFIG = {
-  ORDER_URL: "growthwindow.html#pricing", // the sales page pricing section
-  PRICE: "£29",
-  CONTACT_EMAIL: "david@silverbulletpro.com"
-};
-/* ================== */
-document.querySelectorAll('.js-price').forEach(e => e.textContent = CONFIG.PRICE);
-document.querySelectorAll('.js-giftl').forEach(a => { a.href = 'https://buy.stripe.com/4gMfZh67E4cK0x97PD7ss0c'; });
-document.querySelectorAll('.js-order').forEach(a => { a.href = CONFIG.ORDER_URL; if (/^https?:/.test(CONFIG.ORDER_URL)) a.target = '_blank'; });
+const CONFIG = { ORDER_URL: "growthwindow.html", CONTACT_EMAIL: "david@silverbulletpro.com" };
 document.querySelectorAll('.js-email').forEach(e => e.textContent = 'Contact: ' + CONFIG.CONTACT_EMAIL);
 if (Date.now() >= Date.parse('2026-12-01T00:00:00Z')) { document.querySelectorAll('.bf-only').forEach(e => e.hidden = true); document.querySelectorAll('.after-bf').forEach(e => e.hidden = false); }
-
-const T = 'font-family="Mulish,system-ui,sans-serif"', D = 'font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="800"';
-
-/* 1: two players, same age group */
-(function(){
-  const W = 520, H = 230, base = 200;
-  const bar = (x, h, col, top, sub) =>
-    `<rect x="${x}" y="${base-h}" width="110" height="${h}" rx="14" fill="${col}"/>` +
-    `<text x="${x+55}" y="${base-h-36}" text-anchor="middle" ${D} font-size="22" fill="var(--ink)">${top}</text>` +
-    `<text x="${x+55}" y="${base-h-16}" text-anchor="middle" ${T} font-size="13" fill="var(--muted)">${sub}</text>`;
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Two 15-year-olds: one with a biological age of 13, one with a biological age of 18">`;
-  s += `<line x1="20" x2="${W-20}" y1="${base}" y2="${base}" stroke="var(--line)" stroke-width="2"/>`;
-  s += bar(90, 92, 'var(--soft)', 'Bio age 13', 'Calendar age 15');
-  s += bar(320, 140, 'var(--lime)', 'Bio age 18', 'Calendar age 15');
-  s += `<text x="${W/2}" y="${base+24}" text-anchor="middle" ${T} font-size="13" fill="var(--muted)">Illustration based on the range reported in the Scottish study</text>`;
-  document.getElementById('v1').innerHTML = s + `</svg>`;
-})();
-
-/* 2: bias grows with age group (small at U12, large at U18) */
-(function(){
-  const W = 520, H = 170, groups = ['U12','U13','U14','U15','U16','U17','U18'];
-  const x0 = 30, step = (W-60)/(groups.length-1), base = 120;
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="The bias towards early developers was small at under-12 and large at under-18">`;
-  s += `<path d="M${x0},${base} L${x0+step*6},${base-80} L${x0+step*6},${base} Z" fill="var(--lime)" opacity=".85"/>`;
-  s += `<line x1="${x0}" x2="${x0+step*6}" y1="${base}" y2="${base}" stroke="var(--ink)" stroke-width="1.5"/>`;
-  groups.forEach((g,i) => s += `<text x="${x0+step*i}" y="${base+22}" text-anchor="middle" ${T} font-size="13" font-weight="600" fill="var(--muted)">${g}</text>`);
-  s += `<text x="${x0}" y="${base-14}" ${D} font-size="16" fill="var(--ink)">Small</text>`;
-  s += `<text x="${x0+step*6-6}" y="${base-90}" text-anchor="end" ${D} font-size="16" fill="var(--ink)">Large</text>`;
-  s += `<text x="${W/2}" y="${H-4}" text-anchor="middle" ${T} font-size="12" fill="var(--muted)">Size of the selection bias, from the 2025 Club Academy Scotland study</text>`;
-  document.getElementById('v2').innerHTML = s + `</svg>`;
-})();
-
-/* 6: growth velocity curve */
-(function(){
-  const W = 520, H = 220;
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Growth speed slows through childhood, then rises sharply to a peak during the growth spurt, then drops">`;
-  s += `<rect x="248" y="20" width="110" height="150" rx="12" fill="var(--soft)"/>`;
-  s += `<path d="M30,96 C90,118 160,132 215,138 C255,142 270,40 300,40 C330,40 345,128 380,160 C410,180 450,184 490,186" fill="none" stroke="var(--pitch)" stroke-width="4" stroke-linecap="round"/>`;
-  s += `<circle cx="300" cy="40" r="7" fill="var(--lime)" stroke="var(--ink)" stroke-width="2"/>`;
-  s += `<text x="312" y="36" ${D} font-size="16" fill="var(--ink)">Peak growth</text>`;
-  s += `<text x="252" y="164" ${T} font-size="12" fill="var(--muted)">Clumsy spells and</text>`;
-  s += `<text x="252" y="180" ${T} font-size="12" fill="var(--muted)">sore knees most common</text>`;
-  s += `<line x1="30" x2="490" y1="198" y2="198" stroke="var(--line)" stroke-width="2"/>`;
-  s += `<text x="30" y="216" ${T} font-size="12" fill="var(--muted)">Younger</text>`;
-  s += `<text x="490" y="216" text-anchor="end" ${T} font-size="12" fill="var(--muted)">Older</text>`;
-  s += `<text x="30" y="80" ${T} font-size="12" fill="var(--muted)">Growth speed</text>`;
-  document.getElementById('v6').innerHTML = s + `</svg>`;
-})();
+/* Offer picker: the button follows the chosen option and lands on that option at checkout */
+const buy = document.getElementById('buy');
+function pick() { const t = document.querySelector('input[name="tier"]:checked').value;
+  buy.href = CONFIG.ORDER_URL + '?tier=' + t + '#pricing';
+  buy.textContent = t === 'silver' ? 'Get the Silver report' : 'Get the Basic report'; }
+document.querySelectorAll('input[name="tier"]').forEach(r => r.addEventListener('change', pick)); pick();
+/* Sticky bar: shows once the hero button scrolls away, hides over the offer */
+const sticky = document.getElementById('sticky'), heroBtn = document.querySelector('.hero .btn'), offerEl = document.getElementById('offer');
+let heroGone = false, offerIn = false;
+const upd = () => sticky.classList.toggle('on', heroGone && !offerIn);
+new IntersectionObserver(e => { heroGone = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; upd(); }).observe(heroBtn);
+new IntersectionObserver(e => { offerIn = e[0].isIntersecting; upd(); }, { threshold: .15 }).observe(offerEl);
 </script>
-
 </body>
 </html>
