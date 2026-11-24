@@ -249,6 +249,10 @@ footer strong{color:var(--on-navy)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+.later{border:2px dashed var(--gold);padding:16px 18px;display:flex;flex-direction:column;gap:12px;max-width:none}
+.later .btn{font-size:20px;align-self:flex-start}
+.have-code{background:var(--gold);color:var(--gold-ink);padding:14px 18px;font-size:15px;line-height:1.5}
+.later-link{display:inline-block;margin-top:12px;font-weight:800;color:var(--gold)}
 </style>
 </head>
 <body style="margin:0">
@@ -370,6 +374,7 @@ footer strong{color:var(--on-navy)}
         <li>A 12-month measurement plan: when to measure again and how to work out growth speed</li>
       </ul>
       <a class="btn js-choose" data-tier="silver" href="#order">Choose Silver</a>
+      <a class="later-link js-later" href="#order">Or buy now, measure later &rarr;</a>
     </div>
   </div>
   <p class="gift-line"><strong>Buying for someone else?</strong> Give Silver as a gift. You get a printable gift card with a code right away, and the parent adds the measurements when they redeem it. <a class="js-gift" href="#pricing">Buy a gift card · <span class="js-p-silver">$99</span></a></p>
@@ -398,7 +403,9 @@ footer strong{color:var(--on-navy)}
       <h2>Get your <em>report</em></h2>
       <div class="price" id="o-price">$99</div>
       <p class="ofine" id="o-desc"></p>
-      <p class="ofine">One child per order. You'll pay securely on Stripe and receive the PDF by email within minutes.</p>
+      <p class="ofine">One child per order. You'll pay securely on Stripe and receive the PDF by email within minutes. You'll need a tape measure, scales and both biological parents' heights.</p>
+      <div class="have-code" id="have-code" hidden><strong>Your report code <span id="code-shown"></span> is ready.</strong> Fill in the measurements, keep Silver selected, and the code is applied at checkout so the total shows $0.</div>
+      <div class="later" id="later-box"><p class="ofine" style="margin:0"><strong style="color:#fff">No tape measure to hand?</strong> Buy Silver now and add the measurements later. We'll email you a link straight away, and the report arrives minutes after you enter them.</p><a class="btn js-later" href="#order">Buy now, measure later</a></div>
       <p class="ofine">Buying as a holiday gift and don't have the measurements? <a class="js-gift" href="#pricing" style="color:var(--gold)">Buy a gift card instead</a>.</p>
     </div>
     <div class="fcard">
@@ -483,6 +490,7 @@ const CONFIG = {
   },
   PRICES: { basic: "$29", silver: "$99" },
   GIFT_LINK: "https://buy.stripe.com/dRm8wP1Ro6kSa7Jd9X7ss0i",  // Silver gift card Payment Link (US basketball)
+  LATER_LINK: "https://buy.stripe.com/dRm00janU6kS3Jl4Dr7ss0l",  // Silver: buy now, measure later
   CONTACT_EMAIL: "david@silverbulletpro.com",
   BUSINESS_NAME: "Growth Window"
 };
@@ -495,6 +503,10 @@ $('setup').hidden = configured;
 document.querySelectorAll('.js-p-basic, .js-from').forEach(e => e.textContent = CONFIG.PRICES.basic);
 document.querySelectorAll('.js-p-silver').forEach(e => e.textContent = CONFIG.PRICES.silver);
 document.querySelectorAll('.js-gift').forEach(a => { if (okLink(CONFIG.GIFT_LINK)) a.href = CONFIG.GIFT_LINK; });
+document.querySelectorAll('.js-later').forEach(a => { if (okLink(CONFIG.LATER_LINK)) a.href = CONFIG.LATER_LINK; });
+/* Arriving from the 'measure later' email: ?code=GW-XXXX-XXXX is applied at checkout */
+const PROMO = (() => { try { const c = (new URLSearchParams(location.search).get('code') || '').trim().toUpperCase(); return /^GW-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(c) ? c : ''; } catch (e) { return ''; } })();
+if (PROMO) { $('have-code').hidden = false; $('code-shown').textContent = PROMO; $('later-box').hidden = true; $('t-silver').checked = true; }
 
 /* Tier choice: the pricing cards and the form's radio buttons stay in sync */
 const DESC = {
@@ -664,6 +676,7 @@ function update(){
   if (!errs.length && configured) {
     const u = new URL(CONFIG.STRIPE_LINKS[tier()]);
     u.searchParams.set('client_reference_id', code);
+    if (PROMO && tier() === 'silver') u.searchParams.set('prefilled_promo_code', PROMO);
     pay.href = u.toString();
   } else {
     pay.removeAttribute('href');
