@@ -155,12 +155,48 @@ details p{margin-top:10px;color:var(--muted)}
   .sticky .t span{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== proof + offer upgrades ===== */
+.proof{background:var(--surface);border-block:1px solid var(--line);padding-block:28px}
+.revs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rev{background:var(--bg);padding:20px 22px;border-left:4px solid var(--lime);display:flex;flex-direction:column;gap:8px}
+.rev .st{color:#C99400;letter-spacing:3px;font-size:16px}
+.rev h4{margin:0;font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;text-transform:uppercase;line-height:1.05}
+.rev p{margin:0;font-size:15px;color:var(--muted)}
+.rev cite{font-style:normal;font-size:13px;font-weight:700}
+.basis{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;justify-content:center;margin-top:22px;font-size:13px;color:var(--muted)}
+.basis b{font-family:var(--display);font-style:italic;font-weight:800;font-size:17px;color:var(--ink);text-transform:uppercase;letter-spacing:.02em}
+.inline-cta{background:var(--deep);color:var(--on-deep);padding:22px 24px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+.inline-cta p{margin:0;font-weight:700}
+.inline-cta p span{display:block;font-weight:400;font-size:14px;opacity:.8}
+.inline-cta .pill{background:var(--lime);color:var(--lime-ink)}
+.inline-cta .pill .arrow{background:var(--deep);color:var(--lime)}
+.inside{padding-block:48px}
+.pages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.pages figure{margin:0}
+.pages img{width:100%;height:auto;display:block;border:1px solid var(--line);box-shadow:0 18px 40px rgba(13,32,65,.18)}
+.pages figcaption{font-size:13px;color:var(--muted);margin-top:8px;font-weight:600}
+.tiers2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tier2{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:20px;display:flex;flex-direction:column;gap:8px}
+.tier2.best{border:2px solid var(--lime)}
+.tier2 .nm{font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase}
+.tier2 .pr{font-family:var(--display);font-style:italic;font-weight:900;font-size:56px;line-height:1;color:var(--lime)}
+.tier2 .pr s{font-size:28px;opacity:.55;margin-right:8px;color:var(--on-deep)}
+.tier2 p{margin:0;font-size:14px;opacity:.85}
+.tier2 .pill{font-size:16px;padding:10px 16px;white-space:nowrap;align-self:flex-start;margin-top:auto}
+.tier2 .badge{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:var(--lime-ink);padding:3px 8px}
+.later-line{font-size:15px;opacity:.9}
+.later-line a{color:var(--lime);font-weight:800}
+.next{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;counter-reset:n}
+.next li{display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:15px}
+.next li::before{counter-increment:n;content:counter(n);width:26px;height:26px;border-radius:50%;background:var(--lime);color:var(--lime-ink);font-weight:800;text-align:center;line-height:26px;font-size:14px}
+@media (max-width:760px){.revs,.tiers2{grid-template-columns:1fr}.pages{grid-template-columns:1fr 1fr}.pages figure:nth-child(3){display:none}}
 </style>
 </head>
 <body style="margin:0">
 
 
-<div class="announce"><div class="wrap">Reports from <b class="js-price">£29</b> · In your inbox within minutes</div></div>
+<div class="announce"><div class="wrap"><span class="bf-only">Black Friday: <b>£40 off Silver</b> with code <b>40OFF</b> · ends 30 November</span><span class="after-bf" hidden>Reports from <b class="js-price">£29</b> · In your inbox within minutes · <b>14-day refund</b></span></div></div>
 
 <header class="wrap head">
   <div class="brand"><i aria-hidden="true"></i>Growth Window</div>
@@ -190,6 +226,15 @@ details p{margin-top:10px;color:var(--muted)}
   </ul>
 </div>
 
+<section class="proof"><div class="wrap">
+  <div class="revs">
+    <div class="rev"><div class="st" aria-label="5 stars">★★★★★</div><h4>"Scouts keep picking bigger players"</h4><p>"My son is one of the most technical players in his grassroots team, but scouts keep picking bigger players. Really happy with this report. It predicted he'll grow to around 6 ft 1."</p><cite>Dan · Dad of a 9½-year-old</cite></div>
+    <div class="rev"><div class="st" aria-label="5 stars">★★★★★</div><h4>"I shared it with her coach"</h4><p>"My daughter had knee pain, and the report helped me understand it could be linked to her growth spurt. I shared it with her coach, and they're putting together an adapted training plan."</p><cite>Susan · Mum of a 12-year-old elite player</cite></div>
+  </div>
+  <div class="basis"><span>Built on:</span><b>Pediatrics journal method</b><b>University of Bath research</b><b>Premier League bio-banding</b><b>Scottish FA guidance</b></div>
+  <p style="text-align:center;font-size:12px;color:var(--muted);margin:10px 0 0">Real customers, shared with permission. Growth Window is not affiliated with or endorsed by any of the organisations named.</p>
+</div></section>
+
 <div class="wrap reasons">
 
   <article class="reason">
@@ -216,6 +261,7 @@ details p{margin-top:10px;color:var(--muted)}
     </div>
   </article>
 
+  <div class="inline-cta"><p>Is your player early, on time or late?<span>Find out in 5 minutes at home · from £29 · 14-day refund</span></p><a class="pill js-order" href="#offer">See where they stand <span class="arrow" aria-hidden="true">→</span></a></div>
   <article class="reason">
     <div class="num" aria-hidden="true">3</div>
     <div class="txt">
@@ -250,6 +296,7 @@ details p{margin-top:10px;color:var(--muted)}
     </div>
   </article>
 
+  <div class="inline-cta"><p>Don't let their size today be the reason they're overlooked.<span>No tape measure to hand? You can buy now and measure later.</span></p><a class="pill js-order" href="#offer">See where they stand <span class="arrow" aria-hidden="true">→</span></a></div>
   <article class="reason">
     <div class="num" aria-hidden="true">6</div>
     <div class="txt">
@@ -281,6 +328,17 @@ details p{margin-top:10px;color:var(--muted)}
   </article>
 </div>
 
+<section class="inside"><div class="wrap">
+  <p class="eyebrow">Look inside</p>
+  <h2 style="margin-top:8px">What you actually get</h2>
+  <div class="pages">
+    <figure><img src="gw-media/gw-sample-p1.jpg" alt="Sample Silver report cover" loading="lazy" width="600" height="849"><figcaption>Your player's season report</figcaption></figure>
+    <figure><img src="gw-media/gw-sample-p2.jpg" alt="Sample growth summary page" loading="lazy" width="600" height="849"><figcaption>Growth summary: height, stage, timing</figcaption></figure>
+    <figure><img src="gw-media/gw-sample-p6.jpg" alt="Sample page for the coach" loading="lazy" width="600" height="849"><figcaption>A page to hand to the coach</figcaption></figure>
+  </div>
+  <p style="margin-top:16px"><a href="growth-window-sample-report.pdf" target="_blank" rel="noopener" style="font-weight:800">Read the full 8-page sample report (PDF) &rarr;</a></p>
+</div></section>
+
 <section class="compare"><div class="wrap">
   <p class="eyebrow">How it compares</p>
   <h2 style="margin-top:8px">More than a number, less than a clinic</h2>
@@ -304,19 +362,22 @@ details p{margin-top:10px;color:var(--muted)}
     <div style="display:flex;flex-direction:column;gap:16px">
       <p class="eyebrow" style="color:var(--lime)">Two ways to start</p>
       <h2>Find out where your player is in their growth</h2>
-      <div class="price">from <span class="js-price">£29</span></div>
-      <p style="opacity:.85;font-size:16px"><strong>Basic £29:</strong> the one-page growth snapshot.<br><strong>Silver £99:</strong> an 8-page season report with a page for the coach and a 12-month measurement plan. Both emailed as a PDF within minutes.</p>
-      <a class="pill js-order" href="#offer">Get my player's report <span class="arrow" aria-hidden="true">→</span></a>
+      <div class="tiers2">
+        <div class="tier2"><div class="nm">Basic</div><div class="pr">£29</div><p>One-page snapshot: early, on time or late; predicted adult height; growth stage.</p><a class="pill js-order" href="#offer">Choose Basic</a></div>
+        <div class="tier2 best"><span class="badge">Full report</span><div class="nm">Silver</div><div class="pr"><span class="bf-only"><s>£99</s>£59</span><span class="after-bf" hidden>£99</span></div><p>8-page season report, a page for the coach and a 12-month measurement plan.<span class="bf-only"> Code <b>40OFF</b> at checkout.</span></p><a class="pill js-order" href="#offer">Choose Silver</a></div>
+      </div>
+      <p class="later-line">No tape measure to hand? <a href="https://buy.stripe.com/8x2aEXdA69x45Rt4Dr7ss0j">Buy Silver now, measure later &rarr;</a></p>
     </div>
     <div style="display:flex;flex-direction:column;gap:20px;justify-content:center">
       <ul class="checks">
         <li>Predicted adult height and likely range</li>
         <li>Growth stage, % of adult height and timing for age</li>
         <li>Plain-English guidance for this stage</li>
-        <li>Silver adds a development plan, a coach page and growth-speed tracking</li>
+        <li>Silver adds a development plan, a coach page and a 12-month measurement plan</li>
         <li>Secure payment by Stripe</li>
       </ul>
       <p style="font-size:15px;opacity:.9">Buying for Christmas? <a class="js-giftl" href="#offer" style="color:var(--lime);font-weight:800">Give Silver as a gift card</a>.</p>
+      <ol class="next"><li>Measure at home (5 minutes)</li><li>Pay securely with Stripe</li><li>Your report arrives by email within minutes</li></ol>
       <div class="guar"><b>14<br>days</b><span>Not useful? Reply within 14 days for a full refund.</span></div>
     </div>
   </div>
@@ -363,6 +424,7 @@ document.querySelectorAll('.js-price').forEach(e => e.textContent = CONFIG.PRICE
 document.querySelectorAll('.js-giftl').forEach(a => { a.href = 'https://buy.stripe.com/4gMfZh67E4cK0x97PD7ss0c'; });
 document.querySelectorAll('.js-order').forEach(a => { a.href = CONFIG.ORDER_URL; if (/^https?:/.test(CONFIG.ORDER_URL)) a.target = '_blank'; });
 document.querySelectorAll('.js-email').forEach(e => e.textContent = 'Contact: ' + CONFIG.CONTACT_EMAIL);
+if (Date.now() >= Date.parse('2026-12-01T00:00:00Z')) { document.querySelectorAll('.bf-only').forEach(e => e.hidden = true); document.querySelectorAll('.after-bf').forEach(e => e.hidden = false); }
 
 const T = 'font-family="Mulish,system-ui,sans-serif"', D = 'font-family="Barlow Condensed,Arial Narrow,sans-serif" font-style="italic" font-weight="800"';
 
