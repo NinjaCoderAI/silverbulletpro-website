@@ -504,7 +504,7 @@ $('setup').hidden = configured;
 document.querySelectorAll('.js-p-basic, .js-from').forEach(e => e.textContent = CONFIG.PRICES.basic);
 document.querySelectorAll('.js-p-silver').forEach(e => e.textContent = CONFIG.PRICES.silver);
 document.querySelectorAll('.js-gift').forEach(a => { if (okLink(CONFIG.GIFT_LINK)) a.href = CONFIG.GIFT_LINK; });
-document.querySelectorAll('.js-later').forEach(a => { if (okLink(CONFIG.LATER_LINK)) a.href = CONFIG.LATER_LINK; });
+document.querySelectorAll('.js-later').forEach(a => { if (okLink(CONFIG.LATER_LINK)) a.href = CONFIG.LATER_LINK + (Date.now() < Date.parse('2026-12-01T00:00:00Z') ? '?prefilled_promo_code=40OFF' : ''); });
 /* Arriving from the 'measure later' email: ?code=GW-XXXX-XXXX is applied at checkout */
 const PROMO = (() => { try { const c = (new URLSearchParams(location.search).get('code') || '').trim().toUpperCase(); return /^GW-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(c) ? c : ''; } catch (e) { return ''; } })();
 if (PROMO) { $('have-code').hidden = false; $('code-shown').textContent = PROMO; $('later-box').hidden = true; $('t-silver').checked = true; }
@@ -680,6 +680,7 @@ function update(){
     const u = new URL(CONFIG.STRIPE_LINKS[tier()]);
     u.searchParams.set('client_reference_id', code);
     if (PROMO && tier() === 'silver') u.searchParams.set('prefilled_promo_code', PROMO);
+    else if (tier() === 'silver' && Date.now() < Date.parse('2026-12-01T00:00:00Z')) u.searchParams.set('prefilled_promo_code', '40OFF'); /* Black Friday: code pre-applied */
     pay.href = u.toString();
   } else {
     pay.removeAttribute('href');
