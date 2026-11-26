@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#007E40">
+<title>Set up INSTANT</title>
+<link rel="icon" href="instant-favicon.svg" type="image/svg+xml">
+<link rel="icon" href="instant-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="instant-icon-32.png">
+<link rel="apple-touch-icon" href="instant-apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FFF7DF;--cream2:#FFFCF6;--ink:#002C17;--green:#007E40;--band:#2E7D46;--yellow:#FFCC2F;--sage:#C9D0B6;--muted:#3E5B49;--line:rgba(0,44,23,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'Work Sans',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Bricolage Grotesque','Work Sans',sans-serif;font-weight:800;margin:0;line-height:1.08;letter-spacing:-.02em}
+h1{font-size:clamp(2rem,6vw,2.8rem)}
+h2{font-size:1.5rem}
+a{color:inherit}
+.top{padding:16px 22px}
+.logo{display:inline-block;background:var(--sage);color:var(--green);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.3rem;padding:7px 22px 8px;border-radius:999px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:8px 18px 80px}
+.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px 24px;margin-top:18px;box-shadow:0 14px 30px -24px rgba(0,44,23,.6)}
+.card h2{margin-bottom:6px}
+.sub{color:var(--muted);margin:0 0 16px;font-size:.98rem}
+.badge{width:52px;height:52px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:1.6rem;margin-bottom:14px}
+.spin{width:52px;height:52px;border-radius:50%;border:5px solid var(--sage);border-top-color:var(--green);animation:sp 1s linear infinite;margin-bottom:14px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+.num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.8rem,8vw,2.6rem);letter-spacing:.01em;background:var(--cream2);border:2px solid var(--ink);border-radius:16px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:5px 5px 0 var(--ink)}
+.btn{display:inline-block;font-family:inherit;font-weight:700;font-size:1rem;border:0;cursor:pointer;text-decoration:none;text-align:center;background:var(--green);color:#fff;padding:14px 26px;border-radius:999px;transition:transform .12s ease,filter .12s ease}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:disabled{opacity:.65;cursor:wait}
+.btn-y{background:var(--yellow);color:var(--ink)}
+.btn-sm{padding:8px 16px;font-size:.88rem}
+.btn-full{width:100%;font-size:1.08rem;padding:17px}
+.code{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f3f4ee;border-radius:12px;padding:10px 12px 10px 14px;margin:8px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1rem}
+.code span.l{font-family:'Work Sans',sans-serif;font-size:.8rem;color:var(--muted);display:block}
+.code code{font-weight:700;word-break:break-all}
+.fine{font-size:.86rem;color:var(--muted)}
+.pill{display:flex;align-items:center;gap:10px;border-radius:14px;padding:12px 14px;font-weight:600;margin-top:16px;background:#FFF3C4}
+.pill i{width:12px;height:12px;border-radius:50%;background:var(--yellow);flex:none;animation:pu 1.4s ease-in-out infinite}
+@keyframes pu{50%{opacity:.35}}
+.pill.ok{background:#D9F2E2}.pill.ok i{background:var(--green);animation:none}
+.steps{margin:0 0 6px;padding-left:20px}.steps li{margin:4px 0}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.88rem;font-weight:600;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;font-family:inherit;font-size:1rem;color:var(--ink);background:var(--cream2);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px}
+.field textarea{resize:vertical;min-height:100px;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green)}
+.row2{display:flex;gap:12px}.row2>div{flex:1}
+.ai{display:grid;grid-template-columns:26px 1fr;gap:12px;background:var(--cream2);border:2px solid var(--line);border-radius:14px;padding:14px;margin:6px 0 14px;cursor:pointer}
+.ai input{width:22px;height:22px;accent-color:var(--green);margin:2px 0 0}
+.ai b{display:block;line-height:1.25}.ai span{display:block;font-size:.88rem;color:var(--muted);margin-top:3px}
+.ai:has(input:checked){border-color:var(--green);background:#EAF6EE}
+details{border:1.5px solid var(--line);border-radius:14px;padding:0 14px;margin:0 0 14px}
+summary{cursor:pointer;font-weight:600;padding:13px 0}
+details[open]{padding-bottom:6px}
+.err{display:none;background:#FDECEA;color:#B3261E;border-radius:12px;padding:10px 14px;font-weight:600;font-size:.92rem;margin:0 0 14px}
+.err.on{display:block}
+.hide{display:none}
+.mail{font-weight:600}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="top"><a class="logo" href="instant.html">INSTANT</a></div>
+<div class="wrap">
+
+  <!-- Loading -->
+  <div class="card" id="loading">
+    <div class="spin" aria-hidden="true"></div>
+    <h1>Payment received</h1>
+    <p class="sub" id="loadingMsg">Setting up your INSTANT number. This usually takes under a minute. Keep this page open.</p>
+  </div>
+
+  <!-- Problem states -->
+  <div class="card hide" id="problem">
+    <h2 id="problemTitle">We hit a snag</h2>
+    <p class="sub" id="problemMsg"></p>
+    <p class="fine">Email <a class="mail" href="mailto:hello@silverbulletpro.com?subject=INSTANT%20setup">hello@silverbulletpro.com</a> and we will sort it out the same day.</p>
+  </div>
+
+  <!-- Ready -->
+  <div id="ready" class="hide">
+    <div class="card">
+      <div class="badge" aria-hidden="true">&check;</div>
+      <h1 id="hello">You're in</h1>
+      <p class="sub">Your INSTANT number is ready. Two steps left: forward your missed calls to it, then tell us where alerts should go.</p>
+      <div class="num"><span id="theNumber"></span><button class="btn btn-sm btn-y" type="button" data-copy-id="theNumber">Copy</button></div>
+    </div>
+
+    <div class="card">
+      <h2>Step 1: forward your missed calls</h2>
+      <p class="sub">This is the bit that switches INSTANT on. Dial each code from the phone you want covered, then press call. Takes about two minutes, once.</p>
+      <div class="code"><div><span class="l">When you do not answer</span><code id="c61"></code></div><button class="btn btn-sm" type="button" data-copy-id="c61">Copy</button></div>
+      <div class="code"><div><span class="l">When your phone is off or has no signal</span><code id="c62"></code></div><button class="btn btn-sm" type="button" data-copy-id="c62">Copy</button></div>
+      <div class="code"><div><span class="l">When you are on another call</span><code id="c67"></code></div><button class="btn btn-sm" type="button" data-copy-id="c67">Copy</button></div>
+      <p class="fine">These work on most UK networks. Some EE handsets need this set in the phone's own call settings (or by dialling 150) instead. To undo any of them later, dial ##61#, ##62# or ##67#.</p>
+      <h3 style="font-size:1.1rem;margin:18px 0 6px">Then test it</h3>
+      <ol class="steps"><li>Ring your mobile from another phone.</li><li>Let it go unanswered.</li><li>Within about a minute, that phone gets a text from your business.</li></ol>
+      <div class="pill" id="testPill" role="status" aria-live="polite"><i></i><span id="testText">Waiting for your first missed call. This ticks green by itself.</span></div>
+    </div>
+
+    <div class="card" id="detailsCard">
+      <h2>Step 2: finish your details <span class="fine" style="font-weight:500">(about a minute)</span></h2>
+      <p class="sub">Everything here is optional apart from checking your alert mobile. Sensible defaults are filled in.</p>
+      <p class="err" id="saveErr" role="alert"></p>
+      <div class="field"><label for="alertPhone">Mobile for hot-lead alerts</label><input id="alertPhone" type="tel" autocomplete="tel" placeholder="07700 900123"></div>
+      <div class="field"><label for="whatsapp">WhatsApp number for alerts (optional)</label><input id="whatsapp" type="tel" placeholder="07700 900123"></div>
+      <div class="field"><label for="alertEmail">Extra email for alerts (optional)</label><input id="alertEmail" type="email" placeholder="office@yourbusiness.co.uk"></div>
+      <div class="row2 field">
+        <div><label for="hoursOpen">Opens at</label><input id="hoursOpen" type="time" value="08:00"></div>
+        <div><label for="hoursClose">Closes at</label><input id="hoursClose" type="time" value="18:00"></div>
+      </div>
+      <p class="fine" style="margin-top:-6px">Used so the text can say you are closed rather than mid-job. Clear both if your hours vary too much to set.</p>
+      <div class="field"><label for="source">Where do most enquiries come from?</label>
+        <select id="source"><option>Website form</option><option>Facebook or Instagram ads</option><option>Google ads</option><option>A lead provider (Checkatrade, Bark, etc.)</option><option>A mixture of a few</option></select>
+      </div>
+
+      <label class="ai"><input type="checkbox" id="enableAi" checked><span><b>Let the AI reply live and qualify them (recommended)</b><span>Instead of just a fixed &ldquo;sorry we missed you&rdquo; text, the AI has the conversation: asks what they need and when, tries to get them booked in, then hands you the finished summary. Switch it off any time.</span></span></label>
+      <div id="aiExtras">
+        <div class="field"><label for="faqText">Your FAQs and opening times (optional)</label>
+          <textarea id="faqText" rows="5" placeholder="We cover the whole local area.&#10;Free quotes.&#10;Emergency call-outs available 24/7 at a higher rate."></textarea>
+          <p class="fine" style="margin:6px 0 0">One fact per line. The AI uses exactly what you write here, nothing else.</p></div>
+        <details><summary>Connect a Cal.com calendar so it can book jobs (optional)</summary>
+          <div class="field"><label for="calKey">Cal.com API key</label><input id="calKey" type="text" placeholder="cal_live_xxxxxxxxxxxxxxxx" autocomplete="off"></div>
+          <div class="field"><label for="calId">Cal.com event type ID</label><input id="calId" type="text" inputmode="numeric" placeholder="e.g. 123456" autocomplete="off"></div>
+          <p class="fine">Find the key under Settings &gt; Security in <a href="https://cal.com" target="_blank" rel="noopener" style="text-decoration:underline">Cal.com</a>, and the ID in your event type's settings URL. You can add this later.</p>
+        </details>
+      </div>
+      <button class="btn btn-full" id="save" type="button">Save and finish</button>
+    </div>
+
+    <div class="card hide" id="doneCard">
+      <div class="badge" aria-hidden="true">&check;</div>
+      <h2>Details saved</h2>
+      <p class="sub" id="doneMsg">You are all set. Anything you want to change, come back to this page from your setup email.</p>
+      <p id="dashWrap" class="hide"><a class="btn" id="dashLink" href="#">Open your dashboard</a></p>
+    </div>
+
+    <p class="fine" style="margin-top:18px">Stuck on the forwarding step? Reply to your setup email, or email <a class="mail" href="mailto:hello@silverbulletpro.com?subject=INSTANT%20forwarding%20help">hello@silverbulletpro.com</a> with your phone network and we will walk you through it.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var API = "https://silver-bullet-ai-production.up.railway.app/api/onboarding";
+  var q = new URLSearchParams(location.search);
+  var sessionId = q.get('session_id'), bid = q.get('b'), key = q.get('k');
+  var $ = function(id){ return document.getElementById(id); };
+  var show = function(id){ $(id).classList.remove('hide'); };
+  var hide = function(id){ $(id).classList.add('hide'); };
+  var info = null, testTimer = null;
+
+  function problem(title, msg){
+    hide('loading'); hide('ready');
+    $('problemTitle').textContent = title; $('problemMsg').textContent = msg; show('problem');
+  }
+  function infoUrl(){
+    return API + '/setup-info?' + (key && bid ? 'b=' + encodeURIComponent(bid) + '&k=' + encodeURIComponent(key)
+                                               : 'session_id=' + encodeURIComponent(sessionId));
+  }
+  function get(url){
+    return fetch(url).then(function(r){ return r.json().then(function(d){ return {status:r.status, data:d}; }); });
+  }
+
+  if(!sessionId && !(bid && key)){
+    problem('This setup link is incomplete', 'Open the setup link from your email, or the page Stripe sent you back to after paying.');
+    return;
+  }
+
+  /* 1. wait for the webhook to create + provision the account */
+  var tries = 0, MAX = 60;
+  function poll(){
+    tries++;
+    get(infoUrl()).then(function(r){
+      if(r.status === 402){ problem('Payment not completed', 'We have not received a completed payment for this checkout yet. If you were charged, give it a minute and refresh.'); return; }
+      if(r.status === 404){ problem('We could not find that setup', 'The link may be wrong or expired.'); return; }
+      if(r.status === 200 && r.data.ready){ render(r.data); return; }
+      if(tries >= MAX){
+        problem('Your number is taking longer than usual', 'Your payment went through. We have been alerted, and your setup email will arrive as soon as the number is ready.'); return;
+      }
+      if(tries === 15) $('loadingMsg').textContent = 'Still setting up. Numbers occasionally take a little longer. Keep this page open.';
+      setTimeout(poll, 2000);
+    }).catch(function(){
+      if(tries >= MAX){ problem('We could not reach the server', 'Refresh this page in a minute. Your payment is safe.'); return; }
+      setTimeout(poll, 3000);
+    });
+  }
+
+  /* 2. show setup */
+  function render(d){
+    info = d; key = d.key || key; bid = d.business_id || bid;
+    hide('loading'); show('ready');
+    var first = (d.owner_name || '').split(' ')[0];
+    $('hello').textContent = first ? "You're in, " + first : "You're in";
+    $('theNumber').textContent = d.number;
+    var n = d.number_national || d.number;
+    $('c61').textContent = '**61*' + n + '#';
+    $('c62').textContent = '**62*' + n + '#';
+    $('c67').textContent = '**67*' + n + '#';
+    if(d.alert_phone) $('alertPhone').value = d.alert_phone;
+    if(d.whatsapp) $('whatsapp').value = d.whatsapp;
+    if(d.alert_email) $('alertEmail').value = d.alert_email;
+    if(d.hours_open) $('hoursOpen').value = d.hours_open;
+    if(d.hours_close) $('hoursClose').value = d.hours_close;
+    if(d.profile_done) $('enableAi').checked = !!d.ai_active;
+    toggleAi();
+    if(d.profile_done){ show('doneCard'); $('doneMsg').textContent = 'Your details are saved. You can change them below any time.'; }
+    if(d.dashboard_url){ $('dashLink').href = d.dashboard_url; show('dashWrap'); }
+    testState(d.first_text_sent);
+    if(!d.first_text_sent) testTimer = setInterval(checkTest, 5000);
+    history.replaceState(null, '', 'welcome?b=' + encodeURIComponent(bid) + '&k=' + encodeURIComponent(key));
+  }
+
+  function testState(done){
+    var p = $('testPill');
+    if(done){
+      p.className = 'pill ok'; $('testText').textContent = 'Working. A missed call just got its text back, so forwarding is live.';
+      if(testTimer){ clearInterval(testTimer); testTimer = null; }
+    }
+  }
+  function checkTest(){
+    get(infoUrl()).then(function(r){ if(r.status === 200 && r.data.ready) testState(r.data.first_text_sent); }).catch(function(){});
+  }
+
+  /* copy buttons */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy-id]'); if(!b) return;
+    var text = $(b.getAttribute('data-copy-id')).textContent;
+    var done = function(){ var o = b.textContent; b.textContent = 'Copied'; setTimeout(function(){ b.textContent = o; }, 1400); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){}); }
+    else { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); done(); }catch(x){} document.body.removeChild(t); }
+  });
+
+  /* AI toggle shows FAQ + calendar */
+  function toggleAi(){ $('aiExtras').classList.toggle('hide', !$('enableAi').checked); }
+  $('enableAi').addEventListener('change', toggleAi);
+
+  /* save */
+  $('save').addEventListener('click', function(){
+    var err = $('saveErr'); err.classList.remove('on');
+    var btn = $('save'); btn.disabled = true; var label = btn.textContent; btn.textContent = 'Saving...';
+    var ai = $('enableAi').checked;
+    var payload = {
+      business_id: bid, key: key,
+      alert_phone: $('alertPhone').value.trim(),
+      whatsapp: $('whatsapp').value.trim(),
+      alert_email: $('alertEmail').value.trim(),
+      hours_open: $('hoursOpen').value, hours_close: $('hoursClose').value,
+      lead_source: $('source').value,
+      enable_ai: ai,
+      faq_text: ai ? $('faqText').value : '',
+      calcom_api_key: ai ? $('calKey').value.trim() : '',
+      calcom_event_type_id: ai ? $('calId').value.trim() : ''
+    };
+    fetch(API + '/complete-profile', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)})
+      .then(function(r){ return r.json().then(function(d){ if(!r.ok) throw new Error(d.error || 'Could not save that.'); return d; }); })
+      .then(function(d){
+        btn.disabled = false; btn.textContent = label;
+        show('doneCard');
+        $('doneMsg').textContent = d.ai_active
+          ? (d.calcom ? 'Saved. The AI will chat to callers who reply and can book into your calendar.' : 'Saved. The AI will chat to callers who reply, then hand you the summary.')
+          : 'Saved. Callers get the first text, and you are alerted when they reply.';
+        if(d.dashboard_url){ $('dashLink').href = d.dashboard_url; show('dashWrap'); }
+        $('doneCard').scrollIntoView({behavior:'smooth', block:'center'});
+      })
+      .catch(function(e){
+        btn.disabled = false; btn.textContent = label;
+        err.textContent = e.message || 'Something went wrong. Please try again.'; err.classList.add('on');
+        err.scrollIntoView({behavior:'smooth', block:'center'});
+      });
+  });
+
+  poll();
+})();
+</script>
+</body>
+</html>
